@@ -1,38 +1,17 @@
 ---
-name: ":beetle: BUG"
-about: 버그 발생시 작성해 주세요
-title: "[:beetle: BUG]"
+name: "[PR] PR 템플릿"
+about: PR 생성시 사용해 주세요
+title: "[PR]"
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## 개요
+- issue 번호 
+- 내용 
+## 작업 내용
+-  
+- 
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+## 변경 로직(optional)
