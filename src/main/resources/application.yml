@@ -19,6 +19,9 @@ spring:
         url : jdbc:mysql://127.0.0.1/mydb?characterEncoding=utf-8
         username : root
         password : root
+#발급받은 키 
+open-api :
+    myKey : mykey 
 
 mybatis:
     type-aliases-package: com.team.bf.vo  #mybatis 에서 패키지 생략 할 수ㅡ 있도록 설정
