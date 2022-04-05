@@ -1,0 +1,22 @@
+server:
+  port: 8090
+
+spring :
+    mvc:
+        view:
+            prefix: /WEB-INF/views/
+            suffix: .jsp
+    devtools:
+        livereload:
+            enabled: true
+    #마이 바티스
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url : jdbc:mysql://127.0.0.1/mydb?characterEncoding=utf-8
+        username : root
+        password : root
+
+mybatis:
+    type-aliases-package: com.team.bf.vo  #mybatis 에서 패키지 생략 할 수ㅡ 있도록 설정
+    mapper-locations: mapper/*Mapper.xml
+  
