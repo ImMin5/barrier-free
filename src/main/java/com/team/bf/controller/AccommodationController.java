@@ -1,15 +1,13 @@
-package com.team.bf;
+package com.team.bf.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
-public class HomeController {
-    
+public class AccommodationController {
+   
     @GetMapping("/")
-    public String home(){
-        System.out.println("ekekek");
-        return "home";
+    public String main(){
+        return "main";
     }
 }
