@@ -64,7 +64,11 @@
                 </select>
                 <li>비밀번호 찾기 답 *</li>
                 <li><input type="text" name="answer" id="answer" /></li>
+<<<<<<< HEAD
+                <li>장애정도</li>
+=======
                 <li>장애</li>
+>>>>>>> f3641a6264363d797e7785ffebecb95bd0c3e29c
                 <select name="grade" id="grade">
                     <optgroup>
                     	<option>다음에 입력하기</option>
