@@ -10,13 +10,52 @@ import com.team.bf.vo.MemberVO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 public class MemberController {
     @Inject
     MemberService memberService;
+
+    @GetMapping("/login")
+    public ModelAndView login(){
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("member/login");
+        return mav;
+    }
+
+    @GetMapping("/mypage")
+    public ModelAndView mypage(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/mypage");
+        return mav;
+    }
+
+    @GetMapping("/signup")
+    public ModelAndView signupView(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("member/signupView");
+        return mav;
+    }
+
+    @GetMapping("/infopwd")
+    public ModelAndView infoPasswordView(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("member/password");
+        return mav;
+    }
+    @GetMapping("/infoid")
+    public ModelAndView infoIdiew(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("member/password");
+        return mav;
+    }
+
+
 
     @PostMapping("/signup")
     public ResponseEntity<HashMap<String,String>> signup(MemberVO mvo, HttpSession session){
@@ -45,7 +84,6 @@ public class MemberController {
             result.put("redirect","/");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
         }
-
         return entity;
     }
 }
