@@ -7,11 +7,26 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class MapAndPlannerController {
     
-    @GetMapping("/plan")
+    @GetMapping("/planView")
     public ModelAndView planView(){
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("map/plan");
+        return mav;
+    }
+
+    @GetMapping("/mapView")
+    public ModelAndView mapView(){
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("plan/plan");
+        return mav;
+    }
+
+    @GetMapping("/mypage/myplan")
+    public ModelAndView myPlanView(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/myplan");
         return mav;
     }
 }

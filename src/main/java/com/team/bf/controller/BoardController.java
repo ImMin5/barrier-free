@@ -14,4 +14,11 @@ public class BoardController {
         mav.setViewName("community/board");
         return mav;
     }
+
+    @GetMapping("/mypage/myreview")
+    public ModelAndView myReview(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("");
+        return mav;
+    }
 }
