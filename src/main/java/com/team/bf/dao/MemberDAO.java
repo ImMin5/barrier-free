@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberDAO {
     public int memberInsert(MemberVO vo);
+    public MemberVO memberSelectById(String userid);
 }

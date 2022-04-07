@@ -27,6 +27,52 @@ public class MemberController {
         mav.setViewName("member/login");
         return mav;
     }
+    
+    @PostMapping("/login")
+    public ResponseEntity<HashMap<String,String>> loginReq(MemberVO mvo, HttpSession session){
+        
+        ResponseEntity<HashMap<String,String>> entity = null;
+        HashMap<String,String> result = new HashMap<>();
+        
+        MemberVO mvoOrigin = memberService.memberSelectById(mvo.getUserid());
+
+        if(mvoOrigin == null){
+            System.out.println("로그인 실패");
+            result.put("msg","일치하는 아이디가 없습니다.");
+            result.put("status","200");
+            result.put("redirect", "/login");
+            entity = new ResponseEntity<>(result,HttpStatus.OK);
+            session.setAttribute("logId", mvo.getUserid());
+        }
+        else if(mvoOrigin.getUserid().equals(mvo.getUserid())){
+            if(mvoOrigin.getUserpassword().equals(mvo.getUserpassword())){
+                System.out.println("로그인 성공");
+                result.put("msg","로그인 성공");
+                result.put("status","200");
+                result.put("redirect", "/login");
+                entity = new ResponseEntity<>(result,HttpStatus.OK);
+                session.setAttribute("logId", mvo.getUserid());
+            }
+            else{
+                System.out.println("로그인 실패");
+                result.put("msg","비밀번호가 일치하지 않습니다.");
+                result.put("status","200");
+                result.put("redirect", "/login");
+                entity = new ResponseEntity<>(result,HttpStatus.OK);
+                session.setAttribute("logId", mvo.getUserid());
+            }
+          
+        }
+        else{
+            System.out.println("로그인 실패");
+            result.put("msg","로그인 실패...");
+            result.put("status","400");
+            result.put("redirect", "/accommodation");
+            entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+        }
+
+        return entity;
+    }
 
     @GetMapping("/mypage")
     public ModelAndView mypage(){

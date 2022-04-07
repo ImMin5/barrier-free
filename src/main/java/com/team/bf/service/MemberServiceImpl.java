@@ -17,6 +17,9 @@ public class MemberServiceImpl implements MemberService{
        return dao.memberInsert(vo);    
     }
 
-    
+    @Override
+    public MemberVO memberSelectById(String userid) {
+        return dao.memberSelectById(userid);
+    }
     
 }
