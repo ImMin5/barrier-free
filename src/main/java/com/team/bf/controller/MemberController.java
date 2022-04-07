@@ -10,6 +10,7 @@ import com.team.bf.vo.MemberVO;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +50,7 @@ public class MemberController {
                 System.out.println("로그인 성공");
                 result.put("msg","로그인 성공");
                 result.put("status","200");
-                result.put("redirect", "/login");
+                result.put("redirect", "/");
                 entity = new ResponseEntity<>(result,HttpStatus.OK);
                 session.setAttribute("logId", mvo.getUserid());
             }
@@ -67,10 +68,45 @@ public class MemberController {
             System.out.println("로그인 실패");
             result.put("msg","로그인 실패...");
             result.put("status","400");
-            result.put("redirect", "/accommodation");
+            result.put("redirect", "/");
             entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
 
+        return entity;
+    }
+    @PostMapping("/logout")
+    public ModelAndView logout(HttpSession session){
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("home");
+        session.invalidate();
+        return mav;
+
+    }
+
+    //회원 탈퇴
+    @DeleteMapping("/member")
+    public ResponseEntity<HashMap<String,String>> memberDelete(HttpSession session, String userpassword){
+        ResponseEntity<HashMap<String,String>> entity = null;
+        HashMap<String,String> result = new HashMap<>();
+
+        String userid = (String)session.getAttribute("logId");
+        System.out.println("삭제할 아이디 : " + userid);
+        int count = memberService.memberDelete(userid, userpassword);
+        if(count > 0){
+            result.put("msg","회원탈퇴 성공");
+            result.put("status","200");
+            result.put("redirect","/");
+            entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+            session.invalidate();
+        }
+        else{
+            result.put("msg","회원탈퇴 실패");
+            result.put("status","400");
+            result.put("redirect","/mypage");
+            entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+        }
+        
         return entity;
     }
 
