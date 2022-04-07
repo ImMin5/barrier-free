@@ -15,10 +15,13 @@ public class AccommodationController {
     OpenApiService openApiService;
 
     @GetMapping("/accommodation")
-    public ModelAndView main(@RequestParam(value = "pageNo")String pageNo, @RequestParam(value = "pageCount")String pageCount, @RequestParam(value = "searchWord")String searchWord){
+    public ModelAndView main(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
         System.out.println("pagNO "+ pageNo);
-        
+
+        if(pageNo == null)pageNo = "1";
+        if(pageCount == null)pageCount = "10";
+        if(searchWord == null)searchWord="";
         mav.addObject("accomoList", openApiService.TourTypeInfo(pageNo, pageCount, "32",searchWord));
         mav.setViewName("accommodation/accommodationPage");
         return mav;
