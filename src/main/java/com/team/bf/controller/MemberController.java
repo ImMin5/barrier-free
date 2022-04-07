@@ -45,7 +45,6 @@ public class MemberController {
             result.put("redirect","/");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
         }
-
         return entity;
     }
 }
