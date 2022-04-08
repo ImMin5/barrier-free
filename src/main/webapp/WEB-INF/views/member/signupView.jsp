@@ -68,13 +68,13 @@
                     <div>&nbsp;</div>
                     <select name="question" id="question">
                         <optgroup label="비밀번호 찾기 질문을 선택해주세요">
-                            <option>자신의 인생 좌우명은?</option>
-                            <option>자신의 보물 제1호는?</option>
-                            <option>가장 기억에 남는 선생님 성함은?</option>
-                            <option>가장 생각나는 친구 이름은?</option>
-                            <option>인상 깊게 읽은 책 이름은?</option>
-                            <option>내가 좋아하는 캐릭터는?</option>
-                            <option>어릴 적 별명은?</option>
+                            <option value="q1">자신의 인생 좌우명은?</option>
+                            <option value="q2">자신의 보물 제1호는?</option>
+                            <option value="q3">가장 기억에 남는 선생님 성함은?</option>
+                            <option value="q4">가장 생각나는 친구 이름은?</option>
+                            <option value="q5">인상 깊게 읽은 책 이름은?</option>
+                            <option value="q6">내가 좋아하는 캐릭터는?</option>
+                            <option value="q7">어릴 적 별명은?</option>
                         </optgroup>
                     </select>
                     <div>&nbsp;</div>
@@ -84,11 +84,11 @@
                     <div>&nbsp;</div>
                     <select name="grade" id="grade">
                         <optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
-                            <option>다음에 입력하기</option>
-                            <option>1등급</option>
-                            <option>2등급</option>
-                            <option>3등급</option>
-                            <option>4등급</option>
+                            <option value="grade5">다음에 입력하기</option>
+                            <option value="grade1">1등급</option>
+                            <option value="grade2">2등급</option>
+                            <option value="grade3">3등급</option>
+                            <option value="grade4">4등급</option>
                         </optgroup>
                         <div>&nbsp;</div>
                     </select>
