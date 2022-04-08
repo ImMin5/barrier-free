@@ -17,6 +17,14 @@ public class MemberServiceImpl implements MemberService{
        return dao.memberInsert(vo);    
     }
 
-    
+    @Override
+    public MemberVO memberSelectById(String userid) {
+        return dao.memberSelectById(userid);
+    }
+
+    @Override
+    public int memberDelete(String userid, String password) {
+        return dao.memberDelete(userid,password);
+    }
     
 }

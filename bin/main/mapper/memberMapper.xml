@@ -7,4 +7,11 @@
   		insert into member(userid, userpassword, date_birth, grade_member, grade, question, answer) 
   		values( #{userid}, #{userpassword},  #{date_birth}, ${grade_member}, ${grade}, #{question}, #{answer})
   	</insert>
+    <select id="memberSelectById" resultType="MemberVO">
+        select userid, userpassword from member
+        where userid=#{param1}
+    </select>
+    <delete id="memberDelete">
+        delete from member where userid=#{param1} and userpassword=#{param2}
+    </delete>
   </mapper>
