@@ -1,0 +1,158 @@
+@charset "UTF-8";
+@import url('//cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+    /*font-family: 'NanumSquareRound',sans-serif;*/
+}
+
+h1 {
+    font-weight: bold;
+
+}
+
+#sFrm {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    padding: 30px, 20px;
+    background-color: #FFFFFF;
+    display: inline-block;
+    top: 40%;
+    left: 50%;
+    bottom: -10%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+}
+
+#sFrm li:nth-child(2n) {
+    border-bottom: 2px solid rgb(250, 166, 50);
+    margin: 30px;
+    padding: 10px 10px;
+    margin-left: 39px;
+}
+
+#userid {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    text-align: left;
+}
+
+#userpwd {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+}
+
+#userpwd2 {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+}
+
+#userbirth {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+}
+
+#question {
+    width: 40%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    margin-left: 39px;
+}
+
+#answer {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+}
+
+#grade {
+    width: 40%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    margin-left: 39px;
+}
+
+#up {
+    left: 20px;
+}
+
+#term {
+    margin-left: 0px !important;
+    text-align: center;
+}
+
+#term2 {
+    margin-left: 39px;
+    text-align: center;
+}
+
+#terms {
+    overflow-y: scroll;
+
+}
+
+#sbm {
+    text-align: center;
+}
+
+#button {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-left: -3px;
+    margin-right: -4px;
+    border: 1px solid rgb(250, 166, 50);
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(250, 166, 50);
+    padding: 5px;
+}
+
+#button2 {
+    position: relative;
+    background-color: rgb(250, 166, 50);
+    color: white;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: 'NanumSquareRound', sans-serif;
+    text-decoration: none;
+}
