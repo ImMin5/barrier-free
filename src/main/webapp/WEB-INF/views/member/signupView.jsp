@@ -93,7 +93,7 @@
                         <div>&nbsp;</div>
                     </select>
                     <li>회원 가입 약관 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
-                    <li id="term"><textarea id="terms" rows="10" cols="86" disabled>회원 가입 약관 내용
+                    <li id="term"><textarea id="terms" rows="10" cols="61" disabled>회원 가입 약관 내용
                        
                        
                        
