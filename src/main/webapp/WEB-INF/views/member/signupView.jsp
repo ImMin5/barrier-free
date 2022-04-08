@@ -17,7 +17,7 @@
                     var userid = $("#userid").val();
 
                     if (userid != '' && userid.length >= 6) {
-                        var url = "/bf/signup/memberIdCheck";// 컨트롤러에 중복확인이 없는 것 같아 임의로 입력
+                        var url = "/signup/memberIdCheck";// 컨트롤러에 중복확인이 없는 것 같아 임의로 입력
                         $.ajax({
                             url: url,
                             data: "userid=" + userid,
@@ -49,7 +49,7 @@
         <hr />
         <div id="signup">
 
-            <form method="post" action="/bf/signup" id="sFrm" onsubmit="return memberCheck()">
+            <form method="post" action="/signup" id="sFrm" onsubmit="return memberCheck()">
                 <ul>
                     <li>아이디 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
                     <li><input type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요." />
