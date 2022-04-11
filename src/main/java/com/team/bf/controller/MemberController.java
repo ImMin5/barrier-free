@@ -169,4 +169,9 @@ public class MemberController {
         }
         return entity;
     }
+    
+    @PostMapping("/signup/memberIdCheck")
+    public int memberIdCheck(String userid) {
+    	return memberService.memberUseridCheck(userid);
+    }
 }
