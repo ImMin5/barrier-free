@@ -20,7 +20,9 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView home(){
         ModelAndView mav = new ModelAndView();
-        System.out.println("ddd");
+        
+        mav.addObject("accomoList", openApiService.searchKeyword("1", "6","32",""));
+        mav.addObject("tourList", openApiService.searchKeyword("1", "6","12",""));
         mav.setViewName("home");
         return mav;
     }
