@@ -1,0 +1,92 @@
+@charset "UTF-8";
+@import url('//cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+
+#log{width:500px; margin:0px auto;
+ 	 display: flex;
+ 	 justify-content: center;
+ 	 align-items: center;
+ 	 min-height: 80vh;
+ 	 }
+#log h1{
+	margin: 0px;
+	text-align:center;}
+#logFrm { 
+	 margin: 0px;
+ 	 padding: 3rem;
+ 	 text-align:center;
+ 	 background-color: white;
+ 	 color:black;
+ 	 font-size:20px;
+}
+#logFrm ul{list-style: none;}
+#userid{
+  margin: 0px;		
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0px 20px;
+  border: 1px solid lightgray;
+  outline: none;
+  font-size:17px;
+  font-family: "Noto Sans KR", sans-serif
+}
+
+#userpwd{
+  margin: 0px; 		
+  width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0px 20px;
+  border: 1px solid lightgray;
+  outline: none;
+  font-size:17px;
+  font-family: "Noto Sans KR", sans-serif
+}
+
+
+#logFrm ul li{
+		margin: 0px;
+		display:inline-block;
+		width:30%;
+}
+
+#logFrm ul li {width:700px;}
+#logFrm ul li:last-of-type{width:1000px;  margin-top:40px;}
+#button{
+  margin: 0px; 	
+  width: 345px;
+  height: 50px;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  background: rgb(250, 166, 50);
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  font-family: "Noto Sans KR", sans-serif;
+  cursor:pointer;
+}
+#line {
+	margin: 0px;
+	padding:0px;
+	width: 300px;
+	margin-left: 392px;
+	}
+.forgot{font-size:0.7em;
+	margin: 0px;
+	padding:8px;
+	margin-left:30px;
+	font-family: "Noto Sans KR", sans-serif;}
+.forgot a{text-decoration: none;} 
+.signup{font-size:0.7em; 
+	margin-left:30px;
+	font-family: "Noto Sans KR", sans-serif}
+.signup a{text-decoration: none;} 	
+ a:link{color: rgb(50, 133, 247);}
+ a:visited{color: rgb(50, 133, 247);}	
+
+
