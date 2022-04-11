@@ -247,7 +247,7 @@ public class OpenApiService {
         return items;
     }
     
-    //상세정보 조회
+    //7. 상세정보 조회
 	public JSONObject detailIntro(String contentId, String contentTypeId) {
         StringBuilder urlBuilder = null;
         StringBuilder sb = new StringBuilder();
