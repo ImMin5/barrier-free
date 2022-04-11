@@ -20,6 +20,7 @@ public class HomeController {
     @GetMapping("/")
     public ModelAndView home(){
         ModelAndView mav = new ModelAndView();
+        System.out.println("ddd");
         mav.setViewName("home");
         return mav;
     }
