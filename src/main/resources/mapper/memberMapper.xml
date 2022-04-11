@@ -11,6 +11,10 @@
         select userid, userpassword from member
         where userid=#{param1}
     </select>
+    <select id="memberUseridCheck" resultType="int">
+        select count(userid) from member
+        where userid=#{param1}
+    </select>
     <delete id="memberDelete">
         delete from member where userid=#{param1} and userpassword=#{param2}
     </delete>
