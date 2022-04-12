@@ -43,12 +43,8 @@
     	<!-- 리스트 -->
         <div id="list">
             <div class="topBotton">
-                <!--
-                <div class="topBottonList"></div>
-                <div class="topBottonPlenner"></div>
-                -->
-                <a href="#" class="button">목록</a>
-                <a href="#" class="button">플래너</a>
+                <button  onclick="location.href='/mapView'" class="listbutton">목록</button>
+                <button  onclick="location.href='/planView'" class="planbutton">플래너</button>
 			</div>
         <!-- 리스트 내용 -->
         <div class="listContent">
@@ -135,10 +131,11 @@
                 map.setLevel(map.getLevel() + 1);
             }
         </script>
+        <img src="../../img/map/map_14.png"/>
         <!-- 플래너 생성 버튼 -->
         <div class="planCreate">
-            <img src="../../img/map/map_14.png"/>
-            <a href="#" class="button"><img src="../../img/map/map_14.png"/><span>플래너 생성</span></a>
+        	
+            <a href="#" class="button"><img src="../../img/map/map_14.png"/>플래너 생성</a>
         </div>
     </div>
 </body>
