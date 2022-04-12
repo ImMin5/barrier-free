@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.team.bf.dao.MemberDAO">
   	<insert id="memberInsert">
-  		insert into member(userid, userpassword, date_birth, grade_member, grade, question, answer) 
-  		values( #{userid}, #{userpassword},  #{date_birth}, ${grade_member}, ${grade}, #{question}, #{answer})
+  		insert into member(userid, username, userpassword, date_birth, grade_member, grade, question, answer) 
+  		values( #{userid}, #{username}, #{userpassword},  #{date_birth}, ${grade_member}, ${grade}, #{question}, #{answer})
   	</insert>
     <select id="memberSelectById" resultType="MemberVO">
         select userid, userpassword from member
