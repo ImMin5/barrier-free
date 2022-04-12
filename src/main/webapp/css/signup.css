@@ -178,10 +178,10 @@
         position: absolute;
         top: 60%;
         left: 50%;
-		
+		cursor:pointer;
         width: 450px;
         height: 400px;
-
+		font-size:1.2em;
         padding: 40px;
 
         text-align: center;

@@ -12,11 +12,11 @@
         <div id="log">
 		
 		
-		<form method="post"  action="${url}/login?userid&userpassword" id="logFrm" onsubmit="return logFormCheck()">
+		<form method="post"  action="${url}/login" id="logFrm" onsubmit="return logFormCheck()">
 		<ul>
 			<li><a href="#"><img src="${url }/img/bf_logo-01.png"></a></li>
 			<li><input type ="text" name="userid" id="userid" placeholder="아이디"/></li>
-			<li id="pwd"><input type="password" name="userpwd" id="userpwd" placeholder="비밀번호" /></li>
+			<li id="pwd"><input type="password" name="userpassword" id="userpwd" placeholder="비밀번호" /></li>
 			<li><input id="button" type="button" value="로그인" onclick="logFormCheck()"/>
 			
 		</ul>

@@ -60,14 +60,14 @@
                         <input type="hidden" id="idchk" value='N' />
                     </li>
                     <li>비밀번호 *</li>
-                    <li><input type="password" name="userpwd" id="userpwd" placeholder="비밀번호를 입력해주세요" />
+                    <li><input type="password" name="userpassword" id="userpwd" placeholder="비밀번호를 입력해주세요" />
                     </li>
                     <li>비밀번호 확인 *</li>
-                    <li><input type="password" name="userpwd2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
+                    <li><input type="password" name="userpassword2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
                     <li>이름 *</li>
                     <li><input type="text" name="username" id="username" placeholder="성함을 입력해주세요." />
                     <li>생년월일 *</li>
-                    <li><input type="text" name="userbirth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
+                    <li><input type="text" name="date_birth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
                     </li>
                     <li>비밀번호 찾기 질문 *</li>
                     <div>&nbsp;</div>
@@ -89,18 +89,18 @@
                     <div>&nbsp;</div>
                     <select name="grade" id="grade">
                         <optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
-                            <option value="grade5">다음에 입력하기</option>
-                            <option value="grade1">1등급</option>
-                            <option value="grade2">2등급</option>
-                            <option value="grade3">3등급</option>
-                            <option value="grade4">4등급</option>
+                            <option value=5>다음에 입력하기</option>
+                            <option value=1>1등급</option>
+                            <option value=2>2등급</option>
+                            <option value=3>3등급</option>
+                            <option value=4>4등급</option>
                         </optgroup>
                         <div>&nbsp;</div>
                     </select>
                     <li>회원 가입 약관 <input type="button" class="btn-open-popup"/ value="[보기]"><input class="term2" type="checkbox" id="termcheck" value="동의" /> 약관에 동의합니다.</li>
                     <li id="sbm"><input id="button2" type="submit" value="가입하기" /></li>
                     <div class="modal">
-                    <div class="modal_body"><textarea id="terms" rows="27" cols="61" disabled>회원 가입 약관 내용
+                    <div class="modal_body">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X<textarea id="terms" rows="27" cols="61" disabled>회원 가입 약관 내용
                        
                        
                        
