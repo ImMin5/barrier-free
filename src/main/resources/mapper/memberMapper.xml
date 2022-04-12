@@ -8,7 +8,7 @@
   		values( #{userid}, #{username}, #{userpassword},  #{date_birth}, ${grade_member}, ${grade}, #{question}, #{answer})
   	</insert>
     <select id="memberSelectById" resultType="MemberVO">
-        select userid, userpassword from member
+        select userid, userpassword ,date_birth , question, answer from member
         where userid=#{param1}
     </select>
     <select id="memberUseridCheck" resultType="int">
@@ -18,4 +18,8 @@
     <delete id="memberDelete">
         delete from member where userid=#{param1} and userpassword=#{param2}
     </delete>
+    <select id="memberSelectByUsername" resultType="MemberVO">
+    	select userid from member
+    	where username=#{param1} and date_birth=#{param2}
+    </select>
   </mapper>

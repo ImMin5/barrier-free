@@ -124,13 +124,42 @@ public class MemberController {
         mav.setViewName("member/signupView");
         return mav;
     }
-
+    
+    //아이디 찾기 뷰
     @GetMapping("/infoid")
-    public ModelAndView infoIdiew(){
+    public ModelAndView infoIdView(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("member/id");
         return mav;
     }
+    
+    //아이디 찾기 요청
+    @PostMapping("/infoid")
+    public ResponseEntity<HashMap<String,String>> findInfoId(String username, String date_birth){
+        
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	MemberVO mvo = memberService.memberSelectByUsername(username, date_birth);
+        //정보와 일치하는 아이디가 없을 경우
+    	if(mvo == null) {
+        	result.put("msg", "일치하는 아이디가 없습니다.");
+        	result.put("status","200");
+        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+        }
+    	else {
+    		System.out.println("아이디 찾기 결과 : " +  mvo.getUserid());
+    		result.put("msg", "일치하는 아이디가 있습니다.");
+    		result.put("userid", mvo.getUserid());
+    		result.put("redirect", "/login");
+        	result.put("status","200");
+        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    	}
+    	
+        return entity; 
+    }
+    
+    //비밀번호 찾기 뷰 
     @GetMapping("/infopwd")
     public ModelAndView infoPasswordView(){
         ModelAndView mav = new ModelAndView();
