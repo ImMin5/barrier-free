@@ -4,8 +4,10 @@ import javax.inject.Inject;
 
 import com.team.bf.service.OpenApiService;
 
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,12 +26,9 @@ public class AccommodationController {
         return mav;
     }
     
+    //숙박 상세 정보 요청
     @GetMapping("/accommodation/{contentid}")
-    public ModelAndView accomodationInfo(@PathVariable("contentid") String contentid) {
-    	ModelAndView mav = new ModelAndView();
-    	System.out.println("ddd");
-    	mav.addObject("vo", openApiService.detailIntro(contentid, "32"));
-    	mav.setViewName("accommodation/accommodationPageView");
-    	return mav;
+    public String accomodationInfo(@PathVariable("contentid") String contentid) {
+    	return openApiService.detailIntro(contentid,"32").toString();
     }
 }
