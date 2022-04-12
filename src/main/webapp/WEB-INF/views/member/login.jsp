@@ -5,13 +5,13 @@
  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
  <link rel="stylesheet" href="${url }css/login.css">
  <script src="/js/login.js"></script>
-  <div id="page">
- 
+  <div id="login">
+ 		
 
         
         <div id="log">
 		
-		<hr/>
+		
 		<form method="post"  action="${url}/login?userid&userpassword" id="logFrm" onsubmit="return logFormCheck()">
 		<ul>
 			<li><a href="#"><img src="${url }/img/bf_logo-01.png"></a></li>

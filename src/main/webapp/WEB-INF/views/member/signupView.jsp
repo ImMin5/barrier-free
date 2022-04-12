@@ -64,6 +64,8 @@
                     </li>
                     <li>비밀번호 확인 *</li>
                     <li><input type="password" name="userpwd2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
+                    <li>이름 *</li>
+                    <li><input type="text" name="username" id="username" placeholder="성함을 입력해주세요." />
                     <li>생년월일 *</li>
                     <li><input type="text" name="userbirth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
                     </li>
@@ -166,6 +168,3 @@
         </div>
 	</div>
 	<hr/>
-    </body>
-
-</html>

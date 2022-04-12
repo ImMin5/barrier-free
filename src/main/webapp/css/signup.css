@@ -1,11 +1,8 @@
 @charset "UTF-8";
 
-* {
-    margin: 0;
-    padding: 0;
-    
-    list-style: none;
-    
+
+#signup{
+	margin-top:10%;
 }
 
 #signuph1 {
@@ -15,12 +12,14 @@
 
 }
 .wd{
-	margin-left:33%;}
+	margin-left:33%;
+	}
 
 #suplogo{margin: 0 0 20 0;}
 
 #logoud{width:700px;}
 #sFrm {
+	
     display:flex;
     width: 600px;
     height: 100%;
@@ -74,6 +73,19 @@
     background: none;
     font-family: "Noto Sans KR", sans-serif;
 }
+
+#username {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 
 #userbirth {
     width: 100%;
@@ -151,7 +163,7 @@
         left: 0;
 
         width: 100%;
-        height: 1500px;
+        height: 2200px;
 
         display: none;
 
@@ -213,6 +225,7 @@
 }
 
 .btn-open-popup{
+	margin-top:20%;
 	outline: none;
 	border:none;
 	background-color: white;

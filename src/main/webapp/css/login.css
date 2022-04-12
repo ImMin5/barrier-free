@@ -4,15 +4,18 @@
 
 
 #log{width:500px; margin:0px auto;
+ 	 margin-top:5%;
  	 display: flex;
  	 justify-content: center;
  	 align-items: center;
  	 min-height: 80vh;
+ 	 
  	 }
 #log h1{
 	margin: 0px;
 	text-align:center;}
 #logFrm { 
+	 
 	 margin: 0px;
  	 padding: 3rem;
  	 text-align:center;
@@ -72,21 +75,24 @@
 }
 #line {
 	margin: 0px;
-	padding:0px;
+	padding:15px;
 	width: 300px;
-	margin-left: 392px;
+	margin-left: 335px;
 	}
 .forgot{font-size:0.7em;
 	margin: 0px;
 	padding:8px;
-	margin-left:30px;
+	margin-left:0px;
 	font-family: "Noto Sans KR", sans-serif;}
 .forgot a{text-decoration: none;} 
 .signup{font-size:0.7em; 
-	margin-left:30px;
+	margin-left:0px;
 	font-family: "Noto Sans KR", sans-serif}
 .signup a{text-decoration: none;} 	
- a:link{color: rgb(50, 133, 247);}
- a:visited{color: rgb(50, 133, 247);}	
+ .signup a:link{color: rgb(50, 133, 247);}
+ .signup a:visited{color: rgb(50, 133, 247);}	
+ .forgot a:link{color: rgb(50, 133, 247);}
+ .forgot a:visited{color: rgb(50, 133, 247);}	
+ 
 
 
