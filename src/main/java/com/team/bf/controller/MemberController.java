@@ -127,7 +127,7 @@ public class MemberController {
     @GetMapping("/infopwd")
     public ModelAndView infoPasswordView(){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("member/password");
+        mav.setViewName("member/id");
         return mav;
     }
     @GetMapping("/infoid")
