@@ -12,7 +12,7 @@
                     var userid = $("#userid").val();
 
                     if (userid != '' && userid.length >= 6) {
-                        var url = "/signup/memberIdCheck";// 컨트롤러에 중복확인이 없는 것 같아 임의로 입력
+                        var url = "/signup/memberIdCheck";
                         $.ajax({
                             url: url,
                             data: "userid=" + userid,
@@ -44,7 +44,7 @@
         	
         	<div id="signuph1">
         	
-        	<hr/>
+        	
         	</div>	
 				
 			

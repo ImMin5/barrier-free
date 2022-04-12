@@ -25,7 +25,7 @@
                 <a href="${url }/signup">아직 회원이 아니신가요? </a>
             </div>
             <div class="forgot">
-                <a href="">아이디 또는 비밀번호를 잊으셨나요? </a>
+                <a href="${url }/infoid">아이디 또는 비밀번호를 잊으셨나요? </a>
             </div>
 		</form>
 		

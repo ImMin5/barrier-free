@@ -38,8 +38,8 @@ public class MemberController {
         MemberVO mvoOrigin = memberService.memberSelectById(mvo.getUserid());
 
         if(mvoOrigin == null){
-            System.out.println("濡쒓렇�씤 �떎�뙣");
-            result.put("msg","�씪移섑븯�뒗 �븘�씠�뵒媛� �뾾�뒿�땲�떎.");
+            System.out.println("嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭");
+            result.put("msg","占쎌뵬燁살꼹釉�占쎈뮉 占쎈툡占쎌뵠占쎈탵揶쏉옙 占쎈씨占쎈뮸占쎈빍占쎈뼄.");
             result.put("status","200");
             result.put("redirect", "/login");
             entity = new ResponseEntity<>(result,HttpStatus.OK);
@@ -47,16 +47,16 @@ public class MemberController {
         }
         else if(mvoOrigin.getUserid().equals(mvo.getUserid())){
             if(mvoOrigin.getUserpassword().equals(mvo.getUserpassword())){
-                System.out.println("濡쒓렇�씤 �꽦怨�");
-                result.put("msg","濡쒓렇�씤 �꽦怨�");
+                System.out.println("嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙");
+                result.put("msg","嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙");
                 result.put("status","200");
                 result.put("redirect", "/");
                 entity = new ResponseEntity<>(result,HttpStatus.OK);
                 session.setAttribute("logId", mvo.getUserid());
             }
             else{
-                System.out.println("濡쒓렇�씤 �떎�뙣");
-                result.put("msg","鍮꾨�踰덊샇媛� �씪移섑븯吏� �븡�뒿�땲�떎.");
+                System.out.println("嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭");
+                result.put("msg","�뜮袁⑨옙甕곕뜇�깈揶쏉옙 占쎌뵬燁살꼹釉�筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
                 result.put("status","200");
                 result.put("redirect", "/login");
                 entity = new ResponseEntity<>(result,HttpStatus.OK);
@@ -65,8 +65,8 @@ public class MemberController {
           
         }
         else{
-            System.out.println("濡쒓렇�씤 �떎�뙣");
-            result.put("msg","濡쒓렇�씤 �떎�뙣...");
+            System.out.println("嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭");
+            result.put("msg","嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭...");
             result.put("status","400");
             result.put("redirect", "/");
             entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
@@ -84,24 +84,24 @@ public class MemberController {
 
     }
 
-    //�쉶�썝 �깉�눜
+    //占쎌돳占쎌뜚 占쎄퉱占쎈닚
     @DeleteMapping("/member")
     public ResponseEntity<HashMap<String,String>> memberDelete(HttpSession session, String userpassword){
         ResponseEntity<HashMap<String,String>> entity = null;
         HashMap<String,String> result = new HashMap<>();
 
         String userid = (String)session.getAttribute("logId");
-        System.out.println("�궘�젣�븷 �븘�씠�뵒 : " + userid);
+        System.out.println("占쎄텣占쎌젫占쎈막 占쎈툡占쎌뵠占쎈탵 : " + userid);
         int count = memberService.memberDelete(userid, userpassword);
         if(count > 0){
-            result.put("msg","�쉶�썝�깉�눜 �꽦怨�");
+            result.put("msg","占쎌돳占쎌뜚占쎄퉱占쎈닚 占쎄쉐�⑨옙");
             result.put("status","200");
             result.put("redirect","/");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
             session.invalidate();
         }
         else{
-            result.put("msg","�쉶�썝�깉�눜 �떎�뙣");
+            result.put("msg","占쎌돳占쎌뜚占쎄퉱占쎈닚 占쎈뼄占쎈솭");
             result.put("status","400");
             result.put("redirect","/mypage");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
@@ -133,7 +133,7 @@ public class MemberController {
     @GetMapping("/infoid")
     public ModelAndView infoIdiew(){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("member/password");
+        mav.setViewName("member/id");
         return mav;
     }
 
@@ -141,20 +141,20 @@ public class MemberController {
 
     @PostMapping("/signup")
     public ResponseEntity<HashMap<String,String>> signup(MemberVO mvo, HttpSession session){
-        System.out.println("signup :  �떆�옉" );
+        System.out.println("signup :  占쎈뻻占쎌삂" );
         HashMap<String, String> result = new HashMap<>();
         ResponseEntity<HashMap<String, String>> entity = null;
         try{
             if(memberService.memberInsert(mvo) > 0){
-                //session�뿉 userid瑜� ���옣
+                //session占쎈퓠 userid�몴占� 占쏙옙占쎌삢
                 session.setAttribute("logId", mvo.getUserid());
-                result.put("msg","�쉶�썝媛��엯 �셿猷�");
+                result.put("msg","占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎌끏�뙴占�");
                 result.put("status","200");
                 result.put("redirect","/login");
                 entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
             }
             else{
-                result.put("msg","�쉶�썝媛��엯 �떎�뙣");
+                result.put("msg","占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎈뼄占쎈솭");
                 result.put("status","400");
                 result.put("redirect","/");
                 entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
@@ -162,7 +162,7 @@ public class MemberController {
             
         }catch(Exception e){
             e.printStackTrace();
-            result.put("msg","�쉶�썝媛��엯 �떎�뙣");
+            result.put("msg","占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎈뼄占쎈솭");
             result.put("status","400");
             result.put("redirect","/");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
