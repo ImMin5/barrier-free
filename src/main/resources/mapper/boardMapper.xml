@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.team.bf.dao.BoardDAO">
+  	<insert id="boardInsert">
+  		insert into board(userid, subject, content, is_notice, ip) 
+  		values( #{userid}, #{subject}, #{content},  #{is_notice}, #{ip})
+  	</insert>
+  	<select id="totalRecord" resultType="int">
+  		select count(no) cnt from board
+  		<if test='searchWord != null'>
+  			where subject like '%${searchWord}%'
+  		</if>
+  	</select>
+  	<select id="boardSelectAll" resultType="com.team.bf.vo.BoardVO">
+  		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		from board 
+  		<if test='searchWord != null'>
+  			where subject like '%${searchWord}%'
+  		</if>
+  		order by is_notice desc, no desc limit ${onePageRecord} offset ${offsetIndex}
+  	</select>
+  </mapper>
