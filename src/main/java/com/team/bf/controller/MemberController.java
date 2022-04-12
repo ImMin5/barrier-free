@@ -140,20 +140,27 @@ public class MemberController {
     	ResponseEntity<HashMap<String,String>> entity = null;
     	HashMap<String,String> result = new HashMap<String,String>();
     	
-    	MemberVO mvo = memberService.memberSelectByUsername(username, date_birth);
-        //정보와 일치하는 아이디가 없을 경우
-    	if(mvo == null) {
-        	result.put("msg", "일치하는 아이디가 없습니다.");
-        	result.put("status","200");
-        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
-        }
-    	else {
-    		System.out.println("아이디 찾기 결과 : " +  mvo.getUserid());
-    		result.put("msg", "일치하는 아이디가 있습니다.");
-    		result.put("userid", mvo.getUserid());
-    		result.put("redirect", "/login");
-        	result.put("status","200");
-        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    	try {
+	    	MemberVO mvo = memberService.memberSelectByUsername(username, date_birth);
+	        //정보와 일치하는 아이디가 없을 경우
+	    	if(mvo == null) {
+	        	result.put("msg", "일치하는 아이디가 없습니다.");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+	        }
+	    	else {
+	    		System.out.println("아이디 찾기 결과 : " +  mvo.getUserid());
+	    		result.put("msg", "일치하는 아이디가 있습니다.");
+	    		result.put("userid", mvo.getUserid());
+	    		result.put("redirect", "/login");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+	    	}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("msg", "아이디 찾기 요청 실패....");
+    		result.put("status", "200");
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
     	}
     	
         return entity; 
@@ -165,6 +172,38 @@ public class MemberController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("member/password");
         return mav;
+    }
+    
+  //비밀번호 찾기 요청
+    @PostMapping("/infopwd")
+    public ResponseEntity<HashMap<String,String>> findInfoPwd(String userid, String question, String answer){
+        String initPassword ="12341234";
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		MemberVO mvo = memberService.memberSelectByQuestion(userid, question, answer);
+	        //정보와 일치하는 멤버 객체가 없을 경우
+    		if(mvo != null && memberService.memberUpdatePassword(mvo.getUserid(), initPassword) > 0) {
+    			System.out.println("원래 비밀번호 : " + mvo.getUserpassword());
+    			result.put("msg", "비밀번호가 초기화 되었습니다.");
+	    		result.put("newpassowrd", initPassword);
+	    		result.put("redirect", "/login");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    		else{
+	        	result.put("msg", "일치하는 결과가 없습니다. 입력한 정볼르 확인해 주세요");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+	        }
+    	}
+    	catch(Exception e) {
+    		result.put("msg", "비밀번호 찾기 요청 실패....");
+    		result.put("status", "200");
+    		e.printStackTrace();
+    	}
+        return entity; 
     }
 
 
