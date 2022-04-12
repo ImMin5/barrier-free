@@ -31,4 +31,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.boardSelectAll(vo);
 	}
 
+	@Override
+	public BoardVO boardSelectByNo(int no) {
+		return dao.boardSelectByNo(no);
+	}
+
 }

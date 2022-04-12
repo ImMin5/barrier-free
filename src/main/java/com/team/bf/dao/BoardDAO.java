@@ -14,4 +14,5 @@ public interface BoardDAO {
 	public int boardInsert(BoardVO vo);
 	public int totalRecord(PagingVO vo);
 	public ArrayList<BoardVO> boardSelectAll(PagingVO vo);
+	public BoardVO boardSelectByNo(int no);
 }

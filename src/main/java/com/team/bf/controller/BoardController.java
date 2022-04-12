@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,7 @@ public class BoardController {
 	@Inject 
 	BoardService boardService;
 	
+	//공지/문의 사항 리스트 뷰
     @GetMapping("/board/boardList")
     public ModelAndView boardView( @RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, @RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount, @RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
@@ -43,6 +45,28 @@ public class BoardController {
         mav.addObject("pvo",pvo);
         mav.setViewName("community/board");
         return mav;
+    }
+    
+    // 문의사항 수정 뷰
+    @GetMapping("/board/boardList/{no}")
+    public ModelAndView boardEditView(@PathVariable(value="no")int no, HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	try {
+	    	String userid = (String)session.getAttribute("logId");
+	    	BoardVO bvo = boardService.boardSelectByNo(no);
+	    	//작성자 본인 확인
+	    	if(userid != null && bvo.getUserid().equals(userid) == true){
+	    		mav.setViewName("community/boardEdit");
+	    		mav.addObject("bvo",boardService.boardSelectByNo(no));
+	    	}
+	    	else {
+	    		mav.setViewName("redirect:/board/boardList");
+	    	}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/board/boardList");
+    	}
+    	return mav;
     }
     
     // 문의사항 글 생성 요청
