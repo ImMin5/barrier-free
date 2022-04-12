@@ -6,4 +6,5 @@ public interface MemberService {
     public int memberInsert(MemberVO vo);
     public MemberVO memberSelectById(String userid);
     public int memberDelete(String userid, String password);
+    public int memberUseridCheck(String userid);
 }

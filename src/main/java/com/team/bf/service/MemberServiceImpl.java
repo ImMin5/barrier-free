@@ -26,5 +26,11 @@ public class MemberServiceImpl implements MemberService{
     public int memberDelete(String userid, String password) {
         return dao.memberDelete(userid,password);
     }
+
+	@Override
+	public int memberUseridCheck(String userid) {
+		return dao.memberUseridCheck(userid);
+	}
+    
     
 }
