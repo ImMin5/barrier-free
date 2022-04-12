@@ -286,7 +286,7 @@ public class OpenApiService {
             e.printStackTrace();
         }
       
-        return json;
+        return json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
     	
     }
 }
