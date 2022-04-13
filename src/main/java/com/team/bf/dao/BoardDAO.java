@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.team.bf.vo.BoardAndReply;
 import com.team.bf.vo.BoardVO;
 import com.team.bf.vo.PagingVO;
 
@@ -18,4 +19,8 @@ public interface BoardDAO {
 	public ArrayList<BoardVO> boardSelectNotice(int limit);
 	public int boardUpdate(BoardVO vo);
 	public int boardDelete(String userid, int no);
+	//관리자
+	public int boardReplyInsert(BoardVO vo);
+	//답변과 연동된 게시물 불러오기
+	public ArrayList<BoardAndReply> boardAndReplySelectAll(PagingVO vo);
 }
