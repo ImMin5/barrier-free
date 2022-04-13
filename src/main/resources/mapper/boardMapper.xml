@@ -3,22 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.team.bf.dao.BoardDAO">
-  	<insert id="boardInsert">
+  	<insert id="boardInsert" useGeneratedKeys="true" keyProperty="no">
   		insert into board(userid, subject, content, is_notice, ip) 
   		values( #{userid}, #{subject}, #{content},  #{is_notice}, #{ip})
   	</insert>
   	<select id="totalRecord" resultType="int">
   		select count(no) cnt from board
+  		where is_notice=false
   		<if test='searchWord != null'>
-  			where subject like '%${searchWord}%'
+  			and subject like '%${searchWord}%'
   		</if>
   	</select>
   	<select id="boardSelectAll" resultType="com.team.bf.vo.BoardVO">
   		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
-  		from board 
+  		from board where is_notice=false
   		<if test='searchWord != null'>
-  			where subject like '%${searchWord}%'
+  			and subject like '%${searchWord}%'
   		</if>
-  		order by is_notice desc, no desc limit ${onePageRecord} offset ${offsetIndex}
+  		order by is_notice desc, no desc 
+  		limit ${onePageRecord} offset ${offsetIndex}
+  	</select>
+  	<select id="boardSelectByNo" resultType="com.team.bf.vo.BoardVO">
+  		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		from board where no=${no}
+  	</select>
+  	<select id="boardSelectNotice" resultType="com.team.bf.vo.BoardVO">
+  		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		from board where is_notice=true
+  		order by no desc
+  		limit ${param1}
   	</select>
   </mapper>

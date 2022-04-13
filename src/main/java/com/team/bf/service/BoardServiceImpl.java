@@ -36,4 +36,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.boardSelectByNo(no);
 	}
 
+	@Override
+	public ArrayList<BoardVO> boardSelectNotice(int limit) {
+		return dao.boardSelectNotice(limit);
+	}
+
 }

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team.bf.service.BoardService;
+import com.team.bf.service.MemberService;
 import com.team.bf.vo.BoardVO;
+import com.team.bf.vo.MemberVO;
 import com.team.bf.vo.PagingVO;
 
 @RestController
@@ -24,6 +26,8 @@ public class BoardController {
     
 	@Inject 
 	BoardService boardService;
+	@Inject
+	MemberService memberService;
 	
 	//공지/문의 사항 리스트 뷰
     @GetMapping("/board/boardList")
@@ -41,6 +45,8 @@ public class BoardController {
         
         //게시글
         mav.addObject("boardList",boardService.boardSelectAll(pvo));
+        //공지사항
+        mav.addObject("noticeList",boardService.boardSelectNotice(5));
         //페이징 정보
         mav.addObject("pvo",pvo);
         mav.setViewName("community/board");
@@ -68,37 +74,56 @@ public class BoardController {
     	}
     	return mav;
     }
+    @PostMapping("/admin/board/boardList")
+    public ResponseEntity<HashMap<String,String>> adminInsert(BoardVO bvo, HttpServletRequest request,HttpSession session ) {
+    	return boardInsert(bvo,request, session);
+    }
     
     // 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
     	ResponseEntity<HashMap<String,String>> entity = null;
     	HashMap<String,String> result = new HashMap<String,String>();
+    	String userid = (String)session.getAttribute("logId");
     	
     	try {
+    		MemberVO mvo = memberService.memberSelectById(userid);
+    		System.out.println("글 작성자 : " + userid);
+    		
     		//ip주소 
     		bvo.setIp(request.getRemoteAddr());
-    		//일반회원 false, 관리자 true
-        	bvo.set_notice(false);
-        	//글 생성 
-        	int r = boardService.boardInsert(bvo);
-        	if(r> 0)
-        		result.put("msg", "글 작성 성공");
-        	else
-        		result.put("msg", "글 작성 실패");;
     		
+    		//일반회원,코디네이터 false, 관리자 true
+    		if(mvo.getGrade_member() == 2) {
+    			// 관리자 2
+    			bvo.set_notice(true);
+    		}
+    		else {
+    			// 일반회원1, 코디네이터 2
+    			bvo.set_notice(false);
+    		}
+    		//글 생성 
+        	int r = boardService.boardInsert(bvo);
+        	
+        	if(r> 0) {
+        		result.put("msg", "글 작성 성공");
+        		result.put("redirect", "/board/boardList/"+bvo.getNo());
+        	}
+        	else {
+        		result.put("msg", "글 작성 실패");
+        		result.put("redirect", "/board/boardList");
+        	}
         	result.put("result",Integer.toString(r));
     		result.put("status", "200");
     		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     	}catch(Exception e) {
+    		//1.탈퇴한 회원의 정보가 세션에 남아있는 경우 에러 발생
     		e.printStackTrace();
     		result.put("msg", "글 생성 요청...error");
+    		result.put("redirect", "/board/boardList");
     		result.put("status", "200");
-    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
-    		
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
     	}
-    	
-    	
     	return entity;
     }
 
