@@ -100,7 +100,7 @@
                     <li>회원 가입 약관 <input type="button" class="btn-open-popup"/ value="[보기]"><input class="term2" type="checkbox" id="termcheck" value="동의" /> 약관에 동의합니다.</li>
                     <li id="sbm"><input id="button2" type="submit" value="가입하기" /></li>
                     <div class="modal">
-                    <div class="modal_body">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X<textarea id="terms" rows="27" cols="61" disabled>회원 가입 약관 내용
+                    <div class="modal_body"><textarea id="terms" rows="27" cols="61" disabled>회원 가입 약관 내용
                        
                        
                        

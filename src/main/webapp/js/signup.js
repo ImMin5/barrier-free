@@ -1,4 +1,4 @@
-
+ 
 function memberCheck(){
 	let userid = document.getElementById("userid");
 	if(userid.value==''){

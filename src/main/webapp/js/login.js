@@ -1,4 +1,4 @@
-	function logFormCheck(){
+	function logFormCheck(){ 
 
 		var id = document.getElementById("userid");
 		if(document.getElementById("userid").value==""){

@@ -8,7 +8,6 @@
   <div id="login">
  		
 
-        
         <div id="log">
 		
 		
