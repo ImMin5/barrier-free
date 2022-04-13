@@ -1,3 +1,5 @@
+<!--=============== CSS ===============-->
+<link rel="stylesheet" href="${$}/css/bottom.css">
 
             <!--=============== FOOTER ===============-->
             <footer class="footer section">
