@@ -18,7 +18,8 @@ public class TourLocationController {
     @GetMapping("/travel_information")
     public ModelAndView main(@RequestParam(value = "pageNo")String pageNo, @RequestParam(value = "pageCount")String pageCount, @RequestParam(value = "searchWord")String searchWord){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("tourList", openApiService.searchKeyword(pageNo, pageCount, "12",searchWord));
+        
+        mav.addObject("tourList", openApiService.TourTypeInfo(pageNo, pageCount, "12",searchWord));
         mav.setViewName("");
         return mav;
     }
