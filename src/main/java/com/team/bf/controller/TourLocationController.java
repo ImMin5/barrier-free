@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import com.team.bf.service.OpenApiService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,5 +21,11 @@ public class TourLocationController {
         mav.addObject("tourList", openApiService.searchKeyword(pageNo, pageCount, "12",searchWord));
         mav.setViewName("");
         return mav;
+    }
+    
+    //숙박 상세 정보 요청
+    @GetMapping("/travel_information/{contentid}")
+    public String accomodationInfo(@PathVariable("contentid") String contentid) {
+    	return openApiService.detailIntro(contentid,"12").toString();
     }
 }
