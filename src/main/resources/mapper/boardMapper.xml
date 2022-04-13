@@ -33,4 +33,8 @@
   		order by no desc
   		limit ${param1}
   	</select>
+  	<update id="boardUpdate">
+  		update board set subject=#{subject}, content=#{content}
+  	    where no=${no} and userid=#{userid}
+  	</update>
   </mapper>

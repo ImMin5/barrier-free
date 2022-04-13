@@ -11,4 +11,5 @@ public interface BoardService {
 	public ArrayList<BoardVO> boardSelectAll(PagingVO vo);
 	public BoardVO boardSelectByNo(int no);
 	public ArrayList<BoardVO> boardSelectNotice(int limit);
+	public int boardUpdate(BoardVO vo);
 }

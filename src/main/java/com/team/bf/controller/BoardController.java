@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,6 +75,7 @@ public class BoardController {
     	}
     	return mav;
     }
+    //관리자 공지사항 생성요청
     @PostMapping("/admin/board/boardList")
     public ResponseEntity<HashMap<String,String>> adminInsert(BoardVO bvo, HttpServletRequest request,HttpSession session ) {
     	return boardInsert(bvo,request, session);
@@ -117,13 +119,43 @@ public class BoardController {
     		result.put("status", "200");
     		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     	}catch(Exception e) {
-    		//1.탈퇴한 회원의 정보가 세션에 남아있는 경우 에러 발생
+    		//1. member 테이블에 id가 존재하지 않을경우 발생
     		e.printStackTrace();
     		result.put("msg", "글 생성 요청...error");
     		result.put("redirect", "/board/boardList");
     		result.put("status", "200");
     		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
     	}
+    	return entity;
+    }
+    
+    //문의사항 글 수정 요청
+    @PutMapping("/board/boardList")
+    public ResponseEntity<HashMap<String,String>> boardUpdate(BoardVO bvo, HttpServletRequest request, HttpSession session){
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	String userid = (String)session.getAttribute("logId");
+    	
+    	try {
+    		//작성자가 다른경우
+    		if(bvo.getUserid().equals(userid)== false) {
+    			result.put("msg", "잘못된 접근입니다");
+    			result.put("redirect", "/board/boardList");
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    		else {
+    			boardService.boardUpdate(bvo);
+    			result.put("msg", "글 수정 완료.");
+    			result.put("redirect", "/board/boardList/"+bvo.getNo());
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    	}catch(Exception e) {
+    		result.put("msg", "글 수정 요청 Error...");
+    		result.put("redirect", "/board/boardList");
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
+    	}
+    	
+    	
     	return entity;
     }
 

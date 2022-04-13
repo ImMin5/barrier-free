@@ -41,4 +41,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.boardSelectNotice(limit);
 	}
 
+	@Override
+	public int boardUpdate(BoardVO vo) {
+		return dao.boardUpdate(vo);
+	}
+
 }
