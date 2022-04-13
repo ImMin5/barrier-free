@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.team.bf.dao.LikeDAO">
+  	<insert id="likeInsert">
+  		insert into liked(userid, contentid) values(#{param1}, #{param2})
+  	</insert>
+  	<delete id="likeDelete">
+        delete from liked where userid=#{param1} and contentid=#{param2}
+    </delete>
+    <select id="likeSelectAll" resultType="int">
+    	select count(no) from liked where contentid=#{param1}
+    </select>
+    <select id="likeSelectOne" resultType="int">
+    	select count(no) from liked where userid=#{param1} and contentid=#{param2}
+    </select>
+  </mapper>

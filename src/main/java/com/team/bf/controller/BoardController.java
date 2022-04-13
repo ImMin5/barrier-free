@@ -45,8 +45,9 @@ public class BoardController {
         pvo.setTotalRecord(boardService.totalRecord(pvo));
         pvo.setPageNo(pageNo);
         
+        System.out.println("tlwkr");
         //게시글
-        mav.addObject("boardList",boardService.boardSelectAll(pvo));
+        mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
         //공지사항
         mav.addObject("noticeList",boardService.boardSelectNotice(5));
         //페이징 정보
@@ -55,7 +56,7 @@ public class BoardController {
         return mav;
     }
     
-    // 문의사항 수정 뷰
+    //문의사항 수정 뷰
     @GetMapping("/board/boardList/{no}")
     public ModelAndView boardEditView(@PathVariable(value="no")int no, HttpSession session) {
     	ModelAndView mav = new ModelAndView();
@@ -76,13 +77,9 @@ public class BoardController {
     	}
     	return mav;
     }
-    //관리자 공지사항 생성요청
-    @PostMapping("/admin/board/boardList")
-    public ResponseEntity<HashMap<String,String>> adminInsert(BoardVO bvo, HttpServletRequest request,HttpSession session ) {
-    	return boardInsert(bvo,request, session);
-    }
     
-    // 문의사항 글 생성 요청
+    
+    //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
     	ResponseEntity<HashMap<String,String>> entity = null;
@@ -130,7 +127,7 @@ public class BoardController {
     	return entity;
     }
     
-    //문의사항 글 수정 요청
+    //2. 문의사항 글 수정 요청
     @PutMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardUpdate(BoardVO bvo, HttpServletRequest request, HttpSession session){
     	ResponseEntity<HashMap<String,String>> entity = null;
@@ -138,13 +135,14 @@ public class BoardController {
     	String userid = (String)session.getAttribute("logId");
     	
     	try {
-    		//작성자가 다른경우
+    		//작성자가 다른경우 , 관리자가 아닌 경우
     		if(bvo.getUserid().equals(userid)== false) {
     			result.put("msg", "잘못된 접근입니다");
     			result.put("redirect", "/board/boardList");
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     		else {
+    			bvo.setIp(request.getRemoteAddr());
     			boardService.boardUpdate(bvo);
     			result.put("msg", "글 수정 완료.");
     			result.put("redirect", "/board/boardList/"+bvo.getNo());
@@ -160,7 +158,7 @@ public class BoardController {
     	return entity;
     }
     
-    //문의사항 글 삭제 요청
+    //3. 문의사항 글 삭제 요청
     @DeleteMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardDelete(int no, HttpServletRequest request, HttpSession session){
     	ResponseEntity<HashMap<String,String>> entity = null;
@@ -169,8 +167,7 @@ public class BoardController {
     	
     	try {
     		BoardVO bvo = boardService.boardSelectByNo(no);
-    		System.out.println("접속자 :" + userid + " 글 작성자 : " + bvo.getUserid());
-    		//작성자가 다른경우
+    		//작성자가 다른경우 , 관리자가 아닌경우 
     		if(bvo.getUserid().equals(userid)== false) {
     			result.put("msg", "잘못된 접근입니다");
     			result.put("redirect", "/board/boardList");
@@ -188,6 +185,52 @@ public class BoardController {
     		result.put("redirect", "/board/boardList");
     		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
     	}
+    	return entity;
+    }
+    
+    //4. 관리자 공지사항 생성요청
+    @PostMapping("/admin/board/notice")
+    public ResponseEntity<HashMap<String,String>> adminNoticeInsert(BoardVO bvo, HttpServletRequest request,HttpSession session ) {
+    	return boardInsert(bvo,request, session);
+    }
+    
+    //5. 관리자 문의사항 답변 생성
+    @PostMapping("/admin/board/reply")
+    public ResponseEntity<HashMap<String,String>> adminInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	String userid = (String)session.getAttribute("logId");
+    	
+    	
+    	try {
+    		System.out.println("답변자 : " + userid);
+    		//답변할 글이 있는지 확인, 관리자가 아닌경우
+    		if(boardService.boardSelectByNo(bvo.getNo()) == null) {
+    			result.put("msg", "답변할 글이 없습니다.");
+    			result.put("redirect", "/admin/board/boardList");
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    		else if(memberService.memberSelectById(userid).getGrade_member() != 2) {
+    			result.put("msg", "잘못된 접근 입니다.");
+    			result.put("redirect", "/admin/board/boardList");
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    		else {
+    			//ip주소
+    			bvo.setIp(request.getRemoteAddr());
+    			boardService.boardReplyInsert(bvo);
+    			result.put("msg", "문의사항 답변 완료");
+    			result.put("redirect", "/admin/board/boardList/"+bvo.getNo());
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    	}catch(Exception e) {
+    		//이미 완료한 답변을 새로 작성하려고 할때
+    		e.printStackTrace();
+    		result.put("msg", "문의사항 답변 Error...");
+    		result.put("redirect", "/admin/board/boardList");
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
+    	}
+    	
     	return entity;
     }
     
