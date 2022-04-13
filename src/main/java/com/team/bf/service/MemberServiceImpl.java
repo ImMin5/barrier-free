@@ -31,21 +31,6 @@ public class MemberServiceImpl implements MemberService{
 	public int memberUseridCheck(String userid) {
 		return dao.memberUseridCheck(userid);
 	}
-
-	@Override
-	public MemberVO memberSelectByUsername(String username, String date_birth) {
-		return dao.memberSelectByUsername(username, date_birth);
-	}
-
-	@Override
-	public MemberVO memberSelectByQuestion(String userid, String question, String answer) {
-		return dao.memberSelectByQuestion(userid, question, answer);
-	}
-
-	@Override
-	public int memberUpdatePassword(String userid, String password) {
-		return dao.memberUpdatePassword(userid, password);
-	}
     
     
 }

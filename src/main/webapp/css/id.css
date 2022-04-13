@@ -1,0 +1,76 @@
+@charset "UTF-8";
+#findidlogo{
+	margin-right:200px;
+	margin-bottom:50px;
+	}
+
+#findid{
+	 width:500px; margin:0px auto;
+ 	 margin-top:5%;
+ 	 display: flex;
+ 	 justify-content: center;
+ 	 align-items: center;
+ 	 min-height: 80vh;
+ 	 }
+#findidFrm { 
+	 
+	 margin: 0px;
+ 	 padding: 3rem;
+ 	 text-align:center;
+ 	 background-color: white;
+ 	 color:black;
+ 	 font-size:20px;
+}
+#username{
+  margin: 0px;		
+  width: 500px;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0px 20px;
+  border: 1px solid lightgray;
+  outline: none;
+  font-size:17px;
+  font-family: "Noto Sans KR", sans-serif
+} 	 
+#userbirth{
+  margin: 0px;		
+  width: 500px;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0px 20px;
+  border: 1px solid lightgray;
+  outline: none;
+  font-size:17px;
+  font-family: "Noto Sans KR", sans-serif
+}
+#findId{
+  margin-top: 15px; 	
+  width: 545px;
+  height: 50px;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  background: rgb(250, 166, 50);
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  font-family: "Noto Sans KR", sans-serif;
+  cursor:pointer;
+}
+
+#line {
+	margin: 0px;
+	padding:15px;
+	width: 550px;
+	margin-left: 0px;
+	}
+.forgotpwd{font-size:0.9em;
+	margin: 0px;
+	padding:8px;
+	margin-left:0px;
+	font-family: "Noto Sans KR", sans-serif;}
+.forgotpwd a{text-decoration: none;}	
+.forgotpwd a:link{color: rgb(50, 133, 247);}
+.forgotpwd a:visited{color: rgb(50, 133, 247);}	

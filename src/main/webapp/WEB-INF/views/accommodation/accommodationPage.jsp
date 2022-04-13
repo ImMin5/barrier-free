@@ -27,11 +27,8 @@
 		<ul>
 			<c:forEach var="vo" items="${accomoList}">
 				<li>${vo.get("title")}</li>
+				<li><c:if test="${vo.get('tel')}"></c:if></li>
 				<li>${vo.get("addr1")}</li>
-				<li>${vo.get("contentid")}</li>
-				<c:if test="${vo.has('tel')}">
-					<li>${vo.get("tel")}</li>
-				</c:if>
 			</c:forEach>
 			
 		</ul>

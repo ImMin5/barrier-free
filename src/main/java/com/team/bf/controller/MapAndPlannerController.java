@@ -1,31 +1,25 @@
 package com.team.bf.controller;
 
-import javax.inject.Inject;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.team.bf.service.OpenApiService;
-
 @RestController
 public class MapAndPlannerController {
-	@Inject
-	OpenApiService openApiService;
-	
+    
     @GetMapping("/planView")
     public ModelAndView planView(){
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("plan/planView");
+        mav.setViewName("map/plan");
         return mav;
     }
 
     @GetMapping("/mapView")
-    public ModelAndView mapView(String pageNo, String pageCount, String contentTypeId, String searchWord){
+    public ModelAndView mapView(){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("tourList", openApiService.searchKeyword(pageNo, pageCount, "all", searchWord));
-        mav.setViewName("map/mapView");
+
+        mav.setViewName("plan/plan");
         return mav;
     }
 
