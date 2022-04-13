@@ -82,8 +82,12 @@ public class OpenApiService {
             urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("AppTest", "UTF-8")); /*서비스명=어플명*/
             urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode("39", "UTF-8")); /*지역코드, 시군구코드*/
            // urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); 
-            //urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("A", "UTF-8")); /*  (A=제목순, B=조회순, C=수정일순, D=생성일순) 대표이미지가 반드시 있는 정렬 (O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
-            urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
+            urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("P", "UTF-8")); /*  (A=제목순, B=조회순, C=수정일순, D=생성일순) 대표이미지가 반드시 있는 정렬 (O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
+            
+            //모든 관광지를 조회할 시
+            if(contentTypeId.equals("all") == false)
+            	urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
+            
             if(!searchWord.equals(""))
                 urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + URLEncoder.encode(searchWord, "UTF-8")); /*지역코드, 시군구코드*/
             URL url = new URL(urlBuilder.toString());
@@ -104,10 +108,11 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
+            System.out.println(json.toString());
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println(json.toString());
+       
         int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
         
         //토탈 개수 이하일 경우에만 items 리스트 생성

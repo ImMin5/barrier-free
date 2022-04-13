@@ -24,7 +24,6 @@ public class MemberController {
     @GetMapping("/login")
     public ModelAndView login(){
         ModelAndView mav = new ModelAndView();
-
         mav.setViewName("member/login");
         return mav;
     }
@@ -36,10 +35,11 @@ public class MemberController {
         HashMap<String,String> result = new HashMap<>();
         
         MemberVO mvoOrigin = memberService.memberSelectById(mvo.getUserid());
-
+        
+        //아이디가 존재하지 않음
         if(mvoOrigin == null){
-            System.out.println("嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭");
-            result.put("msg","占쎌뵬燁살꼹釉�占쎈뮉 占쎈툡占쎌뵠占쎈탵揶쏉옙 占쎈씨占쎈뮸占쎈빍占쎈뼄.");
+            System.out.println("로그인 실패");
+            result.put("msg","일치하는 아이디가 없습니다.");
             result.put("status","200");
             result.put("redirect", "/login");
             entity = new ResponseEntity<>(result,HttpStatus.OK);
@@ -47,16 +47,16 @@ public class MemberController {
         }
         else if(mvoOrigin.getUserid().equals(mvo.getUserid())){
             if(mvoOrigin.getUserpassword().equals(mvo.getUserpassword())){
-                System.out.println("嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙");
-                result.put("msg","嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙");
+            	System.out.println("로그인 성공");
+                result.put("msg","로그인 성공");
                 result.put("status","200");
                 result.put("redirect", "/");
                 entity = new ResponseEntity<>(result,HttpStatus.OK);
                 session.setAttribute("logId", mvo.getUserid());
             }
             else{
-                System.out.println("嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭");
-                result.put("msg","�뜮袁⑨옙甕곕뜇�깈揶쏉옙 占쎌뵬燁살꼹釉�筌욑옙 占쎈륫占쎈뮸占쎈빍占쎈뼄.");
+                System.out.println("로그인 실패");
+                result.put("msg","비밀번호가 일치하지 않습니다.");
                 result.put("status","200");
                 result.put("redirect", "/login");
                 entity = new ResponseEntity<>(result,HttpStatus.OK);
@@ -65,11 +65,11 @@ public class MemberController {
           
         }
         else{
-            System.out.println("嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭");
-            result.put("msg","嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭...");
-            result.put("status","400");
-            result.put("redirect", "/");
-            entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+        	 System.out.println("로그인 실패");
+             result.put("msg","로그인 실패...");
+             result.put("status","400");
+             result.put("redirect", "/");
+             entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
 
         return entity;
@@ -84,24 +84,24 @@ public class MemberController {
 
     }
 
-    //占쎌돳占쎌뜚 占쎄퉱占쎈닚
+    //회원 탈퇴
     @DeleteMapping("/member")
     public ResponseEntity<HashMap<String,String>> memberDelete(HttpSession session, String userpassword){
-        ResponseEntity<HashMap<String,String>> entity = null;
+    	ResponseEntity<HashMap<String,String>> entity = null;
         HashMap<String,String> result = new HashMap<>();
 
         String userid = (String)session.getAttribute("logId");
-        System.out.println("占쎄텣占쎌젫占쎈막 占쎈툡占쎌뵠占쎈탵 : " + userid);
+        System.out.println("삭제할 아이디 : " + userid);
         int count = memberService.memberDelete(userid, userpassword);
         if(count > 0){
-            result.put("msg","占쎌돳占쎌뜚占쎄퉱占쎈닚 占쎄쉐�⑨옙");
+            result.put("msg","회원탈퇴 성공");
             result.put("status","200");
             result.put("redirect","/");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
             session.invalidate();
         }
         else{
-            result.put("msg","占쎌돳占쎌뜚占쎄퉱占쎈닚 占쎈뼄占쎈솭");
+            result.put("msg","회원탈퇴 실패");
             result.put("status","400");
             result.put("redirect","/mypage");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
@@ -123,53 +123,122 @@ public class MemberController {
         mav.setViewName("member/signupView");
         return mav;
     }
-
+    
+    //아이디 찾기 뷰
+    @GetMapping("/infoid")
+    public ModelAndView infoIdView(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("member/id");
+        return mav;
+    }
+    
+    //아이디 찾기 요청
+    @PostMapping("/infoid")
+    public ResponseEntity<HashMap<String,String>> findInfoId(String username, String date_birth){
+        
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+	    	MemberVO mvo = memberService.memberSelectByUsername(username, date_birth);
+	        //정보와 일치하는 아이디가 없을 경우
+	    	if(mvo == null) {
+	        	result.put("msg", "일치하는 아이디가 없습니다.");
+	        	result.put("userid", "");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+	        }
+	    	else {
+	    		System.out.println("아이디 찾기 결과 : " +  mvo.getUserid());
+	    		result.put("msg", "일치하는 아이디가 있습니다.");
+	    		result.put("userid", mvo.getUserid());
+	    		result.put("redirect", "/login");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+	    	}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("msg", "아이디 찾기 요청 실패....");
+    		result.put("status", "400");
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
+    	}
+    	
+        return entity; 
+    }
+    
+    //비밀번호 찾기 뷰 
     @GetMapping("/infopwd")
     public ModelAndView infoPasswordView(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("member/password");
         return mav;
     }
-    @GetMapping("/infoid")
-    public ModelAndView infoIdiew(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("member/id");
-        return mav;
+    
+  //비밀번호 찾기 요청
+    @PostMapping("/infopwd")
+    public ResponseEntity<HashMap<String,String>> findInfoPwd(String userid, String question, String answer){
+        String initPassword ="12341234";
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		MemberVO mvo = memberService.memberSelectByQuestion(userid, question, answer);
+    		//정보와 일치하는 멤버 객체가 없을 경우
+    		if(mvo != null && memberService.memberUpdatePassword(mvo.getUserid(), initPassword) > 0) {
+    			System.out.println("원래 비밀번호 : " + mvo.getUserpassword());
+    			result.put("msg", "비밀번호가 초기화 되었습니다.");
+	    		result.put("newpassword", initPassword);
+	    		result.put("redirect", "/login");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    		else{
+	        	result.put("msg", "일치하는 결과가 없습니다. 입력한 정보를 확인해 주세요");
+	        	result.put("newpassword", "");
+	        	result.put("status","200");
+	        	entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+	        }
+    	}
+    	catch(Exception e) {
+    		result.put("msg", "비밀번호 찾기 요청 실패....");
+    		result.put("status", "200");
+    		e.printStackTrace();
+    	}
+        return entity; 
     }
 
 
 
     @PostMapping("/signup")
     public ResponseEntity<HashMap<String,String>> signup(MemberVO mvo, HttpSession session){
-        System.out.println("signup :  占쎈뻻占쎌삂" );
+        System.out.println("signup :  시작" );
         HashMap<String, String> result = new HashMap<>();
         ResponseEntity<HashMap<String, String>> entity = null;
         try{
             if(memberService.memberInsert(mvo) > 0){
-                //session占쎈퓠 userid�몴占� 占쏙옙占쎌삢
+                //session에 userid를 저장
                 session.setAttribute("logId", mvo.getUserid());
-                result.put("msg","占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎌끏�뙴占�");
+                result.put("msg","회원가입 완료");
                 result.put("status","200");
                 result.put("redirect","/login");
                 entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
             }
             else{
-                result.put("msg","占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎈뼄占쎈솭");
+                result.put("msg","회원가입 실패");
                 result.put("status","400");
                 result.put("redirect","/");
                 entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
             }
-            
         }catch(Exception e){
             e.printStackTrace();
-            result.put("msg","占쎌돳占쎌뜚揶쏉옙占쎌뿯 占쎈뼄占쎈솭");
+            result.put("msg","회원가입 실패");
             result.put("status","400");
             result.put("redirect","/");
             entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
         }
         return entity;
     }
-    
+    //아이디 중복검사
     @PostMapping("/signup/memberIdCheck")
     public int memberIdCheck(String userid) {
     	return memberService.memberUseridCheck(userid);

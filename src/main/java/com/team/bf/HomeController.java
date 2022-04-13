@@ -26,7 +26,9 @@ public class HomeController {
     }
 
     @GetMapping("/intro")
-    public String intro(){
-        return "";
+    public ModelAndView intro(){
+    	 ModelAndView mav = new ModelAndView();
+    	 mav.setViewName("introduction");
+        return mav;
     }
 }

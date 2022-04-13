@@ -1,6 +1,7 @@
 package com.team.bf.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,7 +17,7 @@ public class MapAndPlannerController {
     }
 
     @GetMapping("/mapView")
-    public ModelAndView mapView(){
+    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("plan/plan");
