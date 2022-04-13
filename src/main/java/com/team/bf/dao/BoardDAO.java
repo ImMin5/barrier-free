@@ -17,4 +17,5 @@ public interface BoardDAO {
 	public BoardVO boardSelectByNo(int no);
 	public ArrayList<BoardVO> boardSelectNotice(int limit);
 	public int boardUpdate(BoardVO vo);
+	public int boardDelete(String userid, int no);
 }

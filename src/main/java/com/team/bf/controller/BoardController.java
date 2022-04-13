@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -158,7 +159,38 @@ public class BoardController {
     	
     	return entity;
     }
-
+    
+    //문의사항 글 삭제 요청
+    @DeleteMapping("/board/boardList")
+    public ResponseEntity<HashMap<String,String>> boardDelete(int no, HttpServletRequest request, HttpSession session){
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	String userid = (String)session.getAttribute("logId");
+    	
+    	try {
+    		BoardVO bvo = boardService.boardSelectByNo(no);
+    		System.out.println("접속자 :" + userid + " 글 작성자 : " + bvo.getUserid());
+    		//작성자가 다른경우
+    		if(bvo.getUserid().equals(userid)== false) {
+    			result.put("msg", "잘못된 접근입니다");
+    			result.put("redirect", "/board/boardList");
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    		else {
+    			boardService.boardDelete(bvo.getUserid(), bvo.getNo());
+    			result.put("msg", "글 삭제 완료.");
+    			result.put("redirect", "/board/boardList");
+    			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("msg", "글 삭제 요청 Error...");
+    		result.put("redirect", "/board/boardList");
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
+    	}
+    	return entity;
+    }
+    
     @GetMapping("/mypage/myreview")
     public ModelAndView myReview(){
         ModelAndView mav = new ModelAndView();

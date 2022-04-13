@@ -37,4 +37,7 @@
   		update board set subject=#{subject}, content=#{content}
   	    where no=${no} and userid=#{userid}
   	</update>
+  	<delete id="boardDelete">
+        delete from board where userid=#{param1} and no=${param2}
+    </delete>
   </mapper>
