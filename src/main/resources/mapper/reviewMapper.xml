@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.team.bf.dao.ReviewDAO">
+  	<insert id="reviewInsert">
+  		insert into reply_info(userid, contentid, content, score, ip) 
+  		values( #{userid}, #{contentid}, #{content},  ${score}, #{ip})
+  	</insert>
+  </mapper>
