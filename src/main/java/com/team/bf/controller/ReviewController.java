@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team.bf.service.ReviewService;
@@ -48,6 +49,40 @@ public class ReviewController {
 			result.put("msg","리뷰 등록 Error...");
 			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
 		}
+		return entity;
+	}
+	
+	@PutMapping("/review/myreview")
+	public ResponseEntity<HashMap<String,String>> reivewUpdate(ReviewVO rvo, HttpServletRequest request, HttpSession session){
+		ResponseEntity<HashMap<String,String>> entity = null;
+		HashMap<String,String> result = new HashMap<String,String>();
+		String userid = (String)session.getAttribute("logId");
+		
+		try {
+			if(reviewService.reviewSelectByNo(rvo.getNo()) == null || rvo.getUserid().equals(userid) == false) {
+				result.put("status", "200");
+				result.put("msg","잘못된 접근입니다.");
+				result.put("redirect","/");
+				entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+			}
+			else {
+				//작성자와 다를 경우 
+				rvo.setIp(request.getRemoteAddr());
+				reviewService.reviewUpdate(rvo);
+				result.put("status", "200");
+				result.put("msg","리뷰 수정 완료");
+				result.put("redirect","/");
+				entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.put("status", "400");
+			result.put("msg","잘못된 접근입니다...Error");
+			result.put("redirect","/");
+			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
+		}
+		
 		return entity;
 	}
 }

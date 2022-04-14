@@ -15,5 +15,11 @@ public class ReviewService {
 	public int reviewInsert(ReviewVO vo) {
 		return dao.reviewInsert(vo);
 	}
+	public ReviewVO reviewSelectByNo(int no) {
+		return dao.reviewSelectByNo(no);
+	}
+	public int reviewUpdate(ReviewVO vo) {
+		return dao.reviewUpdate(vo);
+	}
 	
 }

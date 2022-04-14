@@ -7,4 +7,6 @@ import com.team.bf.vo.ReviewVO;
 @Mapper
 public interface ReviewDAO {
 	public int reviewInsert(ReviewVO vo);
+	public ReviewVO reviewSelectByNo(int no);
+	public int reviewUpdate(ReviewVO vo);
 }

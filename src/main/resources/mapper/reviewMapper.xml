@@ -7,4 +7,12 @@
   		insert into reply_info(userid, contentid, content, score, ip) 
   		values( #{userid}, #{contentid}, #{content},  ${score}, #{ip})
   	</insert>
+  	<select id="reviewSelectByNo" resultType="com.team.bf.vo.ReviewVO">
+  		select no, userid , content,  score, write_date
+  		from reply_info where no=${param1}
+  	</select>
+  	<update id="reviewUpdate">
+  		update reply_info set content=#{content}, score=${score}, ip=#{ip}
+  		where no=${no} and userid=#{userid}
+  	</update>
   </mapper>
