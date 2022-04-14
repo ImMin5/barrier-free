@@ -102,7 +102,7 @@ public class OpenApiService {
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println(json.toString());
+        //System.out.println(json.toString());
         int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
         
         //토탈 개수 이하일 경우에만 items 리스트 생성
@@ -166,7 +166,7 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
-            System.out.println(json.toString());
+           // System.out.println(json.toString());
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -177,7 +177,7 @@ public class OpenApiService {
         if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
             JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
             JSONArray jsonArray = response.getJSONArray("item");
-            System.out.println(jsonArray.toString());
+            //System.out.println(jsonArray.toString());
             for(int i=0; i<jsonArray.length(); i++) {
             	JSONObject jObj = jsonArray.getJSONObject(i);
             	items.add(jObj);
@@ -230,7 +230,7 @@ public class OpenApiService {
         
         if(totalCount > 0){
             item = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
-            System.out.println("detailCommon 결과 : " + item.toString());
+           // System.out.println("detailCommon 결과 : " + item.toString());
         }
         return item;
     }
