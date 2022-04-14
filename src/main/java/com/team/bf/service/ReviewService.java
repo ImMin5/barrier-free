@@ -32,4 +32,7 @@ public class ReviewService {
 	public List<ReviewVO> reviewSelectByContentid(String contentid){
 		return dao.reviewSelectByContentid(contentid);
 	}
+	public Float reviewSelectAvgScore(String contentid) {
+		return dao.reviewSelectAvgScore(contentid);
+	}
 }
