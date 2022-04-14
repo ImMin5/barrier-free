@@ -1,4 +1,4 @@
-
+ 
 function memberCheck(){
 	let userid = document.getElementById("userid");
 	if(userid.value==''){
@@ -25,6 +25,14 @@ function memberCheck(){
 		userpwd.focus();
 		return false;
 	}
+	
+	let username = document.querySelector("#username");
+	if(username.value==''){
+		alert("성함을 입력해주세요.")
+		username.focus();
+		return false;
+	}
+	
 
 	let userbirth = document.querySelector("#userbirth");
 	if(userbirth.value==''){
@@ -55,5 +63,6 @@ function memberCheck(){
 		return false;
 	}
 	
+
 	
 }
