@@ -43,7 +43,6 @@ public class MemberController {
             result.put("status","200");
             result.put("redirect", "/login");
             entity = new ResponseEntity<>(result,HttpStatus.OK);
-            session.setAttribute("logId", mvo.getUserid());
         }
         else if(mvoOrigin.getUserid().equals(mvo.getUserid())){
             if(mvoOrigin.getUserpassword().equals(mvo.getUserpassword())){
@@ -51,8 +50,8 @@ public class MemberController {
                 result.put("msg","로그인 성공");
                 result.put("status","200");
                 result.put("redirect", "/");
-                entity = new ResponseEntity<>(result,HttpStatus.OK);
                 session.setAttribute("logId", mvo.getUserid());
+                entity = new ResponseEntity<>(result,HttpStatus.OK);
             }
             else{
                 System.out.println("로그인 실패");
@@ -60,7 +59,6 @@ public class MemberController {
                 result.put("status","200");
                 result.put("redirect", "/login");
                 entity = new ResponseEntity<>(result,HttpStatus.OK);
-                session.setAttribute("logId", mvo.getUserid());
             }
           
         }
