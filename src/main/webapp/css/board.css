@@ -1,0 +1,36 @@
+#b__table {
+	position: relative;
+	display: block;
+	top: 200px;
+    width: 1000px;
+	margin:auto;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    line-height: 24px;
+}
+table td,th {
+    border-top:1px solid black;
+    border-bottom:1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 10px;
+}
+th {
+	background: rgb(221, 221, 221);
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+.btn{
+    margin-top: 15px;
+    width: 120px;
+    height: 35px;
+    font-size: 17px;
+}
