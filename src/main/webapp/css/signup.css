@@ -1,43 +1,56 @@
 @charset "UTF-8";
+@import url('//cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
 
+
+<<<<<<< HEAD
  
 #signup{
 	margin-top:10%;
+=======
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+    /*font-family: 'NanumSquareRound',sans-serif;*/
+>>>>>>> parent of 612d39c (Merge branch 'develop' of https://github.com/ImMin5/barrier-free into feature/signupView)
 }
 
-#signuph1 {
-   font-size:1.3em;
-   font-family: "Noto Sans KR", sans-serif;
-   color: #636e72;
+h1 {
+    font-weight: bold;
 
 }
+<<<<<<< HEAD
 .wd{
 	margin-left:33%;
 	}
+=======
+>>>>>>> parent of 612d39c (Merge branch 'develop' of https://github.com/ImMin5/barrier-free into feature/signupView)
 
-#suplogo{margin: 0 0 20 0;}
-
-#logoud{width:700px;}
 #sFrm {
+<<<<<<< HEAD
 	
     display:flex;
+=======
+    position: absolute;
+>>>>>>> parent of 612d39c (Merge branch 'develop' of https://github.com/ImMin5/barrier-free into feature/signupView)
     width: 600px;
-    height: 100%;
-    margin:50px;
+    height: 600px;
     padding: 30px, 20px;
     background-color: #FFFFFF;
+    display: inline-block;
+    top: 40%;
+    left: 50%;
+    bottom: -10%;
+    transform: translate(-50%, -50%);
     border-radius: 15px;
-    font-family: "Noto Sans KR", sans-serif;
-    color: #636e72;
 }
-#sFrm li{font-family: "Noto Sans KR", sans-serif;}
 
 #sFrm li:nth-child(2n) {
     border-bottom: 2px solid rgb(250, 166, 50);
     margin: 30px;
     padding: 10px 10px;
     margin-left: 39px;
-    color: #636e72;
 }
 
 #userid {
@@ -49,7 +62,6 @@
     height: 25px;
     background: none;
     text-align: left;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #userpwd {
@@ -60,7 +72,6 @@
     font-size: 16px;
     height: 25px;
     background: none;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #userpwd2 {
@@ -71,7 +82,6 @@
     font-size: 16px;
     height: 25px;
     background: none;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #username {
@@ -95,11 +105,10 @@
     font-size: 16px;
     height: 25px;
     background: none;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #question {
-    width: 50%;
+    width: 40%;
     border: none;
     outline: none;
     color: #636e72;
@@ -107,7 +116,6 @@
     height: 25px;
     background: none;
     margin-left: 39px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #answer {
@@ -118,7 +126,6 @@
     font-size: 16px;
     height: 25px;
     background: none;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #grade {
@@ -130,7 +137,6 @@
     height: 25px;
     background: none;
     margin-left: 39px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #up {
@@ -140,13 +146,11 @@
 #term {
     margin-left: 0px !important;
     text-align: center;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
-.term2 {
+#term2 {
+    margin-left: 39px;
     text-align: center;
-    margin-left: 235px;
-    font-family: "Noto Sans KR", sans-serif;
 }
 
 #terms {
@@ -157,11 +161,8 @@
 #sbm {
     text-align: center;
 }
-      .modal {
-        position: absolute;
-        top: 0;
-        left: 0;
 
+<<<<<<< HEAD
         width: 100%;
         height: 2200px;
 
@@ -192,6 +193,8 @@
 
         transform: translateX(-50%) translateY(-50%);
       }
+=======
+>>>>>>> parent of 612d39c (Merge branch 'develop' of https://github.com/ImMin5/barrier-free into feature/signupView)
 #button {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -203,12 +206,10 @@
     background-color: rgba(0, 0, 0, 0);
     color: rgb(250, 166, 50);
     padding: 5px;
-    font-family: "Noto Sans KR", sans-serif;
-    cursor:pointer;
 }
 
-
 #button2 {
+<<<<<<< HEAD
   margin: 0px; 	
   width: 600px;
   height: 50px;
@@ -232,3 +233,15 @@
 	color:rgb(50, 133, 247);
 	cursor:pointer;
 		}
+=======
+    position: relative;
+    background-color: rgb(250, 166, 50);
+    color: white;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: 'NanumSquareRound', sans-serif;
+    text-decoration: none;
+}
+>>>>>>> parent of 612d39c (Merge branch 'develop' of https://github.com/ImMin5/barrier-free into feature/signupView)

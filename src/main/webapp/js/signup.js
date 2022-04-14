@@ -63,6 +63,5 @@ function memberCheck(){
 		return false;
 	}
 	
-
 	
 }
