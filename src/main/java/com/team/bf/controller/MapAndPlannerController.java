@@ -50,10 +50,12 @@ public class MapAndPlannerController {
         	jObj.put("heartCount", heartService.heartSelectAll(cid));
         	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid));
         	Float avgScore = reviewService.reviewSelectAvgScore(cid);
-        	if(avgScore == null) avgScore = (float) 0.0;
-        	jObj.put("avgScore", avgScore);
+        	
+        	if(avgScore == null)
+        		jObj.put("avgScore", "0");
+        	else 
+        		jObj.put("avgScore", String.format("%.2f",avgScore));
         }
-        
         mav.addObject("tourList", tourList);
         mav.setViewName("map/mapView");
         return mav;
