@@ -49,9 +49,6 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
-          
-
-
             System.out.println("in api \n"+ json.toString());
         }catch(Exception e){
             e.printStackTrace();
@@ -191,24 +188,21 @@ public class OpenApiService {
     }
     
     //6. 공통정보조회(상세정보1)
-    public ArrayList<JSONObject> detailCommon(String pageNo, String pageCount, String contentTypeId){
+    public JSONObject detailCommon(String contentid, String areaCode){
         StringBuilder urlBuilder = null;
         StringBuilder sb = new StringBuilder();
-        JSONObject json = null;
-        ArrayList<JSONObject> items = new ArrayList<>(); //결과 목록
+        JSONObject json= null ,item = null;
         
         try {
         	urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/detailCommon"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+myKey); /*Service Key*/
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(pageCount, "UTF-8")); /*한 페이지 결과 수*/
-            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); /*현재 페이지 번호*/
             urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), ETC*/
             urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("AppTest", "UTF-8")); /*서비스명=어플명*/
-            urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode("39", "UTF-8")); /*지역코드, 시군구코드*/
+            urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode(areaCode, "UTF-8")); /*지역코드, 시군구코드* 39-제주*/
             urlBuilder.append("&" + URLEncoder.encode("firstImageYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //썸네일 조회
-            urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode("252581", "UTF-8"));  //썸네일 조회
-            urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode("138185", "UTF-8"));  //썸네일 조회
-            urlBuilder.append("&" + URLEncoder.encode("defaultYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //썸네일 조회
+            urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(contentid, "UTF-8"));  
+            urlBuilder.append("&" + URLEncoder.encode("defaultYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //기본정보 조회
+            urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //콘텐츠 개요 조회
             
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -234,18 +228,11 @@ public class OpenApiService {
         System.out.println(json.toString());
         int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
         
-        //토탈 개수 이하일 경우에만 items 리스트 생성
-        if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
-            JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
-            JSONArray jsonArray = response.getJSONArray("item");
-            System.out.println(jsonArray.toString());
-            for(int i=0; i<jsonArray.length(); i++) {
-            	JSONObject jObj = jsonArray.getJSONObject(i);
-            	items.add(jObj);
-            }
+        if(totalCount > 0){
+            item = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+            System.out.println("detailCommon 결과 : " + item.toString());
         }
-        
-        return items;
+        return item;
     }
     
     //7. 상세정보 조회
