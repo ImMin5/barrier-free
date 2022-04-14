@@ -43,6 +43,7 @@ public class MapAndPlannerController {
         for(JSONObject jObj : tourList) {
         	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
         	String cid = jObj.get("contentid").toString();
+        	jObj.put("title",Opt.get("title").toString());
         	jObj.put("overview",Opt.get("overview").toString());
         	jObj.put("firstimage",Opt.get("firstimage").toString());
         	jObj.put("firstimage2",Opt.get("firstimage2").toString());
