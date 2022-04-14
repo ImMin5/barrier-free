@@ -1,5 +1,7 @@
 package com.team.bf.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -21,5 +23,13 @@ public class ReviewService {
 	public int reviewUpdate(ReviewVO vo) {
 		return dao.reviewUpdate(vo);
 	}
-	
+	public int reviewDelete(ReviewVO vo) {
+		return dao.reviewDelete(vo);
+	}
+	public List<ReviewVO> reviewSelectById(String userid){
+		return dao.reviewSelectById(userid);
+	}
+	public List<ReviewVO> reviewSelectByContentid(String contentid){
+		return dao.reviewSelectByContentid(contentid);
+	}
 }

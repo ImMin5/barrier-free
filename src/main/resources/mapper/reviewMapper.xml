@@ -15,4 +15,15 @@
   		update reply_info set content=#{content}, score=${score}, ip=#{ip}
   		where no=${no} and userid=#{userid}
   	</update>
+  	<delete id="reviewDelete">
+  		delete from reply_info where no=${no} and userid=#{userid}
+  	</delete>
+  	<select id="reviewSelectById" resultType="com.team.bf.vo.ReviewVO">
+  		select no, userid , content,  score, write_date
+  		from reply_info where userid=${param1}
+  	</select>
+  	<select id="reviewSelectByContentid" resultType="com.team.bf.vo.ReviewVO">
+  		select no, userid , content,  score, write_date
+  		from reply_info where contentid=${param1}
+  	</select>
   </mapper>

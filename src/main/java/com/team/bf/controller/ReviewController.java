@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,18 +61,25 @@ public class ReviewController {
 		
 		try {
 			if(reviewService.reviewSelectByNo(rvo.getNo()) == null || rvo.getUserid().equals(userid) == false) {
+				//리뷰가 존재하지 않거나 , 작성자가 다를 경우 
 				result.put("status", "200");
 				result.put("msg","잘못된 접근입니다.");
 				result.put("redirect","/");
 				entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
 			}
 			else {
-				//작성자와 다를 경우 
 				rvo.setIp(request.getRemoteAddr());
-				reviewService.reviewUpdate(rvo);
-				result.put("status", "200");
-				result.put("msg","리뷰 수정 완료");
-				result.put("redirect","/");
+				if(reviewService.reviewUpdate(rvo) > 0){
+					result.put("status", "200");
+					result.put("msg","리뷰 수정 완료");
+					result.put("redirect","/");
+				}
+				else {
+					result.put("status", "200");
+					result.put("msg","리뷰 수정 실패");
+					result.put("redirect","/");
+				}
+				
 				entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
 			}
 			
@@ -85,4 +93,44 @@ public class ReviewController {
 		
 		return entity;
 	}
+	
+	@DeleteMapping("/review/myreview")
+	public ResponseEntity<HashMap<String,String>> reivewDelete(int no, HttpServletRequest request, HttpSession session){
+		ResponseEntity<HashMap<String,String>> entity = null;
+		HashMap<String,String> result = new HashMap<String,String>();
+		String userid = (String)session.getAttribute("logId");
+		
+		try {
+			ReviewVO rvo = reviewService.reviewSelectByNo(no);
+			if(rvo == null || rvo.getUserid().equals(userid) == false) {
+				//리뷰가 존재하지 않거나 , 작성자가 다를 경우 
+				result.put("status", "200");
+				result.put("msg","잘못된 접근입니다.");
+				result.put("redirect","/");
+				entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+			}
+			else {
+				if(reviewService.reviewDelete(rvo) > 0) {
+					result.put("status", "200");
+					result.put("msg","리뷰 삭제 완료");
+					result.put("redirect","/");
+				}
+				else {
+					result.put("status", "200");
+					result.put("msg","리뷰 삭제 실패");
+					result.put("redirect","/");
+				}
+				
+				entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			result.put("status", "400");
+			result.put("msg","잘못된 접근입니다...Error");
+			result.put("redirect","/");
+			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 }

@@ -69,12 +69,12 @@ public class BoardController {
     		else {
     			//게시물이 존재 하지 않을 경우
     			System.out.println("존재하지 않는 게시물");
-    			mav.setViewName("/board/boardList");
+    			mav.setViewName("redirect:/board/boardList");
     		}
     		
     	}catch(Exception e) {
     		e.printStackTrace();
-    		mav.setViewName("/board/boardList");
+    		mav.setViewName("redirect:/board/boardList");
     	}
     	return mav;
     }
@@ -89,13 +89,13 @@ public class BoardController {
     			mav.setViewName("community/boardForm");
     		}else{
     			System.out.println("회원가입 후 진행");
-    			mav.setViewName("community/board");
+    			mav.setViewName("redirect:/board/boardList");
     		}
     	}catch(Exception e) {
     		//1.userid가 null일 경우
     		e.printStackTrace();
     		session.invalidate();
-    		mav.setViewName("home");
+    		mav.setViewName("redirect:/");
     	}
     	return mav;
     	
