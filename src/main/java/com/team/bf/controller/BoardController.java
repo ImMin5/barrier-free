@@ -293,10 +293,5 @@ public class BoardController {
     	return entity;
     }
     
-    @GetMapping("/mypage/myreview")
-    public ModelAndView myReview(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("");
-        return mav;
-    }
+   
 }
