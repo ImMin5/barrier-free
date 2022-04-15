@@ -8,10 +8,6 @@
   <div id="login">
  		
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
         <div id="log">
 		
 		

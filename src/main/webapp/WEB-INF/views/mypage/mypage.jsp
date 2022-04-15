@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="url" value="<%=request.getContextPath()%>" />
@@ -101,4 +87,3 @@
 </div>				
 		</section>
 </div>				
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4

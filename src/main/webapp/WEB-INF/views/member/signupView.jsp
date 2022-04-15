@@ -49,38 +49,17 @@
 				
 			
 			<div class="wd">
-<<<<<<< HEAD
-			<a id="suplogo"><img src="${url }/img/bf_logo_signup4.png"></a>
-=======
 			<a id="suplogo"><img src="${url }/img/member/bf_logo_signup4.png"></a>
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 			<div id="logoud"><hr/></div>
             <form method="post" action="/signup" id="sFrm" onsubmit="return memberCheck()">
                 <ul>
                 	
-<<<<<<< HEAD
-                    <li>아이디 *</li>
-=======
                     <li>* 아이디 <input id="button" type="button" value="중복확인" /><span id='chk'></span></li>
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
                     <li><input type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요." />
                      <input type="hidden" id="idchk" value='N' /></li>
                     <li>* 비밀번호</li>
                     <li><input type="password" name="userpassword" id="userpwd" placeholder="비밀번호를 입력해주세요" />
                     </li>
-<<<<<<< HEAD
-                    <li>비밀번호 *</li>
-                    <li><input type="password" name="userpassword" id="userpwd" placeholder="비밀번호를 입력해주세요" />
-                    </li>
-                    <li>비밀번호 확인 *</li>
-                    <li><input type="password" name="userpassword2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
-                    <li>이름 *</li>
-                    <li><input type="text" name="username" id="username" placeholder="성함을 입력해주세요." />
-                    <li>생년월일 *</li>
-                    <li><input type="text" name="date_birth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
-                    </li>
-                    <li>비밀번호 찾기 질문 *</li>
-=======
                     <li>* 비밀번호 확인</li>
                     <li><input type="password" name="userpassword2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
                     <li>* 이름</li>
@@ -89,7 +68,6 @@
                     <li><input type="text" name="date_birth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
                     </li>
                     <li>* 비밀번호 찾기 질문</li>
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
                     <div>&nbsp;</div>
                     <select name="question" id="question">
                         <optgroup label="비밀번호 찾기 질문을 선택해주세요">
@@ -103,14 +81,9 @@
                         </optgroup>
                     </select>
                     <div>&nbsp;</div>
-<<<<<<< HEAD
-                    <li>비밀번호 찾기 답변 *</li>
-                    <li><input type="text" name="answer" id="answer" placeholder="비밀번호 찾기 답변을 입력해주세요." /></li>
-=======
                     <li>* 비밀번호 찾기 답변</li>
                     <li><input type="text" name="answer" id="answer" placeholder="비밀번호 찾기 답변을 입력해주세요." /></li>
                     
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
                     <li>장애정도 </li>
                     <div>&nbsp;</div>
                     <select name="grade" id="grade">
@@ -126,43 +99,6 @@
                     <li>회원 가입 약관 <input type="button" class="btn-open-popup"/ value="[보기]"><input class="term2" type="checkbox" id="termcheck" value="동의" /> 약관에 동의합니다.</li>
                     <li id="sbm"><input id="button2" type="submit" value="가입하기" /></li>
                     <div class="modal">
-<<<<<<< HEAD
-                    <div class="modal_body">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X<textarea id="terms" rows="27" cols="61" disabled>회원 가입 약관 내용
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-                       
-=======
                     <div class="modal_body"><textarea id="terms" rows="27" cols="61" disabled>제1조(목적) 이 약관은 업체 회사(전자상거래 사업자)가 운영하는 업체 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
  
   ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
@@ -399,7 +335,6 @@
   ① “몰”과 이용자 간에 발생한 전자상거래 분쟁에 관한 소송은 제소 당시의 이용자의 주소에 의하고, 주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다. 다만, 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다.
  
   ② “몰”과 이용자 간에 제기된 전자상거래 소송에는 한국법을 적용합니다.
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
                        </textarea></div>
                        <script>
     					  const body = document.querySelector('body');

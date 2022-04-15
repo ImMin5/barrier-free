@@ -12,4 +12,7 @@ public interface MemberDAO {
     public MemberVO memberSelectById(String userid);
     public int memberDelete(String userid, String password);
     public int memberUseridCheck(String userid);
+    public MemberVO memberSelectByUsername(String username, String date_birth);
+    public MemberVO memberSelectByQuestion(String userid, String question, String answer);
+    public int memberUpdatePassword(String userid, String password);
 }

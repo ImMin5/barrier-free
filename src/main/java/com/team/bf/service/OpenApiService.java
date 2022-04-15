@@ -17,6 +17,7 @@ public class OpenApiService {
     @Value("${open-api.myKey}")
     private String myKey;
 
+    //1. 지역코드 조회
     public ArrayList<JSONObject> AreaInfo(){
         StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/areaCode"); /*URL*/
         StringBuilder sb = new StringBuilder();
@@ -57,10 +58,29 @@ public class OpenApiService {
         for(Object obj : jsonArray) items.add((JSONObject)obj);
         return items;
     }
+    //3. 위치 기반 관광지 조회
+    public ArrayList<JSONObject> locationBasedList(String pageNo, String pageCount, String contentTypeId, String mapX, String mapY){
+    	StringBuilder urlBuilder = null;
+        StringBuilder sb = new StringBuilder();
+        JSONObject json = null;
+        ArrayList<JSONObject> items = new ArrayList<>(); //결과 목록
+        
+        try {
+        	
+        	urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/locationBasedList"); /*URL*/
+          
+            urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+myKey); /*Service Key*/
+            urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); /*현재 페이지 번호*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(pageCount, "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), ETC*/
+            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("AppTest", "UTF-8")); /*서비스명=어플명*/
+            urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode("39", "UTF-8")); /*지역코드, 시군구코드*/
+            urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); 
+            urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("O", "UTF-8")); /*  (A=제목순, B=조회순, C=수정일순, D=생성일순) 대표이미지가 반드시 있는 정렬 (O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
+            urlBuilder.append("&" + URLEncoder.encode("mapX","UTF-8") + "=" + URLEncoder.encode(mapX, "UTF-8")); // 경도 
+            urlBuilder.append("&" + URLEncoder.encode("mapY","UTF-8") + "=" + URLEncoder.encode(mapY, "UTF-8")); //위도 
+            //urlBuilder.append("&" + URLEncoder.encode("radius","UTF-8") + "=" + URLEncoder.encode(radius, "UTF-8"));
 
-<<<<<<< HEAD
-    public ArrayList<JSONObject> TourTypeInfo(String pageNo, String pageCount, String contentTypeId, String searchWord){
-=======
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
@@ -100,7 +120,6 @@ public class OpenApiService {
     }
     //5. 키워드 검색 조회 기능
     public ArrayList<JSONObject> searchKeyword(String pageNo, String pageCount, String contentTypeId, String searchWord){
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
         StringBuilder urlBuilder = null;
         StringBuilder sb = new StringBuilder();
         JSONObject json = null;
@@ -158,22 +177,15 @@ public class OpenApiService {
         if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
             JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
             JSONArray jsonArray = response.getJSONArray("item");
-<<<<<<< HEAD
-            System.out.println(jsonArray.toString());
-            for(Object obj : jsonArray) items.add((JSONObject)obj);
-=======
             //System.out.println(jsonArray.toString());
             for(int i=0; i<jsonArray.length(); i++) {
             	JSONObject jObj = jsonArray.getJSONObject(i);
             	items.add(jObj);
             }
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
         }
         
         return items;
     }
-<<<<<<< HEAD
-=======
     
     //6. 공통정보조회(상세정보1)
     public JSONObject detailCommon(String contentid, String areaCode){
@@ -265,5 +277,4 @@ public class OpenApiService {
         return json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
     	
     }
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 }

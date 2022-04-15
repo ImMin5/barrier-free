@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-	function logFormCheck(){
-=======
 	function logFormCheck(){ 
->>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 
 		var id = document.getElementById("userid");
 		if(document.getElementById("userid").value==""){
