@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="url" value="<%=request.getContextPath()%>" /> 
+>>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
 <link rel="stylesheet" href="${url }css/id.css">
@@ -43,7 +49,11 @@ $(document).on('click','#findId',function(event){
 		<form id="findidFrm">
 			<ul>
 				
+<<<<<<< HEAD
 				<li><img id=findidlogo src="${url }/img/bf_logo_findid.png"></li>
+=======
+				<li><img id=findidlogo src="${url }/img/member/bf_logo_findid.png"></li>
+>>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 				
 			 	<li><input type="text" name="username" id="username" placeholder="성함을 입력해주세요."/></li>
 			 	<li><input type="text" name="date_birth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)"/></li>

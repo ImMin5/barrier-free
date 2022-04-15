@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.team.bf.dao.BoardDAO;
+import com.team.bf.vo.BoardAndReply;
 import com.team.bf.vo.BoardVO;
 import com.team.bf.vo.PagingVO;
 
@@ -49,6 +50,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int boardDelete(String userid, int no) {
 		return dao.boardDelete(userid, no);
+	}
+
+	@Override
+	public int boardReplyInsert(BoardVO vo) {
+		return dao.boardReplyInsert(vo);
+	}
+
+	@Override
+	public ArrayList<BoardAndReply> boardAndReplySelectAll(PagingVO vo) {
+		return dao.boardAndReplySelectAll(vo);
 	}
 
 }

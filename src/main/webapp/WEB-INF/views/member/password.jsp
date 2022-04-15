@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="url" value="<%=request.getContextPath()%>" />  
+>>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
 <link rel="stylesheet" href="${url }css/password.css">
@@ -48,11 +54,16 @@ $(document).on('click','#findPwd',function(event){
 		<form id="findidFrm">
 			<ul>
 				
+<<<<<<< HEAD
 				<li><img id=findidlogo src="${url }/img/bf_logo_password.png"></li>
+=======
+				<li><img id=findidlogo src="${url }/img/member/bf_logo_password.png"></li>
+>>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
 				
 			 	<li><input type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요."/></li>
                     <select name="question" id="question">
                         <optgroup label="비밀번호 찾기 질문을 선택해주세요">
+<<<<<<< HEAD
                             <option value="q1">자신의 인생 좌우명은?</option>
                             <option value="q2">자신의 보물 제1호는?</option>
                             <option value="q3">가장 기억에 남는 선생님 성함은?</option>
@@ -60,6 +71,15 @@ $(document).on('click','#findPwd',function(event){
                             <option value="q5">인상 깊게 읽은 책 이름은?</option>
                             <option value="q6">내가 좋아하는 캐릭터는?</option>
                             <option value="q7">어릴 적 별명은?</option>
+=======
+                            <option value="자신의 인생 좌우명은?">자신의 인생 좌우명은?</option>
+                            <option value="자신의 보물 제1호는?">자신의 보물 제1호는?</option>
+                            <option value="가장 기억에 남는 선생님 성함은?">가장 기억에 남는 선생님 성함은?</option>
+                            <option value="가장 생각나는 친구 이름은?">가장 생각나는 친구 이름은?</option>
+                            <option value="인상 깊게 읽은 책 이름은?">인상 깊게 읽은 책 이름은?</option>
+                            <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
+                            <option value="어릴 적 별명은?">어릴 적 별명은?</option>
+>>>>>>> e164e9eb165a26e6fae1a0c21b9616ac77bfe6e4
                         </optgroup>
                     </select>
                     <li><input type="text" name="answer" id="answer" placeholder="비밀번호 찾기 답변을 입력해주세요." /></li>
