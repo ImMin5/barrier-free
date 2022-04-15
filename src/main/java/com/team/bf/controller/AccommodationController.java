@@ -20,7 +20,7 @@ public class AccommodationController {
     @GetMapping("/accommodation")
     public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
-        System.out.println("pagNO "+ pageNo);
+        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
         mav.addObject("accomoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
         mav.setViewName("accommodation/accommodationPage");
         return mav;
