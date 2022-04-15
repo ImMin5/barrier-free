@@ -24,6 +24,7 @@ public class AccommodationController {
         for(JSONObject obj : openApiService.AreaInfo()) {
         	System.out.println(obj.toString());
         }
+        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
         mav.addObject("accomoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
         mav.setViewName("accommodation/accommodationPage");
         return mav;
