@@ -97,44 +97,5 @@
 			</div>
 
 		</form>
-
-	</div>
-	<div class='acontainer'>
-		<form method="get" action="/accommodation" id="accommoList">
-			<div id=aList>
-				<h1>숙박 정보</h1>
-				<hr />
-				<table border="1">
-					<tr>
-						<th>이름</th>
-						<th>주소</th>
-						<th>별점</th>
-					</tr>
-
-				</table>
-				<div>
-					<form method="get" action="/accommodation" id="asearchFrm">
-						<select name="searchKey">
-							<option value="name">이름</option>
-							<option value="address">주소</option>
-						</select> <input type="text" name="searchWord" id="searchWord" /> <input
-							type="submit" value="Search" />
-					</form>
-				</div>
-			</div>
-			<div id='aimagecontainer'>
-				<img src="#" height="300" width="500">
-				<table>
-					<tr>
-						<th>이름</th>
-						<th>주소</th>
-						<th>전화번호</th>
-						<th>홈페이지</th>
-						<th>소개</th>
-					</tr>
-
-				</table>
-			</div>
-		</form>
 	</div>
 </body>

@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>회원가입</title>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="url" value="<%=request.getContextPath()%>" />
+	    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="/barrier-free/src/main/webapp/css/signup.css" type="text/css" />
-        <script src="/barrier-free/src/main/webapp/js/signup.js"></script>
+        <link rel="stylesheet" href="${url }css/signup.css">
+        <script src="/js/signup.js"></script>
         <script>
             $(function () {
                 // 아이디 중복검사
@@ -17,7 +12,7 @@
                     var userid = $("#userid").val();
 
                     if (userid != '' && userid.length >= 6) {
-                        var url = "/signup/memberIdCheck";// 컨트롤러에 중복확인이 없는 것 같아 임의로 입력
+                        var url = "/signup/memberIdCheck";
                         $.ajax({
                             url: url,
                             data: "userid=" + userid,
@@ -40,31 +35,39 @@
                         $("#chk").css("color", "red");
                     }
                 });
+    
             });
         </script>
-    </head>
+ 
 
-    <body>
-        <h1>회원가입</h1>
-        <hr />
-        <div id="signup">
-
+        <div id="signup" >
+        	
+        	<div id="signuph1">
+        	
+        	
+        	</div>	
+				
+			
+			<div class="wd">
+			<a id="suplogo"><img src="${url }/img/member/bf_logo_signup4.png"></a>
+			<div id="logoud"><hr/></div>
             <form method="post" action="/signup" id="sFrm" onsubmit="return memberCheck()">
                 <ul>
-                    <li>아이디 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
+                	
+                    <li>* 아이디 <input id="button" type="button" value="중복확인" /><span id='chk'></span></li>
                     <li><input type="text" name="userid" id="userid" placeholder="아이디를 입력해주세요." />
-                        <input id="button" type="button" value="중복확인" /><span id='chk'></span>
-                        <input type="hidden" id="idchk" value='N' />
+                     <input type="hidden" id="idchk" value='N' /></li>
+                    <li>* 비밀번호</li>
+                    <li><input type="password" name="userpassword" id="userpwd" placeholder="비밀번호를 입력해주세요" />
                     </li>
-                    <li>비밀번호 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
-                    <li><input type="password" name="userpwd" id="userpwd" placeholder="비밀번호를 입력해주세요" />
+                    <li>* 비밀번호 확인</li>
+                    <li><input type="password" name="userpassword2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
+                    <li>* 이름</li>
+                    <li><input type="text" name="username" id="username" placeholder="성함을 입력해주세요." /></li>
+                    <li>* 생년월일</li>
+                    <li><input type="text" name="date_birth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
                     </li>
-                    <li>비밀번호 확인 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
-                    <li><input type="password" name="userpwd2" id="userpwd2" placeholder="비밀번호를 다시 입력해주세요." /></li>
-                    <li>생년월일 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
-                    <li><input type="text" name="userbirth" id="userbirth" placeholder="생년월일을 입력해주세요. (예: 980121)" />
-                    </li>
-                    <li>비밀번호 찾기 질문 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
+                    <li>* 비밀번호 찾기 질문</li>
                     <div>&nbsp;</div>
                     <select name="question" id="question">
                         <optgroup label="비밀번호 찾기 질문을 선택해주세요">
@@ -78,22 +81,25 @@
                         </optgroup>
                     </select>
                     <div>&nbsp;</div>
-                    <li>비밀번호 찾기 답변 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
+                    <li>* 비밀번호 찾기 답변</li>
                     <li><input type="text" name="answer" id="answer" placeholder="비밀번호 찾기 답변을 입력해주세요." /></li>
-                    <li>장애정도 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
+                    
+                    <li>장애정도 </li>
                     <div>&nbsp;</div>
                     <select name="grade" id="grade">
                         <optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
-                            <option value="grade5">다음에 입력하기</option>
-                            <option value="grade1">1등급</option>
-                            <option value="grade2">2등급</option>
-                            <option value="grade3">3등급</option>
-                            <option value="grade4">4등급</option>
+                            <option value=5>다음에 입력하기</option>
+                            <option value=1>1등급</option>
+                            <option value=2>2등급</option>
+                            <option value=3>3등급</option>
+                            <option value=4>4등급</option>
                         </optgroup>
                         <div>&nbsp;</div>
                     </select>
-                    <li>회원 가입 약관 &nbsp; <img src="/barrier-free/src/main/webapp/img/bf_signup.png" /></li>
-                    <li id="term"><textarea id="terms" rows="10" cols="61" disabled>회원 가입 약관 내용
+                    <li>회원 가입 약관 <input type="button" class="btn-open-popup"/ value="[보기]"><input class="term2" type="checkbox" id="termcheck" value="동의" /> 약관에 동의합니다.</li>
+                    <li id="sbm"><input id="button2" type="submit" value="가입하기" /></li>
+                    <div class="modal">
+                    <div class="modal_body"><textarea id="terms" rows="27" cols="61" disabled>회원 가입 약관 내용
                        
                        
                        
@@ -108,13 +114,56 @@
                        
                        
                        
-                       </textarea></li>
-                    <li id="term2"><input type="checkbox" id="termcheck" value="동의" /> 약관에 동의합니다.</li>
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       
+                       </textarea></div>
+                       <script>
+    					  const body = document.querySelector('body');
+     					  const modal = document.querySelector('.modal');
+    					  const btnOpenPopup = document.querySelector('.btn-open-popup');
+
+  							    btnOpenPopup.addEventListener('click', () => {
+      						    modal.classList.toggle('show');
+
+     					   if (modal.classList.contains('show')) {
+       							   body.style.overflow = 'hidden';
+     						   }
+  						    });
+
+  						    modal.addEventListener('click', (event) => {
+      						   if (event.target === modal) {
+       					   modal.classList.toggle('show');
+
+         				 if (!modal.classList.contains('show')) {
+          				  body.style.overflow = 'auto';
+          }
+        }
+      });
+    </script>
+						
+
+                    </div>
                 </ul>
-                <div id="sbm"><input id="button2" type="submit" value="가입하기" /></div>
+                
             </form>
         </div>
-
-    </body>
-
-</html>
+	</div>
+	<hr/>
