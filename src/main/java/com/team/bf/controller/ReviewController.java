@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.team.bf.service.ReviewService;
 import com.team.bf.vo.ReviewVO;
@@ -21,6 +23,15 @@ public class ReviewController {
 
 	@Inject
 	ReviewService reviewService;
+	
+	@GetMapping("/mypage/myreview")
+	public ModelAndView myreview(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		String userid = (String)session.getAttribute("IogId"); 
+		mav.addObject("review",reviewService.reviewSelectById(userid));
+		mav.setViewName("mypage/myreview");
+		return mav;
+	}
 	
 	@PostMapping("/review/myreview")
 	public ResponseEntity<HashMap<String,String>> reivewInsert(ReviewVO rvo, HttpServletRequest request, HttpSession session){
