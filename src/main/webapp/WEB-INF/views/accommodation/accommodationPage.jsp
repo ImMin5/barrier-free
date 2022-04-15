@@ -85,16 +85,19 @@
 							<option value="애월읍">애월읍</option>
 					</select>
 
-					</span> <span> <label for="keywordForm">키워드</label> <select
-						name="s_type" id="s_type">
+					</span> 
+					<span> <label for="keywordForm">키워드</label> <select name="s_type" id="s_type">
 							<option value="" selected="">전체</option>
 							<option value="subject">이름</option>
 							<option value="content">내용</option>
 					</select>
-					</span> <span> <input type="text" name="s_key" id="s_key"
-						class="sch_input" title="검색어 입력" value="" maxlength="20"
-						placeholder="검색어를 입력해주세요.">
-					</span> <span><button type="submit">검색</button></span>
+					</span> 
+					<span> 
+						<input type="text" name="s_key" id="s_key" class="sch_input" title="검색어 입력" value="" maxlength="20" placeholder="검색어를 입력해주세요.">
+					</span> 
+					<span>
+						<button type="submit">검색</button>
+					</span>
 				</div>
 
 			</form>
@@ -104,7 +107,7 @@
 		<form method="get" action="/accommodation" id="accommoList">
 			<div id=aList>
 				<h1>숙박 정보</h1>
-				<hr />
+				<hr/>
 				<table border="1">
 					<tr>
 						<th>이름</th>
@@ -113,15 +116,7 @@
 					</tr>
 
 				</table>
-				<div>
-					<form method="get" action="/accommodation" id="asearchFrm">
-						<select name="searchKey">
-							<option value="name">이름</option>
-							<option value="address">주소</option>
-						</select> <input type="text" name="searchWord" id="searchWord" /> <input
-							type="submit" value="Search" />
-					</form>
-				</div>
+		
 			</div>
 			<div id='aimagecontainer'>
 				<img src="#" height="300" width="500">

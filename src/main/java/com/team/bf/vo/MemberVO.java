@@ -9,6 +9,7 @@ import lombok.Setter;
 
 public class MemberVO {
     private String userid;
+    private String username;
     private String userpassword;
     private String date_birth;
     private String date_create;

@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.team.bf.dao.MemberDAO">
   	<insert id="memberInsert">
-  		insert into member(userid, userpassword, date_birth, grade_member, grade, question, answer) 
-  		values( #{userid}, #{userpassword},  #{date_birth}, ${grade_member}, ${grade}, #{question}, #{answer})
+  		insert into member(userid, username, userpassword, date_birth, grade_member, grade, question, answer) 
+  		values( #{userid}, #{username}, #{userpassword},  #{date_birth}, ${grade_member}, ${grade}, #{question}, #{answer})
   	</insert>
     <select id="memberSelectById" resultType="MemberVO">
-        select userid, userpassword from member
+        select userid, userpassword ,date_format(date_birth,'%y%m%d') date_birth  , question, answer , grade_member, grade from member
         where userid=#{param1}
     </select>
     <select id="memberUseridCheck" resultType="int">
@@ -18,4 +18,16 @@
     <delete id="memberDelete">
         delete from member where userid=#{param1} and userpassword=#{param2}
     </delete>
+    <select id="memberSelectByUsername" resultType="MemberVO">
+    	select userid from member
+    	where username=#{param1} and date_birth=#{param2}
+    </select>
+    <select id="memberSelectByQuestion" resultType="MemberVO">
+    	select userid , userpassword from member
+    	where userid=#{param1} and question=#{param2} and answer=#{param3}
+    </select>
+   	<update id="memberUpdatePassword">
+   		update member set userpassword=#{param2}
+   		 where userid=#{param1}
+   	</update>
   </mapper>
