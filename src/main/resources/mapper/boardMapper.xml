@@ -66,12 +66,13 @@
   	</resultMap>
 
   	<select id="boardAndReplySelectAll" resultMap="BoardAndReplyMap">
-  		select b.no bno, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip,
-  		r.no rno, r.subject rsubject, r.content rcontent, r.write_date rwrite_date, r.ip rip
+  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip,
+  		r.no rno, r.userid ruserid, r.subject rsubject, r.content rcontent, r.write_date rwrite_date, r.ip rip
   		from board b
 		left outer join reply_board r on b.no = r.no
+		where b.is_notice=false
   		<if test='searchWord != null'>
-  			where b.subject like '%${searchWord}%'
+  			and b.subject like '%${searchWord}%'
   		</if>
   		order by b.no desc 
   		limit ${onePageRecord} offset ${offsetIndex}
