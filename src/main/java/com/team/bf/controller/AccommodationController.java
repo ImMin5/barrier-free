@@ -21,6 +21,9 @@ public class AccommodationController {
     public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
         System.out.println("pagNO "+ pageNo);
+        for(JSONObject obj : openApiService.AreaInfo()) {
+        	System.out.println(obj.toString());
+        }
         mav.addObject("accomoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
         mav.setViewName("accommodation/accommodationPage");
         return mav;
