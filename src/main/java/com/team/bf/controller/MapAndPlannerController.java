@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.team.bf.service.HeartService;
 import com.team.bf.service.LikeService;
 import com.team.bf.service.OpenApiService;
@@ -26,12 +27,11 @@ public class MapAndPlannerController {
 	@Inject
 	ReviewService reviewService;
 	
-
     @GetMapping("/planView")
     public ModelAndView planView(){
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("map/plan");
+        mav.setViewName("plan/planView");
         return mav;
     }
 
