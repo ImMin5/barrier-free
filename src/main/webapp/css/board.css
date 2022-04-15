@@ -1,11 +1,11 @@
-#b__table {
+.bo__table {
 	position: relative;
-	display: block;
-	top: 200px;
+	top: 253px;
     width: 1000px;
 	margin:auto;
 }
 table{
+	
     width: 100%;
     border-collapse: collapse;
     line-height: 24px;
@@ -34,3 +34,94 @@ a:hover{
     height: 35px;
     font-size: 17px;
 }
+
+.bo__container{
+	position: relative;
+    top: 300px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 300px;
+    overflow: auto;
+    text-align: center;
+}
+
+
+.paging>li{
+	float:left;
+	padding-right:30px;
+}
+/*========== °Ë»ö ===========*/
+.bo__title{
+	position: relative;
+	top: 230px;
+	margin: 10px 0px;
+	text-align: center;
+}
+
+.bo__tatble__top{
+	position: relative;
+	top: 250px;
+}
+
+#searchFrm{
+	padding:20px 200px; text-align:center;
+}
+
+#searchWord{
+	width: 260px;
+    height: 20px;
+    border: solid 2px #afafaf;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.bo__search{
+	width: 71px;
+    height: 34px;
+    border: solid 2px #afafaf;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.bo__btn{
+    font-size: 13px;
+    width: 92px;
+    height: 34px;
+    border: solid 2px #afafaf;
+    border-radius: 4px;
+    padding: 5px;
+    background-color: var(--first-color);
+    color: var(--white-color);
+}
+
+.bo__btn:hover{
+   background-color: #6AC17B;
+}
+
+.bo__btn__w{
+	width: 148px;
+    height: 47px;
+    border: solid 2px #afafaf;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 20px 40px;
+    background-color: #6AC17B;
+    color: white;
+    font-family: var(--body-font);
+    font-size: 20px;
+}
+
+.bo__btn__w:hover{
+   background-color: #2f6c37;
+}
+
+.bo__n__page{
+	margin-top: 25px;
+}
+
+/*========== ÇªÅÍ==========*/
+.section {
+    padding: 26rem 0 2rem;
+}
+

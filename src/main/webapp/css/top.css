@@ -94,7 +94,7 @@ body.dark-theme {
   column-gap: 2rem;
   position: absolute;
   right: 3rem;
-  top: 18rem;
+  top: -3.2rem;
 }
 
 .change-theme,
@@ -168,7 +168,7 @@ img {
 }
 
 .nav__toggle {
-  font-size: 1.2rem;
+ font-size: 3rem;
   cursor: pointer;
 }
 
@@ -180,6 +180,27 @@ img {
   position: relative;
   top: -25px;
 }
+
+
+ .main__loginSign{
+    position: relative;
+  	top: -40px;
+  } 
+
+  .main__login{
+   	position: absolute;
+   	top: -20px;
+  	right: 13rem;
+  	color: gray;
+  }
+
+  .main__signup{
+   	position: relative;
+   	top: -20px;
+  	right: 7rem;
+  	color: gray;
+
+  }
 
 @media screen and (max-width: 767px) {
 
@@ -268,7 +289,7 @@ img {
 
 .scroll-header .nav__logo,
 .scroll-header .nav__toggle {
-  color: var(--title-color);
+  color: orange;
 }
 
 /* Active link */
@@ -309,12 +330,6 @@ img {
     text-transform: initial;
     font-size: 20px;
     font-weight: var(--font-semi-bold);
-  }
-
-  .nav__dark {
-    position: relative;
-    top: -60px;
-    right: -30px;
   }
 
   .nav__menu {
