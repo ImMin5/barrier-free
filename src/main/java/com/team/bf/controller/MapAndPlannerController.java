@@ -36,7 +36,7 @@ public class MapAndPlannerController {
     }
 
     @GetMapping("/mapView")
-    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
+    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "3")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
         List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount, "all", searchWord);
         
@@ -47,11 +47,12 @@ public class MapAndPlannerController {
         	jObj.put("overview",Opt.get("overview").toString());
         	jObj.put("firstimage",Opt.get("firstimage").toString());
         	jObj.put("firstimage2",Opt.get("firstimage2").toString());
+        	jObj.put("homepage", Opt.get("homepage").toString());
         	jObj.put("likeCount", likeService.likeSelectAll(cid));
         	jObj.put("heartCount", heartService.heartSelectAll(cid));
         	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid));
-        	Float avgScore = reviewService.reviewSelectAvgScore(cid);
-        	
+        
+        	Float avgScore = reviewService.reviewSelectAvgScore(cid); 	
         	if(avgScore == null)
         		jObj.put("avgScore", "0");
         	else 
