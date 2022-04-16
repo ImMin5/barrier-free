@@ -71,10 +71,16 @@
 				
 		<div class="main__top">
 			<div class="main__loginSign">
-				<a href="/login" class="main__login">login</a>
-				<a href="/signup" class="main__signup">Sign-up</a>
+				   <c:if test="${logId == null}">
+   					   <a href="${url}/login">login</a>
+  					   <a href="${url}/signup">Sign-up</a>
+ 				  </c:if>
+ 				 <c:if test="${logId != null }">
+    				<a href="${url}/logout">Logout</a>
+   					<a href="${url}/memberEdit">My-page</a>
+  				 </c:if>
 			</div>
-
+			
                 <div class="nav__dark">
                     <!-- Theme change button -->
                     <span class="change-theme-name">Dark mode</span>
