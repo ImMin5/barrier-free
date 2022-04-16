@@ -28,7 +28,7 @@ public class ReviewController {
 	public ModelAndView myreview(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		String userid = (String)session.getAttribute("IogId"); 
-		mav.addObject("review",reviewService.reviewSelectById(userid));
+		mav.addObject("reviewList",reviewService.reviewSelectById(userid));
 		mav.setViewName("mypage/myreview");
 		return mav;
 	}
