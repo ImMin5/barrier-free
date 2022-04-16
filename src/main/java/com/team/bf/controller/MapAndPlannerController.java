@@ -50,7 +50,7 @@ public class MapAndPlannerController {
         	jObj.put("homepage", Opt.get("homepage").toString());
         	jObj.put("likeCount", likeService.likeSelectAll(cid));
         	jObj.put("heartCount", heartService.heartSelectAll(cid));
-        	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid));
+        	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
         
         	Float avgScore = reviewService.reviewSelectAvgScore(cid); 	
         	if(avgScore == null)
