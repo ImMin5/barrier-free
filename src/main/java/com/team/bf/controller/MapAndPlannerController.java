@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -123,6 +124,56 @@ public class MapAndPlannerController {
 			entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     
+    	return entity;
+    }
+    
+    //여행플랜 수정 요청
+    @PutMapping("/planView")
+    public ResponseEntity<HashMap<String,String>> planUpdate(PlannerVO pvo, HttpSession session){
+    	String userid = (String)session.getAttribute("logId");
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		//플랜 정보가 있을 경우
+    		if(plannerService.plannerSelectByNo(pvo.getNo(), userid) != null) {
+    			//여행플랜 업데이트
+    			int r = plannerService.plannerUpdate(pvo);
+    			if(r>0 && pvo.getOrderList() != null && pvo.getContentidList() != null) {
+    				//여행 플랜 장소 제거
+    				int deleteCount = plannerService.plannerLocationDeleteByPlannerNo(pvo.getNo());
+    				System.out.println("deleteCount : " + deleteCount);
+    				//장소 정보 가공
+        			List<PlannerLocationVO> pvoList = new ArrayList<PlannerLocationVO>();
+        			for(int i=0; i<pvo.getOrderList().size(); i++) {
+        				String contentid = pvo.getContentidList().get(i);
+        				int order = pvo.getOrderList().get(i);
+                		pvoList.add(new PlannerLocationVO(pvo.getNo(),contentid, order));
+                	}
+        			//여행 장소 생성
+        			plannerService.plannerLocationInsert(pvoList,pvo.getNo());
+        			
+        			result.put("status", "200");
+        			result.put("msg", "여행 정보 업데이트 성공!");
+        			result.put("redirect","/planView");
+    			}
+    		}
+    		else {
+    			//일치하는 여행플랜이 없을 경우 
+    			result.put("status", "200");
+    			result.put("msg", "여행플랜 업데이트 실패!");
+    			result.put("redirect","/planView");
+    		}
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("status", "400");
+			result.put("msg", "여행플랜 업데이트 에러...Error");
+			result.put("redirect","/planView");
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+    	}
+    	
     	return entity;
     }
     @GetMapping("/api/test/detailCommon")

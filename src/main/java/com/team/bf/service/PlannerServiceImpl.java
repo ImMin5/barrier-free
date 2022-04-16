@@ -31,6 +31,21 @@ public class PlannerServiceImpl implements PlannerService {
 		return dao.plannerInsertTest(planner_no, contentid, vo);
 	}
 
+	@Override
+	public PlannerVO plannerSelectByNo(int no, String userid) {
+		return dao.plannerSelectByNo(no, userid);
+	}
+
+	@Override
+	public int plannerUpdate(PlannerVO vo) {
+		return dao.plannerUpdate(vo);
+	}
+
+	@Override
+	public int plannerLocationDeleteByPlannerNo(int planner_no) {
+		return dao.plannerLocationDeleteByPlannerNo(planner_no);
+	}
+
 
 
 	

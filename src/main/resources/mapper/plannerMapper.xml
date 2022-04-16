@@ -15,4 +15,16 @@
   		</foreach>
   		
   	</insert>
+  	<select id="plannerSelectByNo" resultType="com.team.bf.vo.PlannerVO">
+  		select no, userid, title, start_date, end_date, create_date, edit_date
+  		from planner
+  		where no=${param1} and userid=#{param2} 
+  	</select>
+  	<update id="plannerUpdate">
+  		update planner set title=#{title}, start_date=#{start_date}, end_date=#{end_date}, edit_date=now()
+  		where no=${no} and userid=#{userid}
+  	</update>
+  	<delete id="plannerLocationDeleteByPlannerNo">
+  		delete from planner_location where planner_no=${no}
+  	</delete>
   </mapper>

@@ -13,5 +13,8 @@ public interface PlannerDAO {
 	public int plannerInsert(PlannerVO vo);
 	public int plannerLocationInsert(List<PlannerLocationVO> list, int planner_no);
 	public int plannerInsertTest(int planner_no, String contentid, PlannerVO vo);
+	public PlannerVO plannerSelectByNo(int no, String userid);
+	public int plannerUpdate(PlannerVO vo);
+	public int plannerLocationDeleteByPlannerNo(int planner_no);
 	
 }
