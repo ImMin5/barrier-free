@@ -27,8 +27,8 @@ public class ReviewController {
 	@GetMapping("/mypage/myreview")
 	public ModelAndView myreview(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
-		String userid = (String)session.getAttribute("IogId"); 
-		mav.addObject("review",reviewService.reviewSelectById(userid));
+		String userid = (String)session.getAttribute("logId"); 
+		mav.addObject("reviewList",reviewService.reviewSelectById(userid));
 		mav.setViewName("mypage/myreview");
 		return mav;
 	}

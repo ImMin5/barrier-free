@@ -20,7 +20,7 @@
   	</delete>
   	<select id="reviewSelectById" resultType="com.team.bf.vo.ReviewVO">
   		select no, userid , content,  score, write_date
-  		from reply_info where userid=${param1}
+  		from reply_info where userid=#{param1}
   	</select>
   	<select id="reviewSelectByContentid" resultType="com.team.bf.vo.ReviewVO">
   		select no, userid , content,  score, write_date
