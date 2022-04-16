@@ -16,8 +16,8 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">
-					<a href="#" >나의 정보</a>
-					<a href="#" >나의 리뷰</a>
+					<a href="${url }/mypage" >나의 정보</a>
+					<a href="${url }/mypage/myreview" >나의 리뷰</a>
 					<a href="#" >나의 문의 사항</a>
 					<a href="#" >나의 플래너</a>
 
@@ -25,23 +25,18 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 	
 <div class="info-box">
 	<div class="box modify">		
-					<form name="myform" method="post" target="dataFrame">
+					<form name="myform" method="post" acction="">
 					<div class="con">
 						<div class="fl w-50">
 							<h3>${vo.username} 님의 정보</h3>
+							
 							<table class="member__table">
 								
 								<tbody>
-									<!--tr>
-										<th>*&nbsp;&nbsp;회원유형</th>
-										<td>
-											hdm1234
-										</td>
-									</tr-->
 									<tr>
 										<th>*&nbsp;&nbsp;아이디</th>
 										<td>
-											${vo.userid}
+											${vo.member.userid }
 										</td>
 									</tr>
 									<tr>
@@ -82,6 +77,7 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 								</tbody>
 							</table>
 						</div>
+						
 						<div class="btn-area">
 						<a class="btn__style1" href="" onclick="updateform">정보수정</a>
 						<a class="btn__style2" href="${url }/mypage/delete" >회원탈퇴</a>

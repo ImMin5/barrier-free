@@ -54,8 +54,8 @@
 <body>
 	<h1>회원탈퇴</h1>
 	<hr />
-	<form action="secessionProc.do" name="delFrm" id="delFrm" method="post">
-		<input type="hidden" name="userId" value="${sessionScope.userId}">
+	<form action="" name="delFrm" id="delFrm" method="post">
+		<input type="hidden" name="userId" value="${vo.userid}">
 		<table border=1>
 			<tr>
 				<td>패스워드</td>
@@ -66,7 +66,7 @@
 				<td><input type="password" name="userpassword2" id="userpassword2"></td>
 			</tr>
 			<tr>
-				<td colspan=2 align="center"><a href="#" id="secession">탈퇴하기</a></td>
+				<td colspan=1 align="center"><a href="#" id="secession">탈퇴하기</a></td>
 			</tr>
 		</table>
 	</form>

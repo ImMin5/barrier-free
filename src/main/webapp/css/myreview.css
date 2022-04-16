@@ -28,7 +28,7 @@
 	text-align: center;
 	line-height: 55px;
 }
-.lnb-box a:nth-child(1){
+.lnb-box a:nth-child(2){
 	width: 300px;
 	height: 55px;
 	float: left;
@@ -63,7 +63,7 @@
 	box-sizing: border-box;
 }
 
-.lnb-box a:hover:nth-child(2):after {
+.lnb-box a:hover:nth-child(1):after {
 	border: 2px solid rgb(250, 166, 50);
 	
 }
@@ -75,3 +75,25 @@
 	border: 2px solid rgb(250, 166, 50);
 	
 }
+.myreview-box{
+	margin: 0% 750px 0;
+	width: 600px;
+	height: 900px;
+	display:block;
+	position: relative;
+	top: 0;
+	left: 0;
+	font-family: "Noto Sans KR", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	border: 1px solid rgb(238,238,238);
+	color: rgb(102,102,102);
+	text-align: center;
+	line-height: 55px;
+}
+
+.review_tr img{
+	width:15px; 
+	height:15px;
+	margin-left:15px;
+	}
