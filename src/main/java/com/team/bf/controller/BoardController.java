@@ -122,7 +122,20 @@ public class BoardController {
     	}
     	return mav;
     }
-    
+    //문의사항 상세정보 뷰
+    @GetMapping("/board/boardList/{no}")
+    public ModelAndView boardDetailView(@PathVariable(value="no")int no, HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	try {
+	    	mav.addObject("bvo",boardService.boardSelectByNo(no));
+	    	mav.setViewName("community/boardDetail");
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/board/boardList");
+    	}
+    	return mav;
+    }
+
     
     //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
