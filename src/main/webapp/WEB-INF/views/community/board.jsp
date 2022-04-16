@@ -78,6 +78,7 @@
 		})
 		
 	});
+
 </script>
 
 <div class="bo__title">
@@ -106,18 +107,24 @@
             <th>작성자</th>
          </tr>
     </thead>
-    <tbody>
-    	<c:forEach var="vo" items="${boardList}">
+    <tbody class="bd_t" id="bd_t">
+ 		<c:forEach var="vo" items="${boardList}">
          <tr>
-            <td>${vo.no}</td>
-            <td><a> ${vo.subject} </a></td>
-            <td>${vo.userid}</td>
+            <td>${vo.board.no}</td>
+            <td><a> ${vo.board.subject} </a></td>
+            <td>${vo.board.userid}</td>
         </tr>
-        </c:forEach>
+        <tr>
+        	<c:if test="${vo.reply != null}">
+        		<td>${vo.reply.no}</td>
+        		<td>${vo.reply.subject}</td>
+        		<td> ${vo.reply.subject}</td>
+        	</c:if>
+        </tr>
+        </c:forEach> 
     </tbody>
 </table>
 
-<table>
 
 <div class="bo__container">
 	<button class="bo__btn__w" type="submit" onclick="location.href='${url}/board/boardList/form'">글 작성</button>
