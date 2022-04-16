@@ -24,6 +24,9 @@
   	</select>
   	<select id="reviewSelectByContentid" resultType="com.team.bf.vo.ReviewVO">
   		select no, userid , content,  score, write_date
-  		from reply_info where contentid=${param1}
+  		from reply_info where contentid=#{param1}
+  	</select>
+  	<select id="reviewSelectAvgScore" resultType="float">
+  		select avg(score) from reply_info where contentid=#{param1}
   	</select>
   </mapper>

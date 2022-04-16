@@ -16,7 +16,6 @@
     	background-color: white;
     	border: 3px solid gray;
 	}
-
 	.co__button:hover {
   		background-color: orange;
   		color: white;
@@ -28,3 +27,4 @@
 	<input type="button" class="co__button" onclick="alert('잠시만 기다려주세요')" value="코디네이터 연결">
 </body>
 </html>
+
