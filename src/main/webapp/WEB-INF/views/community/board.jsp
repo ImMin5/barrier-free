@@ -108,12 +108,20 @@
          </tr>
     </thead>
     <tbody class="bd_t" id="bd_t">
+     	<c:forEach var="vo" items="${noticeList}">
+        <tr>
+        		<td>공지</td>
+        		<td>${vo.subject}</td>
+        		<td>${vo.userid}</td>
+        </tr>
+        </c:forEach>
  		<c:forEach var="vo" items="${boardList}">
          <tr>
             <td>${vo.board.no}</td>
             <td><a> ${vo.board.subject} </a></td>
             <td>${vo.board.userid}</td>
         </tr>
+
         <tr>
         	<c:if test="${vo.reply != null}">
         		<td>${vo.reply.no}</td>

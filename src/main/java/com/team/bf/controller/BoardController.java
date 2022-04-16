@@ -38,7 +38,7 @@ public class BoardController {
         
         PagingVO pvo = new PagingVO();
         //검색어가 있을 경우
-        if(searchWord.equals("") == false) 
+        if(!searchWord.equals("")) 
         	pvo.setSearchWord(searchWord);
         //전체 게시글 업데이트
         pvo.setOnePageRecord(pageCount);
@@ -65,6 +65,7 @@ public class BoardController {
     		BoardVO bvo = boardService.boardSelectByNo(no);
     		if(bvo != null) {
     			mav.addObject("bvo",bvo);
+    			mav.setViewName("community/boardDetail");
     		}
     		else {
     			//게시물이 존재 하지 않을 경우
@@ -292,6 +293,5 @@ public class BoardController {
     	
     	return entity;
     }
-    
-   
+  
 }
