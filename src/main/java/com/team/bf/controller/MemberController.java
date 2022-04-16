@@ -21,13 +21,14 @@ public class MemberController {
     @Inject
     MemberService memberService;
 
+    //로그인 뷰 페이지
     @GetMapping("/login")
     public ModelAndView login(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("member/login");
         return mav;
     }
-    
+    //로그인 요청
     @PostMapping("/login")
     public ResponseEntity<HashMap<String,String>> loginReq(MemberVO mvo, HttpSession session){
         
@@ -72,14 +73,32 @@ public class MemberController {
 
         return entity;
     }
+    //로그아웃
     @PostMapping("/logout")
     public ModelAndView logout(HttpSession session){
 
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("home");
+        mav.setViewName("redirect:/");
         session.invalidate();
         return mav;
 
+    }
+    //회원 탈퇴 뷰 페이지
+    @GetMapping("/mypage/delete")
+    public ModelAndView memberDeleteView(HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	String userid = (String)session.getAttribute("logId");
+    	try {
+    		MemberVO mvo = memberService.memberSelectById(userid);
+    		mav.addObject("mvo", mvo);
+    		mav.setViewName("mypage/delete");
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/");
+    	}
+    	
+    	return mav;
+    	
     }
 
     //회원 탈퇴
