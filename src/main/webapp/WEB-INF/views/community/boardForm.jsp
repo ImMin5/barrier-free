@@ -17,12 +17,16 @@
           }
 
  	  });
+ 
 	});
+
 </script>
   
    <div id="#b__table">
         <h2>게시글 작성</h2>
-        <form method="post" action="${url}/board/boardList" id="boardFrm">
+        <form method="post"  action="${url}/board/boardList" id="boardFrm">
+        	<input type="hidden" value=${bvo.no} name="no">
+        	
         	<input type="hidden" value="board_write" name="command">
             <table>
                 <tr>
@@ -43,3 +47,4 @@
             <input class="btn" type="button" value="취소" onclick="javascript:history.back()">
         </form>
     </div>
+    
