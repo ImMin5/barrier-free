@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.team.bf.dao.PlannerDAO">
+  	<insert id="plannerInsert" useGeneratedKeys="true" keyProperty="no">
+  		insert into planner(userid, title, start_date, end_date) 
+  		values( #{userid}, #{title}, #{start_date}, #{end_date})
+  	</insert>
+  	<insert id="plannerLocationInsert">
+  	<!-- 
+  		insert into plaaner_location(planner_no, contentid, order)
+  		values
+  		<foreach item="item" index="index" collection="voList">
+  			(${param1}, #{item.contentid}, ${item.order})
+  		</foreach>
+  		 -->
+  	</insert>
+  </mapper>
