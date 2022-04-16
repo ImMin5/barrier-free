@@ -11,7 +11,6 @@ body{
     width: 100%;
     height: 1000px;
     background: rgb(255, 255, 255);
-  	
 }
 
 /* 리스트 */
@@ -24,7 +23,7 @@ body{
     height: 1000px;
 }
 #list{
-    width: 35%;
+    width: 40%;
     height: 1000px;
 }
 .topBotton{
@@ -47,7 +46,7 @@ body{
 }
 .listbutton:active{
 	background:#024d09;
-	color: black;
+	color: #5c5c5c;
 }
 .planbutton{
 	position: relative ;
@@ -66,7 +65,44 @@ body{
 }
 .planbutton:active{
 	background:#024d09;
-	color: black;
+	color: #5c5c5c;
+}
+/* 검색 */
+.searchFrmWrap{
+	position: relative ;
+	height: 70px;
+	width: 100%;
+}
+#searchFrm{
+	position: relative ;
+    top: 11px;
+    left: 40px;
+	width: 100%;
+    height: 70px;
+	background: rgb(255, 255, 255);
+}
+#searchWord{
+	width: 600px;
+    height: 45px;
+    border: 1px solid #FAA631;
+}
+#searchWord:hover{
+	border: 1px solid #024d09;
+}
+#searchWordSubmit{
+	position: relative ;
+    top: 0px;
+    right: -10px;
+	width: 150px;
+    height: 48px;
+    background: #FAA631;
+    color: rgb(255, 255, 255);
+    border: 2px solid #FAA631;
+}
+#searchWordSubmit:hover{
+	background: #024d09;
+	color: rgb(255, 255, 255);
+    border: 2px solid #024d09;
 }
 /* 리스트 내용 */
 .listContentWrap{
@@ -75,57 +111,85 @@ body{
     left: 0px;
     float: left;
     width: 100%;
-    height: 930px;
+    height: 860px;
     background: #EDEDED;
     overflow:scroll;
     overflow-x:hidden;
-    color:black;
+    color:#5c5c5c;
     
 }
 .listContent{
-    position: relative;
-    top: 140px;
-    left: 50%;
-    transform:translate(-50%, -50%);
-    width: 580px;
-    height: 200px;
-    background: rgb(255, 255, 255);
-    float: left;
+    position: absolute;
+    top: 25px;
+    left: 40px;
+    /* transform:translate(-50%, -50%); */
+    width: 750px;
+    /* height: 200px; */
+    /* background: rgb(255, 255, 255); */
+    /* float: left; */
     border-radius: 5px;
     overflow:hidden;
 }
 .listImg{
 	/* 대표 이미지 : (약 500*333 size) */
 	/* 썸네일 이미지 : (약 150*100 size) */
-    width: 250px;
-    height: 200px;
+    width: 320px;
+    height: 270px;
 }
-.listContent>h1{
+.tourlistContents{
+	float: left;
+	width: 100%;
+    height: 270px;
+    border-radius: 5px;
+    background: rgb(255, 255, 255);
+    margin-bottom:35px;
+    overflow:hidden;
+}
+.tourlistContents>h1{
 	position: relative;
-	top: -185px;
-    left: 280px;
+    top: -247px;
+    left: 344px;
     font-size: 28px;
-    width: 250px;
-    height: 28px;
+    width: 380px;
+    height: 40px;
+    background: rgb(255, 255, 255);
+    color:#101010;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.listContent>ul{
-	position: relative;
-	top: -165px;
-    left: 280px;
-    width: 400px;
-    height: 50px;
-}
-.listContent>ul>li{
+
+.tourlistContents>li{
     font-size: 17px;
+    position: relative;
+    top: -235px;
+    left: 344px;
 }
-.listContent>ul>li:nth-child(1){
+.item_f{
+	width: 380px;
+    height: 17px;
     font-weight: bold;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    display:inline-block;
+    white-space: nowrap;
+    line-height:17px;
     padding-bottom:5px;
+    color:#101010;
+}
+.item_s{
+    /* background: #EDEDED; */
+    width: 381px;
+    height: 105px;
+    overflow: scroll;
+    line-height: 25px;
+    /* font-size: 14px; */
+    overflow-x: hidden;
 }
 .listSubInfoWrap{
 	position: relative;
-	top: -35px;
-    left: 275px;
+    top: -133px;
+    left: 334px;
     width: 280px;
     height: 30px;
 }
@@ -155,9 +219,9 @@ body{
 .map_wrap {
 	position: absolute ;
     top: 0px;
-    left:35%;
+    left:40%;
     overflow:hidden;
-    width: 65%;
+    width: 60%;
     height: 1000px;
 }
 /* custom_typecontrol와 .custom_zoomcontrol 차이 40 */
@@ -191,21 +255,8 @@ body{
 /* 플래너 추가 */
 .planCreate>a{
     position: fixed;
-    top: 840px;
-    left: 560px;
-    background: #FAA632;
-    width: 200px;
-    height: 70px;
-    font-size: 22px;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    line-height: 70px;
-}
-
-.planCreate>a{
-    position: fixed;
-    top: 840px;
-    left: 420px;
+    top: 935px;
+    left: 590px;
     background: #FAA632;
     width: 200px;
     height: 70px;
@@ -215,6 +266,7 @@ body{
     line-height: 70px;
     border-radius: 5px;
 }
+
 .planCreate>a:hover {background:#024d09;}
 .planCreate>a:active {background:#EDEDED;}    
 
