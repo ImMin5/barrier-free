@@ -5,12 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SuggestionVO {
+public class PlannerMemberVO {
 	private int no;
 	private String userid;
-	private String title;
-	private String content;
-	private String write_date;
-	private String ip;
+	private int planner_no;
+	private String create_date;
+	private String join_date;
 }
-
