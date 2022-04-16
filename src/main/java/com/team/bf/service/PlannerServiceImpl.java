@@ -22,9 +22,16 @@ public class PlannerServiceImpl implements PlannerService {
 	}
 
 	@Override
-	public int plannerLocationInsert(int planner_no, PlannerLocationVO[] voList) {
-		return dao.plannerLocationInsert(planner_no, voList);
+	public int plannerLocationInsert(List<PlannerLocationVO> list, int planner_no) {
+		return dao.plannerLocationInsert(list, planner_no);
 	}
+
+	@Override
+	public int plannerInsertTest(int planner_no, String contentid, PlannerVO vo) {
+		return dao.plannerInsertTest(planner_no, contentid, vo);
+	}
+
+
 
 	
 

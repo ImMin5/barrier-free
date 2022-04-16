@@ -8,12 +8,11 @@
   		values( #{userid}, #{title}, #{start_date}, #{end_date})
   	</insert>
   	<insert id="plannerLocationInsert">
-  	<!-- 
-  		insert into plaaner_location(planner_no, contentid, order)
-  		values
-  		<foreach item="item" index="index" collection="voList">
-  			(${param1}, #{item.contentid}, ${item.order})
+  		insert into planner_location (planner_no, contentid, seq) 
+  		values 
+  		<foreach item="item" collection="param1" separator=",">
+  			(${param2}, #{item.contentid}, ${item.seq})
   		</foreach>
-  		 -->
+  		
   	</insert>
   </mapper>

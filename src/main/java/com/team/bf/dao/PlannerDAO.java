@@ -11,6 +11,7 @@ import com.team.bf.vo.PlannerVO;
 @Mapper
 public interface PlannerDAO {
 	public int plannerInsert(PlannerVO vo);
-	public int plannerLocationInsert(int planner_no,  PlannerLocationVO[] voList);
+	public int plannerLocationInsert(List<PlannerLocationVO> list, int planner_no);
+	public int plannerInsertTest(int planner_no, String contentid, PlannerVO vo);
 	
 }
