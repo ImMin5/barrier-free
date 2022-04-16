@@ -78,7 +78,7 @@
   		limit ${onePageRecord} offset ${offsetIndex}
   	</select>
   	<select id="boardSelectByNo" resultType="com.team.bf.vo.BoardVO">
-  		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		select no, subject, userid, content, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
   		from board where no=${no}
   	</select>
   	<select id="boardSelectNotice" resultType="com.team.bf.vo.BoardVO">
