@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="url" value="<%=request.getContextPath()%>" />
+<!-- 
 
+
+
+mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 main 으로 설정하기 
+
+
+
+ -->
 <link rel="stylesheet" href="${url }css/mypage.css">
 <div id="contents">
 			<section class="mypage-box">
@@ -16,13 +24,13 @@
 				</nav>
 	
 <div class="info-box">
-	<div class="order-box modify">		
+	<div class="box modify">		
 					<form name="myform" method="post" target="dataFrame">
 					<div class="con">
 						<div class="fl w-50">
-							<h3>고구마님의 정보</h3>
+							<h3>${vo.username} 님의 정보</h3>
 							<table class="member__table">
-								<caption class="hidden">아이디,이름,비밀번호,생년월일 테이블</caption>
+								
 								<tbody>
 									<!--tr>
 										<th>*&nbsp;&nbsp;회원유형</th>
@@ -33,30 +41,30 @@
 									<tr>
 										<th>*&nbsp;&nbsp;아이디</th>
 										<td>
-											goguma
+											${vo.userid}
 										</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;이름</th>
-										<td>고구마</td>
+										<td>${vo.username}</td>
 									</tr>
 									<tr>
 										<th class="vt">*&nbsp;&nbsp;비밀번호</th>
 										<td>
-											<input type="password" id="MemberPassword" name="MemberPassword" maxlength="16" placeholder="영문/숫자/특수문자 조합 8~16자 조합으로 입력해주세요." class="input__style input__size2">
-											&nbsp;<em id="pwResult" style="color:#cc3333; font-style:normal; font-family:dotum; font-size:12px;"></em>&nbsp;<span class="caution">&nbsp;8 - 16자 이상 : 영문, 숫자 조합</span>
+											<input type="password" id="userpassword" name="userpassword"  placeholder="비밀번호를 입력해주세요" class="input_style">
+											&nbsp;&nbsp;<span class="caution">&nbsp; </span>
 										</td>
 									</tr>
 									<tr class="vt">
 										<th>*&nbsp;&nbsp;비밀번호 확인</th>
 										<td>
-											<input type="password" class="input__style input__size2" name="MemberPassword2" maxlength="16" placeholder="비밀번호를 한번 더 입력해주세요.">
-											<span class="caution">&nbsp;비밀번호를 한번 더 입력해주세요.</span>
+											<input type="password" class="input_style" name="userpassword2"  placeholder="비밀번호를 한번 더 입력해주세요.">
+											<span class="caution">&nbsp;</span>
 										</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;생년월일</th>
-										<td>1998-01-29</td>
+										<td>${vo.date_birth}</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 질문</th>
@@ -75,8 +83,8 @@
 							</table>
 						</div>
 						<div class="btn-area">
-						<a class="btn__style2" href="">회원탈퇴</a>
 						<a class="btn__style1" href="" onclick="updateform">정보수정</a>
+						<a class="btn__style2" href="${url }/mypage/delete" >회원탈퇴</a>
 						</div>
 					</div>
 					</form>
