@@ -46,8 +46,8 @@
                     <li class="nav__item">
                         <a href="#" class="nav__link">여행정보</a>
                         <div class="dropdown-content">
-                            <a href="/travel_information?pageNo=1&pageCount=5&searchWord=">여행지 정보</a>
-                            <a href="/accommodation?pageNo=1&pageCount=12&searchWord=제주">숙박 정보</a>
+                            <a href="/travel_information">여행지 정보</a>
+                            <a href="/accommodation">숙박 정보</a>
                             <a href="/transportation/bus">이동수단 안내</a>
                             <a href="/mapView">제주 지도</a>
                         </div>
@@ -55,14 +55,14 @@
                     <li class="nav__item">
                         <a href="/discountView" class="nav__link">할인정보</a>
                         <div class="dropdown-content">
-                            <a href="#">관광지별 혜택</a>
-                            <a href="#">이동수단별 혜택</a>
+                            <a href="/discountDetailView">관광지별 혜택</a>
+                            <a href="/discountDetailView">이동수단별 혜택</a>
                         </div>
                     </li>
                     <li class="nav__item">
                         <a href="#" class="nav__link">커뮤니티</a>
                         <div class="dropdown-content">
-                            <a href="/board/boardList?pageNo=1&pageCount=10&serchWord=word">공지/문의사항</a>
+                            <a href="/board/boardList">공지/문의사항</a>
                             <a href="/coordinator">코디네이터 연결</a>
                             <a href="/suggest">건의할래요</a>
                         </div>
@@ -72,20 +72,14 @@
 		<div class="main__top">
 			<div class="main__loginSign">
 				   <c:if test="${logId == null}">
-   					   <a href="${url}/login">login</a>
-  					   <a href="${url}/signup">Sign-up</a>
+   					   <a href="${url}/login" class="main__login">login</a>
+  					   <a href="${url}/signup" class="main__signup">Sign-up</a>
  				  </c:if>
  				 <c:if test="${logId != null }">
-    				<a href="${url}/logout">Logout</a>
-   					<a href="${url}/memberEdit">My-page</a>
+    				<a href="${url}/logout" class="main__login">Logout</a>
+   					<a href="${url}/mypage" class="main__signup">My-page</a>
   				 </c:if>
 			</div>
-			
-                <div class="nav__dark">
-                    <!-- Theme change button -->
-                    <span class="change-theme-name">Dark mode</span>
-                    <i class="ri-moon-line change-theme" id="theme-button" style="color: rgb(126, 126, 126);"></i>
-                </div>
 
                 <i class="ri-close-line nav__close" id="nav-close"></i>
             </div>

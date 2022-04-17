@@ -15,4 +15,82 @@
   		</foreach>
   		
   	</insert>
+  	<select id="plannerSelectByNoId" resultType="com.team.bf.vo.PlannerVO">
+  		select no, userid, title, start_date, end_date, create_date, edit_date
+  		from planner
+  		where no=${param1} and userid=#{param2} 
+  	</select>
+  	<update id="plannerUpdate">
+  		update planner set title=#{title}, start_date=#{start_date}, end_date=#{end_date}, edit_date=now()
+  		where no=${no} and userid=#{userid}
+  	</update>
+  	<delete id="plannerLocationDeleteByPlannerNo">
+  		delete from planner_location where planner_no=${no}
+  	</delete>
+  	<delete id="plannerDelete">
+  		delete from planner where no=${param1} 
+  	<!-- 
+  		delete p1, p2 
+  		from planner p1 inner join planner_location p2
+  		where p1.no=${no} and p1.no=p2.planner_no 
+  		
+ 	-->
+  	</delete>
+  	<select id="plannerSelectById" resultType="com.team.bf.vo.PlannerVO">
+  		select no, userid, title, start_date, end_date, create_date, edit_date
+  		from planner
+  		where userid=#{param1} or no in (select planner_no from planner_member where userid=#{param1})
+  	</select>
+  	
+  	<!--  Planner에 seq랑 contentid담기 -->
+  	<resultMap type="com.team.bf.vo.PlannerVO" id="plannerMap">
+  			<id property="no" column="no"/>
+  			<id property="userid" column="userid"/>
+  			<id property="title" column="title"/>
+  			<id property="start_date" column="start_date"/>
+  			<id property="end_date" column="end_date"/>
+  			<id property="end_date" column="create_date"/>
+  			<id property="edit_date" column="edit_date"/>
+  			
+  			<collection property="contentidList" resultMap="conentidMap"/> 
+  			<collection property="seqList" resultMap="seqMap"/>
+  				<!-- 
+  			<collection property="plannerLocationList" resultMap="locMap"/>
+  			-->
+  	</resultMap>
+  	<resultMap type="com.team.bf.vo.PlannerLocationVO" id="locMap">
+  			<id property="planner_no" column="planner_no"/>
+  			<id property="seq" column="seq"/>
+  			<id property="contentid" column="contetnid"/>
+  	</resultMap>
+  	<resultMap type="String" id="seqMap">
+  			<result property="seqList" column="seq"/>
+  	</resultMap>
+  	<resultMap type="String" id="conentidMap">
+  			<result property="contentidList" column="contentid"/>
+  	</resultMap>
+
+  	<select id="plannerSelectOne" resultMap="plannerMap">
+  		select p1.no, p1.userid, p1.title, p1.start_date, p1.end_date, p1.create_date, p1.edit_date, p2.planner_no , p2.seq, p2.contentid
+  		from planner p1
+  		right join  planner_location p2
+  		on p1.no=${param1} and p2.planner_no=${param1}
+  		where userid=#{param2}
+  		order by edit_date desc, create_date desc
+  	</select>
+  	<!--   Planner에 seq랑 contentid담기 end  -->
+  	<select id="plannerMemberSelectByNo" resultType="String">
+  		select userid from planner_member
+  		where no=${param1}
+  	</select>
+  	<select id="plannerMemberSelectByNoId" resultType="int">
+  		select count(userid) from planner_member
+		where (planner_no = ${param1} and userid=#{param2})
+  	</select>
+  	<insert id="plannerMemberInsert">
+  		insert into planner_member(userid, planner_no) values(#{param2}, ${param1})
+  	</insert>
+  	<delete id="plannerMemberDeleteByNo">
+  		delete from planner_member where no=${no}
+  	</delete>
   </mapper>
