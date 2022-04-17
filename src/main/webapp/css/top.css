@@ -133,7 +133,7 @@ img {
 }
 
 .nav__toggle {
-  font-size: 3rem;
+ font-size: 3rem;
   cursor: pointer;
 }
 
@@ -151,19 +151,18 @@ img {
     position: relative;
   	top:-30px;
   } 
-   
+
   .main__login{
 	position: absolute;
     right: -1rem;
     color: gray;
   }
-  
+
   .main__signup{
     position: relative;
     right: -6rem;
     color: gray;
   }
-  
 
 @media screen and (max-width: 767px) {
 
@@ -287,7 +286,6 @@ img {
     height: calc(var(--header-height) + 6.5rem);
     margin-left: var(--mb-2-5);
   }
-  
 
   .nav__link {
     color: #5c5c5c;

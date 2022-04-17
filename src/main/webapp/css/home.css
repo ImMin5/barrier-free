@@ -732,8 +732,7 @@ display: block;
     font-size: 20px;
     font-weight: 500;
   }
-
-
+  
   .nav__menu {
     display: flex;
     column-gap: 1rem;

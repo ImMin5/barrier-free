@@ -80,6 +80,7 @@
    					<a href="${url}/mypage" class="main__signup">My-page</a>
   				 </c:if>
 			</div>
+
                 <i class="ri-close-line nav__close" id="nav-close"></i>
             </div>
 
