@@ -35,14 +35,14 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 <nav class="lnb-box">
 					<a href="${url }/mypage" >나의 정보</a>
 					<a href="${url }/mypage/myreview" >나의 리뷰</a>
-					<a href="#" >나의 문의 사항</a>
+					<a href="${url }/mypage/myqna" >나의 문의 사항</a>
 					<a href="#" >나의 플래너</a>
 
 				</nav>
 	
 <div class="info-box">
 	<div class="box modify">		
-					<form id="mFrm" name="myform" method="post" acction="/mypage" onsubmit="return memberCheck()" >
+					<form id="mFrm" name="myform" method="post" action="/mypage" onsubmit="return memberCheck()" >
 					<div class="con">
 						<div class="fl w-50">
 							<h3>${mvo.username }님의 정보</h3>

@@ -32,12 +32,12 @@
 		        dataType : "json",
 
 		        success:function(data){
-		  			alert("삭제되었습니다.")
+		  			alert(data.msg)
 		        	location.reload();
 		        },	
 		        error: function (error){
 					
-		        	alert("잘못된 접근입니다..");
+		        	alert(data.msg);
 		        	
 		        }
 			});
@@ -56,7 +56,7 @@
 <nav class="lnb-box">
 					<a href="${url }/mypage" >나의 정보</a>
 					<a href="${url }/mypage/myreview" >나의 리뷰</a>
-					<a href="#" >나의 문의 사항</a>
+					<a href="${url }/mypage/myqna" >나의 문의 사항</a>
 					<a href="#" >나의 플래너</a>
 
 				</nav>
@@ -86,7 +86,9 @@
 				</th>
 			</tr>
 			<tr>
-				<td>${vo.content }</td>
+				<th>
+				<div class="content">${vo.content }</div>
+				</th>
 			</tr>
 			<tr>
 				<td><input type="button" id="del" value="삭제" title="${vo.no}"></td>

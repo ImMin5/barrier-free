@@ -77,8 +77,8 @@
 }
 .myreview-box{
 	margin: 0% 750px 0;
-	width: 600px;
-	height: 900px;
+	width: 800px;
+	height: 1000px;
 	display:block;
 	position: relative;
 	top: 0;
@@ -91,8 +91,12 @@
 	text-align: center;
 	line-height: 55px;
 }
-.review_tr{
-		margin-left:300px;
+.review{
+		margin-left:200px;
 	
 }
-
+.content{
+	width:100px;
+	height:100px;
+	margin-left:200px;
+}

@@ -12,41 +12,41 @@
 			if($('#userpassword').val() == ''){
 				alert("패스워드를 입력해 주세요.");
 				$('#userpassword').focus();
-				return;
+				return false;
 			}else if($('#userpassword2').val() == ''){
 				alert("패스워드를 입력해 주세요.");
 				$('#userpassword2').focus();
-				return;
+				return false;
 			}
 			
-			//입력한 패스워드가 같인지 체크
+			//입력한 패스워드가 같은지 체크
 			if($('#userpassword2').val() != $('#userpassword').val()){
 				alert("패스워드가 일치하지 않습니다.");
 				$('#userpassword2').focus();
-				return;
+				return false;
 			}
 			
+			
+			return false;
 			//패스워드 맞는지 확인
+			if(confirm("정말 삭제하시겠습니까?")){
+				var userpassword = $("#userpassword").val();
 			$.ajax({
-				url: "${pageContext.request.contextPath}/passCheck.do",
-				type: "POST",
-				data: $('#delFrm').serializeArray(),
+				url: '${url}/mypage/delete',
+				type: "DELETE",
+				data:{
+					userpassword : userpassword,
+				},
 				success: function(data){
-					if(data==0){
-						alert("패스워드가 틀렸습니다.");
-						return;
-					}else{
-						//탈퇴
-						var result = confirm('정말 탈퇴 하시겠습니까?');
-						if(result){
-							$('#delFrm').submit();
-						}
-					}
+					alert(data.msg);
 				},
 				error: function(){
 					alert("서버 에러.");
 				}
 			});
+			}else{
+				return false;
+			}
 		});
 	});
 </script>
@@ -55,8 +55,8 @@
 	<h1>회원탈퇴</h1>
 	<hr />
 	<div id="deleteacc">
-	<form id="deleteaccFrm" action="" name="delFrm" id="delFrm" method="post">
-		<input type="hidden" name="userId" value="${mvo.userid}">
+	<form id="deleteaccFrm"  name="delFrm" id="delFrm" >
+		
 		<ul>
 			<li><img id="deletelogo" src="#"></li>
 			
@@ -64,7 +64,7 @@
 			
 		
 				
-				<li><input type="password" name="userpassword2" id="userpassword2"></li>
+				<li><input type="password" name="userpassword" id="userpassword2"></li>
 				<button id="secession">탈퇴하기</button>
 				
 		</ul>
