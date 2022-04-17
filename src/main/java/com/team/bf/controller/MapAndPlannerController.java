@@ -7,11 +7,13 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,7 @@ import com.team.bf.service.PlannerService;
 import com.team.bf.service.ReviewService;
 import com.team.bf.vo.PlannerLocationVO;
 import com.team.bf.vo.PlannerVO;
+import com.team.bf.vo.ResponseVO;
 
 @RestController
 public class MapAndPlannerController {
@@ -94,16 +97,16 @@ public class MapAndPlannerController {
     		pvo.setUserid(userid);
     		result.put("status", "200");
     		//넘버링과 넘어온 contentid 수가 다를 경우
-    		if(pvo.getContentidList().size() != pvo.getOrderList().size()) {
+    		if(pvo.getContentidList().size() != pvo.getSeqList().size()) {
     			result.put("msg","잘못된 형식 입니다.");
     			result.put("redirect", "/planView");
     		}
     		else if(plannerService.plannerInsert(pvo) > 0){
     			//장소 정보 가공
     			List<PlannerLocationVO> pvoList = new ArrayList<PlannerLocationVO>();
-    			for(int i=0; i<pvo.getOrderList().size(); i++) {
+    			for(int i=0; i<pvo.getSeqList().size(); i++) {
     				String contentid = pvo.getContentidList().get(i);
-    				int order = pvo.getOrderList().get(i);
+    				int order = pvo.getSeqList().get(i);
             		pvoList.add(new PlannerLocationVO(pvo.getNo(),contentid, order));
             	}
     			//여행 장소 생성
@@ -144,16 +147,16 @@ public class MapAndPlannerController {
     		if(plannerService.plannerSelectByNo(pvo.getNo(), userid) != null) {
     			//여행플랜 업데이트
     			int r = plannerService.plannerUpdate(pvo);
-    			if(r>0 && pvo.getOrderList() != null && pvo.getContentidList() != null) {
+    			if(r>0 && pvo.getSeqList() != null && pvo.getContentidList() != null) {
     				//여행 플랜 장소 제거
     				int deleteCount = plannerService.plannerLocationDeleteByPlannerNo(pvo.getNo());
     				System.out.println("deleteCount : " + deleteCount);
     				//장소 정보 가공
         			List<PlannerLocationVO> pvoList = new ArrayList<PlannerLocationVO>();
-        			for(int i=0; i<pvo.getOrderList().size(); i++) {
+        			for(int i=0; i<pvo.getSeqList().size(); i++) {
         				String contentid = pvo.getContentidList().get(i);
-        				int order = pvo.getOrderList().get(i);
-                		pvoList.add(new PlannerLocationVO(pvo.getNo(),contentid, order));
+        				int seq = pvo.getSeqList().get(i);
+                		pvoList.add(new PlannerLocationVO(pvo.getNo(),contentid, seq));
                 	}
         			//여행 장소 생성
         			plannerService.plannerLocationInsert(pvoList,pvo.getNo());
@@ -217,6 +220,62 @@ public class MapAndPlannerController {
     	
     	return entity;
     }
+    
+    //4.여행계획 조회 
+    @PostMapping("/planView/detail/{planner_no}")
+    public ResponseEntity<HashMap<String,String>>  planDetailInfo(@PathVariable(value="planner_no") int no, HttpSession session){
+    	String userid = (String)session.getAttribute("logId");
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		PlannerVO pvo = plannerService.plannerSelectOne(no,userid);
+    		result.put("status", "200");
+    		if(userid == null) {	
+    			result.put("msg","로그인 후 이용해 주세요.");
+    			result.put("redirect","/planView");
+    		}
+    		else if(pvo != null) {
+    			result.put("msg","일치하는 정보가 없습니다.");
+    			result.put("redirect","/planView");
+    		}
+    		else {
+    			for(int i=0; i<pvo.getContentidList().size(); i++) {
+        			System.out.println("contentid --> "+ pvo.getContentidList().get(i));
+        		}
+        		//JSON객체 만들기
+        		JSONObject jObj = new JSONObject();
+        		JSONObject planObj =new JSONObject();
+        		JSONArray contentList = new JSONArray();
+        		JSONArray seqList = new JSONArray();
+        		JSONArray memberList = new JSONArray();
+        		contentList.putAll(pvo.getContentidList());
+        		seqList.putAll(pvo.getContentidList());
+        		
+        		planObj.put("no", pvo.getNo());
+        		planObj.put("title", pvo.getTitle());
+        		planObj.put("contendList", contentList);
+        		planObj.put("seqList",seqList);
+        		
+        		jObj.put("pvo", planObj);
+        		//데이터 삽입
+        		result.put("data", jObj.toString());
+        		result.put("msg","여행 플랜 불러오기 성공");
+    			result.put("redirect","/planView");
+    		}
+    		
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("status", "400");
+    		result.put("msg","여행 플랜 불러오기 에러...Error");
+			result.put("redirect","/planView");
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+    	}
+    	return entity;
+    	
+    }
+    
     
     @GetMapping("/mypage/myplan")
     public ModelAndView myPlanView(){

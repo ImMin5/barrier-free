@@ -56,6 +56,16 @@ public class PlannerServiceImpl implements PlannerService {
 		return dao.plannerSelectById(userid);
 	}
 
+	@Override
+	public PlannerVO plannerSelectOne(int no, String userid) {
+		return dao.plannerSelectOne(no, userid);
+	}
+
+	@Override
+	public List<String> plannerMemberSelectByNo(int no) {
+		return dao.plannerMemberSelectByNo(no);
+	}
+
 
 
 	

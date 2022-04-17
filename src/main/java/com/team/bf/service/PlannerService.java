@@ -13,6 +13,9 @@ public interface PlannerService {
 	public int plannerDelete(int no);
 	public PlannerVO plannerSelectByNo(int no, String userid);
 	public List<PlannerVO> plannerSelectById(String userid);
+	public PlannerVO plannerSelectOne(int no, String userid);
 	
 	public int plannerLocationDeleteByPlannerNo(int planner_no);
+	
+	public List<String>plannerMemberSelectByNo(int no);
 }
