@@ -45,48 +45,33 @@ public class MemberController {
     }
     //로그인 요청
     @PostMapping("/login")
-    public ResponseEntity<HashMap<String,String>> loginReq(MemberVO mvo, HttpSession session){
-        
-        ResponseEntity<HashMap<String,String>> entity = null;
-        HashMap<String,String> result = new HashMap<>();
-        
+    public ModelAndView loginReq(MemberVO mvo, HttpSession session){
+    	ModelAndView mav = new ModelAndView();
         MemberVO mvoOrigin = memberService.memberSelectById(mvo.getUserid());
         
         //아이디가 존재하지 않음
         if(mvoOrigin == null){
-            System.out.println("로그인 실패");
-            result.put("msg","일치하는 아이디가 없습니다.");
-            result.put("status","200");
-            result.put("redirect", "/login");
-            entity = new ResponseEntity<>(result,HttpStatus.OK);
+            System.out.println("아이디가 존재하지 않습니다.");
+            mav.setViewName("redirect:/login");
         }
         else if(mvoOrigin.getUserid().equals(mvo.getUserid())){
             if(mvoOrigin.getUserpassword().equals(mvo.getUserpassword())){
             	System.out.println("로그인 성공");
-                result.put("msg","로그인 성공");
-                result.put("status","200");
-                result.put("redirect", "/");
                 session.setAttribute("logId", mvo.getUserid());
-                entity = new ResponseEntity<>(result,HttpStatus.OK);
+                mav.setViewName("redirect:/");
             }
             else{
-                System.out.println("로그인 실패");
-                result.put("msg","비밀번호가 일치하지 않습니다.");
-                result.put("status","200");
-                result.put("redirect", "/login");
-                entity = new ResponseEntity<>(result,HttpStatus.OK);
+                System.out.println("로그인 실패 비밀번호 불일치");
+                mav.setViewName("redirect:/login");
             }
           
         }
         else{
         	 System.out.println("로그인 실패");
-             result.put("msg","로그인 실패...");
-             result.put("status","400");
-             result.put("redirect", "/");
-             entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
+        	 mav.setViewName("redirect:/");
         }
 
-        return entity;
+        return mav;
     }
     //로그아웃
     @PostMapping("/logout")
