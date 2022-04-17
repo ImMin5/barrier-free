@@ -1,33 +1,53 @@
 <link rel="stylesheet" href="${$}/css/board.css">
 
 <script>
-   $(function() {
-      $("#boardFrm").submit(function() {
-         if ($("#subject").val() == "") {
-            alert("글 제목을 입력하세요");
-            return false;
-         }
-         if ($("#userid").val() == "") {
-             alert("접속하신 아이디를 입력하세요");
-             return false;
-          }
-         if ($("#content").val() == "") {
-             alert("내용을 입력하세요");
-             return false;
-          }
+$(function() {
+    $("#btn_submit").on("click",function() {
+       if ($("#subject").val() == "") {
+          alert("글 제목을 입력하세요");
+          return false;
+       }
+       if ($("#userid").val() == "") {
+           alert("접속하신 아이디를 입력하세요");
+           return false;
+        }
+       if ($("#content").val() == "") {
+           alert("내용을 입력하세요");
+           return false;
+        }
+       
+       $(function(){
+         var url = "${url}/board/boardList";
+         var data = $("#boardFrm").serialize();
+         
+          $.ajax({
+             url : url,
+             type : "POST",
+             dataType : "JSON",
+             data : data,
+             success : function(result) {
+                alert(result.msg);
+                window.location.href = result.redirect;
+             },
+             error : function(error){
+                console.log(error.responseJSON);
+                alert(error.responseJSON.msg);
+                window.location.href = error.responseJSON.redirect;
+             }
+             
+         }) ;
+       });
+    });
 
- 	  });
- 
-	});
+ });
 
 </script>
   
    <div id="#b__table">
         <h2>게시글 작성</h2>
-        <form method="post"  action="${url}/board/boardList" id="boardFrm">
-        	<input type="hidden" value=${bvo.no} name="no">
-        	
+       <form id="boardFrm">
         	<input type="hidden" value="board_write" name="command">
+        
             <table>
                 <tr>
                     <th>제목</th>
@@ -42,9 +62,9 @@
                     <td><textarea cols="100" rows="30"  name="content" id="content"></textarea></td>
                 </tr>
             </table>
-            <input class="btn" type="submit" value="등록">
+            <input class="btn" type="button" id="btn_submit" value="등록">
             <input class="btn" type="reset" value="다시작성하기">
             <input class="btn" type="button" value="취소" onclick="javascript:history.back()">
-        </form>
+    	</form>
     </div>
     
