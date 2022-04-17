@@ -27,4 +27,13 @@
   	<delete id="plannerLocationDeleteByPlannerNo">
   		delete from planner_location where planner_no=${no}
   	</delete>
+  	<delete id="plannerDelete">
+  		delete from planner where no=${param1} 
+  	<!-- 
+  		delete p1, p2 
+  		from planner p1 inner join planner_location p2
+  		where p1.no=${no} and p1.no=p2.planner_no 
+  		
+ 	-->
+  	</delete>
   </mapper>

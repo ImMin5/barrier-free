@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -74,7 +75,7 @@ public class MapAndPlannerController {
         mav.setViewName("map/mapView");
         return mav;
     }
-    //여행 계획 생성 요청
+    //1.여행 계획 생성 요청
     @PostMapping("/planView")
     public ResponseEntity<HashMap<String,String>> planCreate(PlannerVO pvo, HttpSession session) {
     	String userid = (String)session.getAttribute("logId");
@@ -82,12 +83,13 @@ public class MapAndPlannerController {
     	HashMap<String,String> result = new HashMap<String,String>();
     	
     	try {
+    		
     		//작성자 등록
     		pvo.setUserid(userid);
+    		result.put("status", "200");
     		//넘버링과 넘어온 contentid 수가 다를 경우
     		if(pvo.getContentidList().size() != pvo.getOrderList().size()) {
     			result.put("msg","잘못된 형식 입니다.");
-    			result.put("status", "200");
     			result.put("redirect", "/planView");
     		}
     		else if(plannerService.plannerInsert(pvo) > 0){
@@ -101,18 +103,15 @@ public class MapAndPlannerController {
     			//여행 장소 생성
     			if(pvoList != null && pvoList.size() > 0)
     				plannerService.plannerLocationInsert(pvoList,pvo.getNo());
-    			result.put("msg","여행계획 생성 성공!");
-    			result.put("status", "200");
+    			result.put("msg","여행 플랜 생성 성공!");
     			result.put("redirect", "/planView");
+    			result.put("planner_no", Integer.toString(pvo.getNo()));
     		}
     		else {
     			//생성 실패 
-    			result.put("msg","잘못된 형식 입니다.");
-    			result.put("status", "200");
+    			result.put("msg","여행 플랜 생성 실패.");
     			result.put("redirect", "/planView");
     		}
-    		
-    		
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
         	
     	}catch(Exception e) {
@@ -127,7 +126,7 @@ public class MapAndPlannerController {
     	return entity;
     }
     
-    //여행플랜 수정 요청
+    //2.여행플랜 수정 요청
     @PutMapping("/planView")
     public ResponseEntity<HashMap<String,String>> planUpdate(PlannerVO pvo, HttpSession session){
     	String userid = (String)session.getAttribute("logId");
@@ -152,14 +151,13 @@ public class MapAndPlannerController {
                 	}
         			//여행 장소 생성
         			plannerService.plannerLocationInsert(pvoList,pvo.getNo());
-        			
         			result.put("status", "200");
         			result.put("msg", "여행 정보 업데이트 성공!");
         			result.put("redirect","/planView");
     			}
     		}
     		else {
-    			//일치하는 여행플랜이 없을 경우 
+    		//일치하는 여행플랜이 없을 경우 
     			result.put("status", "200");
     			result.put("msg", "여행플랜 업데이트 실패!");
     			result.put("redirect","/planView");
@@ -176,7 +174,42 @@ public class MapAndPlannerController {
     	
     	return entity;
     }
-    @GetMapping("/api/test/detailCommon")
+    
+    //3.예행 계획 삭제 요청
+    @DeleteMapping("/planView")
+    public ResponseEntity<HashMap<String,String>> planDelete(int no, HttpSession session){
+    	String userid = (String)session.getAttribute("logId");
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		PlannerVO pvo = plannerService.plannerSelectByNo(no, userid);
+    		result.put("staus", "200");
+    		if(userid == null){
+    			//로그인을 안함
+    			result.put("msg", "로그인 후 이용해 주세요.");
+    			result.put("redirect","/login");
+    		}
+    		else if(pvo == null) {
+    			//일치하는 정보가 없음
+    			result.put("msg", "일치하느 정보가 없습니다.");
+    			result.put("redirect","/login");
+    		}
+    		else {
+    			System.out.println("삭제한 데이터 : "+ plannerService.plannerDelete(no));
+    			result.put("msg", "여행계획 삭제 완료!");
+    			result.put("redirect","/planView");
+    		}
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("staus", "400");
+    		result.put("msg", "여행계획 삭제 에러...Error");
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+    	}
+    	
+    	return entity;
+    }
     public String apiTest(@RequestParam(value="contentid")String contentid) {
     	JSONObject Opt = openApiService.detailCommon(contentid, areaCode);
     	return Opt.toString();

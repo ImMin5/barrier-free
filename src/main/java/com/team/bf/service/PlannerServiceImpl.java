@@ -46,6 +46,11 @@ public class PlannerServiceImpl implements PlannerService {
 		return dao.plannerLocationDeleteByPlannerNo(planner_no);
 	}
 
+	@Override
+	public int plannerDelete(int no) {
+		return dao.plannerDelete(no);
+	}
+
 
 
 	
