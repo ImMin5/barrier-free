@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.team.bf.dao.BoardDAO">
+  	<insert id="boardInsert" useGeneratedKeys="true" keyProperty="no">
+  		insert into board(userid, subject, content, is_notice, ip) 
+  		values( #{userid}, #{subject}, #{content},  #{is_notice}, #{ip})
+  	</insert>
+  	<select id="totalRecord" resultType="int">
+  		select count(no) cnt from board
+  		where is_notice=false
+  		<if test='searchWord != null'>
+  			and subject like '%${searchWord}%'
+  		</if>
+  	</select>
+  	 <select id="boardSelectAll" resultType="com.team.bf.vo.BoardVO">
+  		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		from board where is_notice=false
+  		<if test='searchWord != null'>
+  			and subject like '%${searchWord}%'
+  		</if>
+  		order by is_notice desc, no desc 
+  		limit ${onePageRecord} offset ${offsetIndex}
+  	</select>
+  	<!--  
+  	<resultMap type="com.team.bf.vo.BoardVO" id="boardMap2">
+  		<id property="no" column="bno"/>
+  		<result property="userid" column="buserid"/>
+  		<result property="subject" column="bsubject"/>
+  		<result property="content" column="bcontent"/>
+  		<result property="write_date" column="bwrite_date"/>
+  		<result property="is_notice" column="is_notice"/>
+  		<result property="ip" column="bip"/>
+  		<association property="reply" javaType="com.team.bf.vo.BoardReplyVO" >
+  			<id property="no" column="rno"/>
+	  		<result property="userid" column="ruserid"/>
+	  		<result property="subject" column="rsubject"/>
+	  		<result property="content" column="rcontent"/>
+	  		<result property="write_date" column="rwrite_date"/>
+	  		<result property="ip" column="rip"/>
+  		</association>
+  	</resultMap>
+  	-->
+  	<resultMap type="com.team.bf.vo.BoardVO" id="boardMap">
+  		<id property="no" column="bno"/>
+  		<id property="userid" column="buserid"/>
+  		<id property="subject" column="bsubject"/>
+  		<id property="content" column="bcontent"/>
+  		<id property="write_date" column="bwrite_date"/>
+  		<id property="is_notice" column="is_notice"/>
+  		<id property="ip" column="bip"/>
+  	</resultMap>
+  	 <resultMap type="com.team.bf.vo.BoardVO" id="replyMap">
+  	 	<id property="no" column="rno"/>
+  		<id property="userid" column="ruserid"/>
+  		<id property="subject" column="rsubject"/>
+  		<id property="content" column="rcontent"/>
+  		<id property="write_date" column="rwrite_date"/>
+  		<id property="ip" column="rip"/>
+  	</resultMap>
+  	
+  	<resultMap type="com.team.bf.vo.BoardAndReply" id="BoardAndReplyMap">
+  		<collection property="board" resultMap="boardMap"/>
+  		<collection property="reply" resultMap="replyMap"/>
+  	</resultMap>
+
+  	<select id="boardAndReplySelectAll" resultMap="BoardAndReplyMap">
+  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip,
+  		r.no rno, r.userid ruserid, r.subject rsubject, r.content rcontent, r.write_date rwrite_date, r.ip rip
+  		from board b
+		left outer join reply_board r on b.no = r.no
+		where b.is_notice=false
+  		<if test='searchWord != null'>
+  			and b.subject like '%${searchWord}%'
+  		</if>
+  		order by b.no desc 
+  		limit ${onePageRecord} offset ${offsetIndex}
+  	</select>
+  	<select id="boardSelectByNo" resultType="com.team.bf.vo.BoardVO">
+  		select no, subject, userid, content, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		from board where no=${no}
+  	</select>
+  	<select id="boardSelectNotice" resultType="com.team.bf.vo.BoardVO">
+  		select no, subject, userid,   date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
+  		from board where is_notice=true
+  		order by no desc
+  		limit ${param1}
+  	</select>
+  	<update id="boardUpdate">
+  		update board set subject=#{subject}, content=#{content}
+  	    where no=${no} and userid=#{userid}
+  	</update>
+  	<delete id="boardDelete">
+        delete from board where userid=#{param1} and no=${param2}
+    </delete>
+    <insert id="boardReplyInsert">
+    	insert into reply_board(no, userid,subject, content, ip)
+    	values(${no}, #{userid}, #{subject}, #{content}, #{ip})
+    </insert>
+  </mapper>

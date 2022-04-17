@@ -7,25 +7,25 @@
                     <div class="footer__content grid">
                         <div class="footer__data">
                             <h3 class="footer__title">Barrier-free JEJU</h3>
-                            <a href="#" class="footer__link">Contact Us
+                            <a href="https://github.com/ImMin5/barrier-free" class="footer__link">Contact Us
                             </a>
                         </div>
                         <div class="footer__data">
                             <h3 class="footer__subtitle">information</h3>
                             <ul>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">
+                                    <a href="/travel_information" class="footer__link">destination</a>
+                                </li>
+                                <li class="footer__item">
+                                    <a href="/accommodation" class="footer__link">
                                         Accommodation</a>
                                 </li>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">transportation
+                                    <a href="/transportation/bus" class="footer__link">transportation
                                     </a>
                                 </li>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">destination</a>
-                                </li>
-                                <li class="footer__item">
-                                    <a href="#" class="footer__link">Jeju Map
+                                    <a href="/mapView" class="footer__link">Jeju Map
                                     </a>
                                 </li>
                             </ul>
@@ -35,10 +35,10 @@
                             </h3>
                             <ul>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">transportation</a>
+                                    <a href="/discountDetailView" class="footer__link">transportation</a>
                                 </li>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">destination</a>
+                                    <a href="/discountDetailView" class="footer__link">destination</a>
                                 </li>
                             </ul>
                         </div>
@@ -47,14 +47,14 @@
                             </h3>
                             <ul>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">FAQs</a>
+                                    <a href="/board/boardList" class="footer__link">FAQs</a>
                                 </li>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">coordinator
+                                    <a href="/coordinator" class="footer__link">coordinator
                                     </a>
                                 </li>
                                 <li class="footer__item">
-                                    <a href="#" class="footer__link">Suggestions
+                                    <a href="/suggest" class="footer__link">Suggestions
                                     </a>
                                 </li>
                             </ul>
