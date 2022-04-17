@@ -76,10 +76,15 @@ public class MemberController {
     //로그아웃
     @GetMapping("/logout")
     public ModelAndView logout(HttpSession session){
-
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/");
-        session.invalidate();
+    	 ModelAndView mav = new ModelAndView();
+    	String userid = (String)session.getAttribute("logId");
+    	if(userid != null) {
+    		 mav.setViewName("redirect:/");
+    		 session.invalidate();
+    	}
+    	else {
+    		mav.setViewName("redirect:/login");
+    	}
         return mav;
 
     }
