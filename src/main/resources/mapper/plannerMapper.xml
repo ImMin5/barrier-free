@@ -15,7 +15,7 @@
   		</foreach>
   		
   	</insert>
-  	<select id="plannerSelectByNo" resultType="com.team.bf.vo.PlannerVO">
+  	<select id="plannerSelectByNoId" resultType="com.team.bf.vo.PlannerVO">
   		select no, userid, title, start_date, end_date, create_date, edit_date
   		from planner
   		where no=${param1} and userid=#{param2} 
@@ -83,4 +83,14 @@
   		select userid from planner_member
   		where no=${param1}
   	</select>
+  	<select id="plannerMemberSelectByNoId" resultType="int">
+  		select count(userid) from planner_member
+		where (planner_no = ${param1} and userid=#{param2})
+  	</select>
+  	<insert id="plannerMemberInsert">
+  		insert into planner_member(userid, planner_no) values(#{param2}, ${param1})
+  	</insert>
+  	<delete id="plannerMemberDeleteByNo">
+  		delete from planner_member where no=${no}
+  	</delete>
   </mapper>

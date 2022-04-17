@@ -32,8 +32,8 @@ public class PlannerServiceImpl implements PlannerService {
 	}
 
 	@Override
-	public PlannerVO plannerSelectByNo(int no, String userid) {
-		return dao.plannerSelectByNo(no, userid);
+	public PlannerVO plannerSelectByNoId(int no, String userid) {
+		return dao.plannerSelectByNoId(no, userid);
 	}
 
 	@Override
@@ -64,6 +64,21 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public List<String> plannerMemberSelectByNo(int no) {
 		return dao.plannerMemberSelectByNo(no);
+	}
+
+	@Override
+	public int plannerMemberSelectByNoId(int planner_no, String userid) {
+		return dao.plannerMemberSelectByNoId(planner_no, userid);
+	}
+
+	@Override
+	public int plannerMemberInsert(int planner_no, String userid) {
+		return dao.plannerMemberInsert(planner_no, userid);
+	}
+
+	@Override
+	public int plannerMemberDeleteByNo(int no) {
+		return dao.plannerMemberDeleteByNo(no);
 	}
 
 

@@ -144,7 +144,7 @@ public class MapAndPlannerController {
     	
     	try {
     		//플랜 정보가 있을 경우
-    		if(plannerService.plannerSelectByNo(pvo.getNo(), userid) != null) {
+    		if(plannerService.plannerSelectByNoId(pvo.getNo(), userid) != null) {
     			//여행플랜 업데이트
     			int r = plannerService.plannerUpdate(pvo);
     			if(r>0 && pvo.getSeqList() != null && pvo.getContentidList() != null) {
@@ -193,7 +193,7 @@ public class MapAndPlannerController {
     	HashMap<String,String> result = new HashMap<String,String>();
     	
     	try {
-    		PlannerVO pvo = plannerService.plannerSelectByNo(no, userid);
+    		PlannerVO pvo = plannerService.plannerSelectByNoId(no, userid);
     		result.put("staus", "200");
     		if(userid == null){
     			//로그인을 안함
@@ -240,9 +240,6 @@ public class MapAndPlannerController {
     			result.put("redirect","/planView");
     		}
     		else {
-    			for(int i=0; i<pvo.getContentidList().size(); i++) {
-        			System.out.println("contentid --> "+ pvo.getContentidList().get(i));
-        		}
         		//JSON객체 만들기
         		JSONObject jObj = new JSONObject();
         		JSONObject planObj =new JSONObject();
@@ -251,7 +248,7 @@ public class MapAndPlannerController {
         		JSONArray memberList = new JSONArray();
         		contentList.putAll(pvo.getContentidList());
         		seqList.putAll(pvo.getContentidList());
-        		
+        		memberList.putAll(plannerService.plannerMemberSelectByNo(pvo.getNo()));
         		planObj.put("no", pvo.getNo());
         		planObj.put("title", pvo.getTitle());
         		planObj.put("contendList", contentList);
@@ -273,6 +270,88 @@ public class MapAndPlannerController {
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     	return entity;
+    	
+    }
+    
+    //5.여행 플랜 멤버 초대 
+    @PostMapping("/planView/member")
+    public ResponseEntity<HashMap<String,String>> planMemberInvite(int planner_no, String useridInvite, HttpSession session){
+    	String userid = (String)session.getAttribute("logId");
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		
+    		result.put("status", "200");
+    		PlannerVO pvo = plannerService.plannerSelectByNoId(planner_no,userid);
+    		if(userid.equals(useridInvite)) {
+    			result.put("msg","본인에게 초대를 보낼 수 없습니다.");
+    			result.put("redirect","/planView");
+    		}
+    		else if(!pvo.getUserid().equals(userid)){
+    			//여행 플랜을 생성한 사람만 초대할 수 있음
+    			result.put("msg","초대 권한이 없습니다.");
+    			result.put("redirect","/planView");
+    		}
+    	
+    		else if(plannerService.plannerMemberSelectByNoId(planner_no, useridInvite) > 0 || pvo.getUserid().equals(useridInvite)) {
+    			result.put("msg","이미 추가 되었습니다.");
+    			result.put("redirect","/planView");
+    		}
+    		else {
+    			plannerService.plannerMemberInsert(planner_no, useridInvite);
+    			result.put("msg",useridInvite+" 멤버 초대 완료!");
+    			result.put("redirect","/planView");
+    		}
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    	}catch(Exception e) {
+    		//userid 값들이 null 일경우
+    		e.printStackTrace();
+    		result.put("status", "400");
+    		result.put("msg","여행 플랜 멤버 초대 에러...Error");
+			result.put("redirect","/planView");
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+    	}
+    	return entity;
+		
+    	
+    }
+    
+    //6. 여행 플랜 멤버 삭제
+    @DeleteMapping("/planView/member")
+    public ResponseEntity<HashMap<String,String>> planMemberDelete(int no, String useridDelete, HttpSession session){
+    	String userid = (String)session.getAttribute("logId");
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	
+    	try {
+    		result.put("status", "200");
+    		if(userid == null) {
+    			result.put("msg", "로그인 후 이용해 주세요.");
+    			result.put("redirect","/planView");
+    		}
+    		else {
+    			if(plannerService.plannerMemberDeleteByNo(no) > 0) {
+    				result.put("msg", "멤버 삭제 성공.");
+    				result.put("redirect","/planView");
+    			}
+    			else{
+    				result.put("msg", "멤버 삭제 실패.");
+    				result.put("redirect","/planView");
+    			}
+    		}
+    		
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    	}catch(Exception e) {
+    		//userid 값들이 null 일경우
+    		e.printStackTrace();
+    		result.put("status", "400");
+    		result.put("msg","여행 플랜 멤버 초대 에러...Error");
+			result.put("redirect","/planView");
+    		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+    	}
+    	return entity;
+		
     	
     }
     
