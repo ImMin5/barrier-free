@@ -11,6 +11,23 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 
  -->
 <link rel="stylesheet" href="${url }css/mypage.css">
+<script>
+ $(function(){
+	$("#mFrm").submit(function(){
+		if($("#userpassword").val()==''){
+			alert("비밀번호를 입력후 수정하세요.");
+			return false;
+		}
+		if($("#userpassword").val() != $("#userpassword2").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+
+
+		return true;
+		});	
+	});
+</script>
 <div id="contents">
 			<section class="mypage-box">
 				<h1>마이 페이지</h1>
@@ -25,10 +42,10 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 	
 <div class="info-box">
 	<div class="box modify">		
-					<form name="myform" method="post" acction="">
+					<form id="mFrm" name="myform" method="post" acction="/mypage" onsubmit="return memberCheck()" >
 					<div class="con">
 						<div class="fl w-50">
-							<h3>${vo.username} 님의 정보</h3>
+							<h3>${mvo.username }님의 정보</h3>
 							
 							<table class="member__table">
 								
@@ -36,12 +53,12 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 									<tr>
 										<th>*&nbsp;&nbsp;아이디</th>
 										<td>
-											${vo.member.userid }
+											${mvo.userid }
 										</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;이름</th>
-										<td>${vo.username}</td>
+										<td>${mvo.username }</td>
 									</tr>
 									<tr>
 										<th class="vt">*&nbsp;&nbsp;비밀번호</th>
@@ -53,25 +70,35 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 									<tr class="vt">
 										<th>*&nbsp;&nbsp;비밀번호 확인</th>
 										<td>
-											<input type="password" class="input_style" name="userpassword2"  placeholder="비밀번호를 한번 더 입력해주세요.">
+											<input type="password" id="userpassword2" class="input_style" name="userpassword2"  placeholder="비밀번호를 한번 더 입력해주세요.">
 											<span class="caution">&nbsp;</span>
 										</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;생년월일</th>
-										<td>${vo.date_birth}</td>
+										<td>${mvo.date_birth}</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 질문</th>
-										<td>자신의 인생 좌우명은?</td>
+										<td>${mvo.question }</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 답변</th>
-										<td>테스트</td>
+										<td>${mvo.answer }</td>
 									</tr>
 									<tr>
-										<th>&nbsp;&nbsp;장애 정도</th>
-										<td>다음에 입력하기</td>
+									<th>&nbsp;&nbsp;장애 정도</th>
+									<td><select name="grade" id="grade" value=${mvo.grade }>
+                      					<optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
+                       				      <option value=5>다음에 입력하기</option>
+                            			  <option value=1>1등급</option>
+                            			  <option value=2>2등급</option>
+                            			  <option value=3>3등급</option>
+                                          <option value=4>4등급</option>
+                        				</optgroup>
+                        
+                    					</select>
+                    				</td>
 									</tr>
 									
 								</tbody>
@@ -79,7 +106,7 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 						</div>
 						
 						<div class="btn-area">
-						<a class="btn__style1" href="" onclick="updateform">정보수정</a>
+						<input id="button" type="submit" value="수정하기"/>
 						<a class="btn__style2" href="${url }/mypage/delete" >회원탈퇴</a>
 						</div>
 					</div>

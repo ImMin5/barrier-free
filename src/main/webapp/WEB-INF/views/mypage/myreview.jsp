@@ -4,6 +4,51 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
 <link rel="stylesheet" href="${url }/css/myreview.css" />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js'></script>
+<script>
+	$(function(){
+		
+		var rating = $('.review .rating');
+		
+		rating.each(function(){
+			var targetScore = $(this).attr('data-rate');
+			$(this).find('svg:nth-child(-n+' + targetScore +')').css({color:'rgb(250, 166, 50)'});
+			
+			
+		});
+
+		$(document).on('click','#del',function(event){
+			event.preventDefault();
+			var userid = "${logId }";
+			var no = $(this).attr("title");
+			if(confirm("정말 삭제하시겠습니까?")){
+			$.ajax({
+		        url:'${url}/review/myreview',
+		        type:'DELETE',
+		        data: {
+		        	no:no,
+		        	userid:userid,
+		        },
+		        dataType : "json",
+
+		        success:function(data){
+		  			alert("삭제되었습니다.")
+		        	location.reload();
+		        },	
+		        error: function (error){
+					
+		        	alert("잘못된 접근입니다..");
+		        	
+		        }
+			});
+		}else{
+			return false;
+		}
+		});
+	});		
+
+</script>
+
 <div id="contents">
 			<section class="mypage-box">
 				<h1>마이 페이지</h1>
@@ -19,25 +64,32 @@
 </div>			
 <div class="myreview-box">
 	<table>
-		<c:forEach var="vo" items="${review }">
+		<c:forEach var="vo" items="${reviewList }" >
 		<thead class="review_thead" >
-		
 		<tr>
-			
-			<td>여행지</td>
-			
+			<td>${vo.write_date }</td>
 		</tr>
 		</thead>
 		<tbody>
-			
 			<tr class="review_tr">
-				<td>
-					<th>${vo.write_date }</th>
-					<th><img src="${url }/img/map/map_01.png">${vo.score }</th>
-				</td>
+					<th>여행지</th>
+					<th>
+					<div class="review">
+						<div class="rating" data-rate="${vo.score }">
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+							<i class="fas fa-star"></i>
+						</div>
+					</div>
+				</th>
 			</tr>
 			<tr>
 				<td>${vo.content }</td>
+			</tr>
+			<tr>
+				<td><input type="button" id="del" value="삭제" title="${vo.no}"></td>
 			</tr>
 			</c:forEach>
 		</tbody>

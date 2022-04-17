@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="url" value="<%=request.getContextPath()%>" />
 
-<link rel="stylesheet" href="${url }css/delete.css">
+<link rel="stylesheet" href="${url }/css/delete.css" />
 
 <script type="text/javascript">
 	$(document).ready(function(e){
@@ -51,26 +51,26 @@
 	});
 </script>
 
-<body>
+<div>
 	<h1>회원탈퇴</h1>
 	<hr />
-	<form action="" name="delFrm" id="delFrm" method="post">
-		<input type="hidden" name="userId" value="${vo.userid}">
-		<table border=1>
-			<tr>
-				<td>패스워드</td>
-				<td><input type="password" name="userpassword" id="userpassword"></td>
-			</tr>
-			<tr>
-				<td>패스워드 확인</td>
-				<td><input type="password" name="userpassword2" id="userpassword2"></td>
-			</tr>
-			<tr>
-				<td colspan=1 align="center"><a href="#" id="secession">탈퇴하기</a></td>
-			</tr>
-		</table>
+	<div id="deleteacc">
+	<form id="deleteaccFrm" action="" name="delFrm" id="delFrm" method="post">
+		<input type="hidden" name="userId" value="${mvo.userid}">
+		<ul>
+			<li><img id="deletelogo" src="#"></li>
+			
+				<li><input type="password" name="userpassword" id="userpassword"></li>
+			
+		
+				
+				<li><input type="password" name="userpassword2" id="userpassword2"></li>
+				<button id="secession">탈퇴하기</button>
+				
+		</ul>
 	</form>
-	<hr>
-	<a href="#">마이페이지</a>
-</body>
-
+	
+	</div>
+	
+</div>
+<hr/>
