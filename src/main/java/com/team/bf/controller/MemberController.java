@@ -74,7 +74,7 @@ public class MemberController {
         return mav;
     }
     //로그아웃
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public ModelAndView logout(HttpSession session){
 
         ModelAndView mav = new ModelAndView();
