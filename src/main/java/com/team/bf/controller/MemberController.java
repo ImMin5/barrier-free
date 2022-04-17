@@ -225,33 +225,26 @@ public class MemberController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<HashMap<String,String>> signup(MemberVO mvo, HttpSession session){
-        System.out.println("signup :  시작" );
-        HashMap<String, String> result = new HashMap<>();
-        ResponseEntity<HashMap<String, String>> entity = null;
+    public ModelAndView signup(MemberVO mvo, HttpSession session){
+    	ModelAndView mav = new ModelAndView();
+     
         try{
             if(memberService.memberInsert(mvo) > 0){
                 //session에 userid를 저장
                 session.setAttribute("logId", mvo.getUserid());
-                result.put("msg","회원가입 완료");
-                result.put("status","200");
-                result.put("redirect","/login");
-                entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+                System.out.println("회원가입 완료");
+                mav.setViewName("redirect:login");
             }
             else{
-                result.put("msg","회원가입 실패");
-                result.put("status","400");
-                result.put("redirect","/");
-                entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+                System.out.println("msg 회원가입 실패");
+                mav.setViewName("redirect:/signup");
             }
         }catch(Exception e){
-            e.printStackTrace();
-            result.put("msg","회원가입 실패");
-            result.put("status","400");
-            result.put("redirect","/");
-            entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
+        	e.printStackTrace();
+        	System.out.println("회원가입 에러...Error");
+            mav.setViewName("redirect:/signup");
         }
-        return entity;
+        return mav;
     }
     //아이디 중복검사
     @PostMapping("/signup/memberIdCheck")
