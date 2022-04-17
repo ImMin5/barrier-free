@@ -2,7 +2,7 @@
 
 
    <div id="#b__table">
-   <form method="post" action="${url}/board/boardList/form/" id="boardFrm">
+   <form method="post" action="${url}/board/boardList/${bvo.no}" id="boardFrm">
             <table>
                 <tr>
                     <th>제목</th>
@@ -18,7 +18,6 @@
                 </tr>
             </table>
             <input class="btn" type="submit" value="수정">
-            <input class="btn" type="button" value="삭제" onclick="javascript:history.back()">
         </form>
     </div>
     

@@ -10,73 +10,7 @@
 				alert("검색어를 입력하세요");
 				return false;
 			}
-		})
-		
-		//전체 선택 or 해제
-		$("#delAll").on("click",function(){
-			console.log("ddd");
-			var checked =  $("#delAll").is(':checked');
-			$("input:checkbox").prop('checked',checked);
-			
 		});
-		
-		$("#allCheck").on("click",function(){
-			var checked =  $("#allCheck").is(':checked');
-			$("input:checkbox").prop('checked',checked);
-		});
-		
-		//선택 삭제
-		$("#boradDelBtn").on("click",function(){
-			var url = '/myapp/board/boarDelSelect';
-			var delAll = $("#delAll").is(':checked');
-	
-			console.log(delAll);
-			let no = new Array();
-			var idx =0;
-			
-			$("input:checkbox[name=noList]").each(function(i,value){
-				console.log("idx :" +idx + " "+value.getAttribute("data-no")+ value.checked);
-				if(value.checked)
-					no[idx++] = value.getAttribute("data-no")
-			});
-			if(no.length == 0) return;
-			
-			$.ajax({
-				url:url,
-				datatype: "JSON",
-				data : {
-					no:no,
-				},success:function(data,headers, res){
-					location.reload();
-					console.log(res.statusText);
-					
-				},error:function(e){
-					alert("삭제 실패");
-					console.log(e);
-				}
-			});
-			
-		});
-		
-		//선택 삭제 2
-		$("#multiDel").click(function(){
-			var cnt = 0;
-			$(".chk").each(function(i,obj){
-				if(obj.checked){
-					cnt++;
-				}
-				console.log("cnt :" + cnt);
-			});
-			
-			if(cnt<=0){
-				alert("목록을 선택 후 삭제하세요...");
-				return false;
-			}
-			else{
-				$("#listFrm").submit();
-			}
-		})
-		
 	});
 
 </script>
