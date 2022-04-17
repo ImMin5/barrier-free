@@ -98,4 +98,8 @@
     	insert into reply_board(no, userid,subject, content, ip)
     	values(${no}, #{userid}, #{subject}, #{content}, #{ip})
     </insert>
+    <select id="boardSelectById">
+    	select no, userid, subjcet, content, write_date, ip
+    	from board where userid=#{param1} and is_notice=false
+    </select>
   </mapper>
