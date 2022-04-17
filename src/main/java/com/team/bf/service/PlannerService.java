@@ -11,7 +11,8 @@ public interface PlannerService {
 	public int plannerInsertTest(int planner_no, String contentid, PlannerVO vo);
 	public int plannerUpdate(PlannerVO vo);
 	public int plannerDelete(int no);
-	
 	public PlannerVO plannerSelectByNo(int no, String userid);
+	public List<PlannerVO> plannerSelectById(String userid);
+	
 	public int plannerLocationDeleteByPlannerNo(int planner_no);
 }

@@ -36,4 +36,9 @@
   		
  	-->
   	</delete>
+  	<select id="plannerSelectById" resultType="com.team.bf.vo.PlannerVO">
+  		select no, userid, title, start_date, end_date, create_date, edit_date
+  		from planner
+  		where userid=#{param1} or no in (select planner_no from planner_member where userid=#{param1})
+  	</select>
   </mapper>

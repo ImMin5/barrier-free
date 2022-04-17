@@ -51,6 +51,11 @@ public class PlannerServiceImpl implements PlannerService {
 		return dao.plannerDelete(no);
 	}
 
+	@Override
+	public List<PlannerVO> plannerSelectById(String userid) {
+		return dao.plannerSelectById(userid);
+	}
+
 
 
 	

@@ -49,8 +49,10 @@ public class MapAndPlannerController {
     }
 
     @GetMapping("/mapView")
-    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "3")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
-        ModelAndView mav = new ModelAndView();
+    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "3")String pageCount, 
+    		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord, HttpSession session){
+        String userid = (String)session.getAttribute("logId");
+    	ModelAndView mav = new ModelAndView();
         List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount, "all", searchWord);
         
         for(JSONObject jObj : tourList) {
@@ -70,6 +72,10 @@ public class MapAndPlannerController {
         		jObj.put("avgScore", "0");
         	else 
         		jObj.put("avgScore", String.format("%.2f",avgScore));
+        }
+        //로그인 했을 경우 여행 플래너 정보
+        if(userid != null) {
+        	mav.addObject("plannerList",plannerService.plannerSelectById(userid));
         }
         mav.addObject("tourList", tourList);
         mav.setViewName("map/mapView");
@@ -158,8 +164,9 @@ public class MapAndPlannerController {
     		}
     		else {
     		//일치하는 여행플랜이 없을 경우 
+    		//자기 플랜이 아닐 경우.
     			result.put("status", "200");
-    			result.put("msg", "여행플랜 업데이트 실패!");
+    			result.put("msg", "여행 플랜 수정 권한이 업습니다.");
     			result.put("redirect","/planView");
     		}
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
@@ -210,11 +217,7 @@ public class MapAndPlannerController {
     	
     	return entity;
     }
-    public String apiTest(@RequestParam(value="contentid")String contentid) {
-    	JSONObject Opt = openApiService.detailCommon(contentid, areaCode);
-    	return Opt.toString();
-    }
-
+    
     @GetMapping("/mypage/myplan")
     public ModelAndView myPlanView(){
         ModelAndView mav = new ModelAndView();
