@@ -34,7 +34,7 @@ public class CoordinatorController {
 	}
 	
 	//코디정보수정 하기 2
-	@PostMapping("coordinatorEdit")
+	@PostMapping("coordinator")
 	
 	public ModelAndView coordiEdit(CoordinatorVO vo, HttpSession session) {
 		
@@ -43,7 +43,7 @@ public class CoordinatorController {
 		coordinatorservice.CoordinatorUpdate(vo);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/");
+		mav.setViewName("/");
 		System.out.println("수정 성공");
 		return mav;
 	}

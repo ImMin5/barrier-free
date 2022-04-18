@@ -19,6 +19,6 @@
                 </tr>
             </table>
             <input class="bo__btn__m" type="submit" value="수정">
-            <input class="bo__btn__mb" type="button" value="목록으로" onclick="javascript:history.back()">
+            <input class="bo__btn__mb" type="button" value="목록으로" onclick="location.href='${url}/board/boardList'">
         </form>
     </div>
