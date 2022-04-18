@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import com.team.bf.service.MemberService;
+import com.team.bf.service.PlannerService;
 import com.team.bf.vo.MemberVO;
 
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,7 @@ public class MemberController {
         return mav;
     }
     
+    //로그인 페이지 뷰 
     @GetMapping("/login")
     public ModelAndView login(){
         ModelAndView mav = new ModelAndView();

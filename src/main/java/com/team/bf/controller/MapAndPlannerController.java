@@ -51,7 +51,29 @@ public class MapAndPlannerController {
         mav.setViewName("map/mapView");
         return mav;
     }
-    
+	
+	 //마이페이지 나의 플래너 뷰
+    @GetMapping("/mypage/myplan")
+    public ModelAndView ModelAndView(HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	String userid = (String)session.getAttribute("logId");
+    	try {
+    		if(userid != null) {
+    			mav.addObject("planList", plannerService.plannerSelectById(userid));
+    			mav.setViewName("mypage/myplan");
+    		}
+    		else {
+    			mav.setViewName("redirect:/login");
+    		}
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/");
+    	}
+    	
+    	
+    	return mav;
+    }
     //0.여행지 정보 요청
     @PostMapping("/mapInfo")
     public String mapInfo( String pageNo,String pageCount, String searchWord, HttpSession session){
