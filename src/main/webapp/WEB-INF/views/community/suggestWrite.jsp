@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="${url}/css/board.css">
+<link rel="stylesheet" href="${url}/css/suggest.css">
 
 
 <script>
@@ -18,7 +18,7 @@ $(function() {
         }
        
        $(function(){
-         var url = "${url}/board/boardList";
+         var url = "${url}/suggest";
          var data = $("#boardFrm").serialize();
          
           $.ajax({
@@ -39,9 +39,7 @@ $(function() {
          }) ;
        });
     });
-
  });
-
 </script>
   
    <div id="#b__table" >

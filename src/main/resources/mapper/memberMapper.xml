@@ -23,11 +23,19 @@
     	where username=#{param1} and date_birth=#{param2}
     </select>
     <select id="memberSelectByQuestion" resultType="MemberVO">
-    	select userid , userpassword from member
+    	select userid, userpassword from member
     	where userid=#{param1} and question=#{param2} and answer=#{param3}
     </select>
    	<update id="memberUpdatePassword">
    		update member set userpassword=#{param2}
    		 where userid=#{param1}
+   	</update>
+   	<select id="memberLogin" resultType="com.team.bf.vo.MemberVO">
+   		select userid, userpassword, grade_member from member
+   		where userid=#{param1} and userpassword=#{param2} and grade_member=2
+   	</select>
+   	<update id="memberUpdate">
+   		update member set date_birth=#{date_birth}, grade=${grade}, question=#{question}, answer=#{answer}
+   		where userid=#{userid}
    	</update>
   </mapper>

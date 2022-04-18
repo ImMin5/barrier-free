@@ -122,23 +122,40 @@ public class BoardController {
     	}
     	return mav;
     }  
+    
     //나의 문의 사항 뷰
     @GetMapping("/mypage/myqna")
-    public ModelAndView ModelAndView(HttpSession session) {
-    	String userid = (String)session.getAttribute("logId");
-    	ModelAndView mav = new ModelAndView();
-    	if(userid == null) {
-    		//로그인 안 했을 경우
-    		mav.setViewName("redirect:/");
-    	}
-    	else {
-    		mav.setViewName("/mypage/myqna");
-    		mav.addObject("boardList",boardService.boardSelectById(userid));
-    	}
-    	
-    	return mav;
-    	
+    public ModelAndView ModelAndView(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
+    		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
+    		@RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord,HttpSession session) {
+       String userid = (String)session.getAttribute("logId");
+       ModelAndView mav = new ModelAndView();
+       
+       try {  
+           if(userid == null) {
+	          //로그인 안 했을 경우
+	          mav.setViewName("redirect:/");
+	       }
+	       else {
+	    	   PagingVO pvo = new PagingVO();
+	    	   pvo.setUserid(userid);
+	           //검색어가 있을 경우
+	           if(!searchWord.equals("")) 
+	           	pvo.setSearchWord(searchWord);
+	           //전체 게시글 업데이트
+	           pvo.setOnePageRecord(pageCount);
+	           pvo.setTotalRecord(boardService.totalRecord(pvo));
+	           pvo.setPageNo(pageNo);
+	          mav.setViewName("/mypage/myqna");
+	          mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
+	       }
+       }catch(Exception e) {
+    	   e.printStackTrace();
+    	   mav.setViewName("redirect:/");
+       }
+       return mav;
     }
+    
     //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){

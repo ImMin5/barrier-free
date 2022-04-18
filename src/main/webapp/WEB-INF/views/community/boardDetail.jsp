@@ -1,11 +1,12 @@
-<link rel="stylesheet" href="${$}/css/board.css">
+<link rel="stylesheet" href="${url}/css/board.css">
 
 
-   <div id="#b__table">
-   <form method="post" action="${url}/board/boardList/${bvo.no}" id="boardFrm">
+   <div id="bo__table" class="bo__table">
+   <h1 class="bd__title">👇 나의 게시글 👇</h1>
+   <form method="post" action="${url}/board/boardList/edit/${bvo.no}" id="boardFrm" class="bd__Frm">
             <table>
                 <tr>
-                    <th>제목</th>
+                    <th class="bd__tb__sub">제목</th>
                     <td>${bvo.subject}</td>
                 </tr>
                 <tr>
@@ -17,7 +18,7 @@
                     <td>${bvo.content}</td>
                 </tr>
             </table>
-            <input class="btn" type="submit" value="수정">
+            <input class="bo__btn__m" type="submit" value="수정">
+            <input class="bo__btn__mb" type="button" value="목록으로" onclick="javascript:history.back()">
         </form>
     </div>
-    

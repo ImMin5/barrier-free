@@ -72,7 +72,7 @@ a:hover{
 	padding-right:30px;
 }
 
-.bo__title{
+.suggest__title{
 	position: relative;
 	top: 230px;
 	margin: 10px 0px;
@@ -232,4 +232,3 @@ a:hover{
 .section {
     padding: 26rem 0 2rem;
 }
-

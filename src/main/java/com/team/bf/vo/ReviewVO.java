@@ -14,4 +14,5 @@ public class ReviewVO {
 	private String write_date;
 	private String ip;
 	private String contentTypeId;
+	private String title;
 }

@@ -63,8 +63,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ArrayList<BoardVO> boardSelectById(String userid) {
-		return dao.boardSelectById(userid);
+	public ArrayList<BoardAndReply> boardAndReplySelectById(PagingVO vo, String userid) {
+		return dao.boardAndReplySelectById(vo, userid);
 	}
 
 }

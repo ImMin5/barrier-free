@@ -4,26 +4,29 @@
  <c:set var="url" value="<%=request.getContextPath()%>"></c:set>
  
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--=============== FAVICON ===============-->
-    <link rel="shortcut icon" href="${$}/img/home/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="${url}/img/home/favicon.ico" type="image/x-icon">
 
     <!--=============== REMIXICONS ===============-->
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <!--=============== SWIPER CSS ===============-->
-    <link rel="stylesheet" href="../../css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="${url}/css/swiper-bundle.min.css">
 
 	<!--=============== jQuery library ===============-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>     
 	
 	<!--=============== CSS ===============-->
-	<link rel="stylesheet" href="../../css/top.css">
+	<link rel="stylesheet" href="${url}/css/top.css">
+    
+    <!--=============== text - reader ===============-->
+    <script src="/js/ai_api.js"></script>
     
     <title>Barrier-free JEJU</title>
 </head>
@@ -32,7 +35,7 @@
     <header class="header" id="header">
         <nav class="nav container">
             <div class="logo">
-                <a href="/"><img src="${$}/img/bf_logo-01.svg" width="60%"></a>
+                <a href="/"><img src="${url}/img/bf_logo-01.svg" width="60%"></a>
             </div>
 
             <div class="nav__menu" id="nav-menu">
@@ -77,7 +80,7 @@
  				  </c:if>
  				 <c:if test="${logId != null }">
     				<a href="${url}/logout" class="main__login">Logout</a>
-   					<a href="${url}/mypage" class="main__signup">My-page</a>
+   					<a href="${url}/mypage/myplanner" class="main__signup">My-page</a>
   				 </c:if>
 			</div>
 

@@ -17,6 +17,9 @@
   	 <select id="boardSelectAll" resultType="com.team.bf.vo.BoardVO">
   		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
   		from board where is_notice=false
+  		<if test='userid != null' >
+  			and userid=#{userid}
+  		</if>
   		<if test='searchWord != null'>
   			and subject like '%${searchWord}%'
   		</if>
@@ -77,6 +80,19 @@
   		order by b.no desc 
   		limit ${onePageRecord} offset ${offsetIndex}
   	</select>
+  	<select id="boardAndReplySelectById" resultMap="BoardAndReplyMap">
+  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip,
+  		r.no rno, r.userid ruserid, r.subject rsubject, r.content rcontent, r.write_date rwrite_date, r.ip rip
+  		from board b
+		left outer join reply_board r on b.no = r.no
+		where b.is_notice=false and b.userid = #{param2}
+  		<if test='searchWord != null'>
+  			and b.subject like '%${searchWord}%'
+  		</if>
+  		order by b.no desc 
+  		limit ${onePageRecord} offset ${offsetIndex}
+  	</select>
+  	
   	<select id="boardSelectByNo" resultType="com.team.bf.vo.BoardVO">
   		select no, subject, userid, content, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
   		from board where no=${no}
@@ -98,8 +114,4 @@
     	insert into reply_board(no, userid,subject, content, ip)
     	values(${no}, #{userid}, #{subject}, #{content}, #{ip})
     </insert>
-    <select id="boardSelectById">
-    	select no, userid, subjcet, content, write_date, ip
-    	from board where userid=#{param1} and is_notice=false
-    </select>
   </mapper>

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.team.bf.service.ReviewService;
+import com.team.bf.vo.PagingVO;
 import com.team.bf.vo.ReviewVO;
 
 @RestController
@@ -24,14 +26,39 @@ public class ReviewController {
 	@Inject
 	ReviewService reviewService;
 	
+	//나의 문의 사항 뷰
 	@GetMapping("/mypage/myreview")
-	public ModelAndView myreview(HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		String userid = (String)session.getAttribute("logId"); 
-		mav.addObject("reviewList",reviewService.reviewSelectById(userid));
-		mav.setViewName("mypage/myreview");
-		return mav;
-	}
+    public ModelAndView myreview(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
+    		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
+    		@RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord,HttpSession session) {
+       String userid = (String)session.getAttribute("logId");
+       ModelAndView mav = new ModelAndView();
+       
+       try {
+           if(userid == null) {
+	          //로그인 안 했을 경우
+	          mav.setViewName("redirect:/");
+	       }
+	       else {
+	    	   PagingVO pvo = new PagingVO();
+	    	   pvo.setUserid(userid);
+	           //검색어가 있을 경우
+	           if(!searchWord.equals("")) 
+	           	pvo.setSearchWord(searchWord);
+	           //전체 게시글 업데이트
+	           pvo.setOnePageRecord(pageCount);
+	           pvo.setTotalRecord(reviewService.totalRecord(pvo));
+	           pvo.setPageNo(pageNo);
+	           mav.addObject("pvo",pvo);
+	    	   mav.addObject("reviewList",reviewService.reviewSelectById(pvo));
+	    	   mav.setViewName("mypage/myreview");
+	       }
+       }catch(Exception e) {
+    	   e.printStackTrace();
+    	   mav.setViewName("redirect:/");
+       }
+       return mav;
+    }
 	
 	@PostMapping("/review/myreview")
 	public ResponseEntity<HashMap<String,String>> reivewInsert(ReviewVO rvo, HttpServletRequest request, HttpSession session){
