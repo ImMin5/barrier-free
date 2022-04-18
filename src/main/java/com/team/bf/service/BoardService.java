@@ -14,7 +14,6 @@ public interface BoardService {
 	public ArrayList<BoardVO> boardSelectNotice(int limit);
 	public int boardUpdate(BoardVO vo);
 	public int boardDelete(String userid, int no);
-	public ArrayList<BoardVO> boardSelectById(String userid);
 	
 	//관리자
 	public int boardReplyInsert(BoardVO vo);

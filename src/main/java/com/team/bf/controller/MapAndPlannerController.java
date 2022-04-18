@@ -50,8 +50,7 @@ public class MapAndPlannerController {
        ModelAndView mav = new ModelAndView();
         mav.setViewName("map/mapView");
         return mav;
-    }
-	
+    }	
 	 //마이페이지 나의 플래너 뷰
     @GetMapping("/mypage/myplan")
     public ModelAndView ModelAndView(HttpSession session) {
@@ -98,7 +97,7 @@ public class MapAndPlannerController {
            jsonArray.getJSONObject(i).put("likeCount", likeService.likeSelectAll(cid));
            jsonArray.getJSONObject(i).put("heartCount", heartService.heartSelectAll(cid));
            jsonArray.getJSONObject(i).put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
-        
+     
            Float avgScore = reviewService.reviewSelectAvgScore(cid);    
            if(avgScore == null)
               jsonArray.getJSONObject(i).put("avgScore", "0");
@@ -380,13 +379,5 @@ public class MapAndPlannerController {
     	return entity;
 		
     	
-    }
-    
-    
-    @GetMapping("/mypage/myplan")
-    public ModelAndView myPlanView(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/myplan");
-        return mav;
     }
 }
