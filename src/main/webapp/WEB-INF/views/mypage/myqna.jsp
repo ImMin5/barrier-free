@@ -21,5 +21,30 @@
 </section>
 </div>
 <div class="info-box">
+	<table>
+		<c:forEach var="vo" items="${boardList}">
+		<thead class="board_thead">
+		<tr>
+			<th>No</th>
+			<th>제목</th>
+		</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>${vo.board.no }</td>
+				<td class="bo__subject"><a href="${url}/board/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
+			</tr>		
+		<tr>
+        	<c:if test="${vo.reply != null}">
+        		<td>${vo.reply.no}</td>
+        		<td><a href="${url}/board/boardList/${vo.reply.no}">[RE]${vo.reply.subject}</a></td>
+        		<td> ${vo.reply.userid}</td>
+        	</c:if>
+        </tr>
+		</tbody>
+			
+		</c:forEach>
+	</table>
+	
 
 </div>	

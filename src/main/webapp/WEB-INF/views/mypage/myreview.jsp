@@ -80,7 +80,7 @@
 					<th>
 					
 					<div class="review">
-						<div class="title">${vo.contentid }</div>
+						<div class="title">${vo.title }</div>
 						<div class="rating" data-rate="${vo.score }">
 							<i class="fas fa-star"></i>
 							<i class="fas fa-star"></i>
@@ -109,5 +109,3 @@
 		</tbody>
 	
 	</table>
-
-</div>
