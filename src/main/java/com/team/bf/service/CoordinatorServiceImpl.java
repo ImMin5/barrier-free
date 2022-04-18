@@ -35,4 +35,17 @@ public class CoordinatorServiceImpl implements CoordinatorService {
 		public int CoordiidCheck(String coo_userid) {
 			return dao.CoordiidCheck(coo_userid);
 		}
-	}
+		
+		@Override
+		public CoordinatorVO CoordinatorSelectBycoo_Id(String coo_userid) {
+			return dao.CoordinatorSelectBycoo_Id(coo_userid);
+		}
+
+		@Override
+		public CoordinatorVO coordiloginCheck(CoordinatorVO vo) {
+			return dao.coordiloginCheck(vo);
+			
+		}
+		
+		
+}

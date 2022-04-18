@@ -4,10 +4,9 @@ import java.util.HashMap;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +27,35 @@ public class CoordinatorController {
     MemberService memberService;
 	
 	
-	//코디네이터 등록 1
+	
+	//코디네이터 로그인 뷰 
+	@GetMapping("coordinator")
+	public String loginForm() {
+		return "coordinator/coordinator";
+	}
+	
+	// 코디네이터 로그인 하기
+	
+	@PostMapping("coordinatorLogin")
+	public ModelAndView coo_login(CoordinatorVO vo, HttpSession session) {
+		
+		CoordinatorVO vo2 = coordinatorservice.coordiloginCheck(vo);
+		
+		ModelAndView mav = new ModelAndView();
+		if(vo2!=null) {//코디 로그인  성공 시 
+			session.setAttribute("Coo_logId", vo2.getCoo_userid());
+			session.setAttribute("logStatus", "Y");
+			System.out.println("코디네이터 로그인 성공");
+			mav.setViewName("redirect:/");
+		}else {//로그인 실패 : 로그인 폼으로 이동
+			mav.setViewName("redirect:coordinator");
+			System.out.println("코디네이터 로그인 실패");
+		}
+		
+		return mav;
+	}
+	
+	//코디네이터 등록 
 	@PostMapping("coordinatorForm")
 	 public ResponseEntity<HashMap<String,String>> coordinatorForm(CoordinatorVO cvo, MemberVO mvo, HttpSession session){
         System.out.println("signup :  코디네이터 등록" );
@@ -57,8 +84,8 @@ public class CoordinatorController {
         }
         return entity;
     }
-	
-	//코디정보수정 하기 2
+
+	//코디정보수정 하기 
 	@PostMapping("coordinatorUpdate")
 	
 	public ModelAndView coordiUpdate(CoordinatorVO vo, HttpSession session) {
@@ -72,7 +99,7 @@ public class CoordinatorController {
 		System.out.println("수정 성공");
 		return mav;
 	}
-	//코디 등록 아이디 중복 검사 3
+	//코디 등록 아이디 중복 검사 
 	@PostMapping("coordiIdCheck")
 	
 	
