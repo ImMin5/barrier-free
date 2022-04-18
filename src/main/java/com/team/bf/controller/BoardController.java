@@ -131,23 +131,23 @@ public class BoardController {
        String userid = (String)session.getAttribute("logId");
        ModelAndView mav = new ModelAndView();
        
-       try {
-    	   PagingVO pvo = new PagingVO();
-           //검색어가 있을 경우
-           if(!searchWord.equals("")) 
-           	pvo.setSearchWord(searchWord);
-           //전체 게시글 업데이트
-           pvo.setOnePageRecord(pageCount);
-           pvo.setTotalRecord(boardService.totalRecord(pvo));
-           pvo.setPageNo(pageNo);
-	       
+       try {  
            if(userid == null) {
 	          //로그인 안 했을 경우
 	          mav.setViewName("redirect:/");
 	       }
 	       else {
+	    	   PagingVO pvo = new PagingVO();
+	    	   pvo.setUserid(userid);
+	           //검색어가 있을 경우
+	           if(!searchWord.equals("")) 
+	           	pvo.setSearchWord(searchWord);
+	           //전체 게시글 업데이트
+	           pvo.setOnePageRecord(pageCount);
+	           pvo.setTotalRecord(boardService.totalRecord(pvo));
+	           pvo.setPageNo(pageNo);
 	          mav.setViewName("/mypage/myqna");
-	          mav.addObject("boardList",boardService.boardAndReplySelectById(pvo,userid));
+	          mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
 	       }
        }catch(Exception e) {
     	   e.printStackTrace();
