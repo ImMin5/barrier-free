@@ -17,6 +17,9 @@
   	 <select id="boardSelectAll" resultType="com.team.bf.vo.BoardVO">
   		select no, subject, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date, is_notice
   		from board where is_notice=false
+  		<if test='userid != null' >
+  			and userid=#{userid}
+  		</if>
   		<if test='searchWord != null'>
   			and subject like '%${searchWord}%'
   		</if>
