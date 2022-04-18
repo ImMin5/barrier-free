@@ -30,4 +30,8 @@
    		update member set userpassword=#{param2}
    		 where userid=#{param1}
    	</update>
+   	<update id="memberUpdate">
+   		update member set date_birth=#{date_birth}, grade=${grade}, question=#{question}, answer=#{answer}
+   		where userid=#{userid}
+   	</update>
   </mapper>
