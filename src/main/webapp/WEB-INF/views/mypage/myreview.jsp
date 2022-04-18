@@ -54,10 +54,10 @@
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">
-					<a href="${url }/mypage" >나의 정보</a>
+					<a href="${url }/mypage/myplanner" >나의 플래너</a>
 					<a href="${url }/mypage/myreview" >나의 리뷰</a>
 					<a href="${url }/mypage/myqna" >나의 문의 사항</a>
-					<a href="#" >나의 플래너</a>
+					<a href="${url }/mypage" >나의 정보</a>
 
 				</nav>
 </section>
@@ -70,7 +70,7 @@
 			<th>
 				<div class="date">
 					${vo.write_date }
-					<input type="button" id="del" value="삭제" title="${vo.no}">
+					<input type="button" id="del" value="리뷰삭제" title="${vo.no}">
 				</div>
 			</th>
 		</tr>
@@ -78,10 +78,9 @@
 		<tbody>
 			<tr class="review_tr">
 					<th>
-					<div class="place">여행지</div>
-					</th>
-					<th>
+					
 					<div class="review">
+						<div class="title">${vo.contentid }</div>
 						<div class="rating" data-rate="${vo.score }">
 							<i class="fas fa-star"></i>
 							<i class="fas fa-star"></i>
@@ -90,6 +89,9 @@
 							<i class="fas fa-star"></i>
 						</div>
 					</div>
+					</th>
+					<th>
+					
 				</th>
 			</tr>
 			<tr>

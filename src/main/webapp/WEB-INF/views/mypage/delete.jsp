@@ -58,13 +58,13 @@
 	<form name="delFrm" id="delFrm" >
 		
 		<ul>
-			<li><img id="deletelogo" src="#"></li>
+			<li><img id="deletelogo" src="${url }/img/member/bf_logo_delete.png"></li>
 			
-				<li><input type="password" name="userpassword" id="userpassword"></li>
+				<li><input type="password" name="userpassword" id="userpassword" placeholder="비밀번호를 입력해주세요"></li>
 			
 		
 				
-				<li><input type="password" name="userpassword" id="userpassword2"></li>
+				<li><input type="password" name="userpassword" id="userpassword2" placeholder="비밀번호를 다시 입력해주세요"></li>
 				<button id="secession">탈퇴하기</button>
 				
 		</ul>
@@ -73,4 +73,3 @@
 	</div>
 	
 </div>
-<hr/>

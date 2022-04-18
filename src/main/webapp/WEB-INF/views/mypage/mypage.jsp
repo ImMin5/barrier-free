@@ -34,10 +34,10 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">
-					<a href="${url }/mypage" >나의 정보</a>
+					<a href="${url }/mypage/myplanner" >나의 플래너</a>
 					<a href="${url }/mypage/myreview" >나의 리뷰</a>
 					<a href="${url }/mypage/myqna" >나의 문의 사항</a>
-					<a href="#" >나의 플래너</a>
+					<a href="${url }/mypage" >나의 정보</a>
 
 				</nav>
 	
@@ -46,7 +46,7 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 					<form id="mFrm" name="myform" method="post" action="/mypage" onsubmit="return memberCheck()" >
 					<div class="con">
 						<div class="fl w-50">
-							<h3>${mvo.username }님의 정보</h3>
+							<h3><a class="username">${mvo.username }</a>님의 정보</h3>
 							
 							<table class="member__table">
 								
@@ -108,7 +108,7 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 						
 						<div class="btn-area">
 						<input id="button" type="submit" value="수정하기"/>
-						<a class="btn__style2" href="${url }/mypage/delete" >회원탈퇴</a>
+						<a class="btn__style2" href="${url }/mypage/delete" >&nbsp;회원탈퇴&nbsp; </a>
 						</div>
 					</div>
 					</form>
