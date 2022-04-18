@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.team.bf.dao.ReviewDAO">
   	<insert id="reviewInsert">
-  		insert into reply_info(userid, contentid, content, score, ip) 
-  		values( #{userid}, #{contentid}, #{content},  ${score}, #{ip})
+  		insert into reply_info(userid, contentid, content, score, ip, contentTypeId) 
+  		values( #{userid}, #{contentid}, #{content},  ${score}, #{ip}, #{contentTypeId})
   	</insert>
   	<select id="reviewSelectByNo" resultType="com.team.bf.vo.ReviewVO">
-  		select no, userid , content,  score, write_date
+  		select no, userid , content, contentid ,  score, write_date, #{contentTypeId}
   		from reply_info where no=${param1}
   	</select>
   	<update id="reviewUpdate">
@@ -19,11 +19,11 @@
   		delete from reply_info where no=${no} and userid=#{userid}
   	</delete>
   	<select id="reviewSelectById" resultType="com.team.bf.vo.ReviewVO">
-  		select no, userid , content,  score, write_date
+  		select no, userid , content,  score, write_date , ip, contentTypeId
   		from reply_info where userid=#{param1}
   	</select>
   	<select id="reviewSelectByContentid" resultType="com.team.bf.vo.ReviewVO">
-  		select no, userid , content,  score, write_date
+  		select no, userid , content,  score, write_date , ip, contentTypeId
   		from reply_info where contentid=#{param1}
   	</select>
   	<select id="reviewSelectAvgScore" resultType="float">
