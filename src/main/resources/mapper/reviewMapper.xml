@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.team.bf.dao.ReviewDAO">
+  	<select id="totalRecord" resultType="int">
+  		select count(no) cnt from reply_info
+  		<if test='searchWord != null'>
+  			where title like '%${searchWord}%' or content like '%${searchWord}%'
+  		</if>
+  	</select>
   	<insert id="reviewInsert">
   		insert into reply_info(userid, contentid, content, score, ip, contentTypeId, title) 
   		values( #{userid}, #{contentid}, #{content},  ${score}, #{ip}, #{contentTypeId}, #{title})
@@ -21,9 +27,22 @@
   	</delete>
   	<select id="reviewSelectById" resultType="com.team.bf.vo.ReviewVO">
   		select no, userid , content,  score, write_date , ip, contentTypeId, title
-  		from reply_info where userid=#{param1}
+  		from reply_info
+  		<choose>
+  			<when test='userid != null and searchWord != null'>
+  				where title like '%${searchWord}%' or content like '%${searchWord}%' and userid =#{userid}
+  			</when>
+  			<when test='userid != null'>
+  				where userid =#{userid}
+  			</when>
+  			<when test='searchWord != null'>
+  				where title like '%${searchWord}%' or content like '%${searchWord}%'
+  			</when>
+  		</choose>
   		order by write_date desc
+  		limit ${onePageRecord} offset ${offsetIndex}
   	</select>
+  	
   	<select id="reviewSelectByContentid" resultType="com.team.bf.vo.ReviewVO">
   		select no, userid , content,  score, write_date , ip, contentTypeId, title
   		from reply_info where contentid=#{param1}
