@@ -55,7 +55,7 @@
 	<h1>회원탈퇴</h1>
 	<hr />
 	<div id="deleteacc">
-	<form id="deleteaccFrm"  name="delFrm" id="delFrm" >
+	<form name="delFrm" id="delFrm" >
 		
 		<ul>
 			<li><img id="deletelogo" src="#"></li>

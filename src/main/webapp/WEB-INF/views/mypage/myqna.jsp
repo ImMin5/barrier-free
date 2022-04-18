@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="url" value="<%=request.getContextPath()%>" />
 
-<link rel="stylesheet" href="${url }css/myqna.css">
+<link rel="stylesheet" href="${url }/css/myqna.css">
 
 
 
@@ -17,6 +17,7 @@
 					<a href="#" >나의 플래너</a>
 
 				</nav>
+				
 </section>
 </div>
 <div class="info-box">

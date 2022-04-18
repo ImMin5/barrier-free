@@ -67,12 +67,19 @@
 		<c:forEach var="vo" items="${reviewList }" >
 		<thead class="review_thead" >
 		<tr>
-			<td>${vo.write_date }</td>
+			<th>
+				<div class="date">
+					${vo.write_date }
+					<input type="button" id="del" value="삭제" title="${vo.no}">
+				</div>
+			</th>
 		</tr>
 		</thead>
 		<tbody>
 			<tr class="review_tr">
-					<th>여행지</th>
+					<th>
+					<div class="place">여행지</div>
+					</th>
 					<th>
 					<div class="review">
 						<div class="rating" data-rate="${vo.score }">
@@ -87,11 +94,14 @@
 			</tr>
 			<tr>
 				<th>
-				<div class="content">${vo.content }</div>
+				<div class="content">${vo.content }
+				</div>
 				</th>
 			</tr>
 			<tr>
-				<td><input type="button" id="del" value="삭제" title="${vo.no}"></td>
+				<th>
+					<div id="line"></div>
+				</th>
 			</tr>
 			</c:forEach>
 		</tbody>

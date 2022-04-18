@@ -77,8 +77,8 @@
 }
 .myreview-box{
 	margin: 0% 750px 0;
-	width: 800px;
-	height: 1000px;
+	width: 840px;
+	height: 1400px;
 	display:block;
 	position: relative;
 	top: 0;
@@ -91,12 +91,38 @@
 	text-align: center;
 	line-height: 55px;
 }
+.date{
+	margin-left:150px;
+}
+.place{
+	margin-right:550px;
+}
 .review{
-		margin-left:200px;
+	width:130px;
+	margin-right:300px;
 	
 }
 .content{
-	width:100px;
-	height:100px;
-	margin-left:200px;
+	width:300px;
+	height:200px;
+	margin-left:250px;
+
 }
+#del{
+	border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid rgb(250, 166, 50);
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(250, 166, 50);
+    margin-left:10px;
+    padding: 5px;
+    font-family: "Noto Sans KR", sans-serif;
+    cursor:pointer;
+}
+#line{
+	width:550px;
+	border-bottom: 2px solid rgb(250, 166, 50);
+	margin-left:150px;
+	}

@@ -10,6 +10,7 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 
 
  -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
 <link rel="stylesheet" href="${url }css/mypage.css">
 <script>
  $(function(){
