@@ -30,4 +30,8 @@
    		update member set userpassword=#{param2}
    		 where userid=#{param1}
    	</update>
+   	<select id="memberLogin" resultType="com.team.bf.vo.MemberVO">
+   		select userid, userpassword, grade_member from member
+   		where userid=#{param1} and userpassword=#{param2} and grade_member=2
+   	</select>
   </mapper>
