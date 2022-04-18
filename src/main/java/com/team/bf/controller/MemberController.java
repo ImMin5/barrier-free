@@ -107,7 +107,7 @@ public class MemberController {
     }
 
     //회원 탈퇴
-    @DeleteMapping("/member")
+    @DeleteMapping("/mypage/delete")
     public ResponseEntity<HashMap<String,String>> memberDelete(HttpSession session, String userpassword){
     	ResponseEntity<HashMap<String,String>> entity = null;
         HashMap<String,String> result = new HashMap<>();

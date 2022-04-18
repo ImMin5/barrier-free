@@ -38,6 +38,12 @@
                 <button onclick="location.href='/mapView'" class="listbutton">목록</button>
                 <button onclick="location.href='/planView'" class="planbutton">플래너</button>
             </div>
+            <div class="searchFrmWrap">
+            <form method="get" action="#" id="searchFrm">
+               <input type="text" name="searchWord" id="searchWord"/>
+               <input type="submit" value="장소검색" id="searchWordSubmit"/>
+            </form>
+         	</div>
             <div class="planList">
             	<div class="planCalendar">
             		<span>

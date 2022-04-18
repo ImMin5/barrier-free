@@ -50,9 +50,62 @@ public class MapAndPlannerController {
         mav.setViewName("plan/planView");
         return mav;
     }
-
+    
+    @GetMapping("/mapView2")
+    public ModelAndView mapView2(HttpSession session){
+        String userid = (String)session.getAttribute("logId");
+    	ModelAndView mav = new ModelAndView();
+        mav.setViewName("map/mapView2");
+        return mav;
+    }
+    
+    @PostMapping("/mapInfo")
+    public String mapInfo(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "2")String pageCount, 
+    		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord, HttpSession session){
+        String userid = (String)session.getAttribute("logId");
+        //List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount, "all", searchWord);
+        HashMap<String,JSONArray> result = new HashMap<String,JSONArray>();
+        ResponseEntity<HashMap<String,JSONArray>> entity = null;
+        JSONArray jsonArray = openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord);
+        
+        for(int i=0; i<jsonArray.length(); i++){
+        	String cid = jsonArray.getJSONObject(i).get("contentid").toString();
+        	JSONObject Opt = openApiService.detailCommon(cid,areaCode);
+        	jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
+        	jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
+        	jsonArray.getJSONObject(i).put("firstimage",Opt.get("firstimage").toString());
+        	jsonArray.getJSONObject(i).put("firstimage2",Opt.get("firstimage2").toString());
+        	if(Opt.has("homepage"))
+        		jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
+        	else
+        		jsonArray.getJSONObject(i).put("homepage", "");
+        	jsonArray.getJSONObject(i).put("likeCount", likeService.likeSelectAll(cid));
+        	jsonArray.getJSONObject(i).put("heartCount", heartService.heartSelectAll(cid));
+        	jsonArray.getJSONObject(i).put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
+        
+        	Float avgScore = reviewService.reviewSelectAvgScore(cid); 	
+        	if(avgScore == null)
+        		jsonArray.getJSONObject(i).put("avgScore", "0");
+        	else 
+        		jsonArray.getJSONObject(i).put("avgScore", String.format("%.2f",avgScore));
+        	
+        	//System.out.println("jsonarray"+ jsonArray.getJSONObject(i).toString());
+        }
+        
+        for(int i=0; i<jsonArray.length(); i++){
+        	System.out.println("jsonarray"+ jsonArray.getJSONObject(i).toString());
+        }
+        //로그인 했을 경우 여행 플래너 정보
+        if(userid != null) {
+        	//jsonArray.put("plannerList",plannerService.plannerSelectById(userid));
+        }
+       // result.put("tourList", openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord));
+       // entity = new ResponseEntity<HashMap<String,JSONArray>>(result, HttpStatus.OK);
+        return openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord).toString();
+    }
+    
     @GetMapping("/mapView")
-    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "3")String pageCount, 
+    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "4")String pageCount, 
     		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord, HttpSession session){
         String userid = (String)session.getAttribute("logId");
     	ModelAndView mav = new ModelAndView();
@@ -65,7 +118,12 @@ public class MapAndPlannerController {
         	jObj.put("overview",Opt.get("overview").toString());
         	jObj.put("firstimage",Opt.get("firstimage").toString());
         	jObj.put("firstimage2",Opt.get("firstimage2").toString());
-        	jObj.put("homepage", Opt.get("homepage").toString());
+        	if(Opt.has("homepage"))
+        		jObj.put("homepage", Opt.get("homepage").toString());
+        	else
+        		jObj.put("homepage", "");
+        	
+        		
         	jObj.put("likeCount", likeService.likeSelectAll(cid));
         	jObj.put("heartCount", heartService.heartSelectAll(cid));
         	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
