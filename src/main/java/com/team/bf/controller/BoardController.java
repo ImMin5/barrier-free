@@ -122,23 +122,6 @@ public class BoardController {
     	}
     	return mav;
     }  
-    //나의 문의 사항 뷰
-    @GetMapping("/mypage/myqna")
-    public ModelAndView ModelAndView(HttpSession session) {
-    	String userid = (String)session.getAttribute("logId");
-    	ModelAndView mav = new ModelAndView();
-    	if(userid == null) {
-    		//로그인 안 했을 경우
-    		mav.setViewName("redirect:/");
-    	}
-    	else {
-    		mav.setViewName("/mypage/myqna");
-    		mav.addObject("boardList",boardService.boardSelectById(userid));
-    	}
-    	
-    	return mav;
-    	
-    }
     //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
