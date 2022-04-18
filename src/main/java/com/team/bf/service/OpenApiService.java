@@ -339,7 +339,7 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
-            System.out.println(json.toString());
+            //System.out.println(json.toString());
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -347,5 +347,49 @@ public class OpenApiService {
         return json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
     	
     }
+	//10. 무장애 여행 조회
+	
+	public JSONObject detailWithTour(String contentid) {
+		 StringBuilder urlBuilder = null;
+	        StringBuilder sb = new StringBuilder();
+	        JSONObject json= null ,item = null;
+	        
+	        try {
+	        	urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/detailCommon"); /*URL*/
+	            urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+myKey); /*Service Key*/
+	            urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*IOS (아이폰), AND (안드로이드), ETC*/
+	            urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("AppTest", "UTF-8")); /*서비스명=어플명*/
+	            urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(contentid, "UTF-8"));  
+	            
+	            URL url = new URL(urlBuilder.toString());
+	            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	            conn.setRequestMethod("GET");
+	            conn.setRequestProperty("Content-type", "application/json");
+	            //System.out.println("Response code: " + conn.getResponseCode());
+	            BufferedReader rd;
+	            if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+	                rd = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+	            } else {
+	                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream(),"UTF-8"));
+	            }
+	            String line;
+	            while ((line = rd.readLine()) != null) {
+	                sb.append(line);
+	            }
+	            rd.close();
+	            conn.disconnect();
+	            json = XML.toJSONObject(sb.toString());
+	        }catch(Exception e){
+	            e.printStackTrace();
+	        }
+	        //System.out.println(json.toString());
+	        int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+	        
+	        if(totalCount > 0){
+	            item = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+	           // System.out.println("detailCommon 결과 : " + item.toString());
+	        }
+	        return item;
+	}
 }
 
