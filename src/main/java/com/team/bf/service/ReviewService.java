@@ -7,13 +7,16 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.team.bf.dao.ReviewDAO;
+import com.team.bf.vo.PagingVO;
 import com.team.bf.vo.ReviewVO;
 
 @Service
 public class ReviewService {
 	@Inject
 	ReviewDAO dao;
-	
+	public int totalRecord(PagingVO vo) {
+		return dao.totalRecord(vo);
+	}
 	public int reviewInsert(ReviewVO vo) {
 		return dao.reviewInsert(vo);
 	}
@@ -26,8 +29,8 @@ public class ReviewService {
 	public int reviewDelete(ReviewVO vo) {
 		return dao.reviewDelete(vo);
 	}
-	public List<ReviewVO> reviewSelectById(String userid){
-		return dao.reviewSelectById(userid);
+	public List<ReviewVO> reviewSelectById(PagingVO vo){
+		return dao.reviewSelectById(vo);
 	}
 	public List<ReviewVO> reviewSelectByContentid(String contentid){
 		return dao.reviewSelectByContentid(contentid);
