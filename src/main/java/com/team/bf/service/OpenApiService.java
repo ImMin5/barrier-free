@@ -214,7 +214,7 @@ public class OpenApiService {
             //모든 관광지를 조회할 시
             if(contentTypeId.equals("all") == false)
                urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
-            
+        
             if(!searchWord.equals(""))
                 urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + URLEncoder.encode(searchWord, "UTF-8")); /*지역코드, 시군구코드*/
             URL url = new URL(urlBuilder.toString());
@@ -278,7 +278,7 @@ public class OpenApiService {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-type", "application/json");
-            System.out.println("Response code: " + conn.getResponseCode());
+            //System.out.println("Response code: " + conn.getResponseCode());
             BufferedReader rd;
             if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
                 rd = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
@@ -295,7 +295,7 @@ public class OpenApiService {
         }catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println(json.toString());
+        //System.out.println(json.toString());
         int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
         
         if(totalCount > 0){
@@ -348,3 +348,4 @@ public class OpenApiService {
     	
     }
 }
+

@@ -50,8 +50,29 @@ public class MapAndPlannerController {
        ModelAndView mav = new ModelAndView();
         mav.setViewName("map/mapView");
         return mav;
+    }	
+	 //마이페이지 나의 플래너 뷰
+    @GetMapping("/mypage/myplan")
+    public ModelAndView ModelAndView(HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	String userid = (String)session.getAttribute("logId");
+    	try {
+    		if(userid != null) {
+    			mav.addObject("planList", plannerService.plannerSelectById(userid));
+    			mav.setViewName("mypage/myplan");
+    		}
+    		else {
+    			mav.setViewName("redirect:/login");
+    		}
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/");
+    	}
+    	
+    	
+    	return mav;
     }
-    
     //0.여행지 정보 요청
     @PostMapping("/mapInfo")
     public String mapInfo( String pageNo,String pageCount, String searchWord, HttpSession session){
@@ -76,7 +97,7 @@ public class MapAndPlannerController {
            jsonArray.getJSONObject(i).put("likeCount", likeService.likeSelectAll(cid));
            jsonArray.getJSONObject(i).put("heartCount", heartService.heartSelectAll(cid));
            jsonArray.getJSONObject(i).put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
-        
+     
            Float avgScore = reviewService.reviewSelectAvgScore(cid);    
            if(avgScore == null)
               jsonArray.getJSONObject(i).put("avgScore", "0");
@@ -358,13 +379,5 @@ public class MapAndPlannerController {
     	return entity;
 		
     	
-    }
-    
-    
-    @GetMapping("/mypage/myplan")
-    public ModelAndView myPlanView(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/myplan");
-        return mav;
     }
 }
