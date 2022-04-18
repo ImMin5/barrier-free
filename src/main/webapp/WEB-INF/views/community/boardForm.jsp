@@ -1,4 +1,5 @@
-<link rel="stylesheet" href="${$}/css/board.css">
+<link rel="stylesheet" href="${url}/css/board.css">
+
 
 <script>
 $(function() {
@@ -43,28 +44,27 @@ $(function() {
 
 </script>
   
-   <div id="#b__table">
-        <h2>게시글 작성</h2>
-       <form id="boardFrm">
+   <div id="#b__table" >
+        <h1 class="bf__title">👇 게시글 작성 👇</h1>
+       <form id="boardFrm" class="bf__container" >
         	<input type="hidden" value="board_write" name="command">
         
-            <table>
+            <table class="bf__table">
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="subject" id="subject"></td>
+                    <td><input type="text" name="subject" id="subject" placeholder="제목을 작성해주세요"></td>
                 </tr>
                 <tr>
                     <th>아이디</th>
-                    <td><input type="text" name="userid" id="userid" placeholder="접속한 ID로 입력하세요"></td>
+                    <td><input type="text" name="userid" value="${logId}"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea cols="100" rows="30"  name="content" id="content"></textarea></td>
+                    <td><textarea cols="100" rows="30"  name="content" id="content" style="padding: 10px"></textarea></td>
                 </tr>
             </table>
-            <input class="btn" type="button" id="btn_submit" value="등록">
-            <input class="btn" type="reset" value="다시작성하기">
-            <input class="btn" type="button" value="취소" onclick="javascript:history.back()">
+            <input class="bo__btn__w" type="button" id="btn_submit" value="등록">
+            <input class="bo__btn__w" type="button" value="취소" onclick="javascript:history.back()">
     	</form>
     </div>
     

@@ -1,5 +1,4 @@
-<link rel="stylesheet" href="${$}/css/board.css">
-           	
+<link rel="stylesheet" href="${url}/css/board.css">
 
 <script>
 $(function() {
@@ -39,9 +38,6 @@ $(function() {
  	   });
 	 });
    });
-
-
-
  $(function() {
     $("#btn_delete").on("click",function() {
         $(function(){
@@ -69,9 +65,9 @@ $(function() {
 			
 </script>
   
-   <div id="#b__table">
-        <h2>게시글 수정</h2>
-        <form id="boardFrm" name="boardFrm">
+<div id="#b__table">
+        <h1 class="bf__title">👇 게시글 수정 👇</h1>
+        <form id="boardFrm" name="boardFrm" class="bf__container">
         	<input type="hidden" value=${bvo.no} name="no">
         	<input type="hidden" value="board_write" name="command">
             <table>
@@ -88,9 +84,8 @@ $(function() {
                     <td><textarea cols="100" rows="30"  name="content" id="content">${bvo.content}</textarea></td>
                 </tr>
             </table>
-            <input class="btn" type="button" id="btn_edit" value="글 작성">
-            <input class="btn" type="button" id="btn_delete" value="삭제하기">
-            <input class="btn" type="button" value="취소" onclick="javascript:history.back()">
+            <input class="bo__btn__w" type="button" id="btn_edit" value="글 작성">
+            <input class="bo__btn__w" type="button" id="btn_delete" value="삭제하기">
+            <input class="bo__btn__w" type="button" value="취소" onclick="javascript:history.back()">
         </form>
-    </div>
-    
+    </div> 
