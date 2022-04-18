@@ -1,4 +1,26 @@
 @charset "UTF-8";
+table{
+	
+    width: 100%;
+    border-collapse: collapse;
+    line-height: 24px;
+}
+table td,th {
+    font-family: "Noto Sans KR", sans-serif;
+	border: 1px solid white;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 10px;
+    color:black;
+}
+th {
+	background: rgb(238,238,238);
+	
+}
+table a{text-decoration: none;}	
+table a:link{color: rgb(50, 133, 247);}
+table a:visited{color: gray;}	
+
 .mypage-box {
 	
 	width: 300px;

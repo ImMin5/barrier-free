@@ -63,6 +63,7 @@
 </section>
 </div>			
 <div class="myreview-box">
+	<a class="title1">나의 리뷰👀</a>
 	<table>
 		<c:forEach var="vo" items="${reviewList }" >
 		<thead class="review_thead" >
@@ -90,11 +91,9 @@
 						</div>
 					</div>
 					</th>
-					<th>
-					
-				</th>
 			</tr>
 			<tr>
+			
 				<th>
 				<div class="content">${vo.content }
 				</div>
@@ -109,3 +108,37 @@
 		</tbody>
 	
 	</table>
+			<div class="bo__n__page">
+		
+	</div>
+	
+	<!-- 페이징 -->
+	<ul class="paging">
+		<!-- 이전페이지 -->
+		<c:if test="${pvo.pageNo==1 }">
+		<li>◀</li>
+		</c:if>
+		<c:if test="${pvo.pageNo>1 }">
+		<li><a href="${url}/mypage/myreview?pageNo=${pvo.pageNo-1}<c:if test='${pvo.searchWord!=null}'>&searchWord=${pvo.searchWord}</c:if>">◀</a></li>
+		</c:if>
+		<!-- 페이지 번호  -->
+		<c:forEach var="p" begin="${pvo.startPage}" end="${pvo.startPage+pvo.onePageCount-1}">
+			<!-- 총 페이지수 보다 출력할 페이지 번호가 작을 때 -->
+			<c:if test ="${p <= pvo.totalPage}">
+				<c:if test="${p==pvo.pageNo }">
+					<li style="font-size= 20px"><a href="${url}/mypage/myreview?pageNo=${p}">${p}</a></li>
+				</c:if>
+				<c:if test="${p!=pvo.pageNo }">
+					<li><a href=${url}/mypage/myreview?pageNo=${p}<c:if test='${pvo.searchWord!=null}'>&searchWord=${pvo.searchWord}</c:if>>${p}</a></li>
+				</c:if>
+			</c:if>
+		</c:forEach>
+		<!-- 다음 페이지  -->
+		<c:if test="${pvo.pageNo == pvo.totalPage }">
+			<li>▶</li>
+		</c:if>
+		<c:if test="${pvo.pageNo < pvo.totalPage }">
+			<li><a href="${url}/mypage/myreview?pageNo=${pvo.pageNo+1}<c:if test='${pvo.searchWord!=null}'>&searchWord=${pvo.searchWord}</c:if>">▶</a></li>
+		</c:if>
+	</ul>
+</div>
