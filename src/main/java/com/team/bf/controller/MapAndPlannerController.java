@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,46 +44,50 @@ public class MapAndPlannerController {
 	@Inject
 	PlannerService plannerService;
 	
-    @GetMapping("/planView")
-    public ModelAndView planView(){
-        ModelAndView mav = new ModelAndView();
-
-        mav.setViewName("plan/planView");
-        return mav;
-    }
-
-    @GetMapping("/mapView")
-    public ModelAndView mapView(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "3")String pageCount, 
-    		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord, HttpSession session){
+	@GetMapping("/mapView")
+    public ModelAndView mapView2(HttpSession session){
         String userid = (String)session.getAttribute("logId");
-    	ModelAndView mav = new ModelAndView();
-        List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount, "all", searchWord);
-        
-        for(JSONObject jObj : tourList) {
-        	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
-        	String cid = jObj.get("contentid").toString();
-        	jObj.put("title",Opt.get("title").toString());
-        	jObj.put("overview",Opt.get("overview").toString());
-        	jObj.put("firstimage",Opt.get("firstimage").toString());
-        	jObj.put("firstimage2",Opt.get("firstimage2").toString());
-        	jObj.put("homepage", Opt.get("homepage").toString());
-        	jObj.put("likeCount", likeService.likeSelectAll(cid));
-        	jObj.put("heartCount", heartService.heartSelectAll(cid));
-        	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
-        
-        	Float avgScore = reviewService.reviewSelectAvgScore(cid); 	
-        	if(avgScore == null)
-        		jObj.put("avgScore", "0");
-        	else 
-        		jObj.put("avgScore", String.format("%.2f",avgScore));
-        }
-        //로그인 했을 경우 여행 플래너 정보
-        if(userid != null) {
-        	mav.addObject("plannerList",plannerService.plannerSelectById(userid));
-        }
-        mav.addObject("tourList", tourList);
+       ModelAndView mav = new ModelAndView();
         mav.setViewName("map/mapView");
         return mav;
+    }
+    
+    //0.여행지 정보 요청
+    @PostMapping("/mapInfo")
+    public String mapInfo( String pageNo,String pageCount, String searchWord, HttpSession session){
+        String userid = (String)session.getAttribute("logId");
+       
+        System.out.println(pageNo + " " + pageCount);
+        if(pageNo == null) pageNo = "1";
+        if(pageCount == null) pageCount = "2";
+        if(searchWord == null) searchWord = "";
+        JSONArray jsonArray = openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord); 
+        for(int i=0; i<jsonArray.length(); i++){
+           String cid = jsonArray.getJSONObject(i).get("contentid").toString();
+           JSONObject Opt = openApiService.detailCommon(cid,areaCode);
+           jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
+           jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
+           jsonArray.getJSONObject(i).put("firstimage",Opt.get("firstimage").toString());
+           jsonArray.getJSONObject(i).put("firstimage2",Opt.get("firstimage2").toString());
+           if(Opt.has("homepage"))
+              jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
+           else
+              jsonArray.getJSONObject(i).put("homepage", "");
+           jsonArray.getJSONObject(i).put("likeCount", likeService.likeSelectAll(cid));
+           jsonArray.getJSONObject(i).put("heartCount", heartService.heartSelectAll(cid));
+           jsonArray.getJSONObject(i).put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
+        
+           Float avgScore = reviewService.reviewSelectAvgScore(cid);    
+           if(avgScore == null)
+              jsonArray.getJSONObject(i).put("avgScore", "0");
+           else 
+              jsonArray.getJSONObject(i).put("avgScore", String.format("%.2f",avgScore));
+        }      
+        //로그인 했을 경우 여행 플래너 정보
+        if(userid != null) {
+           //jsonArray.put("plannerList",plannerService.plannerSelectById(userid));
+        }
+        return jsonArray.toString();
     }
     //1.여행 계획 생성 요청
     @PostMapping("/planView")
