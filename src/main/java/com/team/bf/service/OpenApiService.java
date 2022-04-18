@@ -213,8 +213,8 @@ public class OpenApiService {
             
             //모든 관광지를 조회할 시
             if(contentTypeId.equals("all") == false)
-            	urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
-            
+               urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
+        
             if(!searchWord.equals(""))
                 urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + URLEncoder.encode(searchWord, "UTF-8")); /*지역코드, 시군구코드*/
             URL url = new URL(urlBuilder.toString());
@@ -248,9 +248,9 @@ public class OpenApiService {
             jsonArray = response.getJSONArray("item");
             //System.out.println(jsonArray.toString());
             for(int i=0; i<jsonArray.length(); i++) {
-            	JSONObject jObj = jsonArray.getJSONObject(i);
-            	//System.out.println("item : " + jObj.toString());
-            	items.add(jObj);
+               JSONObject jObj = jsonArray.getJSONObject(i);
+               //System.out.println("item : " + jObj.toString());
+               items.add(jObj);
             }
         }
         //System.out.println(jsonArray.toString());
@@ -347,8 +347,5 @@ public class OpenApiService {
         return json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
     	
     }
-	
-	public void saveOpenApiInformation() {
-		
-	}
 }
+

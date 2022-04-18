@@ -23,7 +23,7 @@
     	where username=#{param1} and date_birth=#{param2}
     </select>
     <select id="memberSelectByQuestion" resultType="MemberVO">
-    	select userid , userpassword from member
+    	select userid, userpassword from member
     	where userid=#{param1} and question=#{param2} and answer=#{param3}
     </select>
    	<update id="memberUpdatePassword">
