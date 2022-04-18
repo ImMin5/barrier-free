@@ -54,14 +54,14 @@ public class MapAndPlannerController {
     
     //0.여행지 정보 요청
     @PostMapping("/mapInfo")
-    public String mapInfo(@RequestBody(required = false) String pageNo, @RequestBody(required = false) String pageCount, @RequestBody(required = false)String searchWord, HttpSession session){
+    public String mapInfo( String pageNo,String pageCount, String searchWord, HttpSession session){
         String userid = (String)session.getAttribute("logId");
-        JSONArray jsonArray = openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord);
-        
+       
+        System.out.println(pageNo + " " + pageCount);
         if(pageNo == null) pageNo = "1";
         if(pageCount == null) pageCount = "2";
         if(searchWord == null) searchWord = "";
-        
+        JSONArray jsonArray = openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord); 
         for(int i=0; i<jsonArray.length(); i++){
            String cid = jsonArray.getJSONObject(i).get("contentid").toString();
            JSONObject Opt = openApiService.detailCommon(cid,areaCode);
