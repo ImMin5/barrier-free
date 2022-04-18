@@ -14,7 +14,8 @@ public class PagingVO {
 	private int offsetIndex = 0;
 	private int onePageCount = 5;
 	private int startPage = 1;
-
+	
+	private String userid;
 	private String searchWord;
 	
 	public void setPageNo(int pageNo) {
