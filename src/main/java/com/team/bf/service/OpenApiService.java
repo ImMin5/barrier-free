@@ -272,6 +272,7 @@ public class OpenApiService {
             System.out.println(json.toString());
         }catch(Exception e){
             e.printStackTrace();
+            
         }
       
         return json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
