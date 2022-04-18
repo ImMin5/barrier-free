@@ -56,8 +56,8 @@
     let contents = [];
     let map;
     let clickedOverlay = null;
-    let pageNo = 1;
-    let pageCount = 2;
+    let pageNo = "1";
+    let pageCount = "2";
     let searchWord = "";
 
     //오버레이를 저장할 리스트 생성
@@ -251,10 +251,15 @@
 
     //맵 리스트 불러오기   
     function get_jObj() {
-        var url = "${url}/mapInfo?pageNo=" + pageNo + "&pageCount=" + pageCount + "&searchWord=" + searchWord;
+        var url = "${url}/mapInfo"
         $.ajax({
             url: url,
             type: "POST",
+            data :{
+            	pageNo : pageNo,
+            	pageCount : pageCount, 
+            	searchWord : searchWord,
+            },
             success: function (data) {
                 //데이터 갱신
                 console.log(JSON.parse(data));
