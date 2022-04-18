@@ -380,12 +380,4 @@ public class MapAndPlannerController {
 		
     	
     }
-    
-    
-    @GetMapping("/mypage/myplan")
-    public ModelAndView myPlanView(){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("mypage/myplan");
-        return mav;
-    }
 }
