@@ -52,7 +52,7 @@ public class MapAndPlannerController {
         return mav;
     }	
 	 //마이페이지 나의 플래너 뷰
-    @GetMapping("/mypage/myplan")
+    @GetMapping("/mypage/myplanner")
     public ModelAndView ModelAndView(HttpSession session) {
     	ModelAndView mav = new ModelAndView();
     	String userid = (String)session.getAttribute("logId");

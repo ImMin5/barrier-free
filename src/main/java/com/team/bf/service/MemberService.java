@@ -11,4 +11,5 @@ public interface MemberService {
     public MemberVO memberSelectByQuestion(String userid, String question, String answer);
     public int memberUpdatePassword(String userid, String password);
     public MemberVO memberLogin(String userid, String userpassowrd);
+    public int memberUpdate(MemberVO vo);
 }

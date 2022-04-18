@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -225,7 +226,7 @@ public class MemberController {
     }
 
 
-
+    //회원가입 요청
     @PostMapping("/signup")
     public ModelAndView signup(MemberVO mvo, HttpSession session){
     	ModelAndView mav = new ModelAndView();
@@ -252,5 +253,42 @@ public class MemberController {
     @PostMapping("/signup/memberIdCheck")
     public int memberIdCheck(String userid) {
     	return memberService.memberUseridCheck(userid);
+    }
+    
+    //회원정보 수정 요청
+    @PutMapping("/mypage")
+    public ResponseEntity<HashMap<String,String>> memberEdit(MemberVO mvo, HttpSession session){
+    	ResponseEntity<HashMap<String,String>> entity = null;
+    	HashMap<String,String> result = new HashMap<String,String>();
+    	String userid = (String)session.getAttribute("logId");
+    	
+    	try {
+    		mvo.setUserid(userid);
+    		result.put("status", "200");
+    		if(userid == null) {
+    			result.put("msg", "로그인 후 이용해 주세요");
+    			result.put("redirect","redirect:/login");
+    		}
+    		else {
+    			if(memberService.memberUpdate(mvo) > 0) {
+    				result.put("msg", "회원 정보 업데이트 성공!");
+        			result.put("redirect","redirect:/mypage");
+    			}
+    			else {
+    				result.put("msg", "회원 정보 업데이트 실패.");
+        			result.put("redirect","/mypage");
+    			}
+    		}
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		result.put("status", "400");
+    		result.put("msg", "회원 정보 업데이트 에러...Error");
+    		result.put("redirect","/");
+    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
+    	}
+    	
+    	return entity;
     }
 }
