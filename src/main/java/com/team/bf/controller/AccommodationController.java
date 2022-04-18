@@ -10,6 +10,7 @@ import com.team.bf.service.HeartService;
 import com.team.bf.service.LikeService;
 import com.team.bf.service.OpenApiService;
 import com.team.bf.service.ReviewService;
+import com.team.bf.vo.ReviewVO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,7 +40,6 @@ public class AccommodationController {
         ModelAndView mav = new ModelAndView();
         try {
 	        List<JSONObject> accomoList = openApiService.searchKeyword(pageNo, pageCount, "32" , searchWord); //숙박정보 32 
-	        
 	        for(JSONObject jObj : accomoList) {
 	        	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
 	        	String cid = jObj.get("contentid").toString();
@@ -60,6 +60,11 @@ public class AccommodationController {
 	        		jObj.put("avgScore", "0");
 	        	else 
 	        		jObj.put("avgScore", String.format("%.2f",avgScore));
+	        	ReviewVO rvo = reviewService.reviewSelectOneByContentid(searchWord);
+	        	//점수가 가장 높은 대표 리뷰 선정
+	        	jObj.put("thumbnailReviewTitle", rvo.getTitle());
+	        	jObj.put("thumbnailReviewScore", rvo.getScore());
+	        	jObj.put("thumbnailReviewScore", rvo.getContent());
 	        }
 	        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
 	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
@@ -79,18 +84,18 @@ public class AccommodationController {
     		JSONObject Opt = openApiService.detailWithTour(contentid);
     		jObj = openApiService.detailCommon(contentid,"32");
     		//데이터 추가
-    		jObj.put("route",Opt.has("route")? "1" : "0");
-    		jObj.put("parking",Opt.has("parking")? "1" : "0");
-    		jObj.put("publictransport",Opt.has("publictransport")? "1" : "0");
-    		jObj.put("wheelchair",Opt.has("wheelchair")? "1" : "0");
-    		jObj.put("exit",Opt.has("exit")? "1" : "0");
-    		jObj.put("elevator",Opt.has("elevator")? "1" : "0");
-    		jObj.put("restroom",Opt.has("restroom")? "1" : "0");
-    		jObj.put("braileblock",Opt.has("braileblock")? "1" : "0");
-    		jObj.put("helpdog",Opt.has("helpdog")? "1" : "0");
-    		jObj.put("guidehuman",Opt.has("guidehuman")? "1" : "0");
-    		jObj.put("audioguide",Opt.has("audioguide")? "1" : "0");
-    		jObj.put("brailepromotion",Opt.has("brailepromotion")? "1" : "0");
+    		jObj.put("route",Opt.has("route")? 1 : 0);
+    		jObj.put("parking",Opt.has("parking")? 1 : 0);
+    		jObj.put("publictransport",Opt.has("publictransport")?1 : 0);
+    		jObj.put("wheelchair",Opt.has("wheelchair")?1 : 0);
+    		jObj.put("exit",Opt.has("exit")? 1 : 0);
+    		jObj.put("elevator",Opt.has("elevator")? 1 : 0);
+    		jObj.put("restroom",Opt.has("restroom")? 1 : 0);
+    		jObj.put("braileblock",Opt.has("braileblock")? 1 : 0);
+    		jObj.put("helpdog",Opt.has("helpdog")? 1 : 0);
+    		jObj.put("guidehuman",Opt.has("guidehuman")? 1 : 0);
+    		jObj.put("audioguide",Opt.has("audioguide")? 1 : 0);
+    		jObj.put("brailepromotion",Opt.has("brailepromotion")? 1 : 0);
     		jObj.put("likeCount", likeService.likeSelectAll(contentid)); //좋아요 숫자
     		jObj.put("heartCount", heartService.heartSelectAll(contentid)); //찜 숫자
     		jObj.put("reviewCount", reviewService.reviewSelectByContentid(contentid).size());//리뷰 숫자
