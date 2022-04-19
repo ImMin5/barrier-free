@@ -30,9 +30,20 @@ public class AdminController {
 	MemberService memberSerive;
 	
 	@GetMapping("/admin")
-	public ModelAndView adminLoginView(){
+	public ModelAndView adminLoginView(HttpSession session){
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("admin/login");
+		String adminStatus = (String)session.getAttribute("adminStatus");
+		try {
+			if(adminStatus != null && adminStatus.equals("Y")) {
+				mav.setViewName("redirect:/admin/boardList");
+			}
+			else {
+				mav.setViewName("admin/login");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return mav;
 	}
 	@PostMapping("/admin")
@@ -41,10 +52,8 @@ public class AdminController {
 		String adminStatus = (String)session.getAttribute("adminStatus");
 		String userid  = (String)session.getAttribute("logId");
 		try {
-			if(adminStatus.equals("Y") && userid.equals(mvo.getUserid())) {
-				mav.setViewName("redirect:/admin/boardList");
-			}
-			else if(memberSerive.memberLogin(mvo.getUserid(), mvo.getUserpassword()) != null) {
+			
+			if(memberSerive.memberLogin(mvo.getUserid(), mvo.getUserpassword()) != null) {
 				session.setAttribute("logId", mvo.getUserid());
 				session.setAttribute("adminStatus", "Y");
 				mav.setViewName("redirect:/admin/boardList");
