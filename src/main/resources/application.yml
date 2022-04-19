@@ -21,7 +21,7 @@ spring:
         password : root
 #발급받은 키 
 open-api : 
-    myKey : bGFsMgfetTesJMZeNF1L5u09m2jGU6Mb7aGHayrsC3xvl9nPNmiAMjSNF4Z5ORdBpygtVN1rdtd5iANyX0A1Kg%3D%3D
+    myKey : mPM9rNm4dhOt8LbY%2BMgQIYsji%2FQEBcR9B2wUH%2Bicfkg6ITRVV1ObD3qyo%2B56TfSa%2FF5Tqgp5Ub9BT31piU%2B0Ow%3D%3D
 
 mybatis:
     type-aliases-package: com.team.bf.vo  #mybatis 에서 패키지 생략 할 수ㅡ 있도록 설정
