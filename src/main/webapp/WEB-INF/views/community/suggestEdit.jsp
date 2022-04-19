@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="${url}/css/board.css">
+<link rel="stylesheet" href="${url}/css/suggest.css">
 
 <script>
 $(function() {
     $("#btn_edit").on("click",function() {
-       if ($("#subject").val() == "") {
+       if ($("#title").val() == "") {
           alert("글 제목을 입력하세요");
           return false;
        }
@@ -18,8 +18,8 @@ $(function() {
        
        
     $(function(){
-           var url = "${url}/board/boardList";
-           var data = $("#boardFrm").serialize();
+           var url = "${url}/suggest/suggestionList";
+           var data = $("#suggestFrm").serialize();
         $.ajax({
            url : url,
            type : "put",
@@ -41,8 +41,8 @@ $(function() {
  $(function() {
     $("#btn_delete").on("click",function() {
         $(function(){
-            var url = "${url}/board/boardList";
-            var data = $("#boardFrm").serialize()
+            var url = "${url}/suggest/suggestionList";
+            var data = $("#suggestFrm").serialize()
          $.ajax({
             url : url,
             type : "DELETE",
@@ -67,25 +67,25 @@ $(function() {
   
 <div id="#b__table">
         <h1 class="bf__title">👇 게시글 수정 👇</h1>
-        <form id="boardFrm" name="boardFrm" class="bf__container">
-        	<input type="hidden" value=${bvo.no} name="no">
-        	<input type="hidden" value="board_write" name="command">
+        <form id="suggestFrm" name="suggestFrm" class="bf__container">
+        	<input type="hidden" value=${svo.no} name="no">
+        	<input type="hidden" value="suggest_write" name="command">
             <table>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="subject" id="subject" value="${bvo.subject}"></td>
+                    <td><input type="text" name="title" id="title" value="${svo.title}"></td>
                 </tr>
                 <tr>
                     <th>아이디</th>
-                    <td><input type="text" name="userid" id="userid" value="${bvo.userid}"></td>
+                    <td><input type="text" name="userid" id="userid" value="${svo.userid}"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea cols="100" rows="30"  name="content" id="content">${bvo.content}</textarea></td>
+                    <td><textarea cols="100" rows="30"  name="content" id="content">${svo.content}</textarea></td>
                 </tr>
             </table>
             <input class="bo__btn__w" type="button" id="btn_edit" value="글 작성">
             <input class="bo__btn__w" type="button" id="btn_delete" value="삭제하기">
-            <input class="bo__btn__w" type="button" value="취소" onclick="location.href='${url}/board/boardList'">
+            <input class="bo__btn__w" type="button" value="취소" onclick="location.href='${url}/suggest/suggestList'">
         </form>
     </div>  
