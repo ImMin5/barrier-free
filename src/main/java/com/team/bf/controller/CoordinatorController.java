@@ -29,9 +29,12 @@ public class CoordinatorController {
 	
 	
 	//코디네이터 로그인 뷰 
-	@GetMapping("coordinator")
-	public String loginForm() {
-		return "coordinator/coordinator";
+	@GetMapping("/coordinator")
+	public ModelAndView loginForm() {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.setViewName("coordinator/coordinator");
+		return mav;
 	}
 	
 	// 코디네이터 로그인 하기
