@@ -1,0 +1,39 @@
+@charset "UTF-8";
+#div1{margin:150px;}
+
+table{
+	
+    width: 100%;
+    border-collapse: collapse;
+    line-height: 35px;
+}
+table td,th {
+    font-family: "Noto Sans KR", sans-serif;
+	border: 1px solid gray;
+    border-collapse: collapse;
+    text-align: center;
+    color:black;
+}
+#btn1{
+	border:none;
+	cursor:pointer;
+	background-color:white;
+	font-weight:bold;
+	color:rgb(50, 133, 247);
+}
+
+#btn2{
+	border:none;
+	cursor:pointer;
+	background-color:white;
+	font-weight:bold;
+	color:red;
+}
+.t1 td{
+	background: #84b1d9;
+}
+table a{text-decoration: none;}	
+table a:link{color: rgb(50, 133, 247);}
+table a:visited{color: gray;}	
+
+input {border:none;}
