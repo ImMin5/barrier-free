@@ -59,7 +59,7 @@ public class CoordinatorController {
 	   }
 	   
 	   //코디네이터 등록 폼 뷰 
-	   @GetMapping("/amdin/coordinator/form")
+	   @GetMapping("/admin/coordinator/form")
 	   public ModelAndView coordinatorFormView(HttpSession session) {
 		   ModelAndView mav = new ModelAndView();
 		   try {
@@ -72,7 +72,7 @@ public class CoordinatorController {
 	   }
 	   
 	   //코디네이터 등록 
-	   @PostMapping("/amdin/coordinator/form")
+	   @PostMapping("/admin/coordinator/form")
 	   public ResponseEntity<HashMap<String,String>> coordinatorForm(CoordinatorVO cvo, MemberVO mvo, HttpSession session){
         System.out.println("signup :  코디네이터 등록" );
         HashMap<String, String> result = new HashMap<>();

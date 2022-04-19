@@ -36,10 +36,14 @@ public class AccommodationController {
     
     //숙박정보 리스트 뷰
     @GetMapping("/accommodation")
-    public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "2")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
+    public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo,
+    		@RequestParam(value = "pageCount",required = false,  defaultValue = "2")String pageCount, 
+    		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord,
+    		@RequestParam(value = "sigunguCode",required = false,  defaultValue = "")String sigunguCode
+    		){
         ModelAndView mav = new ModelAndView();
         try {
-	        List<JSONObject> accomoList = openApiService.searchKeyword(pageNo, pageCount, "32" , searchWord); //숙박정보 32 
+	        List<JSONObject> accomoList = openApiService.searchKeyword(pageNo, pageCount, "32" , searchWord, sigunguCode); //숙박정보 32 
 	        for(JSONObject jObj : accomoList) {
 	        	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
 	        	String cid = jObj.get("contentid").toString();
@@ -69,8 +73,11 @@ public class AccommodationController {
 	        	}
 	        	
 	        }
+	        for(JSONObject j :openApiService.AreaInfo()) {
+	        	System.out.println(j.toString());
+	        }
 	        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
-	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
+	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord, sigunguCode));
         }catch(Exception e) {
         	e.printStackTrace();
         }
@@ -85,10 +92,8 @@ public class AccommodationController {
     	JSONObject jObj = null;
     	try{
     		JSONObject Opt = openApiService.detailWithTour(contentid);
-    		JSONObject mapOpt = openApiService.se
     		jObj = openApiService.detailCommon(contentid,"32");
     		//데이터 추가
-    		/*
     		jObj.put("route",Opt.has("route")? 1 : 0);
     		jObj.put("parking",Opt.has("parking")? 1 : 0);
     		jObj.put("publictransport",Opt.has("publictransport")?1 : 0);
@@ -104,13 +109,12 @@ public class AccommodationController {
     		jObj.put("likeCount", likeService.likeSelectAll(contentid)); //좋아요 숫자
     		jObj.put("heartCount", heartService.heartSelectAll(contentid)); //찜 숫자
     		jObj.put("reviewCount", reviewService.reviewSelectByContentid(contentid).size());//리뷰 숫자
-    		*/
     		Float avgScore = reviewService.reviewSelectAvgScore(contentid);    
             if(avgScore == null)
                jObj.put("avgScore", "0");
             else 
             	jObj.put("avgScore", String.format("%.2f",avgScore));
-    		System.out.println(jObj.toString());
+    		
             mav.addObject("reviewList", reviewService.reviewSelectByContentid(contentid));
     		mav.addObject("acvo",jObj);
     		mav.setViewName("/accommodation/accommodationView");
