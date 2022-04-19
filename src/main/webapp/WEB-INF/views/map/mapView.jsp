@@ -44,10 +44,10 @@
             <!-- 리스트 버튼 -->
             <div class="topBotton">
                 <button id="list_btn" class="listbutton">목록</button>
-                <button id="planner_btn" class="planbutton">플래너</button>
+                <button id="planner_btn" class="planbutton" onclick="">플래너</button>
             </div>
             <!-- 검색 -->
-            <div class="searchFrmWrap">
+            <div class="searchFrmWrap" >
                 <div id="searchFrm">
                     <input type="text" name="searchWord" id="searchWord" />
                     <input type="button" value="장소검색" id="searchWordSubmit" />
@@ -121,6 +121,19 @@
 		
         // 검색하는 스크립트 ===========================================================
         searchWord = $("#searchWord").val();
+        $("#searchWordSubmit").on("click", function (event) {
+            event.preventDefault();
+            if ($("#searchWord").val() == "") {
+                alert("검색어를 입력하세요.");
+                return false;
+            }
+            if ($("#searchWord").val() != '') {
+                searchWord = $("#searchWord").val();
+                get_jObj(pageNo, pageCount, searchWord);
+            }
+        });
+        
+     	// 플래너를 누르면  ===========================================================
         $("#searchWordSubmit").on("click", function (event) {
             event.preventDefault();
             if ($("#searchWord").val() == "") {
@@ -217,7 +230,7 @@
             map.setLevel(map.getLevel() + 1);
         }*/
     });////// $(function) end
-    
+  
  	//리스트 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   	//리스트 만들기 ===========================================================
     function make_list() {
@@ -254,8 +267,59 @@
         //Document.getElementById("").innerHTML = tag;
         $("#listContentWrap").html(tag);
     }
+    
+    //플래너에서 검색창 없애기======================================================================================================================
+    //$("#txtBox").attr("readonly",true); 
+	// readonly 삭제
+	//$("#txtBox").removeAttr("readonly"); 
+    
+    
+  	//1. 넘버링 함수 만들어서 넣기. ex 첫번째는 1 두번째 2 .......
+  	//플래너 생성 ===========================================================
+  	function addPlanner(data){
+    	var addplantag=`
+		
+    	<div id="planlistContent" name="planlistContent">
+	    	<input type="text" name="seq" id="seq">
+			<input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
+			<div class="planTitle" id="planTitle">${'${data.title}'}</div>
+	        <ul>
+	        	<li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
+	            <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
+	        </ul>
+	        <div class="planListImg">
+	        	<img src=${'${data.img}'} >
+	        </div>
+	     </div>
+        `;
+        //console.log("data====>>>" , data);
+    	$('#planlistContentBG').append(addplantag);
+    }	
+  	
+  	//1. 넘버링 함수 만들어서 넣기. ex 첫번째는 1 두번째 2 .......
+  	//플래너 불러오기 ===========================================================
+  	function readPlanner(data){
+    	var addplantag=`
+    	<div id="planlistContent" name="planlistContent">
+	    	<input type="text" name="seq" id="seq" readonly>
+			<input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
+			<div class="planTitle" id="planTitle" value=${'${data.title}'}>${'${data.title}'}</div>
+	        <ul>
+	        	<li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
+	            <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
+	        </ul>
+	        <div class="planListImg">
+	        	<img src=${'${data.img}'} >
+	        </div>
+	     </div>
+	     
+        `;
+    	$('#planlistContentBG').append(addplantag);
+    }	
+  	
   	//리스트 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     
+  	//동행자 추가 모달창으로
   	//플래너 생성 ===========================================================
     function add_planList() {
     	var plantag=`    	
@@ -279,12 +343,14 @@
 	            		<button class="companion" id="companion" onclick="">동행자 추가 +</button>
             		</div>
             		<div class="planListContentWrap">
+	            		<div id="planListCancel" name="planListCancel">
+	            		<input type="button" id="planListCancel_btn" onclick="" value="취소"/>
+	        			<input type="button" id="planListSave_btn" onclick="save_plan()" value="저장"/>
+	               	</div>
                 		<div class="planlistContentBG" id="planlistContentBG"></div>
+                    </div>
             		</div>
-                	<div class="planListCancel">
-	                <button class="planListCancel_btn" >취소</button>
-	                <input type="button" id="planListSave_btn" onclick="save_plan()" value="저장"/>
-                </div>
+                	
 				</form>
 			</div>
 		</div>
@@ -292,15 +358,7 @@
         //console.log("플래너 선택");
         $('#listContentWrap').html(plantag);
   	}
-
-  	//플래너 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  	//플래너 제목 ===========================================================
   	
-  	
-  	//var dateControl = document.querySelector('input[type="date"]');
-	//var dateControl = $('#planList_date1').val();
-	//var date1 = document.getElementById(date1).value;
-	
   	//플래너 날짜 ===========================================================
   	//자바스크립트로 날짜 사이의 값을 배열로 가져오기 https://lts0606.tistory.com/230
 	function getDateRangeData(plan_startDate, plan_endDate){  //param1은 시작일, param2는 종료일이다.
@@ -398,12 +456,12 @@
     
 	function save_plan() {
 		var url = "${url}/planView"
-		var title = $("#planTitle").val();
+		var title = $("#planSubject_text").val();
 		var start_date = $("#plan_startDate").val();
 		var end_date = $("#plan_endDate").val();
 		get_seqList();
 		get_contentidList();
-       
+       	console.log("title---->", title);
 		$.ajax({
 			url: url,
 			type: "POST",
@@ -619,24 +677,6 @@
         }
     }
 
-	//1. 넘버링 함수 만들어서 넣기. ex 첫번째는 1 두번째 2 .......
-  	//플래너 생성 ===========================================================
-  	function addPlanner(data){
-    	var addplantag=`
-    	<div id="planlistContent" name="planlistContent">
-	    	<input type="text" name="seq" id="seq">
-			<input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
-			<div class="planTitle" id="planTitle" value=${'${data.title}'}>${'${data.title}'}</div>
-	        <ul>
-	        	<li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
-	            <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
-	        </ul>
-	        <div class="planListImg">
-	        	<img src=${'${data.img}'} >
-	        </div>
-	     </div>
-        `;
-    	$('#planlistContentBG').append(addplantag);
-    }	
+	
 </script>
 </html>
