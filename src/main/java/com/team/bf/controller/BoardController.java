@@ -132,7 +132,7 @@ public class BoardController {
     
     //나의 문의 사항 뷰
     @GetMapping("/mypage/myqna")
-    public ModelAndView ModelAndView(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
+    public ModelAndView myqnaView(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
     		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
     		@RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord,HttpSession session) {
        String userid = (String)session.getAttribute("logId");
@@ -163,7 +163,47 @@ public class BoardController {
        }
        return mav;
     }
-    
+    //문의사항 답변 상세보기 뷰 
+    @GetMapping("/board/boardList/{no}/reply")
+    public ModelAndView boardReplyView(HttpSession session,@PathVariable(value="no") int no) {
+    	ModelAndView mav = new ModelAndView();
+    	String userid = (String)session.getAttribute("logId");
+    	String adminStatus = (String)session.getAttribute("adminStatus");
+    	try {
+    		BoardVO bvoReply = boardService.boardReplySelectByNo(no);
+    		BoardVO bvo = boardService.boardSelectByNo(no);
+    		System.out.println("useruid " + userid);
+    		System.out.println(bvo.getUserid());
+    		if(adminStatus == null) adminStatus = "";
+    		if(bvo == null || userid == null) {
+    			//로그인 안했을 경우와 게시물이 없을때
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else if(adminStatus.equals("Y")) {
+    			//관리자 접근
+    			mav.addObject("bvoReply",bvoReply);
+    			mav.addObject("bvo",bvo);
+    			mav.setViewName("/community/boardDetail");
+    		}
+    		else if(!userid.equals(bvo.getUserid())) {
+    			//작성자가 다를 경우
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else{
+    			//정상 접근
+    			mav.addObject("bvoReply",bvoReply);
+    			mav.addObject("bvo",bvo);
+    			mav.setViewName("/community/boardDetail");
+    		}
+    		
+    	}catch(Exception e) {
+    		//그 이외의 에러
+    		mav.setViewName("redirect:/board/boardList");
+    		e.printStackTrace();
+    	}
+    	
+    	return mav;
+    }
     //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
