@@ -10,7 +10,7 @@ a{text-decoration: none;}
 body{
     width: 100%;
     height: 1000px;
-    background: rgb(255, 255, 255);
+    background: #ffffff;
 }
 
 
@@ -38,7 +38,7 @@ body{
     vertical-align: middle;
     line-height: 70px;
     background: #FAA631;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     font-size: 22px;
     border-style: none;
 }
@@ -53,7 +53,7 @@ body{
 	width: 50%;
     height: 70px;
     text-align: center;
-    background: rgb(242, 242, 242);
+    background: #F2F2F2;
     font-size: 22px;
     border-style: none;
 }
@@ -79,7 +79,7 @@ body{
 	position: relative ;
 	height: 70px;
 	width: 100%;
-	background: rgb(255, 255, 255);
+	background: #ffffff;
 }
 #searchFrm{
 	position: relative ;
@@ -103,12 +103,12 @@ body{
 	width: 150px;
     height: 48px;
     background: #FAA631;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     border: 2px solid #FAA631;
 }
 #searchWordSubmit:hover{
 	background: #024d09;
-	color: rgb(255, 255, 255);
+	color: #ffffff;
     border: 2px solid #024d09;
 }
 
@@ -121,22 +121,22 @@ body{
     float: left;
     width: 100%;
     height: 860px;
-    background: rgb(242, 242, 242);
-    /*overflow-y:scroll;*/
+    background: #F2F2F2;
+    overflow-y:scroll;
     color:#5c5c5c;
 }
 
 .listContent{
     position: absolute;
-    top: 25px;
-    left: 40px;
-    /* transform:translate(-50%, -50%); */
-    width: 750px;
+    top: 15px;
+    left: 35px;
+    /* transform: translate(-50%, -50%); */
+    width: 773px;
     /* height: 200px; */
     /* background: rgb(255, 255, 255); */
     /* float: left; */
     border-radius: 5px;
-    overflow:hidden;
+    overflow: hidden;
 }
 .listImg{
 	/* 대표 이미지 : (약 500*333 size) */
@@ -146,54 +146,68 @@ body{
 }
 .tourlistContents{
 	float: left;
-	width: 100%;
+    width: 100%;
     height: 270px;
     border-radius: 5px;
-    background: rgb(255, 255, 255);
-    margin-bottom:35px;
-    overflow:hidden;
+    background: #ffffff;
+    margin-bottom: 35px;
+    overflow: hidden;
+    
 }
+
 .tourlistContents>h1{
 	position: relative;
-    top: -247px;
+    top: -252px;
     left: 344px;
     font-size: 28px;
     width: 380px;
     height: 40px;
-    background: rgb(255, 255, 255);
-    color:#101010;
-    overflow:hidden;
+    background: #ffffff;
+    color: #101010;
+    overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap; 
 }
-
+.itemTitle_btn{
+    background-color: #ffffff;
+    cursor: pointer;
+    border:0;
+    padding-right:10px;
+}
 .tourlistContents>li{
     font-size: 17px;
     position: relative;
-    top: -235px;
+    top: -239px;
     left: 344px;
 }
 .item_f{
 	width: 380px;
-    height: 17px;
+    height: 8px;
     font-weight: bold;
-    overflow:hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
-    display:inline-block;
+    display: inline-block;
     white-space: nowrap;
-    line-height:17px;
-    padding-bottom:5px;
-    color:#101010;
+    line-height: 17px;
+    padding-bottom: 20px;
+    color: #101010;
 }
 .item_s{
     /* background: #EDEDED; */
     width: 381px;
     height: 105px;
     overflow: scroll;
+    overflow-x: hidden;
     line-height: 25px;
     /* font-size: 14px; */
-    overflow-x: hidden;
 }
+
+.itemAddr_btn{
+    background-color: #ffffff;
+    cursor: pointer;
+    border:0;
+}
+
 /* 스크롤바 설정*/
 .scroll::-webkit-scrollbar{
     width: 6px;
@@ -210,19 +224,28 @@ body{
 }
 .listSubInfoWrap{
 	position: relative;
-    top: -133px;
-    left: 334px;
-    width: 280px;
+    top: -147px;
+    left: 321px;
+    width: 384px;
     height: 30px;
+    background: #FAA631;
 }
 .listSubInfo{
 	position: relative;
-	top: -90px;
+    top: -81px;
     left: 0px;
-	float: left;
-	width: 92px;
+    float: left;
+    width: 92px;
     height: 25px;
     text-align: center;
+}
+.itemOverview_btn{
+	position: relative;
+    top: -42px;
+    left: 102px;
+    background-color: #ffffff;
+    cursor: pointer;
+    border: 0;
 }
 .listSubInfoImg{
     width: 25px;
@@ -239,24 +262,33 @@ body{
 
 
 /* ====================== 나의 플랜 이름 ====================== */
-.myplanName{
+.myplan{
 	height: 70px;
 	width: 100%;
-	background: rgb(255, 255, 255);
+	background: #ffffff;
 	border-top: 2px solid #ededed; 
 }
-.myplanName>span{
+#planFrm{
+	height: 70px;
+	width: 100%;
+	
+}
+.planSubject{
+	height: 70px;
+	width: 100%;
+}
+.planSubject>span{
 	position: relative;
-    top: 21px;
-    left: 32px;
+    top: 9px;
+    left: 38px;
     width: 180px;
     height: 50px;
 }
-.myplanName>span>img{
+.planSubject>span>img{
 	width: 10px;
 	height: 10px;
 }
-#myplanNameFrm{
+/*#planFrm{
 	position: relative;
     top: 10px;
     left: 130px;
@@ -264,23 +296,27 @@ body{
     height: 10px;
     background: #FAA631;
     float: left;
-}
-#planName{
-	width: 507px;
+}*/
+#planSubject_text{
+	position: relative;
+    top: 10px;
+    left: 47px;
+    width: 507px;
     height: 45px;
 }
-#planNameSubmit{
+#planSubject_btn{
 	position: relative;
-    top: -47px;
-    left: 525px;
+    top: 11px;
+    left: 62px;
     /* padding-left: 50px; */
     background: #FAA631;
     width: 150px;
     height: 48px;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     border: 2px solid #FAA631;
 }
-#planNameSubmit:hover{
+
+#planSubject_btn:hover{
 	background: #024d09;
 	color: rgb(255, 255, 255);
     border: 2px solid #024d09;
@@ -290,13 +326,13 @@ body{
 .planList{
 	height: 70px;
 	width: 100%;
-	background: rgb(255, 255, 255);
+	background: #ffffff;
 	border-top: 2px solid #ededed; 
 }
 .planList>span{
 	position: relative;
     top: 11px;
-    left: 32px;
+    left: 39px;
     width: 180px;
     height: 50px;
 }
@@ -310,101 +346,176 @@ body{
     left: 130px;
     width: 10px;
     height: 10px;
-    background: #FAA631;
+    /*background: #FAA631;*/
     float: left;
 }
-#input_date{
-	width: 343px;
-    height: 45px;
-}
-#input_submit{
+#planList_date{
 	position: relative;
-    top: -47px;
-    left: 361px;
+    top: 10px;
+    left: 47px;
+	width: 330px;
+    height: 45px;
+    padding-left: 15px;
+}
+#planList_btn{
+	position: relative;
+    top: 10px;
+    left: 53px;
     /* padding-left: 50px; */
     background: #FAA631;
     width: 150px;
     height: 48px;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     border: 2px solid #FAA631;
 }
-#input_submit:hover{
+#planList_btn:hover{
 	background: #024d09;
-	color: rgb(255, 255, 255);
+	color: #ffffff;
     border: 2px solid #024d09;
 }
 .companion{
 	position: relative;
     top: 12px;
-    left: 566px;
+    left: 71px;
     background: #024d09;
     width: 150px;
     height: 48px;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     border: 2px solid #024d09;
 }
 .companion:hover{
 	background: #FAA631;
 	border: 2px solid #FAA631;
-	color: rgb(255, 255, 255);
-   
+	color: #ffffff;
 }
+
 /* ====================== 플래너 리스트 내용 ====================== */
-.plan_listContentWrap{
+.planListContentWrap{
 	position: relative ;
     top: 0px;
     left: 0px;
     float: left;
     width: 100%;
     height: 715px;
-    background: rgb(242, 242, 242);
+    background: #ededed; 
     overflow:scroll;
     overflow-x:hidden;
+    overflow-y:hidden;
     color:black;
     
 }
-.plan_listContent{
+.planlistContent{
     position: relative;
     top: 145px;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 730px;
     height: 200px;
-    background: rgb(255, 255, 255);
-    float: left;
+    background: #ffffff;
+    border-radius: 5px;
     overflow: hidden;
-    border-left: 8px solid #FAA631;
+    border-right: 8px solid #FAA631;
 }
-.plan_days{
-	position: absolute;
-  	top: 25%;
-  	left:570px;
-	width: 100px;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-    border-style: solid;
-    border-color: #FAA631;
-    border-radius: 50%;
+.planNum{
+	width: 90px;
+    height: 90px;
+    color:  #FAA631;
+    font-size: 90px;
+    line-height:90px;
+    float: left;
+    text-align: center; 
 }
-.plan_listCancelbutton{
-	position: absolute;
-  	top:10px;
-  	left:570px;
-  	width: 350px;
+.planTitle{
+	width: 415px;
+    height: 90px;
+    /*background: #138e87;*/
+    font-size: 30px;
+    line-height: 90px;
+    text-align: left;
+    padding-left: 105px;
+    font-weight: bold;
+}
+.planlistContent>ul{
+	position: relative;
+    top: -24px;
+    left: 91px;
+    font-size: 25px;
+    /*background: #138e87;*/
+    width: 424px;
+    height: 95px;
+}
+.planlistContent>ul>li{
+	font-size: 18px;
+	height: 88px;
+}
+.planlistContent>ul>li:nth-child(1){
+	height: 28px;
+    font-weight: bold;
+    padding-left: 15px;
+}
+.planlistContent>ul>li:nth-child(2){
+	overflow: scroll;
+    overflow-x: hidden;
+   	height: 57px;
+    padding-left: 15px;
+}
+/* 스크롤바 설정*/
+.plan_scroll::-webkit-scrollbar{
+    width: 6px;
+}
+/* 스크롤바 막대 설정*/
+.plan_scroll::-webkit-scrollbar-thumb{
+    height: 30%;
+    background-color: #FAA631;
+    border-radius: 10px;  
+}
+/* 스크롤바 뒷 배경 설정*/
+.plan_scroll::-webkit-scrollbar-track{
+    background-color: #faa6311f
+}
+.planListImg {
+    position: relative;
+    top: -210px;
+    left: 549px;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+}
+.planListImg>img{
+	width: 100%;
+    height: 100%;
+}
+
+.planListCancel{
+    position: relative;
+    top: 120px;
+    left: 260px;
+    width: 420px;
     height: 48px;
 }
-.plan_listCancel{
-	background: #024d09;
+.planListCancel_btn{
+	background: #f9f9f9;
     width: 150px;
     height: 48px;
+    border: 2px solid #f9f9f9;
+    margin-right: 30px;
+}
+#planListCancel_btn:hover{
+	background: #024d09;
+	color: rgb(255, 255, 255);
     border: 2px solid #024d09;
 }
-#plan_listSave{
+#planListSave_btn{
 	background: #FAA631;
     width: 150px;
     height: 48px;
     border: 2px solid #FAA631;
+    color:#ffffff;
+}
+#planListSave_btn:hover{
+	background: #024d09;
+	color: rgb(255, 255, 255);
+    border: 2px solid #024d09;
 }
 
 /* ====================== 지도 ====================== */
@@ -433,19 +544,20 @@ body{
 
 
 /* ====================== 지도 커스텀 오버레이====================== */
-.wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
 .wrap * {padding: 0;margin: 0;}
-.wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+.wrap {position: absolute;left: 0;bottom: 42px;width: 405px;height: 145px;margin-left: -213px;text-align: left;overflow: hidden;font-size: 12px;line-height: 1.5;}
+.wrap .info {width: 405px; height: 135px;border-radius: 5px;/* border-bottom: 2px solid #ccc;border-right: 1px solid #ccc; */overflow: hidden;background: #fff;}
 .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
 .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
 .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-.desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-.desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-.info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-.info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+.desc .addr1 {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.desc .overview {width: 308px; height: 30px;color: #888;margin-top: -2px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;}
+.info .img {position: absolute;top: 13px;left: 10px;width: 70px; height: 70px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.info .img>img {width: 70px;height: 70px;}
+.info:after {content: '';position: absolute;margin-left: 0px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}
 
 /* ====================== 플래너 추가 ====================== */
@@ -457,7 +569,7 @@ body{
     width: 200px;
     height: 70px;
     font-size: 22px;
-    color: rgb(255, 255, 255);
+    color: #ffffff;
     text-align: center;
     line-height: 70px;
     border-radius: 5px;

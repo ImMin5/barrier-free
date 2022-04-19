@@ -44,8 +44,7 @@ public class BoardController {
         pvo.setOnePageRecord(pageCount);
         pvo.setTotalRecord(boardService.totalRecord(pvo));
         pvo.setPageNo(pageNo);
-        
-        System.out.println("tlwkr");
+
         //게시글
         mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
         //공지사항
@@ -58,12 +57,21 @@ public class BoardController {
     
     //문의사항 상세 뷰 
     @GetMapping("/board/boardList/{no}")
-    public ModelAndView boardInfoView(@PathVariable(value="no")int no) {
+    public ModelAndView boardInfoView(@PathVariable(value="no")int no ,HttpSession session) {
     	ModelAndView mav  = new ModelAndView();
-    	
+    	String userid = (String)session.getAttribute("logId");
     	try {
     		BoardVO bvo = boardService.boardSelectByNo(no);
-    		if(bvo != null) {
+    		
+    		if(bvo.is_notice()) {
+    			mav.addObject("bvo",bvo);
+    			mav.setViewName("community/boardDetail");
+    		}
+    		else if(userid != null && !bvo.getUserid().equals(userid)) {
+    			//작성자 본인만 볼 수 있음
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else if(bvo != null) {
     			mav.addObject("bvo",bvo);
     			mav.setViewName("community/boardDetail");
     		}
@@ -72,7 +80,6 @@ public class BoardController {
     			System.out.println("존재하지 않는 게시물");
     			mav.setViewName("redirect:/board/boardList");
     		}
-    		
     	}catch(Exception e) {
     		e.printStackTrace();
     		mav.setViewName("redirect:/board/boardList");
@@ -126,7 +133,7 @@ public class BoardController {
     //나의 문의 사항 뷰
     @GetMapping("/mypage/myqna")
     public ModelAndView ModelAndView(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
-    		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
+    		@RequestParam(value="pageCount",required = false, defaultValue = "7")int pageCount,
     		@RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord,HttpSession session) {
        String userid = (String)session.getAttribute("logId");
        ModelAndView mav = new ModelAndView();
@@ -146,8 +153,9 @@ public class BoardController {
 	           pvo.setOnePageRecord(pageCount);
 	           pvo.setTotalRecord(boardService.totalRecord(pvo));
 	           pvo.setPageNo(pageNo);
-	          mav.setViewName("/mypage/myqna");
-	          mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
+	           mav.addObject("pvo", pvo);
+	           mav.setViewName("/mypage/myqna");
+	           mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
 	       }
        }catch(Exception e) {
     	   e.printStackTrace();
@@ -299,12 +307,12 @@ public class BoardController {
     		//답변할 글이 있는지 확인, 관리자가 아닌경우
     		if(boardService.boardSelectByNo(bvo.getNo()) == null) {
     			result.put("msg", "답변할 글이 없습니다.");
-    			result.put("redirect", "/admin/board/boardList");
+    			result.put("redirect", "/admin/boardList");
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     		else if(memberService.memberSelectById(userid).getGrade_member() != 2) {
     			result.put("msg", "잘못된 접근 입니다.");
-    			result.put("redirect", "/admin/board/boardList");
+    			result.put("redirect", "/admin/boardList");
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     		else {
