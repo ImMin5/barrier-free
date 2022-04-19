@@ -24,7 +24,7 @@ body{
     height: 1000px;
 }
 #list{
-    width: 40%;
+    width: 45%;
     height: 1000px;
 }
 .topBotton{
@@ -300,8 +300,8 @@ body{
 #planSubject_text{
 	position: relative;
     top: 10px;
-    left: 47px;
-    width: 507px;
+    left: 55px;
+    width: 500px;
     height: 45px;
 }
 #planSubject_btn{
@@ -349,34 +349,46 @@ body{
     /*background: #FAA631;*/
     float: left;
 }
-#planList_date{
+#plan_startDate{
 	position: relative;
     top: 10px;
-    left: 47px;
-	width: 330px;
+    left: 55px;
+    width: 230px;
     height: 45px;
     padding-left: 15px;
 }
-#planList_btn{
+#plan_endDate{
 	position: relative;
     top: 10px;
+    left: 55px;
+    width: 230px;
+    height: 45px;
+    padding-left: 15px;
+}
+
+
+#planList_btn{
+	/*position: relative;
+    top: 10px;
     left: 53px;
-    /* padding-left: 50px; */
+     padding-left: 50px;
     background: #FAA631;
     width: 150px;
     height: 48px;
     color: #ffffff;
-    border: 2px solid #FAA631;
+    border: 2px solid #FAA631; */
 }
 #planList_btn:hover{
 	background: #024d09;
 	color: #ffffff;
     border: 2px solid #024d09;
 }
+
+
 .companion{
 	position: relative;
     top: 12px;
-    left: 71px;
+    left: 68px;
     background: #024d09;
     width: 150px;
     height: 48px;
@@ -389,6 +401,32 @@ body{
 	color: #ffffff;
 }
 
+
+
+/*.listContentWrap{
+	position: relative ;
+    top: 0px;
+    left: 0px;
+    float: left;
+    width: 100%;
+    height: 860px;
+    background: #F2F2F2;
+    overflow-y:scroll;
+    color:#5c5c5c;
+}
+
+.listContent{
+    position: absolute;
+    top: 15px;
+    left: 35px;
+    transform: translate(-50%, -50%);
+    width: 773px;
+    height: 200px;
+    background: rgb(255, 255, 255); 
+    float: left;
+    border-radius: 5px;
+    overflow: hidden;
+}*/
 /* ====================== 플래너 리스트 내용 ====================== */
 .planListContentWrap{
 	position: relative ;
@@ -398,17 +436,19 @@ body{
     width: 100%;
     height: 715px;
     background: #ededed; 
-    overflow:scroll;
-    overflow-x:hidden;
-    overflow-y:hidden;
+    overflow-y:scroll;
     color:black;
-    
+}
+.planlistContentBG{
+	position: absolute;
+    top: 15px;
+    left: 35px;
+	background: #FAA631;
+	width: 773px;
+	overflow: hidden;
 }
 .planlistContent{
-    position: relative;
-    top: 145px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
     width: 730px;
     height: 200px;
     background: #ffffff;
@@ -416,7 +456,7 @@ body{
     overflow: hidden;
     border-right: 8px solid #FAA631;
 }
-.planNum{
+#seq{
 	width: 90px;
     height: 90px;
     color:  #FAA631;
@@ -448,12 +488,12 @@ body{
 	font-size: 18px;
 	height: 88px;
 }
-.planlistContent>ul>li:nth-child(1){
+.planAddr{
 	height: 28px;
     font-weight: bold;
     padding-left: 15px;
 }
-.planlistContent>ul>li:nth-child(2){
+.planOverview{
 	overflow: scroll;
     overflow-x: hidden;
    	height: 57px;
@@ -487,7 +527,7 @@ body{
 }
 
 .planListCancel{
-    position: relative;
+    position: fixed;
     top: 120px;
     left: 260px;
     width: 420px;
@@ -522,7 +562,7 @@ body{
 .map_wrap {
 	position: absolute ;
     top: 0px;
-    left:40%;
+    left:45%;
     overflow:hidden;
     width: 60%;
     height: 1000px;
@@ -552,10 +592,32 @@ body{
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
-.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+.info .desc {    
+	position: relative;
+    margin: 7px 0 0 82px;
+    height: 85px;}
 .desc .addr1 {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .desc .overview {width: 308px; height: 30px;color: #888;margin-top: -2px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;}
-.info .img {position: absolute;top: 13px;left: 10px;width: 70px; height: 70px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.desc .add {
+	position: absolute;
+    top: 51px;
+    left: 206px;
+    background: #FAA631;
+    border: 1px solid #FAA631;
+    width: 100px;
+    height: 30px;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;}
+.info .img {
+	position: absolute;
+    top: 13px;
+    left: 7px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid #ddd;
+    color: #888;
+    overflow: hidden;}
 .info .img>img {width: 70px;height: 70px;}
 .info:after {content: '';position: absolute;margin-left: 0px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}

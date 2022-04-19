@@ -30,6 +30,8 @@
 		</select>
 		<input type="text" name="searchWord" id="searchWord"/>
 		<input type="submit" value="Search" class="bo__btn"/>
+		<button class="bo__btn__w" type="button" onclick="location.href='${url}/board/boardList/form'">공지등록</button>
+		
 	</form>
 </div>
 
@@ -52,14 +54,14 @@
  		<c:forEach var="vo" items="${boardList}">
          <tr>
             <td>${vo.board.no}</td>
-            <td class="bo__subject"><a href="${url}/admin/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
+            <td class="bo__subject"><a href="${url}/board/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
             <td>${vo.board.userid}</td>
         </tr>
 
         <tr>
         	<c:if test="${vo.reply != null}">
         		<td>${vo.reply.no}</td>
-        		<td><a href="${url}/board/boardList/${vo.reply.no}">[RE]${vo.reply.subject}</a></td>
+        		<td><a href="${url}/board/boardList/${vo.reply.no}/reply">[RE]${vo.reply.subject}</a></td>
         		<td> ${vo.reply.userid}</td>
         	</c:if>
         </tr>
@@ -69,12 +71,10 @@
 
 
 <div class="bo__container">
-	<button class="bo__btn__w" type="submit" onclick="location.href='${url}/board/boardList/form'">글 작성</button>
 	<div class="bo__n__page">
 		현재 페이지 ${pvo.pageNo}/ ${pvo.totalPage }
 	</div>
 	
-	<form method="post" id="listFrm">
 	<!-- 페이징 -->
 	<ul class="paging">
 		<!-- 이전페이지 -->

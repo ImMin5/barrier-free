@@ -7,12 +7,14 @@
 		insert into coordinator(email, tel, coo_info, link, coo_userid)
 		values( #{email}, #{tel}, #{coo_info}, #{link}, #{coo_userid})
 	</insert>
+	<select id="coordinatorSelectAll" resultType="com.team.bf.vo.CoordinatorVO">
+		select coo_userid, email, tel, coo_info, link, coo_userid, write_date
+		from coordinator
+	</select>
 	<select id="coordiloginCheck" resultType="com.team.bf.vo.CoordinatorVO">
 		select coo_userid from coordinator
 		where coo_userid=#{coo_userid}
 	</select>
-	
-	
 	<update id="CoordinatorUpdate">
 		update coordinator set email=#{email}, tel=#{tel}, coo_info=#{coo_info}
 		where coo_userid=#{coo_userid}

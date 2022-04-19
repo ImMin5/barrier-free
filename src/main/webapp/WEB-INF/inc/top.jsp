@@ -32,12 +32,15 @@
 </head>
 
 <body>
+            
+<!--------- 일반 아이디로 로그인 ----------->   
+<c:if test="${adminStatus == null}">
     <header class="header" id="header">
         <nav class="nav container">
             <div class="logo">
                 <a href="/"><img src="${url}/img/bf_logo-01.svg" width="60%"></a>
             </div>
-
+            
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
@@ -79,6 +82,7 @@
   					   <a href="${url}/signup" class="main__signup">Sign-up</a>
  				  </c:if>
  				 <c:if test="${logId != null }">
+ 				 	<div class="main__logId"><b>${logId}</b>님 환영합니다🙇‍♀️</div>
     				<a href="${url}/logout" class="main__login">Logout</a>
    					<a href="${url}/mypage/myplanner" class="main__signup">My-page</a>
   				 </c:if>
@@ -91,5 +95,53 @@
                 <i class="ri-function-line" style="color:green"></i>
             </div>
         </div>
-        </nav>
-    </header>
+     </nav>
+ </header>
+ </c:if>
+   
+ <!--------- 관리자 아이디로 로그인 ----------->
+ <c:if test="${adminStatus != null}">
+     <header class="header" id="header" style="background-color: #ffe8cb">
+        <nav class="nav container">
+        
+            <div class="logo">
+                <a href="/"><img src="${url}/img/bf_logo-01.svg" width="60%"></a>
+            </div>
+            
+           	<div class="main__loginSign__a">
+ 			 	 <c:if test="${logId != null }">
+ 		 		<div class="main__logId__a"><b>${logId}</b>님 반갑습니다🙇‍♀️</div>
+    			<a href="${url}/logout" class="main__login__a">Logout</a>
+  			   </c:if>
+			</div>
+			
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="${url}/admin/memberManage" class="nav__link active-link" style="margin-left: 30px; color">회원관리</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="${url}/admin/discountManage" class="nav__link active-link" style="margin-left: 30px">할인정보</a>
+                          <div class="dropdown-content">
+                            <a href="${url}/admin/discountManage">할인정보 목록</a>
+                            <a href="${url}/admin/discountManage">할인정보 등록</a>
+                          </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="${url}/admin/boardList" class="nav__link active-link" style="margin-left: 30px">공지/문의</a>
+                    	  <div class="dropdown-content">
+                            <a href="${url}/admin/board/boardlist">공지/문의 목록</a>
+                            <a href="${url}/admin/discountManage">공지 등록</a>
+                          </div>
+                    </li>
+                    <li class="nav__item">
+                        <a href="${url}/admin/coordinator" class="nav__link active-link" style="margin-left: 30px">코디네이터</a>                        
+                    	  <div class="dropdown-content">
+                            <a href="${url}/admin/board/boardlist">코디네이터 목록</a>
+                            <a href="${url}/admin/discountManage">코디 등록</a>
+                          </div>
+                    </li>
+                </ul>
+              </div>
+   		</nav>
+  	 </header>
+</c:if>  
