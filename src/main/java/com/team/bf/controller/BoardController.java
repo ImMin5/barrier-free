@@ -80,7 +80,6 @@ public class BoardController {
     			System.out.println("존재하지 않는 게시물");
     			mav.setViewName("redirect:/board/boardList");
     		}
-    		
     	}catch(Exception e) {
     		e.printStackTrace();
     		mav.setViewName("redirect:/board/boardList");
