@@ -38,4 +38,13 @@
    		update member set date_birth=#{date_birth}, grade=${grade}, question=#{question}, answer=#{answer}
    		where userid=#{userid}
    	</update>
+   	<select id="memberSelectAll" resultType="com.team.bf.vo.MemberVO" >
+   		select userid, username, userpassword ,date_format(date_birth,'%y%m%d') date_birth  , question, answer , grade_member, grade ,date_create
+   		from member
+   		where grade_member !=2
+   	</select>
+   	<update id="memberUpdateByAdmin">
+   		update member set username=#{username}, userpassword=#{userpassword}, date_birth=#{date_birth}, grade_member=${grade_member}, grade=${grade}, question=#{question}, answer=#{answer}
+   		 where userid=#{userid}
+   	</update>
   </mapper>

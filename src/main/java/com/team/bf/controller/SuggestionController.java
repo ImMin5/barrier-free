@@ -2,6 +2,7 @@ package com.team.bf.controller;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -14,13 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.team.bf.vo.BoardVO;
 import com.team.bf.vo.PagingVO;
 import com.team.bf.vo.SuggestionVO;
 import com.team.bf.service.MemberService;
@@ -39,26 +41,54 @@ public class SuggestionController {
 	
 	//건의할래요 뷰 1
 	@GetMapping("suggest")
-	public ModelAndView suggestionList(PagingVO pVO){
+	public ModelAndView suggestionList(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, @RequestParam(value="pageCount",required = false, defaultValue = "3")int pageCount, @RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord){
 		ModelAndView mav = new ModelAndView();
 		
+		
+		PagingVO pvo = new PagingVO();
+        //검색어가 있을 경우
+        if(!searchWord.equals("")) 
+        	pvo.setSearchWord(searchWord);
+        //전체 게시글 업데이트
+        pvo.setOnePageRecord(pageCount);
+        pvo.setTotalRecord(service.totalRecord(pvo));
+        pvo.setPageNo(pageNo);
+        
 		//총 페이지 수
-		pVO.setTotalRecord(service.totalRecord(pVO));
+        pvo.setTotalRecord(service.totalRecord(pvo));
 		
 		//DB연결
-		mav.addObject("list", service.suggestionList(pVO));
+		mav.addObject("suggestionList", service.suggestionList(pvo));
 		
 		//페이지 정보
-		mav.addObject("pVO", pVO);
+		mav.addObject("pvo", pvo);
 		
 		mav.setViewName("community/suggest"); 
 		return mav;
 	}
+	
+	
+	
+	
+	//게시글 등록 뷰
+	@GetMapping("suggestWrite")
+	public ModelAndView suggestWrite() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("community/suggestWrite");
+		return mav;
+	
+	
+	}
+	
+	
+	
+	
+	
 	//건의할래요 게시글 생성 요청2
-	@PostMapping("suggestWrite")
+	@PostMapping("/suggestWrite")
 	public ResponseEntity<String> suggestWrite(SuggestionVO vo, HttpServletRequest request){
+		System.out.println("wirte start");
 		vo.setIp(request.getRemoteAddr()); 
-
 		vo.setUserid((String)request.getSession().getAttribute("logId"));
 		
 		ResponseEntity<String> entity = null;
@@ -69,8 +99,10 @@ public class SuggestionController {
 			service.suggestionInsert(vo);
 			String msg = "<script>";
 				   msg += "alert('등록이 성공했습니다');";
-				   msg += "location.href='/community/suggestList';";
+				   msg += "location.href='/suggest';";
 				   msg += "</script>";
+				   
+			System.out.println("write");
 			entity = new ResponseEntity<String>(msg, header, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -118,20 +150,31 @@ public class SuggestionController {
     	return entity;
     }
 		//건의할래요 상세보기 5 
-		@GetMapping("community/suggestView")
-		public ModelAndView suggestionView(int no){
-			ModelAndView mav = new ModelAndView();
-			System.out.println("보기 가능함");
-			SuggestionVO vo  = service.suggestionSelect(no);
-			
-			System.out.println(vo.getNo());
-			mav.addObject("vo", service.suggestionSelect(no));
-			mav.setViewName("community/suggestView");
-			return mav;
-		}
+	@GetMapping("/suggest/suggestionList/{no}")
+    public ModelAndView suggestionInfoView(@PathVariable(value="no")int no) {
+    	ModelAndView mav  = new ModelAndView();
+    	System.out.println("출력");
+    	try {
+    		SuggestionVO svo = service.suggestionSelectByNo(no);
+    		if(svo != null) {
+    			mav.addObject("svo",svo);
+    			mav.setViewName("community/suggestView");
+    		}
+    		else {
+    			//게시물이 존재 하지 않을 경우
+    			System.out.println("존재하지 않는 게시물");
+    			mav.setViewName("redirect:/community/suggestionList");
+    		}
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/communtiy/suggestionList");
+    	}
+    	return mav;
+    }
 
 		//수정하기 6
-		@PutMapping("community/suggestEdit")
+		@PostMapping("community/suggestEdit")
 		public ResponseEntity<String> suggestEdit(SuggestionVO vo, HttpSession session) {
 			ResponseEntity<String> entity = null;
 			HttpHeaders headers = new HttpHeaders();
@@ -168,6 +211,3 @@ public class SuggestionController {
 			return msg;
 		}
 	}
-
-
-

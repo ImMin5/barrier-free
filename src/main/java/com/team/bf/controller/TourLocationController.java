@@ -31,7 +31,7 @@ public class TourLocationController {
     private String areaCode = "39";//제주도
     //여행지 정보 리스트 뷰
     @GetMapping("/travel_information")
-    public ModelAndView travelInfo(@RequestParam(value = "contentTypeId", required = false, defaultValue = "12")String contentTypeId, @RequestParam(value = "pageNo")String pageNo, @RequestParam(value = "pageCount")String pageCount, @RequestParam(value = "searchWord")String searchWord){
+    public ModelAndView travelInfo(@RequestParam(value = "contentTypeId", required = false, defaultValue = "12")String contentTypeId, @RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount", required = false, defaultValue = "5")String pageCount, @RequestParam(value = "searchWord", required = false, defaultValue = "")String searchWord){
         ModelAndView mav = new ModelAndView();
         List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount,contentTypeId,searchWord);
         for(JSONObject jObj : tourList) {
@@ -56,9 +56,11 @@ public class TourLocationController {
         		jObj.put("avgScore", String.format("%.2f",avgScore));
         	ReviewVO rvo = reviewService.reviewSelectOneByContentid(searchWord);
         	//점수가 가장 높은 대표 리뷰 선정
-        	jObj.put("thumbnailReviewTitle", rvo.getTitle());
-        	jObj.put("thumbnailReviewScore", rvo.getScore());
-        	jObj.put("thumbnailReviewScore", rvo.getContent());
+        	if(rvo != null) {
+        		jObj.put("thumbnailReviewTitle", rvo.getTitle());
+	        	jObj.put("thumbnailReviewScore", rvo.getScore());
+	        	jObj.put("thumbnailReviewScore", rvo.getContent());
+        	}
         }
         mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
         mav.addObject("tourList", tourList); //12,14,15,38

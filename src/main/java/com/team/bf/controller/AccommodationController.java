@@ -62,9 +62,12 @@ public class AccommodationController {
 	        		jObj.put("avgScore", String.format("%.2f",avgScore));
 	        	ReviewVO rvo = reviewService.reviewSelectOneByContentid(searchWord);
 	        	//점수가 가장 높은 대표 리뷰 선정
-	        	jObj.put("thumbnailReviewTitle", rvo.getTitle());
-	        	jObj.put("thumbnailReviewScore", rvo.getScore());
-	        	jObj.put("thumbnailReviewScore", rvo.getContent());
+	        	if(rvo != null) {
+	        		jObj.put("thumbnailReviewTitle", rvo.getTitle());
+		        	jObj.put("thumbnailReviewScore", rvo.getScore());
+		        	jObj.put("thumbnailReviewScore", rvo.getContent());
+	        	}
+	        	
 	        }
 	        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
 	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
