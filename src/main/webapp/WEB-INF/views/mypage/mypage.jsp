@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="${url }css/mypage.css">
 <script>
  $(function(){
-	$("#mFrm").submit(function(){
+	$("#member_edit_btn").on("click",function(){
 		if($("#userpassword").val()==''){
 			alert("비밀번호를 입력후 수정하세요.");
 			return false;
@@ -19,7 +19,7 @@
 
 			if(confirm("회원정보를 수정하시겠습니까?")){
 				var userpassword = $("#userpassword").val();
-				var birth = $("#date_birth").val();
+				var birth = $("#date_birth").attr('data-date_birth');
 				var question = $("#question").val();
 				var answer = $("#answer").val();
 				var grade = $("#grade").val();
@@ -62,7 +62,7 @@
 	
 <div class="info-box">
 	<div class="box modify">		
-					<form id="mFrm" name="myform" method="post" action="/mypage" onsubmit="return memberCheck()" >
+					<form id="mFrm" name="myform" onsubmit="return memberCheck()" >
 					<div class="con">
 						<div class="fl w-50">
 							<h3>📝<a class="username">${mvo.username }</a>님의 정보📝</h3>
@@ -96,19 +96,33 @@
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;생년월일</th>
-										<td id="date_birth">${mvo.date_birth}</td>
+										<td id="date_birth" data-date_birth="${mvo.date_birth}">${mvo.date_birth}</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 질문</th>
-										<td id="question">${mvo.question }</td>
+										<td>
+					                    <select name="question" id="question" data-question="${mvo.question }" value="${mvo.question }">
+					                        <optgroup label="비밀번호 찾기 질문을 선택해주세요">
+					                            <option value="자신의 인생 좌우명은?">자신의 인생 좌우명은?</option>
+					                            <option value="자신의 보물 제1호는?">자신의 보물 제1호는?</option>
+					                            <option value="가장 기억에 남는 선생님 성함은?">가장 기억에 남는 선생님 성함은?</option>
+					                            <option value="가장 생각나는 친구 이름은?">가장 생각나는 친구 이름은?</option>
+					                            <option value="인상 깊게 읽은 책 이름은?">인상 깊게 읽은 책 이름은?</option>
+					                            <option value="내가 좋아하는 캐릭터는?">내가 좋아하는 캐릭터는?</option>
+					                            <option value="어릴 적 별명은?">어릴 적 별명은?</option>
+					                        </optgroup>
+					                    </select>
+					                    </td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 답변</th>
-										<td id="answer">${mvo.answer }</td>
+										<td>
+										<input type="text" id="answer" class="input_style" name="answer" data-answer="${mvo.answer }" value="${mvo.answer }" placeholder="비밀번호 찾기 답변을 입력해주세요." >
+										</td>
 									</tr>
 									<tr>
 									<th>&nbsp;&nbsp;장애 정도</th>
-									<td><select name="grade" id="grade" value=${mvo.grade }>
+									<td><select name="grade" id="grade" data-grade="${mvo.grade }" value=${mvo.grade }>
                       					<optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
                        				      <option value=5>다음에 입력하기</option>
                             			  <option value=1>1등급</option>
@@ -126,7 +140,7 @@
 						</div>
 						
 						<div class="btn-area">
-						<input id="button" type="submit" value="수정하기"/>
+						<input id="member_edit_btn" type="button" value="수정하기"/>
 						<a class="btn__style2" href="${url }/mypage/delete" >&nbsp;회원탈퇴&nbsp; </a>
 						</div>
 					</div>

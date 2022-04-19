@@ -78,8 +78,8 @@
 }
 
 .info-box{
-	margin: 10% 370px 0;
-	width: 690px;
+	margin: 10% 390px 0;
+	width: 670px;
 	height: 900px;
 	display:block;
 	position: relative;
@@ -154,11 +154,20 @@
 	width:220px;
 	height:20px;	
 }
-#grade{
-	width:200px;
+#question{
+	width:220px;
+	height:30px;
+}
+#answer{
+	margin-left:4px;
+	width:220px;
 	height:25px;
 }
-#button{
+#grade{
+	width:220px;
+	height:30px;
+}
+#member_edit_btn{
   margin: 3px; 	
   width: 100px;
   height: 29px;
