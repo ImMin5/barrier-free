@@ -6,7 +6,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import com.team.bf.service.MemberService;
-import com.team.bf.service.PlannerService;
 import com.team.bf.vo.MemberVO;
 
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,95 +20,70 @@ import org.springframework.web.servlet.ModelAndView;
 public class MemberController {
     @Inject
     MemberService memberService;
-    
-    //마이페이지 뷰
-    @GetMapping("/mypage")
-    public ModelAndView mypage(HttpSession session){
-        ModelAndView mav = new ModelAndView();
-        String userid = (String)session.getAttribute("logId");
-        if(userid != null) {
-        	 mav.addObject("mvo",memberService.memberSelectById(userid));
-             mav.setViewName("mypage/mypage");
-        }
-        else {
-        	mav.setViewName("redirect:/");
-        }
-       
-        return mav;
-    }
-    
-    //로그인 페이지 뷰 
+
     @GetMapping("/login")
     public ModelAndView login(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("member/login");
         return mav;
     }
-    //로그인 요청
+    
     @PostMapping("/login")
-    public ModelAndView loginReq(MemberVO mvo, HttpSession session){
-    	ModelAndView mav = new ModelAndView();
+    public ResponseEntity<HashMap<String,String>> loginReq(MemberVO mvo, HttpSession session){
+        
+        ResponseEntity<HashMap<String,String>> entity = null;
+        HashMap<String,String> result = new HashMap<>();
+        
         MemberVO mvoOrigin = memberService.memberSelectById(mvo.getUserid());
         
         //아이디가 존재하지 않음
         if(mvoOrigin == null){
-            System.out.println("아이디가 존재하지 않습니다.");
-            mav.setViewName("redirect:/login");
+            System.out.println("로그인 실패");
+            result.put("msg","일치하는 아이디가 없습니다.");
+            result.put("status","200");
+            result.put("redirect", "/login");
+            entity = new ResponseEntity<>(result,HttpStatus.OK);
         }
         else if(mvoOrigin.getUserid().equals(mvo.getUserid())){
             if(mvoOrigin.getUserpassword().equals(mvo.getUserpassword())){
             	System.out.println("로그인 성공");
+                result.put("msg","로그인 성공");
+                result.put("status","200");
+                result.put("redirect", "/");
                 session.setAttribute("logId", mvo.getUserid());
-                mav.setViewName("redirect:/");
+                entity = new ResponseEntity<>(result,HttpStatus.OK);
             }
             else{
-                System.out.println("로그인 실패 비밀번호 불일치");
-                mav.setViewName("redirect:/login");
+                System.out.println("로그인 실패");
+                result.put("msg","비밀번호가 일치하지 않습니다.");
+                result.put("status","200");
+                result.put("redirect", "/login");
+                entity = new ResponseEntity<>(result,HttpStatus.OK);
             }
           
         }
         else{
         	 System.out.println("로그인 실패");
-        	 mav.setViewName("redirect:/");
+             result.put("msg","로그인 실패...");
+             result.put("status","400");
+             result.put("redirect", "/");
+             entity = new ResponseEntity<>(result,HttpStatus.BAD_REQUEST);
         }
 
-        return mav;
+        return entity;
     }
-    //로그아웃
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public ModelAndView logout(HttpSession session){
-    	 ModelAndView mav = new ModelAndView();
-    	String userid = (String)session.getAttribute("logId");
-    	if(userid != null) {
-    		 mav.setViewName("redirect:/");
-    		 session.invalidate();
-    	}
-    	else {
-    		mav.setViewName("redirect:/login");
-    	}
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("home");
+        session.invalidate();
         return mav;
 
-    }
-    //회원 탈퇴 뷰 페이지
-    @GetMapping("/mypage/delete")
-    public ModelAndView memberDeleteView(HttpSession session) {
-    	ModelAndView mav = new ModelAndView();
-    	String userid = (String)session.getAttribute("logId");
-    	try {
-    		MemberVO mvo = memberService.memberSelectById(userid);
-    		mav.addObject("mvo", mvo);
-    		mav.setViewName("mypage/delete");
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		mav.setViewName("redirect:/");
-    	}
-    	
-    	return mav;
-    	
     }
 
     //회원 탈퇴
-    @DeleteMapping("/mypage/delete")
+    @DeleteMapping("/member")
     public ResponseEntity<HashMap<String,String>> memberDelete(HttpSession session, String userpassword){
     	ResponseEntity<HashMap<String,String>> entity = null;
         HashMap<String,String> result = new HashMap<>();
@@ -133,6 +106,13 @@ public class MemberController {
         }
         
         return entity;
+    }
+
+    @GetMapping("/mypage")
+    public ModelAndView mypage(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("mypage/mypage");
+        return mav;
     }
 
     @GetMapping("/signup")
@@ -226,69 +206,39 @@ public class MemberController {
     }
 
 
-    //회원가입 요청
+
     @PostMapping("/signup")
-    public ModelAndView signup(MemberVO mvo, HttpSession session){
-    	ModelAndView mav = new ModelAndView();
-     
+    public ResponseEntity<HashMap<String,String>> signup(MemberVO mvo, HttpSession session){
+        System.out.println("signup :  시작" );
+        HashMap<String, String> result = new HashMap<>();
+        ResponseEntity<HashMap<String, String>> entity = null;
         try{
             if(memberService.memberInsert(mvo) > 0){
                 //session에 userid를 저장
                 session.setAttribute("logId", mvo.getUserid());
-                System.out.println("회원가입 완료");
-                mav.setViewName("redirect:login");
+                result.put("msg","회원가입 완료");
+                result.put("status","200");
+                result.put("redirect","/login");
+                entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
             }
             else{
-                System.out.println("msg 회원가입 실패");
-                mav.setViewName("redirect:/signup");
+                result.put("msg","회원가입 실패");
+                result.put("status","400");
+                result.put("redirect","/");
+                entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
             }
         }catch(Exception e){
-        	e.printStackTrace();
-        	System.out.println("회원가입 에러...Error");
-            mav.setViewName("redirect:/signup");
+            e.printStackTrace();
+            result.put("msg","회원가입 실패");
+            result.put("status","400");
+            result.put("redirect","/");
+            entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
         }
-        return mav;
+        return entity;
     }
     //아이디 중복검사
     @PostMapping("/signup/memberIdCheck")
     public int memberIdCheck(String userid) {
     	return memberService.memberUseridCheck(userid);
-    }
-    
-    //회원정보 수정 요청
-    @PutMapping("/mypage")
-    public ResponseEntity<HashMap<String,String>> memberEdit(MemberVO mvo, HttpSession session){
-    	ResponseEntity<HashMap<String,String>> entity = null;
-    	HashMap<String,String> result = new HashMap<String,String>();
-    	String userid = (String)session.getAttribute("logId");
-    	
-    	try {
-    		mvo.setUserid(userid);
-    		result.put("status", "200");
-    		if(userid == null) {
-    			result.put("msg", "로그인 후 이용해 주세요");
-    			result.put("redirect","redirect:/login");
-    		}
-    		else {
-    			if(memberService.memberUpdate(mvo) > 0) {
-    				result.put("msg", "회원 정보 업데이트 성공!");
-        			result.put("redirect","redirect:/mypage");
-    			}
-    			else {
-    				result.put("msg", "회원 정보 업데이트 실패.");
-        			result.put("redirect","/mypage");
-    			}
-    		}
-    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
-    		
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		result.put("status", "400");
-    		result.put("msg", "회원 정보 업데이트 에러...Error");
-    		result.put("redirect","/");
-    		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);
-    	}
-    	
-    	return entity;
     }
 }

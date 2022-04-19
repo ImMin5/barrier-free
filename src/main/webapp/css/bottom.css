@@ -60,9 +60,7 @@ ul {
 
 .footer__container {
     row-gap: 5rem;
-/*    	background-color: white; */
-   	padding-top: 25px;
-   	border-top: 2px solid #dedede;
+   	background-color: var(--body-color);
 }
 
 .grid {

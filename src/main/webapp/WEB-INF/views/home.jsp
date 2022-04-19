@@ -11,7 +11,7 @@
                 <div class="home__data">
                     <span class="home__data-subtitle">누구에게나 좋은 여행</span>
                     <h1 class="home__data-title">Barrier-free<br><b>JEJU</b></h1>
-                    <a href="/intro" class="button">무장애 여행이란?</a>
+                    <a href="#" class="button">무장애 여행이란?</a>
 
                 </div>
 
@@ -37,7 +37,7 @@
                     <h2 class="section__title about__title">방문하기 편안한<br>아름다운 제주 해변 🌊🌊</h2>
                     <p class="about__description"> 편안한 나만의 여행을 위한 <br> 계획을 짜보세요
                     </p>
-                    <a href="/mapView" class="button">제주 여행 지도 보러가기</a>
+                    <a href="#" class="button">제주 여행 지도 보러가기</a>
                 </div>
 
                 <div class="about__img">
@@ -218,7 +218,7 @@
                         <p class="subscribe__description">제주 여행 전문 코디네이터와 함께다니면 편안한 여행이 될 수 있어요.
                         </p>
                         <div class=" sub_btn">
-                            <button class="button" onclick="window.open('/coordinator')">
+                            <button class="button">
                                 코디네이터 연결
                             </button>
                         </div>

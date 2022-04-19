@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+body ul li {
+	margin: 0px auto;
+	padding: 0px;
+}
+
+[class*="main_con"] {padding: 55px 0;}
+[class*="main_con"] .main_tit {position: relative; z-index: 1; margin-bottom: 25px; font-size: 2.2em; font-weight: 350;text-align: center;}
+[class*="main_con"] .main_tit strong {font-weight: 700;}
+
+.main_con2{overflow: hidden;background:#f9e2a8;text-align: center;}
+.main_con2 .check_box{overflow: hidden;border-top:1px solid #dde0e3;border-bottom:1px solid #dde0e3;}
+.main_con2 .check_box p{padding:40px 0 0 50px;font-size:1.333em;font-weight: 300;color:#000;text-align: left;}
+.main_con2 .check_box p strong{font-weight: 500;}
+.main_con2 .check_box p:before{content:'';display:inline-block;width:26px;height:26px;margin-right:18px;vertical-align: -5px;background:url(/images/renewal/main/search_box_num01.png) no-repeat;}
+.main_con2 ul{padding:35px 77px 0;text-align: center;}
+.main_con2 ul li{float:left;width:16.6%;height:155px;margin:0 0 40px;}
+.main_con2 input[type="checkbox"] + label span{display:block;position:absolute;left:0;bottom:0;width:100%;}
+.main_con2 input[type="checkbox"] {position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;}
+.main_con2 input[type="checkbox"] + label {position:relative; display:inline-block; min-height:155px; padding-left:100%; vertical-align:middle;font-size: 1.2em;font-weight: 300;color:#666;}
+.main_con2 input[type="checkbox"] + label:before {content:''; position:absolute; left:50%; top:2px;margin-left: -59px; width:118px; height:118px; border:1px solid #cfcfcf;border-radius: 100%;background:#fff url(/images/renewal/main/search_box_icon.png) 50% 0 no-repeat;}
+
+::before {}
+.main_con2 input[type="checkbox"]:checked + label {font-weight:500;color:#000;}
+.main_con2 input[type="checkbox"]:checked + label:before {border-color:#162259;box-shadow: 0px 15px 32px 0px rgba(4, 4, 5, 0.2);background:#162259 url(/images/renewal/main/search_box_icon_on.png) 50% 0 no-repeat;}
+.main_con2 input[type="checkbox"]:focus + label {outline:1px dotted #000; outline:-webkit-focus-ring-color auto 5px;}
+.main_con2 input[type="checkbox"].icon2 + label:before{background-position: 50% -118px;}
+.main_con2 input[type="checkbox"].icon3 + label:before{background-position: 50% -236px;}
+.main_con2 input[type="checkbox"].icon4 + label:before{background-position: 50% -354px;}
+.main_con2 input[type="checkbox"].icon5 + label:before{background-position: 50% -472px;}
+.main_con2 input[type="checkbox"].icon6 + label:before{background-position: 50% -590px;}
+.main_con2 input[type="checkbox"].icon7 + label:before{background-position: 50% -708px;}
+.main_con2 input[type="checkbox"].icon8 + label:before{background-position: 50% -826px;}
+.main_con2 input[type="checkbox"].icon9 + label:before{background-position: 50% -944px;}
+.main_con2 input[type="checkbox"].icon10 + label:before{background-position: 50% -1062px;}
+.main_con2 input[type="checkbox"].icon11 + label:before{background-position: 50% -1180px;}
+.main_con2 input[type="checkbox"].icon12 + label:before{background-position: 50% -1298px;}
+
+/*---------------------------*/
+.main_con2{overflow: hidden;background:#f9e2a8;text-align: center;}
+.main_con2 .check_box{overflow: hidden;border-top:1px solid #dde0e3;border-bottom:1px solid #dde0e3;}
+.main_con2 .check_box p{padding:40px 0 0 50px;font-size:1.333em;font-weight: 300;color:#000;text-align: left;}
+.main_con2 .check_box p strong{font-weight: 500;}
+.main_con2 .check_box p:before{content:'';display:inline-block;width:26px;height:26px;margin-right:18px;vertical-align: -5px;background:url(/images/renewal/main/search_box_num01.png) no-repeat;}
+.main_con2 ul{padding:35px 77px 0;text-align: center;}
+.main_con2 ul li{float:left;width:16.6%;height:155px;margin:0 0 40px;}
+.main_con2 input[type="checkbox"] + label span{display:block;position:absolute;left:0;bottom:0;width:100%;}
+.main_con2 input[type="checkbox"] {position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0;}
+.main_con2 input[type="checkbox"] + label {position:relative; display:inline-block; min-height:155px; padding-left:100%; vertical-align:middle;font-size: 1.2em;font-weight: 300;color:#666;}
+.main_con2 input[type="checkbox"] + label:before {content:''; position:absolute; left:50%; top:2px;margin-left: -59px; width:118px; height:118px; border:1px solid #cfcfcf;border-radius: 100%;background:#fff url(/images/renewal/main/search_box_icon.png) 50% 0 no-repeat;}
+.main_con2 input[type="checkbox"]:checked + label {font-weight:500;color:#000;}
+.main_con2 input[type="checkbox"]:checked + label:before {border-color:#ff8000;box-shadow: 0px 15px 32px 0px rgba(4, 4, 5, 0.2);background:#ff8000 url(/images/renewal/main/search_box_icon_on.png) 50% 0 no-repeat;}
+.main_con2 input[type="checkbox"]:focus + label {outline:1px dotted #000; outline:-webkit-focus-ring-color auto 5px;}
+.main_con2 input[type="checkbox"].icon2 + label:before{background-position: 50% -118px;}
+.main_con2 input[type="checkbox"].icon3 + label:before{background-position: 50% -236px;}
+.main_con2 input[type="checkbox"].icon4 + label:before{background-position: 50% -354px;}
+.main_con2 input[type="checkbox"].icon5 + label:before{background-position: 50% -472px;}
+.main_con2 input[type="checkbox"].icon6 + label:before{background-position: 50% -590px;}
+.main_con2 input[type="checkbox"].icon7 + label:before{background-position: 50% -708px;}
+.main_con2 input[type="checkbox"].icon8 + label:before{background-position: 50% -826px;}
+.main_con2 input[type="checkbox"].icon9 + label:before{background-position: 50% -944px;}
+.main_con2 input[type="checkbox"].icon10 + label:before{background-position: 50% -1062px;}
+.main_con2 input[type="checkbox"].icon11 + label:before{background-position: 50% -1180px;}
+.main_con2 input[type="checkbox"].icon12 + label:before{background-position: 50% -1298px;}
+.main_con2 .form_box{display:inline-block;overflow: hidden;text-align: center;}
+.main_con2 .form_box span{float:left;margin-right:20px;}
+.main_con2 .form_box span:first-child{margin-right:30px;}
+.main_con2 .form_box span:last-child{margin-right:0;}
+.main_con2 .form_box label{font-size: 1.267em;font-weight: 500;color:#000;}
+.main_con2 .form_box select{width:180px;height:45px;font-weight: 300;font-size: 1.2em;color:#333;border:0;border-radius: 4px;}
+.main_con2 .form_box input{width:300px;height:45px;font-weight: 300;font-size: 1.2em;color:#333;border:0;border-radius: 4px;}
+.main_con2 .form_box button{width:80px;height:45px;line-height:45px;color:#fff;font-size: 1.2em;background:#162259;border-radius: 4px;}
+.main_con2 .form_box button:before{content:'';display:inline-block;width:10px;height:20px;}
+
+
+
+.acontainer {
+	float:left;
+	width: 400px;
+	margin: 0 auto;
+}
+
+.acotainer alist {
+	overflow: hidden;
+	width: 500px;
+	height: 400px;
+	
+}

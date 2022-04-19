@@ -72,6 +72,16 @@
   }
 }
 
+/*========== Variables Dark theme ==========*/
+body.dark-theme {
+  --first-color-second: hsl(var(--hue-color), 54%, 12%);
+  --title-color: hsl(var(--hue-color), 24%, 95%);
+  --text-color: hsl(var(--hue-color), 8%, 75%);
+  --input-color: hsl(var(--hue-color), 29%, 16%);
+  --body-color: hsl(var(--hue-color), 29%, 12%);
+  --scroll-bar-color: hsl(var(--hue-color), 12%, 48%);
+  --scroll-thumb-color: hsl(var(--hue-color), 12%, 36%);
+}
 
 
 /*=============== BASE ===============*/
@@ -722,7 +732,7 @@ display: block;
   }
 
   .nav {
-    height: calc(var(--header-height) + 6.5rem);
+    height: calc(var(--header-height) + 10rem);
     margin-left: var(--mb-2-5);
   }
 
@@ -732,7 +742,8 @@ display: block;
     font-size: 20px;
     font-weight: 500;
   }
-  
+
+
   .nav__menu {
     display: flex;
     column-gap: 1rem;

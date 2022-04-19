@@ -15,6 +15,4 @@ public interface MemberDAO {
     public MemberVO memberSelectByUsername(String username, String date_birth);
     public MemberVO memberSelectByQuestion(String userid, String question, String answer);
     public int memberUpdatePassword(String userid, String password);
-    public MemberVO memberLogin(String userid, String userpassowrd);
-    public int memberUpdate(MemberVO vo);
 }
