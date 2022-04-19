@@ -44,8 +44,7 @@ public class BoardController {
         pvo.setOnePageRecord(pageCount);
         pvo.setTotalRecord(boardService.totalRecord(pvo));
         pvo.setPageNo(pageNo);
-        
-        System.out.println("tlwkr");
+
         //게시글
         mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
         //공지사항
@@ -58,12 +57,21 @@ public class BoardController {
     
     //문의사항 상세 뷰 
     @GetMapping("/board/boardList/{no}")
-    public ModelAndView boardInfoView(@PathVariable(value="no")int no) {
+    public ModelAndView boardInfoView(@PathVariable(value="no")int no ,HttpSession session) {
     	ModelAndView mav  = new ModelAndView();
-    	
+    	String userid = (String)session.getAttribute("logId");
     	try {
     		BoardVO bvo = boardService.boardSelectByNo(no);
-    		if(bvo != null) {
+    		
+    		if(bvo.is_notice()) {
+    			mav.addObject("bvo",bvo);
+    			mav.setViewName("community/boardDetail");
+    		}
+    		else if(userid != null && !bvo.getUserid().equals(userid)) {
+    			//작성자 본인만 볼 수 있음
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else if(bvo != null) {
     			mav.addObject("bvo",bvo);
     			mav.setViewName("community/boardDetail");
     		}
@@ -72,7 +80,6 @@ public class BoardController {
     			System.out.println("존재하지 않는 게시물");
     			mav.setViewName("redirect:/board/boardList");
     		}
-    		
     	}catch(Exception e) {
     		e.printStackTrace();
     		mav.setViewName("redirect:/board/boardList");
