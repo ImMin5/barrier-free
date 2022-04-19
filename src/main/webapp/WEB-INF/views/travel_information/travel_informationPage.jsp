@@ -108,138 +108,39 @@
 		<h2>여행 정보</h2>
 
 		<div class="grid-container">
-
+			<c:forEach var="vo" items="${tourList}">
 			<article id="3685" class="location-listing">
 
-				<a class="location-title" href="#"> ###### </a>
+				<a class="location-title" href="#">${vo.get("title")}</a>
 
 				<div class="location-image">
-					<a href="#"> <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/9e/67/ec/caption.jpg?w=1200&h=-1&s=1"
-						alt="san francisco">
-					</a>
-
+					<a href="#"> <img src="${vo.get('firstimage')}"></a>		
 				</div>
-				<div class="review-content">
-						<p class="short_review "
-							onclick="trackEvent('CLICK_FEATURED_REVIEW')"
-							data-restaurant_key="pWBiN0PLlB"
-							data-is_long_reivew="
-                        true
-                        ">
-							기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑 리코타 치즈 그리고 견과류와 드레싱까지 정말 잘
-							만든 한끼 같았던 샐러드이...</p>
-
-						<p class="long_review ">기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑
-							리코타 치즈 그리고 견과류와 드레싱까지 정말 잘 만든 한끼 같았던 샐러드이다. 벌써 세번째 방문인 샐러드셀러는 참
-							일정하게 좋은 식사를 할 수 있는 곳으로 생각된다. 몸이 좋아지는 느낌은 덤 ㅎㅎ</p>
-						<span class="review_more_btn" onclick="#">더보기</span>
-					</div>
-					<a href="#" class="btn-detail" onclick="#">
-						<div class="accommodation-more-name">이름</div>
-						<div class="accommodation-more-text">더보기 &gt;</div>
-					</a>
-
-			</article>
-			<article id="3688" class="location-listing">
-
-				<a class="location-title" href="#"> ######## </a>
-
-				<div class="location-image">
-					<a href="#"> <img 
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/london-768x432.jpg"
-						alt="london">
-					</a>
-
-				</div>
-				<div class="review-content">
-						<p class="short_review "
-							onclick="trackEvent('CLICK_FEATURED_REVIEW')"
-							data-restaurant_key="pWBiN0PLlB"
-							data-is_long_reivew="
-                        true
-                        ">
-							기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑 리코타 치즈 그리고 견과류와 드레싱까지 정말 잘
-							만든 한끼 같았던 샐러드이...</p>
-
-						<p class="long_review ">기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑
-							리코타 치즈 그리고 견과류와 드레싱까지 정말 잘 만든 한끼 같았던 샐러드이다. 벌써 세번째 방문인 샐러드셀러는 참
-							일정하게 좋은 식사를 할 수 있는 곳으로 생각된다. 몸이 좋아지는 느낌은 덤 ㅎㅎ</p>
-						<span class="review_more_btn" onclick="#">더보기</span>
-					</div>
-					<a href="#" class="btn-detail" onclick="#">
-						<div class="accommodation-more-name">이름</div>
-						<div class="accommodation-more-text">더보기 &gt;</div>
-					</a>
-				</article>
-			
-
-			<article id="3691" class="location-listing">
-
-				<a class="location-title" href="#"> ###### </a>
-
-				<div class="location-image">
-					<a href="#"> <img 
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/new-york-768x432.jpg"
-						alt="new york">
-					</a>
-				</div>
+				<div>
+					<p>${vo.get("title")}</p>
+					<p>${vo.get("addr1")}</p>
+					<p>${vo.get("homepage")}</p>
 				
-
-			</article>
-
-			<article id="3694" class="location-listing">
-
-				<a class="location-title" href="#"> ###### </a>
-
-				<div class="location-image">
-					<a href="#"> <img src="${firstimg}"></a>
+				
 				</div>
-				<div class="location-content">
-					<li>
-				</div>
+				<br/>
 				<div class="review-content">
-					<p class="short_review " onclick="trackEvent('CLICK_FEATURED_REVIEW')" data-restaurant_key="pWBiN0PLlB" data-is_long_reivew="true">
+						<p class="short_review "
+							onclick="trackEvent('CLICK_FEATURED_REVIEW')"
+							data-accommodation_key="#"
+							data-is_long_reivew="
+                        true
+                        ">
 							기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑 리코타 치즈 그리고 견과류와 드레싱까지 정말 잘
 							만든 한끼 같았던 샐러드이...</p>
 
-					<p class="long_review ">기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑
-						리코타 치즈 그리고 견과류와 드레싱까지 정말 잘 만든 한끼 같았던 샐러드이다. 벌써 세번째 방문인 샐러드셀러는 참
-						일정하게 좋은 식사를 할 수 있는 곳으로 생각된다. 몸이 좋아지는 느낌은 덤 ㅎㅎ</p>
-					<span class="review_more_btn" onclick="#">더보기</span>
+						<p class="long_review ">기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑
+							리코타 치즈 그리고 견과류와 드레싱까지 정말 잘 만든 한끼 같았던 샐러드이다. 벌써 세번째 방문인 샐러드셀러는 참
+							일정하게 좋은 식사를 할 수 있는 곳으로 생각된다. 몸이 좋아지는 느낌은 덤 ㅎㅎ</p>
+						<span class="review_more_btn" onclick="#">더보기</span>
 					</div>
-					<a href="#" class="btn-detail" onclick="#">
-						<div class="accommodation-more-name">이름</div>
-						<div class="accommodation-more-text">더보기 &gt;</div>
-					</a>
 			</article>
-
-
-			<article id="3697" class="location-listing">
-
-				<a class="location-title" href="#"> ###### </a>
-
-				<div class="location-image">
-					<a href="#"> <img 
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/beijing-768x432.jpg"
-						alt="beijing">
-					</a>
-
-				</div>
-
-			</article>
-
-			<article id="3700" class="location-listing">
-
-				<a class="location-title" href="#"> ##### </a>
-
-				<div class="location-image">
-					<a href="#"> <img 
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/paris-768x432.jpg"
-						alt="paris">
-					</a>
-				</div>
-
-			</article>
+			</c:forEach>
 			</div>
 		<!-- end grid container -->
 		</div>
