@@ -27,7 +27,7 @@ $(function() {
              dataType : "JSON",
              data : data,
              success : function(result) {
-                alert(result);
+            	 alert(result);
              },
              error : function(error){
                 console.log(error.responseJSON);
@@ -44,7 +44,7 @@ $(function() {
    <div id="#b__table" >
         <h1 class="bf__title">👇 게시글 작성 👇</h1>
        <form id="suggestionFrm" class="bf__container" method="post" action="/suggestWrite" id="suggestionFrm" >
-           <input type="hidden" value="suggestWrite" name="command">
+        	<input type="hidden" value="suggestWrite" name="command">
         
             <table class="bf__table">
                 <tr>
@@ -62,5 +62,6 @@ $(function() {
             </table>
             <input class="bo__btn__w" type="submit" id="btn_submit" value="등록">
             <input class="bo__btn__w" type="button" value="취소" onclick="javascript:history.back()">
-       </form>
+    	</form>
     </div>
+    
