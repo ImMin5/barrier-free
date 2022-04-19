@@ -114,4 +114,8 @@
     	insert into reply_board(no, userid,subject, content, ip)
     	values(${no}, #{userid}, #{subject}, #{content}, #{ip})
     </insert>
+    <select id="boardReplySelectByNo" resultType="com.team.bf.vo.BoardVO">
+    	select no, userid, subject, content, write_date, ip from reply_board 
+    	where no =${param1}
+    </select>
   </mapper>
