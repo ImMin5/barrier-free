@@ -53,7 +53,7 @@
 							class="icon4"> <label for="check04"><span>경사로</span></label>
 						</li>
 						<li><input type="checkbox" id="check05" value="5"
-							class="icon5"> <label for="check05"><span>지하철</span></label>
+							class="icon5"> <label for="check05"><span>안내견 출입</span></label>
 						</li>
 						<li><input type="checkbox" id="check06" value="6"
 							class="icon6"> <label for="check06"><span>버스정류장</span></label>
