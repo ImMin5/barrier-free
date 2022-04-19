@@ -18,7 +18,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url : jdbc:mysql://127.0.0.1/barrier_free?characterEncoding=utf-8
         username : root
-        password : root1234
+        password : root
 #발급받은 키 
 open-api : 
     myKey : bGFsMgfetTesJMZeNF1L5u09m2jGU6Mb7aGHayrsC3xvl9nPNmiAMjSNF4Z5ORdBpygtVN1rdtd5iANyX0A1Kg%3D%3D
