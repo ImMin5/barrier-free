@@ -15,14 +15,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.team.bf.vo.BoardVO;
 import com.team.bf.vo.PagingVO;
 import com.team.bf.vo.SuggestionVO;
 import com.team.bf.service.MemberService;
@@ -150,20 +150,31 @@ public class SuggestionController {
     	return entity;
     }
 		//건의할래요 상세보기 5 
-		@GetMapping("community/suggestView")
-		public ModelAndView suggestionView(int no){
-			ModelAndView mav = new ModelAndView();
-			System.out.println("보기 가능함");
-			SuggestionVO vo  = service.suggestionSelect(no);
-			
-			System.out.println(vo.getNo());
-			mav.addObject("vo", service.suggestionSelect(no));
-			mav.setViewName("community/suggestView");
-			return mav;
-		}
+	@GetMapping("/suggest/suggestionList/{no}")
+    public ModelAndView suggestionInfoView(@PathVariable(value="no")int no) {
+    	ModelAndView mav  = new ModelAndView();
+    	System.out.println("출력");
+    	try {
+    		SuggestionVO svo = service.suggestionSelectByNo(no);
+    		if(svo != null) {
+    			mav.addObject("svo",svo);
+    			mav.setViewName("community/suggestView");
+    		}
+    		else {
+    			//게시물이 존재 하지 않을 경우
+    			System.out.println("존재하지 않는 게시물");
+    			mav.setViewName("redirect:/community/suggestionList");
+    		}
+    		
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:/communtiy/suggestionList");
+    	}
+    	return mav;
+    }
 
 		//수정하기 6
-		@PutMapping("community/suggestEdit")
+		@PostMapping("community/suggestEdit")
 		public ResponseEntity<String> suggestEdit(SuggestionVO vo, HttpSession session) {
 			ResponseEntity<String> entity = null;
 			HttpHeaders headers = new HttpHeaders();
