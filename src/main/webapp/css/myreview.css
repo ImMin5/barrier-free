@@ -12,6 +12,15 @@
 	font-weight: bold;
 	font-size: 2em;
 	color:rgb(250, 166, 50);
+}
+.line1{
+	border:1px solid #dedede;
+	width:1200px;
+	margin-bottom:20px;
+}
+.line2{
+	border:1px solid #dedede;
+	width:800px;
 }	
 .lnb-box {margin: 10% 0 0;}
 .lnb-box:after {
@@ -51,7 +60,7 @@
 	
 }
 .lnb-box a:nth-child(4){
-	border-bottom:1px solid rgb(238,238,238);
+	border-bottom:1px solid #dedede;
 }
 
 .lnb-box a.on,
@@ -64,7 +73,7 @@
 	float: left;
 	top: 0;
 	left: 0;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	border-bottom: 0px;
 	box-sizing: border-box;
 }
@@ -92,7 +101,7 @@
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	color: rgb(102,102,102);
 	text-align: center;
 	line-height: 55px;
@@ -117,6 +126,8 @@
 	width:400px;
 	height:200px;
 	margin-left:200px;
+	overflow:hidden;
+	text-overflow:ellipsis;
 
 }
 .paging>li{
@@ -143,6 +154,6 @@
 }
 #line{
 	width:500px;
-	border-bottom: 1px solid rgb(238,238,238);
+	border-bottom: 1px solid #dedede;
 	margin-left:150px;
 	}
