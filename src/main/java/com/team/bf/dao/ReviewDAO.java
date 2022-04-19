@@ -17,4 +17,5 @@ public interface ReviewDAO {
 	public List<ReviewVO> reviewSelectById(PagingVO vo);
 	public List<ReviewVO> reviewSelectByContentid(String contentid);
 	public Float reviewSelectAvgScore(String contentid);
+	public ReviewVO reviewSelectOneByContentid(String contentid);
 }

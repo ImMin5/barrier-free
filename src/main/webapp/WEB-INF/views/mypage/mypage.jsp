@@ -1,82 +1,114 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="url" value="<%=request.getContextPath()%>" />
+<!-- 
 
+
+
+mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 main 으로 설정하기 
+
+
+
+ -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">	
 <link rel="stylesheet" href="${url }css/mypage.css">
+<script>
+ $(function(){
+	$("#mFrm").submit(function(){
+		if($("#userpassword").val()==''){
+			alert("비밀번호를 입력후 수정하세요.");
+			return false;
+		}
+		if($("#userpassword").val() != $("#userpassword2").val()){
+			alert("비밀번호가 일치하지 않습니다.");
+			return false;
+		}
+
+
+		return true;
+		});	
+	});
+</script>
 <div id="contents">
 			<section class="mypage-box">
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">
-					<a href="#" >나의 정보</a>
-					<a href="#" >나의 리뷰</a>
-					<a href="#" >나의 문의 사항</a>
-					<a href="#" >나의 플래너</a>
+					<a href="${url }/mypage/myplanner" >나의 플래너</a>
+					<a href="${url }/mypage/myreview" >나의 리뷰</a>
+					<a href="${url }/mypage/myqna" >나의 문의 사항</a>
+					<a href="${url }/mypage" >나의 정보</a>
 
 				</nav>
 	
 <div class="info-box">
-	<div class="order-box modify">		
-					<form name="myform" method="post" target="dataFrame">
+	<div class="box modify">		
+					<form id="mFrm" name="myform" method="put" action="/mypage" onsubmit="return memberCheck()" >
 					<div class="con">
 						<div class="fl w-50">
-							<h3>고구마님의 정보</h3>
+							<h3><a class="username">${mvo.username }</a>님의 정보</h3>
+							
 							<table class="member__table">
-								<caption class="hidden">아이디,이름,비밀번호,생년월일 테이블</caption>
+								
 								<tbody>
-									<!--tr>
-										<th>*&nbsp;&nbsp;회원유형</th>
-										<td>
-											hdm1234
-										</td>
-									</tr-->
 									<tr>
 										<th>*&nbsp;&nbsp;아이디</th>
 										<td>
-											goguma
+											${mvo.userid }
 										</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;이름</th>
-										<td>고구마</td>
+										<td>${mvo.username }</td>
 									</tr>
 									<tr>
 										<th class="vt">*&nbsp;&nbsp;비밀번호</th>
 										<td>
-											<input type="password" id="MemberPassword" name="MemberPassword" maxlength="16" placeholder="영문/숫자/특수문자 조합 8~16자 조합으로 입력해주세요." class="input__style input__size2">
-											&nbsp;<em id="pwResult" style="color:#cc3333; font-style:normal; font-family:dotum; font-size:12px;"></em>&nbsp;<span class="caution">&nbsp;8 - 16자 이상 : 영문, 숫자 조합</span>
+											<input type="password" id="userpassword" name="userpassword"  placeholder="비밀번호를 입력해주세요" class="input_style">
+											&nbsp;&nbsp;<span class="caution">&nbsp; </span>
 										</td>
 									</tr>
 									<tr class="vt">
 										<th>*&nbsp;&nbsp;비밀번호 확인</th>
 										<td>
-											<input type="password" class="input__style input__size2" name="MemberPassword2" maxlength="16" placeholder="비밀번호를 한번 더 입력해주세요.">
-											<span class="caution">&nbsp;비밀번호를 한번 더 입력해주세요.</span>
+											<input type="password" id="userpassword2" class="input_style" name="userpassword2"  placeholder="비밀번호를 한번 더 입력해주세요.">
+											<span class="caution">&nbsp;</span>
 										</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;생년월일</th>
-										<td>1998-01-29</td>
+										<td>${mvo.date_birth}</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 질문</th>
-										<td>자신의 인생 좌우명은?</td>
+										<td>${mvo.question }</td>
 									</tr>
 									<tr>
 										<th>*&nbsp;&nbsp;비밀번호 찾기 답변</th>
-										<td>테스트</td>
+										<td>${mvo.answer }</td>
 									</tr>
 									<tr>
-										<th>&nbsp;&nbsp;장애 정도</th>
-										<td>다음에 입력하기</td>
+									<th>&nbsp;&nbsp;장애 정도</th>
+									<td><select name="grade" id="grade" value=${mvo.grade }>
+                      					<optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
+                       				      <option value=5>다음에 입력하기</option>
+                            			  <option value=1>1등급</option>
+                            			  <option value=2>2등급</option>
+                            			  <option value=3>3등급</option>
+                                          <option value=4>4등급</option>
+                        				</optgroup>
+                        
+                    					</select>
+                    				</td>
 									</tr>
 									
 								</tbody>
 							</table>
 						</div>
+						
 						<div class="btn-area">
-						<a class="btn__style2" href="">회원탈퇴</a>
-						<a class="btn__style1" href="" onclick="updateform">정보수정</a>
+						<input id="button" type="submit" value="수정하기"/>
+						<a class="btn__style2" href="${url }/mypage/delete" >&nbsp;회원탈퇴&nbsp; </a>
 						</div>
 					</div>
 					</form>

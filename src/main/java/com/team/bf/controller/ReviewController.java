@@ -49,7 +49,7 @@ public class ReviewController {
 	           pvo.setOnePageRecord(pageCount);
 	           pvo.setTotalRecord(reviewService.totalRecord(pvo));
 	           pvo.setPageNo(pageNo);
-	           mav.addObject("pvo", pvo);
+	           mav.addObject("pvo",pvo);
 	    	   mav.addObject("reviewList",reviewService.reviewSelectById(pvo));
 	    	   mav.setViewName("mypage/myreview");
 	       }

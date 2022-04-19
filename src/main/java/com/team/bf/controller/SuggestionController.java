@@ -107,7 +107,7 @@ public class SuggestionController {
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     	}catch(Exception e) {
-    		//삭제할 게시글이 존재하지 않을 경우
+    		//삭제할 게시글이 존재하지 않을 경우 4
     		
     		e.printStackTrace();
     		result.put("status", "400");
@@ -117,7 +117,7 @@ public class SuggestionController {
     	}
     	return entity;
     }
-		//건의할래요 상세보기 4 
+		//건의할래요 상세보기 5 
 		@GetMapping("community/suggestView")
 		public ModelAndView suggestionView(int no){
 			ModelAndView mav = new ModelAndView();
@@ -130,15 +130,6 @@ public class SuggestionController {
 			return mav;
 		}
 
-		//수정하고 난 뒤 보기 5
-		@GetMapping("community/suggestEdit")
-		public ModelAndView suggestEdit(int no) {
-			ModelAndView mav = new ModelAndView();
-			SuggestionVO vo = service.suggestionView(no);
-			mav.addObject("vo", vo);
-			mav.setViewName("community/suggestEdit");
-			return mav;
-		}
 		//수정하기 6
 		@PutMapping("community/suggestEdit")
 		public ResponseEntity<String> suggestEdit(SuggestionVO vo, HttpSession session) {
@@ -161,7 +152,7 @@ public class SuggestionController {
 			return entity;
 		}
 		
-		//글 수정 메시지 메소드
+		//글 수정 메시지 메소드 7
 		public String getEditFailMessage() {
 			String msg = "<script>";
 				   msg += "alert('글 수정에 실패하였습니다.\\수정 폼으로 이동합니다.');";

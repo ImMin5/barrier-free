@@ -5,14 +5,19 @@
 <mapper namespace="com.team.bf.dao.CoordinatorDAO">
 	<insert id="CoordiInsert">
 		insert into coordinator(email, tel, coo_info, link, coo_userid)
-		values(#{email}, #{tel}, #{coo_info}, #{link}, #{coo_userid})
+		values( #{email}, #{tel}, #{coo_info}, #{link}, #{coo_userid})
 	</insert>
+	<select id="coordiloginCheck" resultType="com.team.bf.vo.CoordinatorVO">
+		select coo_userid from coordinator
+		where coo_userid=#{coo_userid}
+	</select>
+	
 	
 	<update id="CoordinatorUpdate">
 		update coordinator set email=#{email}, tel=#{tel}, coo_info=#{coo_info}
 		where coo_userid=#{coo_userid}
 	</update>
 	<select id="CoordiidCheck" resultType="int">
-		select count(coo_userid) cnt from member where coo_userid=#{param1}
+		select count(coo_userid) from coordinator where coo_userid=#{param1}
 	</select>
 </mapper>
