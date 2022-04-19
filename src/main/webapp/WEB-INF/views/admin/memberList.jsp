@@ -46,15 +46,17 @@
       
       $(document).on("click","button[name=delet_btn]",function(){
 			if(confirm("정말 삭제하시겠습니까?")){
-				var userpassword = $("#"+userid+"_userpassword").val();
+				var userid = $(this).attr("data-userid");
+				var userpassword = $(this).attr("data-userpassword");
 			$.ajax({
-				url: '${url}/mypage/delete',
+				url: '${url}/admin/memberList',
 				type: "DELETE",
 				data:{
+					userid : userid,
 					userpassword : userpassword,
 				},
 				success: function(data){
-					alert(data.msg);
+					alert(data);
 					location.reload();
 				},
 				error: function(){
@@ -94,7 +96,7 @@
          <td> <input type="text" id="${vo.userid }_answer" value="${vo.answer }"/></td>
          <td> <input type="text" value="${vo.date_create }" readonly></td>
          <td><button id="btn1" name="edit_btn" data-userid="${vo.userid}">수정</button></td>
-         <td><button id="btn2" name="delet_btn" date-userid="${vo.userid}">삭제</button></td>
+         <td><button id="btn2" name="delet_btn" data-userpassword="${vo.userpassword}" data-userid="${vo.userid}">삭제</button></td>
       </tr>
    </c:forEach>
    
