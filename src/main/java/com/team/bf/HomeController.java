@@ -21,8 +21,8 @@ public class HomeController {
     public ModelAndView home(){
         ModelAndView mav = new ModelAndView();
         
-        mav.addObject("accomoList", openApiService.searchKeyword("1", "6","32",""));
-        mav.addObject("tourList", openApiService.searchKeyword("1", "6","12",""));
+        mav.addObject("accomoList", openApiService.searchKeyword("1", "6","32","",""));
+        mav.addObject("tourList", openApiService.searchKeyword("1", "6","12","",""));
         mav.setViewName("home");
         return mav;
     }
