@@ -11,7 +11,7 @@
     </script>
 </head>
 <body>
-    <div class="bo__title">
+    <div class="bo__title" style="margin:150px;">
         <h1> 🙆‍♀️ 등록 된 코디네이터 🙆‍♂️ </h1>
     </div>
     
@@ -38,7 +38,14 @@
            </tr>
         </thead>
         <tbody class="bd_t" id="bd_t">
-   
+        	<c:forEach var="vo" items="${coordiList}">
+        		<tr>
+        			<td>${vo.coo_userid}</td>
+        			<td>${vo.email}</td>
+        			<td>${vo.tel}</td>
+        			<td>카카오톡 링크</td>
+        		</tr>
+        	</c:forEach>
         </tbody>
     </table>
     
