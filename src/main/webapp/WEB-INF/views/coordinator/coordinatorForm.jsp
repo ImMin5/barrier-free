@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="${url}/css/board.css">
 
 <script>
     $(function() {
@@ -70,8 +71,7 @@
                     <td><input type="text" name="coo_userid" id="userid" value="goguma2" placeholder="접속한 아이디를 입력해주세요"></td>
                 </tr>
             </table>
-            <input class="bo__btn__w" type="button" id="btn_submit" value="등록">
-            <input class="bo__btn__w" type="button" value="취소" onclick="location.href='${url}/admin/boardList'">
+            <input class="bo__btn__wa" type="button" id="btn_submit" value="등록">
+            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/admin/boardList'">
     	</form>
     </div>
-
