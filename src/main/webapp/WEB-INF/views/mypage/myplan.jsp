@@ -21,5 +21,5 @@
 </section>
 </div>
 <div class="info-box">
-
+		<h1>🛫나의 플래너🛫</h1>
 </div>	
