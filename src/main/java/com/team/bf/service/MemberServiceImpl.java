@@ -1,5 +1,7 @@
 package com.team.bf.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import com.team.bf.dao.MemberDAO;
@@ -54,5 +56,15 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int memberUpdate(MemberVO vo) {
 		return dao.memberUpdate(vo);
+	}
+
+	@Override
+	public List<MemberVO> memberSelectAll() {
+		return dao.memberSelectAll();
+	}
+
+	@Override
+	public int memberUpdateByAdmin(MemberVO vo) {
+		return dao.memberUpdateByAdmin(vo);
 	}
 }
