@@ -146,8 +146,9 @@ public class BoardController {
 	           pvo.setOnePageRecord(pageCount);
 	           pvo.setTotalRecord(boardService.totalRecord(pvo));
 	           pvo.setPageNo(pageNo);
-	          mav.setViewName("/mypage/myqna");
-	          mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
+	           mav.addObject("pvo", pvo);
+	           mav.setViewName("/mypage/myqna");
+	           mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
 	       }
        }catch(Exception e) {
     	   e.printStackTrace();
