@@ -64,7 +64,7 @@ $(function() {
                 </tr>
             </table>
             <input class="bo__btn__w" type="button" id="btn_submit" value="등록">
-            <input class="bo__btn__w" type="button" value="취소" onclick="javascript:history.back()">
+            <input class="bo__btn__w" type="button" value="취소" onclick="location.href='${url}/board/boardList'">
     	</form>
     </div>
     

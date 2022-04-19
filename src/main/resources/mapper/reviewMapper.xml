@@ -51,4 +51,10 @@
   	<select id="reviewSelectAvgScore" resultType="float">
   		select avg(score) from reply_info where contentid=#{param1}
   	</select>
+  	
+  	<select id="reviewSelectOneByContentid" resultType="com.team.bf.vo.ReviewVO">
+  		select no, userid , content,  score, write_date , ip, contentTypeId, title
+  		from reply_info where contentid=#{param1}
+  		order by score limit 1
+  	</select>
   </mapper>

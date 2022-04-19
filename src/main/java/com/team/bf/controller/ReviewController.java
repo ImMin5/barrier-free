@@ -26,7 +26,7 @@ public class ReviewController {
 	@Inject
 	ReviewService reviewService;
 	
-	//나의 문의 사항 뷰
+	//나의 리뷰 사항 뷰
 	@GetMapping("/mypage/myreview")
     public ModelAndView myreview(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
     		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
@@ -49,6 +49,7 @@ public class ReviewController {
 	           pvo.setOnePageRecord(pageCount);
 	           pvo.setTotalRecord(reviewService.totalRecord(pvo));
 	           pvo.setPageNo(pageNo);
+	           mav.addObject("pvo",pvo);
 	    	   mav.addObject("reviewList",reviewService.reviewSelectById(pvo));
 	    	   mav.setViewName("mypage/myreview");
 	       }
