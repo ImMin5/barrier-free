@@ -78,8 +78,8 @@
 }
 
 .info-box{
-	margin: 10% 370px 0;
-	width: 690px;
+	margin: 10% 390px 0;
+	width: 670px;
 	height: 900px;
 	display:block;
 	position: relative;
@@ -101,12 +101,14 @@
 	width: 200px;
 	padding: 20px 0;
 	text-align: left;
-	font-weight: 400;
+	font-weight: 500;
 	font-size: 20px;
+	
 }
 .member__table td{
 	padding: 15px 0;
 	font-size: 20px;
+	
 	
 }
 
@@ -138,16 +140,35 @@
 .username{
 	color:rgb(250, 166, 50);
 }
+#userpassword{
+	margin-left:10px;
+	width:220px;
+	height:25px;
+}
+
+#userpassword2{
+	width:220px;
+	height:25px;
+}
 .input_style{
 	width:220px;
 	height:20px;	
 }
-#grade{
-	width:200px;
+#question{
+	width:220px;
+	height:30px;
+}
+#answer{
+	margin-left:4px;
+	width:220px;
 	height:25px;
 }
-#button{
-  margin: 10px; 	
+#grade{
+	width:220px;
+	height:30px;
+}
+#member_edit_btn{
+  margin: 3px; 	
   width: 100px;
   height: 29px;
   border: 0;
@@ -161,7 +182,7 @@
   cursor:pointer;
 }
 .btn__style2{
-  margin: 10px; 	
+  margin: 3px; 	
   width: 120px;
   height: 30px;
   border: 0;
