@@ -52,7 +52,7 @@
  		<c:forEach var="vo" items="${boardList}">
          <tr>
             <td>${vo.board.no}</td>
-            <td class="bo__subject"><a href="${url}/board/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
+            <td class="bo__subject"><a href="${url}/admin/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
             <td>${vo.board.userid}</td>
         </tr>
 

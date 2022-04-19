@@ -43,7 +43,7 @@ mypage 내정보를 맨밑으로 내리고 나의 플래너를 마이페이지 m
 	
 <div class="info-box">
 	<div class="box modify">		
-					<form id="mFrm" name="myform" method="post" action="/mypage" onsubmit="return memberCheck()" >
+					<form id="mFrm" name="myform" method="put" action="/mypage" onsubmit="return memberCheck()" >
 					<div class="con">
 						<div class="fl w-50">
 							<h3><a class="username">${mvo.username }</a>님의 정보</h3>
