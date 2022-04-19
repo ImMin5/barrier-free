@@ -29,7 +29,7 @@ public class ReviewController {
 	//나의 리뷰 사항 뷰
 	@GetMapping("/mypage/myreview")
     public ModelAndView myreview(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
-    		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
+    		@RequestParam(value="pageCount",required = false, defaultValue = "4")int pageCount,
     		@RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord,HttpSession session) {
        String userid = (String)session.getAttribute("logId");
        ModelAndView mav = new ModelAndView();
