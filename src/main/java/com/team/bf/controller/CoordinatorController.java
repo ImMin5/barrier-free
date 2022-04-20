@@ -31,7 +31,7 @@ public class CoordinatorController {
 
 	   //코디네이터 목록 뷰 
 	   @GetMapping("/coordinator")
-	   public ModelAndView loginForm() {
+	   public ModelAndView cordinatorListView() {
 	      ModelAndView mav = new ModelAndView();
 	      mav.addObject("coordiList", coordinatorservice.coordinatorSelectAll());
 	      mav.setViewName("coordinator/coordinator");
@@ -69,6 +69,15 @@ public class CoordinatorController {
 			   mav.setViewName("redirect:/admin/coordinator");
 		   }
 		   return mav;
+	   }
+	   
+	   @GetMapping("/admin/coordinator")
+	   public ModelAndView coordinatorAdminListView() {
+		   ModelAndView mav = new ModelAndView();
+		   mav.setViewName("admin/coordinator");
+		   return mav;
+			   
+		   
 	   }
 	   
 	   //코디네이터 등록 
