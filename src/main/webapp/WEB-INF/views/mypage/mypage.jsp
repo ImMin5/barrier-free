@@ -52,7 +52,7 @@
 <div id="contents">
 		
 			<section class="mypage-box">
-				<div class="line1"></div>
+			
 				
 				<h1>마이 페이지</h1>
 				

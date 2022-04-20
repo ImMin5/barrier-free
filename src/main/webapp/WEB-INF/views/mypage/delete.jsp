@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="${url }/css/delete.css" />
 
 <script type="text/javascript">
-	$(document).ready(function(e){
-		$('#secession').click(function(){
-			
+	$(function(){
+		$('#secession').click(function(event){
+			event.preventDefault();
 			//패스워드 입력 확인
 			if($('#userpassword').val() == ''){
 				alert("패스워드를 입력해 주세요.");
@@ -27,7 +27,6 @@
 			}
 			
 			
-			return false;
 			//패스워드 맞는지 확인
 			if(confirm("정말 삭제하시겠습니까?")){
 				var userpassword = $("#userpassword").val();
@@ -39,6 +38,7 @@
 				},
 				success: function(data){
 					alert(data.msg);
+					window.location.href = data.redirect;
 				},
 				error: function(){
 					alert("서버 에러.");
@@ -62,8 +62,6 @@
 			
 				<li><input type="password" name="userpassword" id="userpassword" placeholder="비밀번호를 입력해주세요"></li>
 			
-		
-				
 				<li><input type="password" name="userpassword" id="userpassword2" placeholder="비밀번호를 다시 입력해주세요"></li>
 				<button id="secession">탈퇴하기</button>
 				
