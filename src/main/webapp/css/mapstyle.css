@@ -115,15 +115,15 @@ body{
 
 /* ====================== 리스트 내용 ====================== */
 .listContentWrap{
-	position: relative ;
+	position: relative;
     top: 0px;
     left: 0px;
     float: left;
     width: 100%;
     height: 860px;
     background: #F2F2F2;
-    overflow-y:scroll;
-    color:#5c5c5c;
+    overflow-y: scroll;
+    color: #5c5c5c;
 }
 
 .listContent{
@@ -273,7 +273,36 @@ body{
 	width: 100%;
 	
 }
+/* ====================== 저장된 플래너 리스트 ====================== */
+.planListReader{
+	background: #ffffff;
+	height: 70px;
+	width: 100%;
+}
+.planListReader>span{
+	position: relative;
+    top: 9px;
+    left: 38px;
+    width: 180px;
+    height: 50px;
+}
+.planListReader>span>img{
+	width: 10px;
+	height: 10px;
+}
+
+#listReader{
+	position: relative;
+    top: 10px;
+    left: 55px;
+    width: 500px;
+    height: 45px;
+}
+
+
+/* ====================== 플래너 제목 ====================== */
 .planSubject{
+	background: #ffffff;
 	height: 70px;
 	width: 100%;
 }
@@ -288,15 +317,7 @@ body{
 	width: 10px;
 	height: 10px;
 }
-/*#planFrm{
-	position: relative;
-    top: 10px;
-    left: 130px;
-    width: 10px;
-    height: 10px;
-    background: #FAA631;
-    float: left;
-}*/
+
 #planSubject_text{
 	position: relative;
     top: 10px;
@@ -322,7 +343,7 @@ body{
     border: 2px solid #024d09;
 }
 
-/* ====================== 플랜 추가 ====================== */
+/* ====================== 플래너 날짜 ====================== */
 .planList{
 	height: 70px;
 	width: 100%;
@@ -340,16 +361,8 @@ body{
 	width: 10px;
 	height: 10px;
 }
-#datefrm{
-	position: relative;
-    top: 10px;
-    left: 130px;
-    width: 10px;
-    height: 10px;
-    /*background: #FAA631;*/
-    float: left;
-}
-#plan_startDate{
+
+#dateFrom{
 	position: relative;
     top: 10px;
     left: 55px;
@@ -357,34 +370,31 @@ body{
     height: 45px;
     padding-left: 15px;
 }
-#plan_endDate{
+#dateTo{
 	position: relative;
     top: 10px;
-    left: 55px;
+    left: 42px;
     width: 230px;
     height: 45px;
     padding-left: 15px;
 }
 
-
-#planList_btn{
-	/*position: relative;
+#btnSearch{
+	position: relative;
     top: 10px;
-    left: 53px;
-     padding-left: 50px;
+    left: 54px;
+    /* padding-left: 50px; */
     background: #FAA631;
     width: 150px;
     height: 48px;
     color: #ffffff;
-    border: 2px solid #FAA631; */
+    border: 2px solid #FAA631;
 }
-#planList_btn:hover{
+#btnSearch:hover{
 	background: #024d09;
 	color: #ffffff;
     border: 2px solid #024d09;
 }
-
-
 .companion{
 	position: relative;
     top: 12px;
@@ -400,32 +410,6 @@ body{
 	border: 2px solid #FAA631;
 	color: #ffffff;
 }
-
-
-
-/*.listContentWrap{
-	position: relative ;
-    top: 0px;
-    left: 0px;
-    float: left;
-    width: 100%;
-    height: 860px;
-    background: #F2F2F2;
-    overflow-y:scroll;
-    color:#5c5c5c;
-}
-.listContent{
-    position: absolute;
-    top: 15px;
-    left: 35px;
-    transform: translate(-50%, -50%);
-    width: 773px;
-    height: 200px;
-    background: rgb(255, 255, 255); 
-    float: left;
-    border-radius: 5px;
-    overflow: hidden;
-}*/
 /* ====================== 플래너 리스트 내용 ====================== */
 .planListContentWrap{
 	position: relative ;
@@ -433,14 +417,15 @@ body{
     left: 0px;
     float: left;
     width: 100%;
-    height: 715px;
+    height: 930px;
     background: #ededed; 
-    overflow-y:scroll;
+    /* overflow-y:scroll; */
     color:black;
+    
 }
 .planlistContentBG{
 	position: absolute;
-    top: 35px;
+    top: 164px;
     left: 48px;
     /* background: #FAA631; */
     /* width: 773px; */
@@ -495,7 +480,6 @@ body{
     padding-left: 105px;
     font-weight: bold;
 }
-
 .planAddr{
 	height: 28px;
     font-weight: bold;
@@ -525,7 +509,7 @@ body{
     position: relative;
     top: -210px;
     left: 549px;
-    width: 150px;
+    /* width: 150px; */
     height: 150px;
     border-radius: 5px;
 }
@@ -538,13 +522,11 @@ body{
 	float: left;
     width: 420px;
     height: 48px;
-    margin-top: 35px;
-    margin-left: 243px;
 }
 #planListCancel_btn{
 	background: #f9f9f9;
-    width: 150px;
-    height: 48px;
+    width: 160px;
+    height: 50px;
     border: 2px solid #f9f9f9;
     margin-right: 30px;
 }
@@ -555,10 +537,10 @@ body{
 }
 #planListSave_btn{
 	background: #FAA631;
-    width: 150px;
-    height: 48px;
+    width: 160px;
+    height: 50px;
     border: 2px solid #FAA631;
-    color:#ffffff;
+    color: #ffffff;
 }
 #planListSave_btn:hover{
 	background: #024d09;
@@ -575,7 +557,6 @@ body{
     width: 55%;
     height: 1000px;
 }
-
 
 /* ====================== 지도 컨트롤러 ====================== 차이 40 */
 .custom_typecontrol {position:absolute;top:100px;right:40px;width:200px;height:50px;margin:0;padding:0;z-index:1;font-size:15px;line-height: 50px;}
