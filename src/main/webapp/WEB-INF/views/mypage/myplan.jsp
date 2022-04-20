@@ -16,9 +16,7 @@
 					<a href="${url }/mypage/myreview" >나의 리뷰</a>
 					<a href="${url }/mypage/myqna" >나의 문의 사항</a>
 					<a href="${url }/mypage" >나의 정보</a>
-
 				</nav>
-				
 </section>
 </div>
 <div class="info-box">

@@ -73,6 +73,7 @@ public class MapAndPlannerController {
     	
     	return mav;
     }
+    //여행정보 불러오기
     @PostMapping("/mapInfo/load")
     public String load_planner(PlannerVO pvo) {
     	JSONArray jsonArray = new JSONArray();
@@ -114,8 +115,8 @@ public class MapAndPlannerController {
            JSONObject Opt = openApiService.detailCommon(cid,areaCode);
            jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
            jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
-           jsonArray.getJSONObject(i).put("firstimage",Opt.get("firstimage").toString());
-           jsonArray.getJSONObject(i).put("firstimage2",Opt.get("firstimage2").toString());
+           jsonArray.getJSONObject(i).put("firstimage",Opt.has("firstimage") ? Opt.get("firstimage").toString() : "");
+           jsonArray.getJSONObject(i).put("firstimage2",Opt.has("firstimage2") ? Opt.get("firstimage2").toString() : "");
            if(Opt.has("homepage"))
               jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
            else
@@ -146,6 +147,11 @@ public class MapAndPlannerController {
     	try {
     		
     		//작성자 등록
+    		if(userid == null) {
+    			result.put("status", "201");
+    			result.put("msg", "로그인 후 이용해 주세요");
+    			entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    		}
     		pvo.setUserid(userid);
     		result.put("status", "200");
     		//넘버링과 넘어온 contentid 수가 다를 경우
