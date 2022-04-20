@@ -4,7 +4,40 @@
 
 <link rel="stylesheet" href="${url }/css/myplanner.css">
 
+<script>
+	$(function(){
+		$(document).on('click','#del',function(event){
+			event.preventDefault();
+			var userid = "${logId }";
+			var no = $(this).attr("title");
+			if(confirm("정말 삭제하시겠습니까?")){
+			$.ajax({
+		        url:'${url}/planView',
+		        type:'DELETE',
+		        data: {
+		        	no:no,
+		        	userid:userid,
+		        },
+		        dataType : "json",
 
+		        success:function(data){
+		  			alert(data.msg)
+		        	location.reload();
+		        },	
+		        error: function (error){
+					
+		        	alert(data.msg);
+		        	
+		        }
+			});
+		}else{
+			return false;
+		}
+		});
+	});
+
+
+</script>
 
 <div id="contents">
 			<section class="mypage-box">

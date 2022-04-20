@@ -87,6 +87,7 @@
 }
 .hh1{
 	margin-left:50px;
+	
 }
 #del{
 	margin-left:320px;
@@ -117,6 +118,7 @@
 .title{
 	overflow:hidden;
 	text-overflow:ellipsis;
+	color: #2e64a1;
 	}
 
 .planner{
