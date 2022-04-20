@@ -58,7 +58,7 @@
 	float: left;
 	top: 0;
 	left: 0;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	border-bottom: 0px;
 	box-sizing: border-box;
 	font-family: "Noto Sans KR", sans-serif;
@@ -78,7 +78,7 @@
 }
 
 .info-box{
-	margin: 10% 390px 0;
+	margin: 10% 430px 0;
 	width: 670px;
 	height: 900px;
 	display:block;
@@ -88,7 +88,7 @@
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 400;
 	font-size: 25px;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	color: rgb(102,102,102);
 	text-align: center;
 	line-height: 55px;
@@ -112,6 +112,11 @@
 	
 }
 
+.line1{
+	border:1px solid #dedede;
+	width:1200px;
+	margin-bottom:20px;
+}
 .member__table .caution{
 	margin-top: 0px;
 	font-size: 13px;

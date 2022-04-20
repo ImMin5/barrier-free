@@ -63,7 +63,7 @@ public class CoordinatorController {
 	   public ModelAndView coordinatorFormView(HttpSession session) {
 		   ModelAndView mav = new ModelAndView();
 		   try {
-			   mav.setViewName("coordinator/coordinatorForm");
+			   mav.setViewName("admin/coordinatorForm");
 		   }catch(Exception e) {
 			   e.printStackTrace();
 			   mav.setViewName("redirect:/admin/coordinator");
