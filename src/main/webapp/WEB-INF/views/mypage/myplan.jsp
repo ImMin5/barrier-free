@@ -22,5 +22,48 @@
 </section>
 </div>
 <div class="info-box">
-		<h1>🛫나의 플래너🛫</h1>
+		<div class="hh1"><h1>🛫나의 플래너🛫</h1></div>
+			<div class="line2"></div>
+	<table class="planner1">
+		<c:forEach var="vo" items="${planList }" >
+		<thead class="plan_thead" >
+		<tr>
+			<th>
+
+			</th>
+		</tr>
+		</thead>
+		<tbody class="tbd">
+
+			<tr>
+				
+				<th>
+				
+				<div class="planner">
+				<div class="line2">&nbsp;</div>
+				<div class="date">${vo.create_date } 
+					<input type="button" id="del" value="삭제하기" title="${vo.no}">
+				</div>
+				<div class="title">
+						${vo.title }
+					
+				</div>
+				<div class="start">
+					${vo.start_date } ~ ${vo.end_date }
+				</div>
+				</div>
+				</th>
+			</tr>
+			<tr>
+				<th>
+					<div id="line"></div>
+				</th>
+			</tr>
+			
+		</tbody>
+		</c:forEach>
+	</table>
+			<div class="bo__n__page">
+		
+	</div>
 </div>	
