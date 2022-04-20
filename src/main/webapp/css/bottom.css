@@ -119,10 +119,7 @@ ul {
 }
 
 @media screen and (min-width: 768px){
-	.section {
-	    padding: 80rem 0 2rem;
-	    z-index:-10;
-	}
+
 	.footer__rights {
     flex-direction: column;
     justify-content: center;
