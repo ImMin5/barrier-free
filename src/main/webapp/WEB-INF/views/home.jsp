@@ -57,6 +57,7 @@
                     <c:forEach var="vo" items="${accomoList}">
                     <div class="discover__card swiper-slide">
                         <img src="${vo.get('firstimage')}" alt="" class="discover__img">
+
                         <div class="discover__data">
                             <a href="${url}/accommodation"><h2 class="discover__title">${vo.get('title')}</h2></a>
                             <span class="discover__description">${vo.get('addr1')}</span>
@@ -82,7 +83,7 @@
                     <div class="place__content">
                         <span class="place__rating">
                             <i class="ri-star-line place__rating-icon"></i>
-                            <span class="place__rating-number">4.8</span>
+                            <span class="place__rating-number">${vo.get('avgScore')}</span>
                         </span>
 
                         <div class="place__data">
@@ -98,8 +99,6 @@
                 </c:forEach>
                 </div>
         </section>
-                
-
             <!--==================== SUBSCRIBE ====================-->
             <section class="subscribe section">
                 <div class="subscribe__bg">
