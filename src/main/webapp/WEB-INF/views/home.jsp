@@ -82,7 +82,7 @@
                     <div class="place__content">
                         <span class="place__rating">
                             <i class="ri-star-line place__rating-icon"></i>
-                            <span class="place__rating-number">4.8</span>
+                            <span class="place__rating-number">${vo.get('avgScore')}</span>
                         </span>
 
                         <div class="place__data">
