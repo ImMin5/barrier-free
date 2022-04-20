@@ -73,6 +73,32 @@ public class MapAndPlannerController {
     	
     	return mav;
     }
+    @PostMapping("/mapInfo/load")
+    public String load_planner(PlannerVO pvo) {
+    	JSONArray jsonArray = new JSONArray();
+    	try {
+    		int seq = 1;
+    		for(String cid :pvo.getContentidList()) {
+    			System.out.println("cid " + cid);
+    			JSONObject jObj = openApiService.detailCommon(cid, areaCode); 
+    			jObj.put("likeCount", likeService.likeSelectAll(cid));
+    			jObj.put("heartCount", heartService.heartSelectAll(cid));
+    			jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
+    			jObj.put("seq", seq++);
+    			Float avgScore = reviewService.reviewSelectAvgScore(cid);    
+    			if(avgScore == null)
+    				jObj.put("avgScore", "0");
+    			else 
+    				jObj.put("avgScore", String.format("%.2f",avgScore));
+    			jsonArray.put(jObj);
+    			System.out.println("load_planner : "+jObj.toString());
+    		}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	return jsonArray.toString();
+    }
+    
     //0.여행지 정보 요청
     @PostMapping("/mapInfo")
     public String mapInfo( String pageNo,String pageCount, String searchWord, HttpSession session){
@@ -167,12 +193,20 @@ public class MapAndPlannerController {
     	String userid = (String)session.getAttribute("logId");
     	ResponseEntity<HashMap<String,String>> entity = null;
     	HashMap<String,String> result = new HashMap<String,String>();
-    	
+    	System.out.println("여행 수정");
     	try {
     		//플랜 정보가 있을 경우
+    		System.out.println(pvo.getNo());
     		if(plannerService.plannerSelectByNoId(pvo.getNo(), userid) != null) {
+    			
     			//여행플랜 업데이트
+    			pvo.setUserid(userid);
     			int r = plannerService.plannerUpdate(pvo);
+    			System.out.println("여행 정보 없데이트 십작 "+r);
+    			System.out.println(pvo.getContentidList().size());
+    			System.out.println(pvo.getSeqList().size());
+    			System.out.println(pvo.getStart_date());
+    			System.out.println(pvo.getEnd_date());
     			if(r>0 && pvo.getSeqList() != null && pvo.getContentidList() != null) {
     				//여행 플랜 장소 제거
     				int deleteCount = plannerService.plannerLocationDeleteByPlannerNo(pvo.getNo());
@@ -257,11 +291,12 @@ public class MapAndPlannerController {
     	try {
     		PlannerVO pvo = plannerService.plannerSelectOne(no,userid);
     		result.put("status", "200");
+    		
     		if(userid == null) {	
     			result.put("msg","로그인 후 이용해 주세요.");
     			result.put("redirect","/planView");
     		}
-    		else if(pvo != null) {
+    		else if(pvo == null) {
     			result.put("msg","일치하는 정보가 없습니다.");
     			result.put("redirect","/planView");
     		}
@@ -272,11 +307,17 @@ public class MapAndPlannerController {
         		JSONArray contentList = new JSONArray();
         		JSONArray seqList = new JSONArray();
         		JSONArray memberList = new JSONArray();
-        		contentList.putAll(pvo.getContentidList());
-        		seqList.putAll(pvo.getContentidList());
+        		
+        		if(pvo.getSeqList().size() > 0) {
+        			contentList.putAll(plannerService.plannerLocationSelectByNo(no));
+            		seqList.putAll(pvo.getSeqList());
+            		
+        		}
         		memberList.putAll(plannerService.plannerMemberSelectByNo(pvo.getNo()));
         		planObj.put("no", pvo.getNo());
         		planObj.put("title", pvo.getTitle());
+        		planObj.put("start_date", pvo.getStart_date());
+        		planObj.put("end_date", pvo.getEnd_date());
         		planObj.put("contendList", contentList);
         		planObj.put("seqList",seqList);
         		
