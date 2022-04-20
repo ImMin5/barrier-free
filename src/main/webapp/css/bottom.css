@@ -74,12 +74,12 @@ ul {
 }
 
 
-.footer{
-	border-top: 2px solid #dedede;
-	background: rgba(255, 255, 255, 0.5);
-    bottom:0;
+.footer {
+    border-top: 2px solid #dedede;
+    background: rgba(255, 255, 255, 0.5);
+    bottom: 0;
+    padding: 97px 0;
 }
-
 .footer__copy, .footer__terms-link {
     font-size: var(--small-font-size);
     color: var(--text-color-light);
@@ -119,10 +119,7 @@ ul {
 }
 
 @media screen and (min-width: 768px){
-	.section {
-	    padding: 7rem 0 2rem;
-	}
-	
+
 	.footer__rights {
     flex-direction: column;
     justify-content: center;

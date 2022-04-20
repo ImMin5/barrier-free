@@ -3,19 +3,31 @@
 <script>
     $(function() {
         $("#btn_submit").on("click",function() {
-        
-          
-             var url = "${url}/admin/coordinator/form";
-             var data = $("#coordinatorFrm").serialize();
+           if ($("#subject").val() == "") {
+              alert("글 제목을 입력하세요");
+              return false;
+           }
+           if ($("#userid").val() == "") {
+               alert("접속하신 아이디를 입력하세요");
+               return false;
+            }
+           if ($("#content").val() == "") {
+               alert("내용을 입력하세요");
+               return false;
+            }
+           
+           $(function(){
+             var url = "${url}/coordinator";
+             var data = $("#boardFrm").serialize();
              
               $.ajax({
                  url : url,
-                 type : "POST",
+                 type : "PUT",
                  dataType : "JSON",
                  data : data,
                  success : function(result) {
-                    alert(result);
-                    window.location.href = "${url}/admin/coordinator"
+                    alert(result.msg);
+                    window.location.href = result.redirect;
                  },
                  error : function(error){
                     console.log(error.responseJSON);
@@ -23,7 +35,7 @@
                     window.location.href = error.responseJSON.redirect;
                  }
                  
-            
+             }) ;
            });
         });
     
@@ -61,6 +73,6 @@
                 </tr>
             </table>
             <input class="bo__btn__wa" type="button" id="btn_submit" value="등록">
-            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/admin/coordinator'">
+            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/admin/boardList'">
     	</form>
     </div>
