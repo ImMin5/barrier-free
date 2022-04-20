@@ -60,7 +60,7 @@ ul {
 
 .footer__container {
     position: relative;
-    top: 1000px;
+    top: -75px;
     row-gap: 5rem;
 /*    	background-color: white; */
    	padding-top: 25px;
