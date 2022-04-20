@@ -110,7 +110,7 @@
 			
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="${url}admin/memberList" class="nav__link active-link" style="margin-left: 30px; color">회원관리</a>
+                        <a href="${url}/admin/memberList" class="nav__link active-link" style="margin-left: 30px; color">회원관리</a>
                     </li>
                     <li class="nav__item">
                         <a href="${url}/admin/discountManage" class="nav__link active-link" style="margin-left: 30px">할인정보</a>
@@ -122,19 +122,18 @@
                     <li class="nav__item">
                         <a href="${url}/admin/boardList" class="nav__link active-link" style="margin-left: 30px">공지/문의</a>
                     	  <div class="dropdown-content">
-                            <a href="${url}/admin/board/boardlist">공지/문의 목록</a>
-                            <a href="${url}admin/boardList/${vo.no}/reply">공지 등록</a>
+                            <a href="${url}/admin/boardList">공지/문의 목록</a>
+                            <a href="${url}/board/boardList/form">공지 등록</a>
                           </div>
                     </li>
                     <li class="nav__item">
                         <a href="${url}/admin/coordinator" class="nav__link active-link" style="margin-left: 30px">코디네이터</a>                        
                     	  <div class="dropdown-content">
-                            <a href="${url}/coordinator">코디네이터 목록</a>
+                            <a href="${url}/admin/coordinator">코디네이터 목록</a>
                             <a href="${url}/admin/coordinator/form">코디 등록</a>
                           </div>
                     </li>
                 </ul>
-              </div>
    		</nav>
   	 </header>
 </c:if>  

@@ -74,6 +74,7 @@ public class CoordinatorController {
 	   @GetMapping("/admin/coordinator")
 	   public ModelAndView coordinatorAdminListView() {
 		   ModelAndView mav = new ModelAndView();
+		   mav.addObject("coordiList", coordinatorservice.coordinatorSelectAll());
 		   mav.setViewName("admin/coordinator");
 		   return mav;
 			   
