@@ -175,7 +175,7 @@
 #member_edit_btn{
   margin: 3px; 	
   width: 100px;
-  height: 29px;
+  height: 34px;
   border: 0;
   outline: none;
   border-radius: 5px;
@@ -189,7 +189,7 @@
 .btn__style2{
   margin: 3px; 	
   width: 120px;
-  height: 30px;
+  height: 35px;
   border: 0;
   outline: none;
   border-radius: 5px;
@@ -199,4 +199,5 @@
   letter-spacing: 2px;
   font-family: "Noto Sans KR", sans-serif;
   cursor:pointer;
+  padding:2px;
 }

@@ -4,7 +4,8 @@
 
 <script>
 	$(function(){
-		$("#searchFrm").submit(function(){
+		$("#searchFrm").submit(function(event){
+			event.preventDefault();
 			if($("#searchWord").val()== ""){
 				alert("검색어를 입력하세요");
 				return false;
@@ -22,8 +23,14 @@
 <!-- 검색 -->
 <div class="bo__tatble__top">
 	<form method="get" action="" id="searchFrm">
+		<select name="searchKey" class="bo__search">
+			<option value="subject">제목</option>
+			<option value="content">글 내용</option>
+			<option value="userid">작성자</option>
+		</select>
 		<input type="text" name="searchWord" id="searchWord"/>
 		<input type="submit" value="Search" class="bo__btn"/>
+		<button class="bo__btn__w" type="button" onclick="location.href='${url}/suggestWrite'">글 작성</button>
 	</form>
 </div>
 
@@ -48,7 +55,7 @@
 
 
 <div class="bo__container">
-	<button class="bo__btn__w" type="submit" onclick="location.href='${url}/suggestWrite'">글 작성</button>
+	
 	<div class="bo__n__page">
 		현재 페이지 ${pvo.pageNo}/ ${pvo.totalPage }
 	</div>

@@ -134,12 +134,13 @@
 .paging>li{
 	float:left;
 	padding-right:30px;
+
 	
 }
 
 .paging{
 	
-	margin-left:350px;}
+	margin-left:320px;}
 
 #del{
 	border-top-left-radius: 5px;
