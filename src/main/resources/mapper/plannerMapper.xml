@@ -45,23 +45,22 @@
   	<!--  Planner에 seq랑 contentid담기 -->
   	<resultMap type="com.team.bf.vo.PlannerVO" id="plannerMap">
   			<id property="no" column="no"/>
-  			<id property="userid" column="userid"/>
-  			<id property="title" column="title"/>
-  			<id property="start_date" column="start_date"/>
-  			<id property="end_date" column="end_date"/>
-  			<id property="end_date" column="create_date"/>
-  			<id property="edit_date" column="edit_date"/>
+  			<result property="userid" column="userid"/>
+  			<result property="title" column="title"/>
+  			<result property="start_date" column="start_date"/>
+  			<result property="end_date" column="end_date"/>
+  			<result property="create_date" column="create_date"/>
+  			<result property="edit_date" column="edit_date"/>
   			
-  			<collection property="contentidList" resultMap="conentidMap"/> 
+  			<!--<collection property="contentidList" column="{24=planner_no}" select="plannerLocationSelectByNo" /> -->
   			<collection property="seqList" resultMap="seqMap"/>
   				<!-- 
   			<collection property="plannerLocationList" resultMap="locMap"/>
   			-->
   	</resultMap>
-  	<resultMap type="com.team.bf.vo.PlannerLocationVO" id="locMap">
-  			<id property="planner_no" column="planner_no"/>
-  			<id property="seq" column="seq"/>
-  			<id property="contentid" column="contetnid"/>
+  	<resultMap type="com.team.bf.vo.PlannerLocationVO" id="plMap">
+  			<result property="seq" column="seq"/>
+  			<result property="contentid" column="contetnid"/>
   	</resultMap>
   	<resultMap type="String" id="seqMap">
   			<result property="seqList" column="seq"/>
@@ -93,4 +92,7 @@
   	<delete id="plannerMemberDeleteByNo">
   		delete from planner_member where no=${no}
   	</delete>
+  	<select id="plannerLocationSelectByNo" resultType="String">
+  		select contentid from planner_location where planner_no=${param1}
+  	</select>
   </mapper>

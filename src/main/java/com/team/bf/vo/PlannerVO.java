@@ -18,6 +18,7 @@ public class PlannerVO {
 	private List<String> contentidList;
 	private List<Integer> seqList;
 	private List<String> memberList;
+	private List<PlannerLocationVO> plList;
 	
 	
 }
