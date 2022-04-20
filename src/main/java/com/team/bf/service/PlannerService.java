@@ -21,4 +21,5 @@ public interface PlannerService {
 	public int plannerMemberSelectByNoId(int planner_no,String userid);
 	public int plannerMemberInsert(int planner_no, String userid);
 	public int plannerMemberDeleteByNo(int no);
+	public List<String> plannerLocationSelectByNo(int no);
 }

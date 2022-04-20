@@ -81,6 +81,11 @@ public class PlannerServiceImpl implements PlannerService {
 		return dao.plannerMemberDeleteByNo(no);
 	}
 
+	@Override
+	public List<String> plannerLocationSelectByNo(int no) {
+		return dao.plannerLocationSelectByNo(no);
+	}
+
 
 
 	
