@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -133,6 +134,22 @@ public class AdminController {
     		e.printStackTrace();
     	}
     	
+    	return msg;
+    }
+    //관리자 회원 삭제
+    @DeleteMapping("/admin/memberList")
+    public String adminMemberDelete(MemberVO mvo) {
+    	String msg = "";
+    	try {
+    		if(memberService.memberDelete(mvo.getUserid(), mvo.getUserpassword()) > 0) {
+    			msg = "회원 삭제 성공";
+    		}
+    		else {
+    			msg = "회원 삭제 실패";
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
     	return msg;
     }
 }

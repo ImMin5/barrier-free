@@ -414,7 +414,6 @@ body{
     overflow-y:scroll;
     color:#5c5c5c;
 }
-
 .listContent{
     position: absolute;
     top: 15px;
@@ -441,20 +440,34 @@ body{
 }
 .planlistContentBG{
 	position: absolute;
-    top: 15px;
-    left: 35px;
-	background: #FAA631;
-	width: 773px;
-	overflow: hidden;
+    top: 35px;
+    left: 48px;
+    /* background: #FAA631; */
+    /* width: 773px; */
+    overflow: hidden;
 }
-.planlistContent{
-    
+#planlistContent{
     width: 730px;
     height: 200px;
     background: #ffffff;
     border-radius: 5px;
     overflow: hidden;
     border-right: 8px solid #FAA631;
+    margin-bottom: 35px;
+    margin-top: 80px;
+}
+#planlistContent>ul{
+	position: relative;
+    top: -24px;
+    left: 91px;
+    font-size: 25px;
+    /*background: #138e87;*/
+    width: 424px;
+    height: 95px;
+}
+#planlistContent>ul>li{
+	font-size: 16px;
+	/* height: 88px; */
 }
 #seq{
 	width: 90px;
@@ -464,6 +477,13 @@ body{
     line-height:90px;
     float: left;
     text-align: center; 
+    
+    -ms-user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	user-select: none;
+	
+	border:none;
 }
 .planTitle{
 	width: 415px;
@@ -475,19 +495,7 @@ body{
     padding-left: 105px;
     font-weight: bold;
 }
-.planlistContent>ul{
-	position: relative;
-    top: -24px;
-    left: 91px;
-    font-size: 25px;
-    /*background: #138e87;*/
-    width: 424px;
-    height: 95px;
-}
-.planlistContent>ul>li{
-	font-size: 18px;
-	height: 88px;
-}
+
 .planAddr{
 	height: 28px;
     font-weight: bold;
@@ -496,7 +504,7 @@ body{
 .planOverview{
 	overflow: scroll;
     overflow-x: hidden;
-   	height: 57px;
+   	height: 70px;
     padding-left: 15px;
 }
 /* 스크롤바 설정*/
@@ -526,14 +534,14 @@ body{
     height: 100%;
 }
 
-.planListCancel{
-    position: fixed;
-    top: 120px;
-    left: 260px;
+#planListCancel{
+	float: left;
     width: 420px;
     height: 48px;
+    margin-top: 35px;
+    margin-left: 243px;
 }
-.planListCancel_btn{
+#planListCancel_btn{
 	background: #f9f9f9;
     width: 150px;
     height: 48px;
@@ -564,7 +572,7 @@ body{
     top: 0px;
     left:45%;
     overflow:hidden;
-    width: 60%;
+    width: 55%;
     height: 1000px;
 }
 
@@ -639,3 +647,5 @@ body{
 
 .planCreate>a:hover {background:#024d09;}
 .planCreate>a:active {background:#EDEDED;}    
+
+

@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="${url}/css/board.css">
+
+
     <script>
         $(function(){
             $("#searchFrm").submit(function(){
@@ -11,7 +14,7 @@
     </script>
 </head>
 <body>
-    <div class="bo__title" style="margin:150px;">
+    <div class="bo__title" style="margin-bottom:50px">
         <h1> 🙆‍♀️ 등록 된 코디네이터 🙆‍♂️ </h1>
     </div>
     
@@ -20,8 +23,8 @@
     <div class="bo__tatble__top">
         <form method="get" action="" id="searchFrm">
             <select name="searchKey" class="bo__search">
-                <option value="content">성명</option>
-                <option value="userid">아이디</option>
+                <option value=${vo.coo_userid}>ID</option>
+                <option value=${vo.tel}>전화번호</option>
             </select>
             <input type="text" name="searchWord" id="searchWord"/>
             <input type="submit" value="Search" class="bo__btn"/>
@@ -31,9 +34,9 @@
     <table class="bo__table">
         <thead>
            <tr>
-                <th>No</th>
-                <th>성명</th>
+                <th>ID</th>
                 <th>이메일</th>
+                <th>전화번호</th>
                 <th>연결문의</th>
            </tr>
         </thead>
