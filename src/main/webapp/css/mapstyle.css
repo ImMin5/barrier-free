@@ -121,11 +121,21 @@ body{
     float: left;
     width: 100%;
     height: 860px;
-    background: #F2F2F2;
     overflow-y: scroll;
     color: #5c5c5c;
+    background: #F2F2F2;
 }
-
+#listPlanContentWrap{
+	position: relative;
+    top: 20px;
+    left: 0px;
+    float: left;
+    width: 100%;
+    height: 860px;
+    overflow-y: scroll;
+    color: #5c5c5c;
+    background: #F2F2F2;
+}
 .listContent{
     position: absolute;
     top: 15px;
@@ -281,7 +291,7 @@ body{
 }
 .planListReader>span{
 	position: relative;
-    top: 9px;
+    top: 12px;
     left: 38px;
     width: 180px;
     height: 50px;
@@ -291,12 +301,68 @@ body{
 	height: 10px;
 }
 
-#listReader{
+.logNullList>span{
+	position: relative;
+    top: 12px;
+    left: 38px;
+    width: 180px;
+    height: 50px;
+}
+.logNullList>span>img{
+	width: 10px;
+	height: 10px;
+}
+#logMsg{
+	position: relative;
+    top: -13px;
+    left: 137px;
+    width: 500px;
+    height: 49px;
+    font-size: 18px;
+    color: #141414;
+    border: 1px solid #707070;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 50px;
+}
+
+#planReadSelect{
 	position: relative;
     top: 10px;
     left: 55px;
     width: 500px;
     height: 45px;
+}
+#planListLoad_btn{
+	position: relative;
+    top: 10px;
+    left: 69px;
+    width: 73px;
+    height: 48px;
+    background: #316ffa;
+    border: 2px solid #316ffa;
+    color: #ffffff;
+}
+#planListLoad_btn:hover{
+    background: #004fff;
+    border: 2px solid #004fff;
+    color: #ffffff;
+}
+#planListDelete_btn{
+	position: relative;
+    top: 10px;
+    left: 68px;
+    width: 73px;
+    height: 48px;
+    background: #f13737;
+    border: 2px solid #f13737;
+    color: #ffffff;
+    
+}
+#planListDelete_btn:hover{
+    background: #c10d0d;
+    border: 2px solid #c10d0d;
+    color: #ffffff;
 }
 
 
@@ -322,8 +388,9 @@ body{
 	position: relative;
     top: 10px;
     left: 55px;
-    width: 500px;
+    width: 486px;
     height: 45px;
+    padding-left: 13px;
 }
 #planSubject_btn{
 	position: relative;
@@ -362,7 +429,7 @@ body{
 	height: 10px;
 }
 
-#dateFrom{
+#start_date{
 	position: relative;
     top: 10px;
     left: 55px;
@@ -370,7 +437,7 @@ body{
     height: 45px;
     padding-left: 15px;
 }
-#dateTo{
+#end_date{
 	position: relative;
     top: 10px;
     left: 42px;
@@ -412,20 +479,20 @@ body{
 }
 /* ====================== 플래너 리스트 내용 ====================== */
 .planListContentWrap{
-	position: relative ;
-    top: 0px;
+	position: relative;
+    top: 45px;
     left: 0px;
     float: left;
     width: 100%;
     height: 930px;
-    background: #ededed; 
-    /* overflow-y:scroll; */
-    color:black;
+    background: #f2f2f2;
+    /* overflow-y: scroll; */
+    color: black;
     
 }
 .planlistContentBG{
 	position: absolute;
-    top: 164px;
+    top: 250px;
     left: 48px;
     /* background: #FAA631; */
     /* width: 773px; */
@@ -433,20 +500,20 @@ body{
 }
 #planlistContent{
     width: 730px;
-    height: 200px;
+    height: 209px;
     background: #ffffff;
     border-radius: 5px;
     overflow: hidden;
     border-right: 8px solid #FAA631;
-    margin-bottom: 35px;
-    margin-top: 80px;
+    margin-bottom: 30px;
+    /* margin-top: -30px;*/
 }
 #planlistContent>ul{
 	position: relative;
-    top: -24px;
+    top: -29px;
     left: 91px;
     font-size: 25px;
-    /*background: #138e87;*/
+    /* background: #138e87; */
     width: 424px;
     height: 95px;
 }
@@ -458,7 +525,7 @@ body{
 	width: 90px;
     height: 90px;
     color:  #FAA631;
-    font-size: 90px;
+    font-size: 85px;
     line-height:90px;
     float: left;
     text-align: center; 
@@ -473,17 +540,23 @@ body{
 .planTitle{
 	width: 415px;
     height: 90px;
-    /*background: #138e87;*/
-    font-size: 30px;
+    /* background: #138e87; */
+    font-size: 28px;
     line-height: 90px;
     text-align: left;
-    padding-left: 105px;
+    padding-left: 13px;
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* display: inline-block; */
+    white-space: nowrap;
+    color:#101010;
 }
 .planAddr{
 	height: 28px;
     font-weight: bold;
     padding-left: 15px;
+    color:#101010;
 }
 .planOverview{
 	overflow: scroll;
@@ -507,19 +580,50 @@ body{
 }
 .planListImg {
     position: relative;
-    top: -210px;
-    left: 549px;
-    /* width: 150px; */
-    height: 150px;
+    top: -202px;
+    left: 533px;
+    width: 135px;
+    height: 135px;
     border-radius: 5px;
 }
-.planListImg>img{
+#planListImg>img{
 	width: 100%;
     height: 100%;
 }
-
-#planListCancel{
+.planArrow{
 	float: left;
+    width: 40px;
+    height: 85px;
+    margin-top: -135px;
+    margin-left: 24px;
+}
+#planUp{
+	margin-bottom: 5px;
+	width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+#planDown{
+	width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+#planDel{
+	margin-top: -237px;
+    padding-left: 748px;
+    /* position: relative; */
+    /* top: -124px; */
+    /* left: 682px; */
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    float: left;
+}
+#planListCancel{
+	position: relative;
+    top: 24px;
+    left: 246px;
+    float: left;
     width: 420px;
     height: 48px;
 }
