@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>map</title>
@@ -9,8 +10,10 @@
     <c:set var="url" value="<%=request.getContextPath()%>" />
     <link rel="stylesheet" href="${url}/css/mapstyle.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
     <script type="text/javascript" src="${url}/js/ai_api.js"></script>
+    
 </head>
 
 <body>
@@ -31,28 +34,30 @@
             </div>
             <!-- 플래너 불러오기 창 -->
             <div class="planListReader" style="display:none;">
-            <!-- 로그인 상태일 때 // 창 하나 더뜨는거 수정하기 -->
+                <!-- 로그인 상태일 때 // 창 하나 더뜨는거 수정하기 -->
                 <c:if test="${logId != null}">
-                	<span id="logList" style="color:#474747;">
-	                    <img id="logImg" alt="플랜 목록" src="../../img/map/map_18.png">
-	                    플랜 목록
-                	</span>
-					<select name="planReadSelect" id="planReadSelect" class="planReadSelect">
-				      <c:forEach var="vo" items="${planList}">
-				      	<option value="${vo.no}">${vo.title}</option>
-				      </c:forEach>
-					</select>
-	               	<input type="button" id="planListLoad_btn" value="불러오기" />
-	               	<input type="button" id="planListDelete_btn" name="planListDelete" value="삭제" onclick="delCheck()"/>
-               	</c:if>
-            	<!-- 로그아웃 상태일 때 -->
-            	<c:if test="${logId == null}">
-                	<span id="logNullList" style="color:#474747;">
-	                    <img id="logNullImg" alt="플랜 목록" src="../../img/map/map_18.png">
-	                    플랜 목록
-                	</span>
-                	<div id="logMsg">로그인 후 이용하세요.</div>
-				</c:if>
+                    <span id="logList" style="color:#474747;">
+                        <img id="logImg" alt="플랜 목록" src="../../img/map/map_18.png">
+                        플랜 목록
+                    </span>
+                    <select name="planReadSelect" id="planReadSelect" class="planReadSelect">
+                        <c:forEach var="vo" items="${planList}">
+                            <option value="${vo.no}">${vo.title}</option>
+                        </c:forEach>
+                    </select>
+                    
+                    <input type="button" id="planListLoad_btn" value="불러오기" />
+                    <input type="button" id="planListDelete_btn" name="planListDelete" value="삭제" onclick="del_plan()" />
+                
+                </c:if>
+                <!-- 로그아웃 상태일 때 -->
+                <c:if test="${logId == null}">
+                    <span id="logNullList" style="color:#474747;">
+                        <img id="logNullImg" alt="플랜 목록" src="../../img/map/map_18.png">
+                        플랜 목록
+                    </span>
+                    <div id="logMsg">로그인 후 이용하세요.</div>
+                </c:if>
             </div>
             <!-- 리스트 내용 -->
             <div class="listContentWrap" id="listContentWrap"></div>
@@ -72,8 +77,65 @@
             </div>
         </div>
     </div>
+
+    <!-- The Modal -->
+    <!-- 
+    <div id="Modal">
+        <h2>Lorem Ipsum</h2>
+        <div id="lorem-ipsum"></div>
+    </div>
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>모달</h2>
+            </div>
+            <div class="close-area">X</div>
+            <div class="content">
+                <p>가나다라마바사 아자차카타파하</p>
+                <p>가나다라마바사 아자차카타파하</p>
+                <p>가나다라마바사 아자차카타파하</p>
+                <p>가나다라마바사 아자차카타파하</p>
+                
+            </div>
+        </div>
+    </div>
+    
+     -->
+    
+    
+    <!-- 
+    <div id="myModal" class="modal" >
+        Modal content
+        <div class="modal-content">
+            <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
+                            style="font-size: 24pt;">공지</span></b></span></p>
+            <p style="text-align: center; line-height: 1.5;"><br /></p>
+            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">사이트 서버 점검으로</span>
+            </p>
+            <p style="text-align: center; line-height: 1.5;"><b><span
+                        style="color: rgb(255, 0, 0); font-size: 14pt;">10:00 - 18:00 까지</span></b></p>
+            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">사이트 사용이 중지
+                    됩니다.</span></p>
+            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;"><br /></span></p>
+            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">이용에 불편을 드린 점 양해를
+                </span></p>
+            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">부탁드립니다.</span></p>
+            <p style="text-align: center; line-height: 1.5;"><br /></p>
+            <p><br /></p>
+            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
+                onClick="close_pop();">
+                <span class="pop_bt" style="font-size: 13pt;">
+                    닫기
+                </span>
+            </div>
+        </div>
+    </div>
+    -->
 </body>
 <script>
+	
+    
+    
     let jobj;
     let positions = [];
     let markers = []; // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
@@ -81,7 +143,7 @@
     let map;
     let clickedOverlay = null;
     let pageNo = "1";
-    let pageCount = "3";
+    let pageCount = "2";
     let searchWord = "";
 
     let seqList = [];
@@ -134,8 +196,6 @@
                 get_jObj(pageNo, pageCount, searchWord);
             }
         });
-
-		
 
         // 이벤트 대기중인 함수 등 
         // 목록으로 이동 ===========================================================
@@ -191,7 +251,7 @@
                 $("#planSubject_text").val(planSubject_text);
                 $("#dateFrom").val(plan_dateFrom);
                 $("#dateTo").val(plan_dateTo);
-                
+
                 make_ordering();
             }
         });
@@ -237,93 +297,77 @@
         function zoomOut() {
             map.setLevel(map.getLevel() + 1);
         }*/
-      	
-        
-      	//좋아요 찜하기 ===========================================================
-        $(document).on("click","img[name=like_btn]",function(){
-           //console.log("dd");
-           var contentid = $(this).attr("data-contentid");
-           $.ajax({
-              url :"${url}/like",
-              type : "POST",
-              dateType : "JSON",
-              data : {
-                 contentid :contentid
-              },
-              success : function(result){
-                 console.log(result);
-                 $("#like_count_"+contentid).text(result.likeCount);
-              }
-           });
-        });
-        $(document).on("click","img[name=heart_btn]",function(){
-           //console.log("dd");
-           var contentid = $(this).attr("data-contentid");
-           $.ajax({
-              url :"${url}/heart",
-              type : "POST",
-              dateType : "JSON",
-              data : {
-                 contentid :contentid
-              },
-              success : function(result){
-                 console.log(result);
-                 $("#heart_count_"+contentid).text(result.heartCount);
-              }
-           });
-        });
-        
 
-        //---------------------------------------------------------------------
-        //리스트 DB삭제 ===========================================================
-        /*$(document).on('click','#planReadSelect input[name=planListDelete]',function(){
-            var ans = confirm('현재 저장된 리스트를 삭제하시겠습니까?');
-            if(ans){
-                var params = $(this).attr("no");
-                $.ajax({
-                    url:'${url}/planView',
-                    type : "POST",
-                    dateType : "JSON",
-                    data : {
-                    	no: planner_no
-                     },
-                    success:function(result){
-                    	if(vo.userid=='${logId}'){
-                    		
-                    	}
-                        console.log(result);
-                        location.reload();
-                        alert('삭제 완료');
-                    }, error:function(){
-                        console.log("리스트 삭제에러...");
-                    }
-                });
-            }
-        });*/
-		// 현재글의 댓글
-		/*replyListAll();*/
-		
-		//---------------------------------------------------------------------
-        /*$(document).on('click','#planReadSelect input[name=planListDelete]',function(){
-            if(confirm('댓글을 삭제하시겠습니까?')){
-                var params = "replyno="+$(this).attr("title");
-                $.ajax({
-                    url:'${url}/planView',
-                    data:params,
-                    success:function(result){
-                        console.log(result);
-                        replyListAll();
-                        alert('삭제 완료');
-                    }, error:function(){
-                        console.log("댓글삭제에러...");
-                    }
-                });
-            }
-        });*/
-		
-        
+
+        //좋아요 찜하기 ===========================================================
+        $(document).on("click", "img[name=like_btn]", function () {
+            //console.log("dd");
+            var contentid = $(this).attr("data-contentid");
+            $.ajax({
+                url: "${url}/like",
+                type: "POST",
+                dateType: "JSON",
+                data: {
+                    contentid: contentid
+                },
+                success: function (result) {
+                    console.log(result);
+                    $("#like_count_" + contentid).text(result.likeCount);
+                }
+            });
+        });
+
+        $(document).on("click", "img[name=heart_btn]", function () {
+            //console.log("dd");
+            var contentid = $(this).attr("data-contentid");
+            $.ajax({
+                url: "${url}/heart",
+                type: "POST",
+                dateType: "JSON",
+                data: {
+                    contentid: contentid
+                },
+                success: function (result) {
+                    console.log(result);
+                    $("#heart_count_" + contentid).text(result.heartCount);
+                }
+            });
+        });
     });// $(function) END
+	
+    //동행자 추가 모달창
     
+    //팝업 보이기 기능
+    function open_pop(flag) {
+         $('#myModal').show();
+         /*var url = "${url}/planView/member";
+         console.log(url);
+         $.ajax({
+             url: url,
+             type: "POST",
+             dataType: "JSON",
+             data: {
+                 no: planner_no,
+             },
+             success: function (result) {
+                 alert(result.msg);
+                 window.location.href = result.redirect;
+             },
+             error: function (error) {
+                 console.log(error.responseJSON);
+                 alert(error.responseJSON.msg);
+                 window.location.href = error.responseJSON.redirect;
+             }
+         });*/
+         
+         
+    };
+    
+    
+    //팝업 숨기기 기능
+    function close_pop(flag) {
+         $('#myModal').hide();
+    };
     
 
     //1. 맵의 리스트를 가져와 jobj에 데이터 넣어줌   
@@ -367,14 +411,14 @@
                 <li class="item_f">${'${item.addr1}'}</li>
                 <li class="item_s scroll">${'${item.overview}'}</li>
                 <div class="listSubInfoWrap">
-	                <div class="listSubInfo">
-		                <img class="listSubInfoImg" name="like_btn" data-contentid="${'${item.contentid}'}" src="../../img/map/map_08.png">
-		                <span id="like_count_${'${item.contentid}'}">${'${item.likeCount}'}</span>
-		            </div>
-		            <div class="listSubInfo">
-		                <img class="listSubInfoImg" name="heart_btn" data-contentid="${'${item.contentid}'}" src="../../img/map/map_07.png">
-		                <span id="heart_count_${'${item.contentid}'}" >${'${item.heartCount}'}</span>
-		            </div>
+                    <div class="listSubInfo">
+                        <img class="listSubInfoImg" name="like_btn" data-contentid="${'${item.contentid}'}" src="../../img/map/map_08.png">
+                        <span id="like_count_${'${item.contentid}'}">${'${item.likeCount}'}</span>
+                    </div>
+                    <div class="listSubInfo">
+                        <img class="listSubInfoImg" name="heart_btn" data-contentid="${'${item.contentid}'}" src="../../img/map/map_07.png">
+                        <span id="heart_count_${'${item.contentid}'}" >${'${item.heartCount}'}</span>
+                    </div>
                     <div class="listSubInfo">
                         <img class="listSubInfoImg" src="../../img/map/map_09.png">
                         <span>${'${item.avgScore}'}(${'${item.reviewCount}'})</span>
@@ -413,7 +457,7 @@
                             플랜 제목
                         </span>
                         <input type="text" name="planSubject_text" id="planSubject_text" placeholder="제목을 입력해주세요."/>
-                        <button class="companion" id="companion" onclick="">동행자 추가 +</button>
+                        <button class="companion" id="companion" onclick="open_pop()">동행자 추가 +</button>
                         <input type="hidden" id="planner_no" />
                     </div>
                     <div class="planList">
@@ -441,24 +485,24 @@
 
     // 플래너 추가하기 버튼으로 생성되는 플래너 ===========================================================
     function addPlanner(data) {
-        var addplantag = `
+                var addplantag = `
             <div id="planlistContent" name="planlistContent">
-	            <input type="text" name="seq" id="seq">
-	            <input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
-	            <div class="planTitle" id="planTitle">${'${data.title}'}</div>
-	                <ul>
-		                <li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
-		                <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
-	                </ul>
-	                <div class="planListImg">
-	                	<img src=${'${data.img}'} >
-	                </div>
-	            </div>
-	            <div class="planArrow">
-	            	<img src="../../img/map/map_33.png" alt="위로 올리기" id="planUp" />
-	            	<img src="../../img/map/map_34.png" alt="아래로 내리기" id="planDown" />
-	            </div>
-	            <img src="../../img/map/map_32.png" alt="플래너 삭제" id="planDel" />
+                <input type="text" name="seq" id="seq">
+                <input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
+                <div class="planTitle" id="planTitle">${'${data.title}'}</div>
+                    <ul>
+                        <li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
+                        <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
+                    </ul>
+                    <div class="planListImg">
+                        <img src=${'${data.img}'} >
+                    </div>
+                </div>
+                <div class="planArrow">
+                    <img src="../../img/map/map_33.png" alt="위로 올리기" id="planUp" />
+                    <img src="../../img/map/map_34.png" alt="아래로 내리기" id="planDown" />
+                </div>
+                <img src="../../img/map/map_32.png" alt="플래너 삭제" id="planDel" />
             </div>
             
         `;
@@ -481,17 +525,15 @@
                     <img src=${'${data.firstimage}'} >
                 </div>
                 <div class="planArrow">
-            		<img src="${url}/img/map/map_33.png" alt="위로 올리기" id="planUp" />
-            		<img src="${url}/img/map/map_34.png" alt="아래로 내리기" id="planDown" />
-            	</div>
-            		<img src="${url}/img/map/map_32.png" alt="플래너 삭제" id="planDel" />
+                    <img src="${url}/img/map/map_33.png" alt="위로 올리기" id="planUp" />
+                    <img src="${url}/img/map/map_34.png" alt="아래로 내리기" id="planDown" />
+                </div>
+                    <img src="${url}/img/map/map_32.png" alt="플래너 삭제" id="planDel" />
             </div>
         `;
         $('#planlistContentBG').append(addplantag);
     }// readPlanner(data) END   
 
-
-    //동행자 추가 모달창으로
 
     // 플래너 날짜 ===========================================================
     // 날짜 유효성 검사 
@@ -594,24 +636,16 @@
     function hide_searchFrm() {
         $(".searchFrmWrap").hide();
     }
-    
+
     // 플래너 리스트 취소버튼
     function ListCancel() {
-       	alert('담은 리스트를 취소합니다.');
+        alert('담은 리스트를 취소합니다.');
         console.log("취소");
         $("div").remove("#planlistContent");
     }
-        
-    function delCheck(){
-		// 사용자가 y(true),n(false)를 선택할 수 있는 대화상자
-		if(confirm("삭제하시겠습니까?")){
-			// 확인버튼을 눌렀을 때
-			location.href = "/planView";
-		} 
-	}
-    //////////////////////////////////////////
 
-    // 플래너 값보내기 ===========================================================    
+
+    // 플래너 값보내기  
     // seqList ===========================================================
     function get_seqList() {
         var idx = 0;
@@ -643,11 +677,11 @@
 
     }
 
+
     //여행 계획 저장 및 수정
     //save_plan ===========================================================
     function save_plan() {
         var type = "";
-
         //전역변수 planner_no가 있을 경우 수정 , 없을 경우 저장
         if (planner_no >= 0) {
             console.log("여행 계획 수정")
@@ -697,7 +731,34 @@
         })
     }
 
-    //4-1.여행 계획 불러오기 ===========================================================     ///이거 쓰기
+    //여행 계획 삭제
+    //del_plan ===========================================================
+    	//planListDelete_btn
+    function del_plan() {
+        
+        var url = "${url}/planView";
+        console.log(url);
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            dataType: "JSON",
+            data: {
+                no: planner_no,
+            },
+            success: function (result) {
+                alert(result.msg);
+                window.location.href = result.redirect;
+            },
+            error: function (error) {
+                console.log(error.responseJSON);
+                alert(error.responseJSON.msg);
+                window.location.href = error.responseJSON.redirect;
+            }
+        });
+    }
+
+
+    //4-1.여행 계획 불러오기 ===========================================================
     function load_myplanner() {
         if (planner_no < 0) return;
         console.log(planner_no);
@@ -733,6 +794,7 @@
             },
         })
     }
+
     //4-2 load_myplanner에서 실행 후 작동 ===========================================================
     function load_plan(contentidList) {
         var url = "${url}/mapInfo/load";
@@ -775,8 +837,8 @@
     $(document).on("click", "#planListLoad_btn", function () {
         planner_no = $("#planReadSelect").val();
         console.log("click", planner_no);
-      	if (planner_no < 0) return;
-       	load_myplanner();
+        if (planner_no < 0) return;
+        load_myplanner();
     })
 
     //지도를 불러오는 함수 ===========================================================
@@ -925,7 +987,6 @@
             addBtn.className = "add";
             addBtn.setAttribute("value", "플래너 추가 +");
 
-
             addBtn.onclick = function () {
                 if (!flag_plan) { //목록일 때
                     alert("플래너 목록에서 추가해주세요");
@@ -958,5 +1019,40 @@
             });
         }// displayMarker(data) END
     }
-    </script>
+</script>
+<script>
+    /*const loremIpsum = document.getElementById("lorem-ipsum")
+    fetch("https://baconipsum.com/api/?type=all-meat&paras=200&format=html")
+    .then(response => response.text())
+    .then(result => loremIpsum.innerHTML = result)
+	const modal = document.getElementById("modal")
+	function modalOn() {
+	    modal.style.display = "flex"
+	}
+	function isModalOn() {
+	    return modal.style.display === "flex"
+	}
+	function modalOff() {
+	    modal.style.display = "none"
+	}
+	const btnModal = document.getElementById("btn-modal")
+	btnModal.addEventListener("click", e => {
+	    modalOn()
+	})
+	const closeBtn = modal.querySelector(".close-area")
+	closeBtn.addEventListener("click", e => {
+		modal.style.display = "none"
+	})
+	modal.addEventListener("click", e => {
+	    const evTarget = e.target
+	    if(evTarget.classList.contains("modal-overlay")) {
+	        modalOff()
+	    }
+	})
+	window.addEventListener("keyup", e => {
+	    if(isModalOn() && e.key === "Escape") {
+	        modalOff()
+	    }
+	})*/
+</script>
 </html>
