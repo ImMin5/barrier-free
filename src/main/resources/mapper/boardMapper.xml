@@ -69,7 +69,7 @@
   	</resultMap>
 
   	<select id="boardAndReplySelectAll" resultMap="BoardAndReplyMap">
-  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip,
+  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip, b.is_notice,
   		r.no rno, r.userid ruserid, r.subject rsubject, r.content rcontent, r.write_date rwrite_date, r.ip rip
   		from board b
 		left outer join reply_board r on b.no = r.no
@@ -84,7 +84,7 @@
   		limit ${onePageRecord} offset ${offsetIndex}
   	</select>
   	<select id="boardAndReplySelectById" resultMap="BoardAndReplyMap">
-  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip,
+  		select b.no bno, b.userid buserid, b.subject bsubject, b.content bcontent, b.write_date, b.ip bip, b.is_notice is_notice,
   		r.no rno, r.userid ruserid, r.subject rsubject, r.content rcontent, r.write_date rwrite_date, r.ip rip
   		from board b
 		left outer join reply_board r on b.no = r.no
@@ -118,7 +118,7 @@
     	values(${no}, #{userid}, #{subject}, #{content}, #{ip})
     </insert>
     <select id="boardReplySelectByNo" resultType="com.team.bf.vo.BoardVO">
-    	select no, userid, subject, content, write_date, ip from reply_board 
+    	select no, userid, subject, content, write_date, ip from reply_board
     	where no =${param1}
     </select>
   </mapper>

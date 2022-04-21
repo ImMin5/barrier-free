@@ -17,12 +17,12 @@
             }
            
            $(function(){
-             var url = "${url}/coordinator";
-             var data = $("#boardFrm").serialize();
+             var url = "${url}/admin/coordinator/form";
+             var data = $("#coordinatorFrm").serialize();
              
               $.ajax({
                  url : url,
-                 type : "PUT",
+                 type : "POST",
                  dataType : "JSON",
                  data : data,
                  success : function(result) {

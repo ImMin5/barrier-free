@@ -41,7 +41,7 @@
             <table class="bf__table">
                 <tr>
                     <th>이메일</th>
-                    <td><input type="email" name="email" id="email" placeholder="이메일을 입력해주세요" value="sdf@naver.com"></td>
+                    <td><input type="email" name="email"  placeholder="이메일을 입력해주세요" value="sdf@naver.com"></td>
                 </tr>
                 <tr>
                     <th>전화번호</th>
