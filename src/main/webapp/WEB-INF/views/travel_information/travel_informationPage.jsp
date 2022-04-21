@@ -18,7 +18,7 @@
 				return false;
 			}
 			if($("#searchWord").val() != ''){
-				window.location.href = "${url}/accommodationPage?pageCount=5&pageNum=1&serachWord=" + searchWord;
+				window.location.href = "${url}/accommodation?pageNo=1&pageCount=8&sigungucode=&s_type=&searchWord=" + searchWord;
 			}
 		});
 	});
@@ -79,19 +79,22 @@
 					</ul>
 				</div>
 				<div class="form_box">
-					<span> <label for="areaForm">지역</label> <select
-						name="s_local" id="s_local">
+					<span> 
+						<label for="areaForm">지역</label> 
+						<select name="s_local" id="s_local">
 							<option value="" selected="">전체</option>
-							<c:forEach var="area" items="${areaList}" >
-								<option>${area.get("name")}</option>
-							</c:forEach>
-					</select>
-
-					</span> <span> <label for="keywordForm">키워드</label> <select
-						name="s_type" id="s_type">
+								<c:forEach var="area" items="${areaList}">
+									<option>${area.get("name")}</option>
+								</c:forEach>
+						</select>
+					</span> 
+					<span> <label for="keywordForm">키워드</label> 
+						<select name="s_type" id="s_type">
 							<option value="" selected="">전체</option>
-							<option value="subject">이름</option>
-							<option value="content">주소</option>
+							<option value="12">관광지</option>
+							<option value="14">문화시설</option>
+							<option value="38">쇼핑</option>
+							<option value="14">문화시설</option>
 					</select>
 					</span> <span> <input type="text" name="searchWord" id="searchWord"
 						title="검색어 입력" value="" maxlength="20" placeholder="검색어를 입력해주세요.">
@@ -109,9 +112,9 @@
 
 		<div class="grid-container">
 			<c:forEach var="vo" items="${tourList}">
-			<article id="3685" class="location-listing">
+			<article class="location-listing">
 
-				<a class="location-title" href="#">${vo.get("title")}</a>
+				<a class="location-title" href="/travel_information/${vo.get('contentid')}">${vo.get("title")}</a>
 
 				<div class="location-image">
 					<a href="#"> <img src="${vo.get('firstimage')}"></a>		
