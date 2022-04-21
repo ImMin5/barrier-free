@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,5 +152,19 @@ public class AdminController {
     		e.printStackTrace();
     	}
     	return msg;
+    }
+    //관리자 답변하기 뷰 
+    @GetMapping("/admin/boardList/formReply/{no}")
+    public ModelAndView adminBoardReplyView(@PathVariable(value="no") int no,HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	try {
+    		mav.addObject("bvo", boardService.boardSelectByNo(no));
+        	mav.setViewName("admin/boardFormReply");
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    		mav.setViewName("redirect:amdmin/boardList");
+    	}
+    	
+    	return mav;
     }
 }
