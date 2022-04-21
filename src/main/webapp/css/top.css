@@ -111,6 +111,7 @@ img {
   left: 0;
   z-index: 100;
   background-color: #ffffff;
+  box-shadow: 0 0px 11px 1px #e1e1e1;
 }
 
 
@@ -123,18 +124,12 @@ img {
   align-items: center;
 }
 
-.nav__logo,
-.nav__toggle {
+.nav__logo {
   color: var(--white-color);
 }
 
 .nav__logo {
   font-weight: var(--font-semi-bold);
-}
-
-.nav__toggle {
- font-size: 3rem;
-  cursor: pointer;
 }
 
 .nav__menu {
@@ -151,18 +146,43 @@ img {
     position: relative;
   	top:-30px;
   } 
+  
+ .main__loginSign__a{
+    position: relative;
+    top: -61px;;
+  } 
 
   .main__login{
 	position: absolute;
     right: -1rem;
     color: gray;
   }
+  
+  .main__login__a{
+  	position: absolute;
+    right: -49rem;
+    color: gray;
+  }
+  
 
   .main__signup{
     position: relative;
     right: -6rem;
     color: gray;
   }
+
+  .main__logId{
+	position: absolute;
+    right: -19rem;
+    color: #348f45;
+  }
+
+  .main__logId__a{
+	position: absolute;
+    right: -61rem;
+    color: #348f45;
+  }
+
 
 @media screen and (max-width: 767px) {
 
@@ -243,33 +263,12 @@ img {
   right: 0;
 }
 
-/* Change background header */
-.scroll-header {
-  background-color: var(--body-color);
-  box-shadow: 0 0 4px rgba(14, 55, 63, 0.15);
-}
 
-.scroll-header .nav__logo,
-.scroll-header .nav__toggle {
+ .nav__logo{
   color: orange;
 }
 
-/* Active link */
-.active-link {
-  position: relative;
-  color: var(--title-color);
-}
 
-.active-link::before {
-  /* 가상요소 before */
-  content: "";
-  position: absolute;
-  bottom: -0.5rem;
-  left: 0;
-  background-color: var(--title-color);
-  width: 100%;
-  height: 2px;
-}
 @media screen and (max-width: 340px) {
 	
   .logo{
@@ -304,42 +303,15 @@ img {
     column-gap: 6rem;
   }
 
-  .nav__close,
-  .nav__toggle,
-  .change-theme-name {
-    display: none;
-  }
-
   .nav__menu > ul {
     font-size: 15px;
     font-weight: var(--font-medium);
     text-align: center;
   }
 
-  .change-theme {
-    color: var(--white-color);
-  }
-
-  .active-link::before {
-    /* 가상요소 before */
-    background-color: var(--white-color);
-  }
-
-  .scroll-header .nav__link {
+.nav__link {
     color: var(--text-color);
   }
-
-  .scroll-header .active-link {
-    color: var(--title-color);
-  }
-
-  .scroll-header .active-link::before {
-    background-color: var(--title-color);
-  }
-
-  .scroll-header .change-theme {
-    color: var(--text-color);
-  }	
 
   @media screen and (min-width: 1024px) {
     .container {

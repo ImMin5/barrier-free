@@ -1,10 +1,17 @@
 package com.team.bf.controller;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +23,7 @@ import com.team.bf.service.MemberService;
 import com.team.bf.service.OpenApiService;
 import com.team.bf.service.PlannerService;
 import com.team.bf.service.ReviewService;
+import com.team.bf.vo.BoardVO;
 import com.team.bf.vo.MemberVO;
 import com.team.bf.vo.PagingVO;
 
@@ -27,7 +35,7 @@ public class AdminController {
 	BoardService boardService;
 	
 	@Inject
-	MemberService memberSerive;
+	MemberService memberService;
 	
 	@GetMapping("/admin")
 	public ModelAndView adminLoginView(HttpSession session){
@@ -53,7 +61,7 @@ public class AdminController {
 		String userid  = (String)session.getAttribute("logId");
 		try {
 			
-			if(memberSerive.memberLogin(mvo.getUserid(), mvo.getUserpassword()) != null) {
+			if(memberService.memberLogin(mvo.getUserid(), mvo.getUserpassword()) != null) {
 				session.setAttribute("logId", mvo.getUserid());
 				session.setAttribute("adminStatus", "Y");
 				mav.setViewName("redirect:/admin/boardList");
@@ -67,6 +75,7 @@ public class AdminController {
 		return mav;
 	}
 	
+	//공지/문의사항 리스트 뷰
 	@GetMapping("/admin/boardList")
 	public ModelAndView adminBoardList(HttpSession session, @RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, @RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount, @RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord) {
 		ModelAndView mav = new ModelAndView();
@@ -93,6 +102,54 @@ public class AdminController {
 		
 		return mav;
 	}
-
 	
+	//회원관리 리스트 뷰
+	@GetMapping("/admin/memberList")
+	public ModelAndView adminMemberList(HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		
+		try {
+			mav.addObject("memberList", memberService.memberSelectAll());
+			mav.setViewName("/admin/memberList");
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		return mav;
+	}
+	
+	
+	 //관리자 회원정보 변경
+    @PutMapping("/admin/memberList")
+    public String adminMemberEdti(MemberVO mvo, HttpSession session) {
+    	String msg = null;
+    	try {
+    		if(memberService.memberUpdateByAdmin(mvo) > 0) {
+    			msg="회원정보 변경 성공";
+    		}
+    		else {
+    			msg="회원정보 변경 실패";
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return msg;
+    }
+    //관리자 회원 삭제
+    @DeleteMapping("/admin/memberList")
+    public String adminMemberDelete(MemberVO mvo) {
+    	String msg = "";
+    	try {
+    		if(memberService.memberDelete(mvo.getUserid(), mvo.getUserpassword()) > 0) {
+    			msg = "회원 삭제 성공";
+    		}
+    		else {
+    			msg = "회원 삭제 실패";
+    		}
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return msg;
+    }
 }

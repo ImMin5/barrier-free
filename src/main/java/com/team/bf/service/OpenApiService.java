@@ -119,7 +119,7 @@ public class OpenApiService {
         return items;
     }
     //5. 키워드 검색 조회 기능
-    public ArrayList<JSONObject> searchKeyword(String pageNo, String pageCount, String contentTypeId, String searchWord){
+    public ArrayList<JSONObject> searchKeyword(String pageNo, String pageCount, String contentTypeId, String searchWord, String sigunguCode){
         StringBuilder urlBuilder = null;
         StringBuilder sb = new StringBuilder();
         JSONObject json = null;
@@ -133,6 +133,7 @@ public class OpenApiService {
             else{
                 urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/searchKeyword"); /*URL*/
             }
+            
             urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+myKey); /*Service Key*/
             urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); /*현재 페이지 번호*/
             urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(pageCount, "UTF-8")); /*한 페이지 결과 수*/
@@ -141,7 +142,10 @@ public class OpenApiService {
             urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode("39", "UTF-8")); /*지역코드, 시군구코드*/
            // urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); 
             urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("P", "UTF-8")); /*  (A=제목순, B=조회순, C=수정일순, D=생성일순) 대표이미지가 반드시 있는 정렬 (O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
-            
+            if(!sigunguCode.equals("")) {
+            	System.out.println("시군구");
+            	urlBuilder.append("&" + URLEncoder.encode("sigunguCode","UTF-8") + "=" + URLEncoder.encode(sigunguCode, "UTF-8"));
+            }
             //모든 관광지를 조회할 시
             if(!contentTypeId.equals("all") && !contentTypeId.equals("12"))
             	urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
@@ -184,7 +188,11 @@ public class OpenApiService {
         int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
         
         //토탈 개수 이하일 경우에만 items 리스트 생성
-        if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
+        if(totalCount == 1) {
+        	JSONObject jObj = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+        	items.add(jObj);
+        }
+        else if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
             JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
             JSONArray jsonArray = response.getJSONArray("item");
             //System.out.println(jsonArray.toString());
@@ -253,7 +261,12 @@ public class OpenApiService {
         int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
         JSONArray jsonArray = new JSONArray();
         //토탈 개수 이하일 경우에만 items 리스트 생성
-        if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
+        
+        if(totalCount == 1) {
+        	JSONObject jObj = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+        	items.add(jObj);
+        }
+        else if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
             JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
             jsonArray = response.getJSONArray("item");
             //System.out.println(jsonArray.toString());
@@ -283,7 +296,9 @@ public class OpenApiService {
             urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(contentid, "UTF-8"));  
             urlBuilder.append("&" + URLEncoder.encode("defaultYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //기본정보 조회
             urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //콘텐츠 개요 조회
-            
+            urlBuilder.append("&" + URLEncoder.encode("mapinfoYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //콘텐츠 개요 조회
+            urlBuilder.append("&" + URLEncoder.encode("addrinfoYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));  //콘텐츠 개요 조회
+
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");

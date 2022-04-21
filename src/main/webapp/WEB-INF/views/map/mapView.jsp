@@ -3,23 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>map</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <c:set var="url" value="<%=request.getContextPath()%>" />
-    <link rel="stylesheet" href="${url}/css/mapstyle.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
+<meta charset="UTF-8">
+<title>map</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<c:set var="url" value="<%=request.getContextPath()%>" />
+	<link rel="stylesheet" href="${url}/css/mapstyle.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
 	<script type="text/javascript" src="${url}/js/ai_api.js"></script>
-	<script>
-	$(function(){
 	
-	});
-
-
-</script>
+	
 </head>
-
 <body>
     <div id="listWrap">
         <!-- 리스트 -->
@@ -27,15 +21,23 @@
             <!-- 리스트 버튼 -->
             <div class="topBotton">
                 <button id="list_btn" class="listbutton">목록</button>
-                <button id="planner_btn" class="planbutton">플래너</button>
+                <button id="planner_btn" class="planbutton" onclick="">플래너</button>
             </div>
             <!-- 검색 -->
-            <div class="searchFrmWrap">
+            <div class="searchFrmWrap" >
                 <div id="searchFrm">
                     <input type="text" name="searchWord" id="searchWord" />
                     <input type="button" value="장소검색" id="searchWordSubmit" />
                 </div>
             </div>
+            <div class="planListReader" style="display:none;">
+          		<span>
+	       			<img alt="" src="../../img/map/map_18.png" >
+	       			플랜 목록
+     			</span>
+				<input type="select" name="listReader" id="listReader" placeholder="불러올 플래너를 선택해주세요"/>
+				<input type="button" id="planListLoad_btn" value="불러오기"/>
+			</div>
             <!-- 리스트 내용 -->
             <div class="listContentWrap" id="listContentWrap"></div>
         </div>
@@ -56,46 +58,119 @@
     </div>
 </body>
 <script>
-	//https://devtalk.kakao.com/t/topic/60502?u=ad6979&source_topic_id=93671
-	// https://devtalk.kakao.com/t/topic/96966
-	// https://velog.io/@breeze202/%EB%88%88%EB%AC%BC%EC%9D%98-%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A7%B5-%EA%B5%AC%ED%98%84-%EC%9D%BC%EC%A7%80-1%ED%83%84.-%EB%8B%A4%EC%A4%91-%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%98%A4%EB%B2%84%EB%A0%88%EC%9D%B4-%EC%9D%B4%EB%B2%A4%ED%8A%B8%EA%B0%80-%EC%9D%B4%EC%83%81%ED%95%98%EB%8B%A4
-	// https://apis.map.kakao.com/web/sample/dragCustomOverlay/   
-	// https://devtalk.kakao.com/t/topic/41602/4
-	// https://apis.map.kakao.com/web/sample/categoryFromBounds/
-	// https://devtalk.kakao.com/t/topic/72032
-	// https://devtalk.kakao.com/t/topic/103147
-	// https://devtalk.kakao.com/t/topic/96966/3
-	// https://gist.github.com/DaumMaps/4840802f2ad080c91f79
+	let jobj;
+	let positions = [];
+	let markers = []; // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
+	let contents = [];
+	let map;
+	let clickedOverlay = null;
+	let pageNo = "1";
+	let pageCount = "3";
+	let searchWord = "";
 	
-    let jobj;
-    let positions = [];
-    let markers = []; // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
-    let contents = [];
-    let map;
-    let clickedOverlay = null;
-    let pageNo = "1";
-    let pageCount = "2";
-    let searchWord = "";
+	let seqList = [];
+	let contentidList = [];
+	
+	let planlistContent =""; //여행 목록html 전체 저장
+	let jobj_planner; //여행 목록에 있는 마커 생성을 위한 데이터 
+	
+	let planner_no =-1
+	
+	let idx=[];
+	
+	//오버레이를 저장할 리스트 생성
+	let overlayList = [];
+	
+	//플래너 정보 저장
+	let tag = ""; //초기화
+	
+	//지금 창이 리스트인지 아닌지 구분하는 변수
+	let flag_plan = false; //false이면 리스트  true면 플래너
+	
+	//지도 타입
+	let currentTypeId;
 
-    //오버레이를 저장할 리스트 생성
-    let overlayList = [];
-    
-    //플래너 정보 저장
-    let tag = ""; //초기화
-    
-    //지금 창이 리스트인지 아닌지 구분하는 변수
-    let flag_plan = false; //false이면 리스트  true면 플래너
-
-    //지도 타입
-    let currentTypeId;
 
     $(function () {
         // 웹페이지 로딩시 시작.
         load_map();
         get_jObj();
+        
+        /*$(document).on("change","#planner_no",function(){
+        	$("#planListSave_btn").text("수정");
+        	console.log("change");
+        });*/
+        /*
+        $(document).ready(function(){
+           $("#planner_btn").trigger("click");
+           $("#planner_btn").bind("click",function(){
+               flag_plan = false;
+                
+                $(this).css("background", "#FAA631")
+                $(this).css("color", "#FFFFFF")
+                $("#planner_btn").css("background", "#F2F2F2")
+                $("#planner_btn").css("color", "#000000")  
+           })
+        });*/
 		
         // 검색하는 스크립트 ===========================================================
         searchWord = $("#searchWord").val();
+        
+        $("#searchWordSubmit").on("click", function (event) {
+            //여행 플랜에서 검색을 할때 
+            if(flag_plan){
+               alert("목록으로 이동해 주세요.");
+               return;
+            }
+              event.preventDefault();
+              if(flag_plan)save_planlistContent(); //플래너의 html 목록 저장
+              if ($("#searchWord").val() == "") {
+                  alert("검색어를 입력하세요.");
+                  return false;
+              }
+              if ($("#searchWord").val() != '') {
+                  searchWord = $("#searchWord").val();
+                  get_jObj(pageNo, pageCount, searchWord);
+              }
+         });
+        
+      	//이벤트 대기중인 함수 등 
+        //목록으로 이동 ===========================================================
+        $("#list_btn").on("click", function () {
+            if (flag_plan) {
+                //console.log("목록 이동");
+                remove_planList();
+                
+                add_searchFrm();
+                hide_planListReader();
+                
+                flag_plan = false;
+                $(this).css("background", "#FAA631")
+                $(this).css("color", "#FFFFFF")
+                $("#planner_btn").css("background", "#F2F2F2")
+                $("#planner_btn").css("color", "#000000")  
+            }
+        });
+        
+      //플래너로 이동 ===========================================================
+        $("#planner_btn").on("click", function () {
+            if (!flag_plan) {
+                //console.log("플래너");
+                add_planList();
+                remove_tourList();
+                
+                add_planListReader();
+                hide_searchFrm();
+                
+                flag_plan = true;
+                $(this).css("background", "#FAA631")
+                $(this).css("color", "#FFFFFF")
+                $("#list_btn").css("background", "#F2F2F2")
+                $("#list_btn").css("color", "#000000")                
+            }
+        });
+    
+     	//검색창 값 유무 판별 ===========================================================
         $("#searchWordSubmit").on("click", function (event) {
             event.preventDefault();
             if ($("#searchWord").val() == "") {
@@ -108,68 +183,13 @@
             }
         });
 
-        //이벤트 대기중인 함수 등 
-        //목록으로 이동 ===========================================================
-        $("#list_btn").on("click", function () {
-            if (flag_plan) {
-                console.log("목록 이동");
-                remove_planList();
-                flag_plan = false;
-                
-                $(this).css("background", "#FAA631")
-                $(this).css("color", "#FFFFFF")
-                $("#planner_btn").css("background", "#F2F2F2")
-                $("#planner_btn").css("color", "#000000")  
-            }
-        });
-     	// F2F2F2 - 회색
-        // FAA631 - 주황
-        // 024d09 - 초록
-        //$("#list_btn").hover(function(){
-        	//$(this).removeClass('or')
-            //$(this).removeClass('gray')
-            //$(this).addClass('green')
-        //}, function() {
-        	//$(this).css("background","#FAA631");
-        	
-        	//$(this).removeClass('green')
-        	//$(this).removeClass('gray')
-        	//$(this).addClass('or')
-        //});
-        
-        //플래너로 이동 ===========================================================
-        $("#planner_btn").on("click", function () {
-            if (!flag_plan) {
-                console.log("플래너");
-                add_planList();
-                remove_tourList();
-                flag_plan = true;
-                $(this).css("background", "#FAA631")
-                $(this).css("color", "#FFFFFF")
-                $("#list_btn").css("background", "#F2F2F2")
-                $("#list_btn").css("color", "#000000")                
-            }
-        });
-        //$("#planner_btn").hover(function(){
-            //$(this).css("background","#024d09");
-            //$(this).removeClass('or')
-            //$(this).removeClass('gray')
-            //$(this).addClass('green')
-            
-        //}, function() {
-        	//$(this).css("background","#024d09");
-        	//$(this).addClass('gray')
-        	//$(this).removeClass('or')
-        	//$(this).removeClass('green')
-        //});
-    
         // 순서 찾아보기- 카카오 api document 확인해보기!!!
         // 지도 확대 ===========================================================
         // 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
-        function setMapType(maptype) {
+        /* function setMapType(maptype) {
             var changeMaptype;
 
-            console.log("맵타입" + maptype);
+            //console.log("맵타입" + maptype);
             var roadmapControl = document.getElementById('btnRoadmap');
             var skyviewControl = document.getElementById('btnSkyview');
             if (maptype === 'roadmap') {
@@ -190,10 +210,43 @@
         // 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
         function zoomOut() {
             map.setLevel(map.getLevel() + 1);
-        }
-    });////// $(function) end
+        }*/
+    });// $(function) END
     
- 	//리스트 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  	//맵 리스트 불러오기 ===========================================================    
+    function get_jObj() {
+        var url = "${url}/mapInfo"
+        $.ajax({
+            url: url,
+            type: "POST",
+            data :{
+               pageNo : pageNo,
+               pageCount : pageCount, 
+               searchWord : searchWord,
+            },
+            success: function (data) {
+               
+                //데이터 갱신
+                //console.log(JSON.parse(data));
+                jobj = JSON.parse(data);
+                remove_marker();
+                show_map(jobj);
+                if(jobj_planner === undefined){
+                   
+                }
+                else{
+                   console.log("jobj planner--> ",jobj_planner);
+                    show_map(jobj_planner);
+                }
+                   
+                make_list();
+                //console.log(jobj);
+            },
+            error: function (error) {
+            }
+        })
+    }
+  
   	//리스트 만들기 ===========================================================
     function make_list() {
         tag = '<ul class="listContent" id="listContent">';
@@ -205,11 +258,11 @@
                 <li class="item_s scroll">${'${item.overview}'}</li>
                 <div class="listSubInfoWrap">
                     <div class="listSubInfo">
-                        <img class="listSubInfoImg" src="../../img/map/map_07.png">
+                        <img class="listSubInfoImg" src="../../img/map/map_08.png">
                         <span>${'${item.likeCount}'}</span>
                     </div>
                     <div class="listSubInfo">
-                        <img class="listSubInfoImg" src="../../img/map/map_08.png">
+                        <img class="listSubInfoImg" src="../../img/map/map_07.png">
                         <span>${'${item.heartCount}'}</span>
                     </div>
                     <div class="listSubInfo">
@@ -224,102 +277,144 @@
 			</div>`
         });
         tag+= "</ul>";
-        //alert(tag);
         //좋아요 카운트 추가하기
-        //Document.getElementById("").innerHTML = tag;
         $("#listContentWrap").html(tag);
-    }
-  	//리스트 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    }// make_list() END
     
   	//플래너 생성 ===========================================================
-  	//변경하고 있던것
     function add_planList() {
-    	// $(".searchFrmWrap").after(`
     	var plantag=`    	
 			<div class="myplan">
-           		<form method="post" action="/planView" id="planFrm" onclick="">
-           			<!-- 플랜 제목 -->
-           			<div class="planSubject">
+           		<form method="post" action="/planView" name="planFrm" id="planFrm" onsubmit="return ()">
+	           		<div class="planSubject">
 		           		<span>
 			       			<img alt="" src="../../img/map/map_18.png" >
 			       			플랜 제목
 			       		</span>
-						<input type="text" name="planSubject" id="planSubject_text"/>
-						<input type="button" value="제목등록" id="planSubject_btn" />
+						<input type="text" name="planSubject_text" id="planSubject_text" placeholder="제목을 입력해주세요."/>
+						<button class="companion" id="companion" onclick="">동행자 추가 +</button>
+						<input type="hidden" id="planner_no" />
 					</div>
 					<div class="planList">
 						<span>
 		           			<img alt="" src="../../img/map/map_18.png" >
 		           			출발 날짜
 		           		</span>
-	           			<input type="date" id="planList_date" value="2022-01-31"/>
-	            		<input type="button" id="planList_btn" onclick="" value="날짜등록"/>
-	            		<button class="companion">동행자 추가 +</button>
-            		</div>
-            		<!-- 플랜 리스트 -->
-            		<div class="planListContentWrap">
-	                    <div class="planlistContent">
-	                    	<div class="planNum">1</div>
-	    	                <div class="planTitle">제주동문시장</div>
-	    	                <ul>
-	    	                    <li>제주 제주시 관덕로14길 20</li>
-	    	                    <li class="planListSubContent plan_scroll">싱싱한 농수산물, 의류, 잡화 등을 판매하는 역사가 오래된 실내 시장입니다.싱싱한 농수산물, 의류, 잡화 등을 판매하는 역사가 오래된 실내 시장입니다.싱싱한 농수산물, 의류, 잡화 등을 판매하는 역사가 오래된 실내 시장입니다.</li>
-	    	                </ul>
-	    	                <div class="planListImg">
-	    	                	<img alt="" src="../../img/map/map_0.jpg" >
-	    	                </div>
-	                    </div>
-	                    <div class="planListCancel">
-	    	                <button class="planListCancel_btn" >취소</button>
-	    	                <input type="submit" id="planListSave_btn" onclick="#" value="저장"/>
-	                    </div>
-                	</div>
+          				<input type="date" id="dateFrom" name="from" > ~ 
+          				<input type="date" id="dateTo" name="to"> 
+	           			<input type="button" name="btnSearch" id="btnSearch" onclick="dataCheck()"value="검색"> 
+	           		</div>
+	           		<div id="planListCancel" name="planListCancel">
+	            		<input type="button" id="planListCancel_btn" onclick="" value="취소"/>
+	        			<input type="button" id="planListSave_btn" onclick="save_plan()" value="저장"/>
+	        			
+	   				</div>
+	           		<div class="planListContentWrap"></div>
+	               		<div class="planlistContentBG" id="planlistContentBG"></div>
+	           		</div>
 				</form>
 			</div>
-		</div>
         `;//);
-    	
-        //alert(plantag);
-        console.log("플래너 선택");
+        //console.log("플래너 선택");
         $('#listContentWrap').html(plantag);
-  	}
+  	}// add_planList()() END
   	
-  	//플래너 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  	//플래너 생성 ===========================================================
+  	//플래너 추가하기로 생성되는 플래너 ===========================================================
+  	function addPlanner(data){
+    	var addplantag=`
+	    	<div id="planlistContent" name="planlistContent">
+		    	<input type="text" name="seq" id="seq">
+				<input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
+				<div class="planTitle" id="planTitle">${'${data.title}'}</div>
+		        <ul>
+		        	<li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
+		            <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
+		        </ul>
+		        <div class="planListImg">
+		        	<img src=${'${data.img}'} >
+		        </div>
+		     </div>
+        `;
+        //console.log("data====>>>" , data);
+    	$('#planlistContentBG').append(addplantag);
+    }// addPlanner(data) END
     
-  	//플래너 스크립트 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  	//플래너 제목 ===========================================================
-  	function planNameSearch() {
-	    planName = $("#planSubject").val();
-	    	$("#planSubjectbutton").on("click", function (event) { // 제목이 있는지 확인하는 스크립트
-	    		console.log("클릭됨");
-	    		event.preventDefault();
-	    		if ($("#planSubject").val() == "") {
-	                alert("제목을 입력하세요.");
-	                return false;
-	            }
-	            if ($("#planSubject").val() != '') {
-	            	
-	            	$("#planSubjectFrm").submit(); // 다시 확인
-	    	}
-    	});
-  	}
-  	//플래너 날짜 ===========================================================
-  	function planNameSearch() {
-	    planName = $("#planSubject").val();
-	    	$("#planSubjectbutton").on("click", function (event) { // 제목이 있는지 확인하는 스크립트
-	    		console.log("클릭됨");
-	    		event.preventDefault();
-	    		if ($("#planSubject").val() == "") {
-	                alert("제목을 입력하세요.");
-	                return false;
-	            }
-	            if ($("#planSubject").val() != '') {
-	            	$("#myplanSubjectFrm").submit(); // 다시 확인
-	    	}
-    	});
-  	}
+	//플래너 불러오기 ===========================================================
+    function readPlanner(data){
+       var addplantag=`
+       <div id="planlistContent" name="planlistContent">
+          <input type="text" name="seq" id="seq" value=${'${data.seq}'} data-seq=${'${data.seq}'} readonly>
+         <input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
+         <div class="planTitle" id="planTitle" value=${'${data.title}'}>${'${data.title}'}</div>
+           <ul>
+              <li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
+               <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
+           </ul>
+           <div class="planListImg">
+              <img src=${'${data.firstimage}'} >
+           </div>
+        </div>
+        `;
+       $('#planlistContentBG').append(addplantag);
+    }  // readPlanner(data) END	
   	
+  	
+  	//동행자 추가 모달창으로
+  	
+  	//플래너 날짜 ===========================================================
+	//날짜 유효성 검사 
+	function dataCheck(dateFrom, dateTo){
+		var dateFrom = document.getElementById('dateFrom'); //시작일 
+		var dateTo = document.getElementById('dateTo'); //종료일 
+		//var today = new Date(); //오늘 날짜 
+		
+		dateFrom = new Date(dateFrom.value); 
+		var fromYear = dateFrom.getFullYear(); 
+		var fromMonth = dateFrom.getMonth() + 1; 
+		var fromDay = dateFrom.getDate(); 
+		
+		//날짜 지정을 하지 않았을 때 NaN이 발생하여 0으로 처리 
+		if (isNaN(fromYear) || isNaN(fromMonth) || isNaN(fromDay)){
+			fromYear = 0; 
+			fromMonth = 0; 
+			fromDay = 0; 
+		} 
+		dateFrom = fromYear +'/'+ fromMonth +'/'+fromDay; 
+		
+		dateTo = new Date(dateTo.value); 
+		var toYear = dateTo.getFullYear(); 
+		var toMonth = dateTo.getMonth() + 1; 
+		var toDay = dateTo.getDate(); 
+		
+		//날짜 지정을 하지 않았을 때 NaN이 발생하여 0으로 처리 
+		if (isNaN(toYear) || isNaN(toMonth) || isNaN(toDay)){
+			toYear = 0; toMonth = 0; toDay = 0; 
+		} 
+		dateTo = toYear +'/'+ toMonth +'/'+toDay; 
+		
+		//오늘날짜 날짜 형식으로 지정 
+		//var todayYear = today.getFullYear(); //2020 
+		//var todayMonth = today.getMonth() + 1; //06 
+		//var todayDay = today.getDate(); //11 
+		//today = todayYear +'/'+ todayMonth +'/'+todayDay; // 2020/06/11 (형식 지정은 본인 자유) 
+		
+		//날짜 조회 시, 시작일이 오늘 날짜보다는 크고, 종료일이 시작일보다는 커야하기 때문에 조건을 걸어줌 
+		/*if(dateFrom >= today && dateTo >= dateFrom){
+			alert("해당 기간은 가능합니다."); 
+		} else {
+			alert("해당 기간의 조회가 불가능합니다."); 
+			return false; 
+		}*/ 
+		if(dateTo >= dateFrom){
+			alert("해당 기간은 가능합니다."); 
+		} else {
+			alert("해당 기간의 조회가 불가능합니다.\n다시 선택해주세요"); 
+			return false; 
+		} 
+		console.log("dateFrom :" + dateFrom);
+	  	console.log("dateTo :" + dateTo);
+	}// dataCheck(dateFrom, dateTo) END
+	
     //플래너 제거 ===========================================================
     function remove_planList() {
         $(".planList").remove();
@@ -341,47 +436,49 @@
     //마커 제거 =========================================================== 
     function remove_marker() {
         for (var i = 0; i < markers.length; i++) {
-            console.log(markers[i]);
+            //console.log(markers[i]);
             markers[i].setMap(null);
         }
         markers = [];
         positions = [];
     }
-    
-    //맵 리스트 불러오기 ===========================================================    
-    function get_jObj() {
-        var url = "${url}/mapInfo"
-        $.ajax({
-            url: url,
-            type: "POST",
-            data :{
-            	pageNo : pageNo,
-            	pageCount : pageCount, 
-            	searchWord : searchWord,
-            },
-            success: function (data) {
-                //데이터 갱신
-                console.log(JSON.parse(data));
-                jobj = JSON.parse(data);
-                remove_marker();
-                show_map();
-                make_list();
-                console.log(jobj);
-            },
-            error: function (error) {
-            }
-        })
+  	
+    //플래너 목록창 보이기
+  	function add_planListReader() {
+        $(".planListReader").show();
+        $(".planSubject").show();
     }
+  	
+  	//플래너 목록창 숨기기
+    function hide_planListReader() {
+        $(".planListReader").hide();
+        $(".planSubject").hide();
+    }
+  	
+  	//검색창 보이기
+  	function add_searchFrm() {
+        $(".searchFrmWrap").show();
+    }
+  
+    //검색창 숨기기
+    function hide_searchFrm() {
+        $(".searchFrmWrap").hide();
+    }
+    
+    //////////////////////////////////////////
+    
+    
     //플래너 값보내기 ===========================================================    
-    let seqList = [];
-    let contentidList = [];
-    function get_seqList(){
+    //seqList ===========================================================
+    function get_seqList(){ 
        var idx = 0;
        $("input[name=seq]").each(function(i,tag){
            console.log(tag);
-           seqList[idx++] = tag.value;
+           seqList[idx++] = tag.getAttribute('data-seq');
         });
     } 
+    
+  	//contentidList ===========================================================
     function get_contentidList(){
        var idx = 0;
        $("input[name=contentid]").each(function(i,tag){
@@ -389,40 +486,147 @@
            contentidList[idx++] = tag.value;
         });
 	}
+  	
+    function save_planlistContent(){
+        var idx = 0;
+        planlistContent = $("#planlistContentBG").html();
+        console.log(planlistContent);
+     }
     
+     function load_planlistContent(){
+        $("#planlistContentBG").append(planlistContent);   
+
+     }
+   	//여행 계획 저장 및 수정
+  	//save_plan ===========================================================
 	function save_plan() {
-		var url = "${url}/planView"
-		var title = $("#test_title").val();
-		var start_date = $("#test_start_date").val();
-		var end_date = $("#test_end_date").val();
-		get_seqList();
-		get_contentidList();
+       var type = "";
        
-		$.ajax({
-			url: url,
-			type: "POST",
-			data :{
-				title : title,
-				start_date : start_date, 
-              end_date : end_date,
-              seqList : seqList,
-              contentidList : contentidList,
+       //전역변수 planner_no가 있을 경우 수정 , 없을 경우 저장
+       if(planner_no >= 0){
+          console.log("여행 계획 수정")
+          type ="PUT";
+       }else{
+          console.log("여행 계획 저장")
+          type ="POST";
+          
+       }
+      var url = "${url}/planView"
+      var title = $("#planSubject_text").val();
+      var start_date = $("#dateFrom").val();
+      var end_date = $("#dateTo").val();
+      
+      if(title == null || title == ""){
+         alert("제목을 입력해 주세요.");
+         return;
+      }
+      
+      //seq와 contentid
+      get_seqList();
+      get_contentidList();
+      $.ajax({
+         url: url,
+         type: type,
+         data :{
+            no : planner_no,
+            title : title,
+            start_date : start_date,
+            end_date : end_date,
+            seqList : seqList,
+            contentidList : contentidList,
            },
            success: function (data) {
+              alert(data.msg);
+              if(data.status=="201") return;
+              console.log(data);
                console.log(data.msg);
-                 
+               console.log(data.planner_no);
+               //저장 혹은 수정을 하면 여행 계획의 no값을 저장
+               planner_no = data.planner_no;
+               $("#planner_no").val(data.planner_no);
            },
            error: function (error) {
+              alert("로그인 후 이용해 주세요.");
               console.log(error);
            }
        })
-   }
+      }
+	//4.여행 계획 불러오기
+    function load_plan(contentidList){
+       var url = "${url}/mapInfo/load";
+       $.ajax({
+          url : url,
+          type : "POST",
+          data : {
+             contentidList : contentidList,
+          },
+          success : function(data){
+             //jobj에 저장하여 마커에 표시하기 위함
+             jobj = JSON.parse(data);
+             jobj_planner = JSON.parse(data);
+             $("div[name=planlistContentBG]").remove();
+               show_map(jobj);//마커 표시
+               for(var i=0; i<jobj.length; i++){
+                  //플래너 목록에 추가 
+                  readPlanner(jobj[i]);
+               }
+               
+          },error : function(error){
+             console.log(error);
+          }
+       })
+       
+    }
+    
+    function load_myplanner(){
+       if(planner_no < 0) return;
+       console.log(planner_no);
+       var obj;
+       $.ajax({
+          url : "${url}/planView/detail/"+planner_no,
+          type : "POST",
+          datType : "JSON",
+          success : function(data){
+             console.log(data);
+             console.log(data.msg);
+             obj = JSON.parse(data.data);
+                pvo = obj.pvo;
+                console.log(pvo);
+                $("#planSubject_text").val(pvo.title); //제목 넣기 
+                $("#plan_startDate").val(pvo.start_date);//시작 날짜
+                $("#plan_endDate").val(pvo.end_date);//시작 날짜
+
+                
+                console.log("load_myplanner -> ",pvo.contendList);
+                console.log("load_myplanner ->", pvo.seqList);
+                for(var i=0; i<pvo.contendList.length; i++){
+                   contentidList[i] = pvo.contendList[i];
+                   seqList[i] = pvo.seqList[i];
+                }
+             for(var i=0; i<pvo.contendList.length; i++){
+                console.log(contentidList[i]);
+                console.log(seqList[i]);
+               }
+                $("#planner_no").val(pvo.no);
+                load_plan(contentidList);
+            
+          },
+          error : function(error){
+             console.log(error)
+          },
+       })
+    }
+    $(document).on("click","#planListLoad_btn",function(){
+       planner_no = 17;
+       console.log("click", planner_no);
+       load_myplanner();
+    })
     //지도를 불러오는 함수 ===========================================================
     function load_map() {
         console.log("load map");
         mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
-                center: new kakao.maps.LatLng(33.451475, 126.570528), // 지도의 중심좌표
+                center: new kakao.maps.LatLng(33.21411, 126.31459), // 지도의 중심좌표
                 level: 8 // 지도의 확대 레벨
             };
         map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
@@ -442,6 +646,8 @@
         for (let index = 0; index < jobj.length; index++) {
             //console.log("마커 생성1");
             positions.push({
+            	index:index,
+            	contentid:jobj[index].contentid,
                 title: jobj[index].title,
              	// 수정 자리
                 img:jobj[index].firstimage,
@@ -460,9 +666,8 @@
                     image : markerImage // 마커 이미지
                 });
             */
-            //console.log(positions[index].homepage);
-        }
-        //console.log("마커 생성2");
+            console.log(index);
+        }// show_map() END
         
         // 마커 생성 for 문 ===========================================================
         for (let index = 0; index < positions.length; index++) {
@@ -471,8 +676,7 @@
         }
         
         // Draw Overlay Over Marker ===========================================================
-        function displayMarker(data) { 
-            //console.log("마커 그리기");
+        function displayMarker(data) {
             var marker = new kakao.maps.Marker({
                 map: map,
                 title: data.title,
@@ -516,7 +720,6 @@
 			bodyContent.appendChild(imgDiv);
 
 			var imgContent = document.createElement("img");
-			//imgContent.innerHTML = data.img;
 			imgContent.setAttribute("src", data.img);
 			imgDiv.appendChild(imgContent);
 
@@ -549,10 +752,42 @@
 			
 			var home = data.homepage;
 			var home = home.substring(9, home.indexOf('target')-2);
-			console.log(home);
+			
 			LinkContent.href= home;
 			
 			LinkDiv.appendChild(LinkContent);
+			
+			//플래너 추가 버튼
+			var addBtn = document.createElement("input");
+			addBtn.setAttribute("type", "button");
+			addBtn.className = "add";
+			addBtn.setAttribute("value", "플래너 추가 +");
+			
+			
+			addBtn.onclick = function() {
+				if(!flag_plan){ //목록일 때
+					alert("플래너 목록에서 추가해주세요");
+		            }
+	            if(flag_plan){//플래너일 때
+	            	addPlanner(data);
+	            	make_ordering();
+	            	get_seqList();
+	            	for(var i=0;i<seqList.length; i++){
+	            		console.log("seq : " + seqList[i]);
+	            	}
+	            }
+			};
+			//
+			function make_ordering(){
+                //console.log(idx);
+                $("input[name=seq]").each(function(i, value){
+                	//var contentid = value.attr("data-contentid");
+                	//$("#seq_"+contentid).attr("data-seq",(i+1));
+                	value.setAttribute("data-seq",i+1);
+                	value.value=(i+1);
+                });
+            }
+			descContent.appendChild(addBtn);
 			//마커 위에 커스텀오버레이 콘텐츠 Dom으로 구현 끝
             
             overlay.setContent(Customcontent);
@@ -563,13 +798,12 @@
             kakao.maps.event.addListener(marker, 'click', function () {
                 // 이전의 Overlay for문을 돌려서 setmap(null);
                 for (var i = 0; i < overlayList.length; i++) {
-                    console.log(overlayList[i]);
+                    //console.log(overlayList[i]);
                     overlayList[i].setMap(null);
                 }
                 overlay.setMap(map);
             });
-        }
-        
+        }// displayMarker(data) END
     }
 </script>
 </html>

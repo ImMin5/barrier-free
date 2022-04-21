@@ -48,8 +48,12 @@
 		});
 	});
 </script>
+
 <div id="contents">
+		
 			<section class="mypage-box">
+			
+				
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">

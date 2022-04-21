@@ -12,6 +12,17 @@
 	font-weight: bold;
 	font-size: 2em;
 	color:rgb(250, 166, 50);
+}
+
+.line1{
+	border:1px solid #dedede;
+	width:1200px;
+	margin-bottom:20px;
+}
+.line2{
+	border:none;
+	margin-bottom:30px;
+	width:200px;
 }	
 .lnb-box {margin: 10% 0 0;}
 .lnb-box:after {
@@ -51,7 +62,7 @@
 	
 }
 .lnb-box a:nth-child(4){
-	border-bottom:1px solid rgb(238,238,238);
+	border-bottom:1px solid #dedede;
 }
 
 .lnb-box a.on,
@@ -64,7 +75,7 @@
 	float: left;
 	top: 0;
 	left: 0;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	border-bottom: 0px;
 	box-sizing: border-box;
 }
@@ -82,9 +93,9 @@
 	
 }
 .myreview-box{
-	margin: 0% 750px 0;
+	margin: 0% 750px 100px;
 	width: 800px;
-	height: 1450px;
+	height: 1600px;
 	display:block;
 	position: relative;
 	top: 0;
@@ -92,18 +103,18 @@
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
-	border: 1px solid rgb(238,238,238);
+	border: none;
 	color: rgb(102,102,102);
 	text-align: center;
 	line-height: 55px;
 }
 .date{
-	margin-left:160px;
+	margin-left:200px;
 	font-size:0.8em;
 }
 .title{
 	float:left;
-	margin-left:150px;
+	margin-left:160px;
 	color:#6AC17B;
 	font-size:1.4em;
 }
@@ -117,16 +128,19 @@
 	width:400px;
 	height:200px;
 	margin-left:200px;
-
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 .paging>li{
 	float:left;
 	padding-right:30px;
+
 	
 }
+
 .paging{
 	
-	margin-left:350px;}
+	margin-left:320px;}
 
 #del{
 	border-top-left-radius: 5px;
@@ -136,13 +150,15 @@
     border: 1px solid rgb(250, 166, 50);
     background-color: rgba(0, 0, 0, 0);
     color: rgb(250, 166, 50);
-    margin-left:10px;
+    margin-left:210px;
     padding: 5px;
     font-family: "Noto Sans KR", sans-serif;
     cursor:pointer;
 }
 #line{
-	width:500px;
-	border-bottom: 1px solid rgb(238,238,238);
-	margin-left:150px;
+	width:400px;
+	border-bottom: 1px solid #dedede;
+	margin-left:200px;
+	margin-top:30px;
+	margin-bottom:15px;
 	}

@@ -24,7 +24,7 @@ body{
     height: 1000px;
 }
 #list{
-    width: 40%;
+    width: 45%;
     height: 1000px;
 }
 .topBotton{
@@ -115,15 +115,15 @@ body{
 
 /* ====================== 리스트 내용 ====================== */
 .listContentWrap{
-	position: relative ;
+	position: relative;
     top: 0px;
     left: 0px;
     float: left;
     width: 100%;
     height: 860px;
     background: #F2F2F2;
-    overflow-y:scroll;
-    color:#5c5c5c;
+    overflow-y: scroll;
+    color: #5c5c5c;
 }
 
 .listContent{
@@ -273,7 +273,36 @@ body{
 	width: 100%;
 	
 }
+/* ====================== 저장된 플래너 리스트 ====================== */
+.planListReader{
+	background: #ffffff;
+	height: 70px;
+	width: 100%;
+}
+.planListReader>span{
+	position: relative;
+    top: 9px;
+    left: 38px;
+    width: 180px;
+    height: 50px;
+}
+.planListReader>span>img{
+	width: 10px;
+	height: 10px;
+}
+
+#listReader{
+	position: relative;
+    top: 10px;
+    left: 55px;
+    width: 500px;
+    height: 45px;
+}
+
+
+/* ====================== 플래너 제목 ====================== */
 .planSubject{
+	background: #ffffff;
 	height: 70px;
 	width: 100%;
 }
@@ -288,20 +317,12 @@ body{
 	width: 10px;
 	height: 10px;
 }
-/*#planFrm{
-	position: relative;
-    top: 10px;
-    left: 130px;
-    width: 10px;
-    height: 10px;
-    background: #FAA631;
-    float: left;
-}*/
+
 #planSubject_text{
 	position: relative;
     top: 10px;
-    left: 47px;
-    width: 507px;
+    left: 55px;
+    width: 500px;
     height: 45px;
 }
 #planSubject_btn{
@@ -322,7 +343,7 @@ body{
     border: 2px solid #024d09;
 }
 
-/* ====================== 플랜 추가 ====================== */
+/* ====================== 플래너 날짜 ====================== */
 .planList{
 	height: 70px;
 	width: 100%;
@@ -340,27 +361,28 @@ body{
 	width: 10px;
 	height: 10px;
 }
-#datefrm{
+
+#dateFrom{
 	position: relative;
     top: 10px;
-    left: 130px;
-    width: 10px;
-    height: 10px;
-    /*background: #FAA631;*/
-    float: left;
-}
-#planList_date{
-	position: relative;
-    top: 10px;
-    left: 47px;
-	width: 330px;
+    left: 55px;
+    width: 230px;
     height: 45px;
     padding-left: 15px;
 }
-#planList_btn{
+#dateTo{
 	position: relative;
     top: 10px;
-    left: 53px;
+    left: 42px;
+    width: 230px;
+    height: 45px;
+    padding-left: 15px;
+}
+
+#btnSearch{
+	position: relative;
+    top: 10px;
+    left: 54px;
     /* padding-left: 50px; */
     background: #FAA631;
     width: 150px;
@@ -368,7 +390,7 @@ body{
     color: #ffffff;
     border: 2px solid #FAA631;
 }
-#planList_btn:hover{
+#btnSearch:hover{
 	background: #024d09;
 	color: #ffffff;
     border: 2px solid #024d09;
@@ -376,7 +398,7 @@ body{
 .companion{
 	position: relative;
     top: 12px;
-    left: 71px;
+    left: 68px;
     background: #024d09;
     width: 150px;
     height: 48px;
@@ -388,7 +410,6 @@ body{
 	border: 2px solid #FAA631;
 	color: #ffffff;
 }
-
 /* ====================== 플래너 리스트 내용 ====================== */
 .planListContentWrap{
 	position: relative ;
@@ -396,27 +417,44 @@ body{
     left: 0px;
     float: left;
     width: 100%;
-    height: 715px;
+    height: 930px;
     background: #ededed; 
-    overflow:scroll;
-    overflow-x:hidden;
-    overflow-y:hidden;
+    /* overflow-y:scroll; */
     color:black;
     
 }
-.planlistContent{
-    position: relative;
-    top: 145px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.planlistContentBG{
+	position: absolute;
+    top: 164px;
+    left: 48px;
+    /* background: #FAA631; */
+    /* width: 773px; */
+    overflow: hidden;
+}
+#planlistContent{
     width: 730px;
     height: 200px;
     background: #ffffff;
     border-radius: 5px;
     overflow: hidden;
     border-right: 8px solid #FAA631;
+    margin-bottom: 35px;
+    margin-top: 80px;
 }
-.planNum{
+#planlistContent>ul{
+	position: relative;
+    top: -24px;
+    left: 91px;
+    font-size: 25px;
+    /*background: #138e87;*/
+    width: 424px;
+    height: 95px;
+}
+#planlistContent>ul>li{
+	font-size: 16px;
+	/* height: 88px; */
+}
+#seq{
 	width: 90px;
     height: 90px;
     color:  #FAA631;
@@ -424,6 +462,13 @@ body{
     line-height:90px;
     float: left;
     text-align: center; 
+    
+    -ms-user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: -moz-none;
+	user-select: none;
+	
+	border:none;
 }
 .planTitle{
 	width: 415px;
@@ -435,28 +480,15 @@ body{
     padding-left: 105px;
     font-weight: bold;
 }
-.planlistContent>ul{
-	position: relative;
-    top: -24px;
-    left: 91px;
-    font-size: 25px;
-    /*background: #138e87;*/
-    width: 424px;
-    height: 95px;
-}
-.planlistContent>ul>li{
-	font-size: 18px;
-	height: 88px;
-}
-.planlistContent>ul>li:nth-child(1){
+.planAddr{
 	height: 28px;
     font-weight: bold;
     padding-left: 15px;
 }
-.planlistContent>ul>li:nth-child(2){
+.planOverview{
 	overflow: scroll;
     overflow-x: hidden;
-   	height: 57px;
+   	height: 70px;
     padding-left: 15px;
 }
 /* 스크롤바 설정*/
@@ -477,7 +509,7 @@ body{
     position: relative;
     top: -210px;
     left: 549px;
-    width: 150px;
+    /* width: 150px; */
     height: 150px;
     border-radius: 5px;
 }
@@ -486,17 +518,15 @@ body{
     height: 100%;
 }
 
-.planListCancel{
-    position: relative;
-    top: 120px;
-    left: 260px;
+#planListCancel{
+	float: left;
     width: 420px;
     height: 48px;
 }
-.planListCancel_btn{
+#planListCancel_btn{
 	background: #f9f9f9;
-    width: 150px;
-    height: 48px;
+    width: 160px;
+    height: 50px;
     border: 2px solid #f9f9f9;
     margin-right: 30px;
 }
@@ -507,10 +537,10 @@ body{
 }
 #planListSave_btn{
 	background: #FAA631;
-    width: 150px;
-    height: 48px;
+    width: 160px;
+    height: 50px;
     border: 2px solid #FAA631;
-    color:#ffffff;
+    color: #ffffff;
 }
 #planListSave_btn:hover{
 	background: #024d09;
@@ -522,12 +552,11 @@ body{
 .map_wrap {
 	position: absolute ;
     top: 0px;
-    left:40%;
+    left:45%;
     overflow:hidden;
-    width: 60%;
+    width: 55%;
     height: 1000px;
 }
-
 
 /* ====================== 지도 컨트롤러 ====================== 차이 40 */
 .custom_typecontrol {position:absolute;top:100px;right:40px;width:200px;height:50px;margin:0;padding:0;z-index:1;font-size:15px;line-height: 50px;}
@@ -552,10 +581,32 @@ body{
 .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
 .info .close:hover {cursor: pointer;}
 .info .body {position: relative;overflow: hidden;}
-.info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+.info .desc {    
+	position: relative;
+    margin: 7px 0 0 82px;
+    height: 85px;}
 .desc .addr1 {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .desc .overview {width: 308px; height: 30px;color: #888;margin-top: -2px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;}
-.info .img {position: absolute;top: 13px;left: 10px;width: 70px; height: 70px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+.desc .add {
+	position: absolute;
+    top: 51px;
+    left: 206px;
+    background: #FAA631;
+    border: 1px solid #FAA631;
+    width: 100px;
+    height: 30px;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 5px;}
+.info .img {
+	position: absolute;
+    top: 13px;
+    left: 7px;
+    width: 70px;
+    height: 70px;
+    border: 1px solid #ddd;
+    color: #888;
+    overflow: hidden;}
 .info .img>img {width: 70px;height: 70px;}
 .info:after {content: '';position: absolute;margin-left: 0px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
 .info .link {color: #5085BB;}
@@ -577,3 +628,5 @@ body{
 
 .planCreate>a:hover {background:#024d09;}
 .planCreate>a:active {background:#EDEDED;}    
+
+

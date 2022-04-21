@@ -36,10 +36,14 @@ public class AccommodationController {
     
     //숙박정보 리스트 뷰
     @GetMapping("/accommodation")
-    public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, @RequestParam(value = "pageCount",required = false,  defaultValue = "2")String pageCount, @RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord){
+    public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo,
+    		@RequestParam(value = "pageCount",required = false,  defaultValue = "2")String pageCount, 
+    		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord,
+    		@RequestParam(value = "sigunguCode",required = false,  defaultValue = "")String sigunguCode
+    		){
         ModelAndView mav = new ModelAndView();
         try {
-	        List<JSONObject> accomoList = openApiService.searchKeyword(pageNo, pageCount, "32" , searchWord); //숙박정보 32 
+	        List<JSONObject> accomoList = openApiService.searchKeyword(pageNo, pageCount, "32" , searchWord, sigunguCode); //숙박정보 32 
 	        for(JSONObject jObj : accomoList) {
 	        	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
 	        	String cid = jObj.get("contentid").toString();
@@ -69,8 +73,11 @@ public class AccommodationController {
 	        	}
 	        	
 	        }
+	        for(JSONObject j :openApiService.AreaInfo()) {
+	        	System.out.println(j.toString());
+	        }
 	        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
-	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord));
+	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord, sigunguCode));
         }catch(Exception e) {
         	e.printStackTrace();
         }

@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 .mypage-box {
 	
 	width: 300px;
@@ -6,7 +7,13 @@
 }
 .mypage-box h1{
 	color:black;
-}	
+}
+.line1{
+	border:1px solid #dedede;
+	width:1200px;
+	margin-bottom:20px;
+}
+	
 .lnb-box {margin: 10% 0 0;}
 .lnb-box:after {
 	float:left;
@@ -45,7 +52,7 @@
 	
 }
 .lnb-box a:nth-child(4){
-	border-bottom:1px solid rgb(238,238,238);
+	border-bottom:1px solid #dedede;
 }
 
 .lnb-box a.on,
@@ -58,7 +65,7 @@
 	float: left;
 	top: 0;
 	left: 0;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	border-bottom: 0px;
 	box-sizing: border-box;
 }
@@ -75,10 +82,24 @@
 	border: 2px solid rgb(250, 166, 50);
 	
 }
-
-
+.date{
+	width:700px;
+}
+.hh1{
+	margin-left:50px;
+	
+}
+#del{
+	margin-left:320px;
+	background-color:white;
+	cursor:pointer;
+	border:2px solid black;
+	font-family: "Noto Sans KR", sans-serif;
+	font-weight: bold;
+	padding:2px;
+}
 .info-box{
-	margin: 0% 750px 0;
+	margin: 0% 750px 100px;
 	width: 700px;
 	height: 900px;
 	display:block;
@@ -88,8 +109,24 @@
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
-	border: 1px solid rgb(238,238,238);
+	border: none;
 	color: rgb(102,102,102);
 	text-align: center;
 	line-height: 55px;
+}
+.line2{margin-bottom:10px;}
+.title{
+	overflow:hidden;
+	text-overflow:ellipsis;
+	color: #2e64a1;
+	}
+
+.planner{
+	background: url("../../img/member/bf_planner2.png");
+	background-size: 100% 100%;
+    background-position: center;
+	width:640px;
+	height:250px;
+	margin-left:50px;
+	margin-bottom:50px;
 }

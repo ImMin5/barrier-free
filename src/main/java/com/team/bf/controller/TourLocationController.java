@@ -31,9 +31,15 @@ public class TourLocationController {
     private String areaCode = "39";//제주도
     //여행지 정보 리스트 뷰
     @GetMapping("/travel_information")
-    public ModelAndView travelInfo(@RequestParam(value = "contentTypeId", required = false, defaultValue = "12")String contentTypeId, @RequestParam(value = "pageNo")String pageNo, @RequestParam(value = "pageCount")String pageCount, @RequestParam(value = "searchWord")String searchWord){
-        ModelAndView mav = new ModelAndView();
-        List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount,contentTypeId,searchWord);
+    public ModelAndView travelInfo(@RequestParam(value = "contentTypeId", 
+    required = false, defaultValue = "12")String contentTypeId, 
+    		@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, 
+    		@RequestParam(value = "pageCount", required = false, defaultValue = "5")String pageCount, 
+    		@RequestParam(value = "searchWord", required = false, defaultValue = "")String searchWord,
+    		@RequestParam(value = "sigunguCode",required = false,  defaultValue = "")String sigunguCode){
+        
+    	ModelAndView mav = new ModelAndView();
+        List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount,contentTypeId,searchWord,sigunguCode);
         for(JSONObject jObj : tourList) {
         	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
         	String cid = jObj.get("contentid").toString();

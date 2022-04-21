@@ -8,6 +8,7 @@
 
 <div id="contents">
 			<section class="mypage-box">
+			
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">
@@ -38,7 +39,7 @@
 		<tr>
         	<c:if test="${vo.reply != null}">
         		<td>${vo.reply.no}</td>
-        		<td><a href="${url}/board/boardList/${vo.reply.no}">[RE]${vo.reply.subject}</a></td>
+        		<td><a href="${url}/board/boardList/${vo.reply.no}/reply">[RE]${vo.reply.subject}</a></td>
         	</c:if>
         </tr>
 		</tbody>

@@ -77,6 +77,9 @@
   		<if test='searchWord != null'>
   			and b.subject like '%${searchWord}%'
   		</if>
+  		<if test="userid != null">
+  			and b.userid=#{userid}
+  		</if>
   		order by b.no desc 
   		limit ${onePageRecord} offset ${offsetIndex}
   	</select>

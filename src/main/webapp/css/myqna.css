@@ -36,6 +36,11 @@ table a:visited{color: gray;}
 	display: block;
 	clear: both;
 }
+.line1{
+	border:1px solid #dedede;
+	width:1200px;
+	margin-bottom:20px;
+}
 .lnb-box a {
 	width: 300px;
 	height: 55px;
@@ -67,7 +72,7 @@ table a:visited{color: gray;}
 	
 }
 .lnb-box a:nth-child(4){
-	border-bottom:1px solid rgb(238,238,238);
+	border-bottom:1px solid #dedede;
 }
 
 .lnb-box a.on,
@@ -80,7 +85,7 @@ table a:visited{color: gray;}
 	float: left;
 	top: 0;
 	left: 0;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	border-bottom: 0px;
 	box-sizing: border-box;
 }
@@ -100,9 +105,9 @@ table a:visited{color: gray;}
 
 
 .info-box{
-	margin: 0% 750px 0;
+	margin: 0% 800px 100px;
 	width: 700px;
-	height: 600px;
+	height: 780px;
 	display:block;
 	position: relative;
 	top: 0;
@@ -110,7 +115,7 @@ table a:visited{color: gray;}
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: 400;
 	font-size: 16px;
-	border: 1px solid rgb(238,238,238);
+	border: 1px solid #dedede;
 	color: rgb(102,102,102);
 	text-align: center;
 	line-height: 55px;

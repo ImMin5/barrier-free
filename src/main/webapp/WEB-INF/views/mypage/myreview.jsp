@@ -51,6 +51,7 @@
 
 <div id="contents">
 			<section class="mypage-box">
+			
 				<h1>마이 페이지</h1>
 				
 <nav class="lnb-box">
@@ -64,6 +65,7 @@
 </div>			
 <div class="myreview-box">
 	<a class="title1">나의 리뷰👀</a>
+	<div class="line2"></div>
 	<table>
 		<c:forEach var="vo" items="${reviewList }" >
 		<thead class="review_thead" >

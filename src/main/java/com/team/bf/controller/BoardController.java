@@ -109,7 +109,7 @@ public class BoardController {
     	
     }
     //문의사항 수정 뷰
-    @PostMapping("/board/boardList/edit/{no}")
+    @PostMapping("/board/boardList/{no}")
     public ModelAndView boardEditView(@PathVariable(value="no")int no, HttpSession session) {
     	ModelAndView mav = new ModelAndView();
     	try {

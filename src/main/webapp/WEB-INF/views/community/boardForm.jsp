@@ -63,8 +63,8 @@ $(function() {
                     <td><textarea cols="100" rows="30"  name="content" id="content" style="padding: 10px"></textarea></td>
                 </tr>
             </table>
-            <input class="bo__btn__w" type="button" id="btn_submit" value="등록">
-            <input class="bo__btn__w" type="button" value="취소" onclick="location.href='${url}/board/boardList'">
+            <input class="bo__btn__wa" type="button" id="btn_submit" value="등록">
+            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/board/boardList'">
     	</form>
     </div>
     

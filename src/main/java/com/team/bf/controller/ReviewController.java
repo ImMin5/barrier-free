@@ -74,7 +74,7 @@ public class ReviewController {
 			else {
 				//ip주소
 				rvo.setUserid(userid);
-				rvo.setIp(request.getRemoteAddr());
+				rvo.setIp(request.getRemoteAddr().toString());
 				reviewService.reviewInsert(rvo);
 				result.put("status","200");
 				result.put("msg","리뷰등록완료");
