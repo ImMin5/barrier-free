@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 $(function(){
 	
-	var rating = $('.list_reply .rating');
+	var rating = $('.list_reply .review_rating');
 	
 	rating.each(function(){
 		var targetScore = $(this).attr('data-rate');
@@ -145,7 +145,7 @@ $(function(){
                 <span class="txt_date">${vo.write_date}</span>
                 <span class="txt_reply">${vo.content}</span>
                 <span class="tit_score">${vo.score}</span>
-            	<div class="rating" data-rate="${vo.score }">
+            	<div class="review_rating" data-rate="${vo.score }">
 							<i class="fas fa-star"></i>
 							<i class="fas fa-star"></i>
 							<i class="fas fa-star"></i>
