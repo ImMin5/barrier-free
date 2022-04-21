@@ -58,7 +58,7 @@
 	<table class="planner1">
 		<c:forEach var="vo" items="${planList }" >
 		<thead class="plan_thead" >
-		<tr>
+		<tr >
 			<th>
 
 			</th>
@@ -75,7 +75,7 @@
 				<div class="date">${vo.create_date } 
 					<input type="button" id="del" value="삭제하기" title="${vo.no}">
 				</div>
-				<div class="title">
+				<div class="title" onclick="location.href='${url}/mapView?planner_no=${vo.no}'">
 						${vo.title }
 					
 				</div>
