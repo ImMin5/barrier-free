@@ -3,8 +3,7 @@
 
 @media screen {
 
-body {
-	width:1000px;
+body { 
 	margin: 208px auto;
 	padding: 0px;
 	font-family: Jua;
@@ -14,10 +13,13 @@ body {
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 }
-
+.intro_all {
+	width: 1000;
+	margin-left:10%;
+	margin-right:10%;
+}
 .ititle h1 {
-	width:1000px;
-	padding: 120px 0px 15px;
+	padding: 50px;
 	color: #fff;
 	font-size: 4.5em;
 	text-shadow:2px 2px 2px #000;
@@ -31,17 +33,17 @@ body {
 }
 
 .icontent {
-	width:1000px;
-	margin: 0px 250px 50px 0px;
+	width:100%;
+	margin-bottom: 100px;
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
  	grid-gap: 1em;
   	height: 100%;
 	overflow: hidden;
 }
 
 .icontent .ibox {
-	margin-left:35px;
+	margin-left:10%;
 	width: 250px;
 	height: 250px;
 	background-color: #fff;
@@ -52,7 +54,7 @@ body {
 	filter:alpha(opacity=90); opacity:0.9; -moz-opacity:0.9;
 }
 .icontent .ibox h3 {
-	margin: 35px 30px 30px 30px;
+	margin: 30px 30px 30px 30px;
 	font-size: 23px;
 	background: no-repeat right;
 }
@@ -72,7 +74,9 @@ body {
 	height: 200px;
 }
 .bbox {
-	width:100%;
+	margin-bottom:150px;
+	width: 100%;
+	height: 300px;
 	overflow:hidden;
 	border-style: outset;
 	text-align: center;
