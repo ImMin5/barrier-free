@@ -33,8 +33,8 @@
             <div class="planListReader" style="display:none;">
             <!-- 로그인 상태일 때 // 창 하나 더뜨는거 수정하기 -->
                 <c:if test="${logId != null}">
-                	<span style="color:#474747;">
-	                    <img alt="" src="../../img/map/map_18.png">
+                	<span id="logList" style="color:#474747;">
+	                    <img id="logImg" alt="플랜 목록" src="../../img/map/map_18.png">
 	                    플랜 목록
                 	</span>
 					<select name="planReadSelect" id="planReadSelect" class="planReadSelect">
@@ -43,18 +43,16 @@
 				      </c:forEach>
 					</select>
 	               	<input type="button" id="planListLoad_btn" value="불러오기" />
-	               	<input type="button" id="planListDelete_btn" name="planListDelete"value="삭제" onclick="delCheck()"/>
-	               	<div class="listPlanContentWrap" id="listPlanContentWrap"></div>
+	               	<input type="button" id="planListDelete_btn" name="planListDelete" value="삭제" onclick="delCheck()"/>
                	</c:if>
             	<!-- 로그아웃 상태일 때 -->
             	<c:if test="${logId == null}">
-                	<span class="logNullList" style="color:#474747;">
-	                    <img alt="" src="../../img/map/map_18.png">
+                	<span id="logNullList" style="color:#474747;">
+	                    <img id="logNullImg" alt="플랜 목록" src="../../img/map/map_18.png">
 	                    플랜 목록
                 	</span>
                 	<div id="logMsg">로그인 후 이용하세요.</div>
 				</c:if>
-				
             </div>
             <!-- 리스트 내용 -->
             <div class="listContentWrap" id="listContentWrap"></div>
@@ -193,6 +191,8 @@
                 $("#planSubject_text").val(planSubject_text);
                 $("#dateFrom").val(plan_dateFrom);
                 $("#dateTo").val(plan_dateTo);
+                
+                make_ordering();
             }
         });
 
@@ -436,7 +436,7 @@
             </div>
         `;//);
         //console.log("플래너 선택");
-        $('#listPlanContentWrap').html(plantag);
+        $('#listContentWrap').html(plantag);
     }// add_planList()() END
 
     // 플래너 추가하기 버튼으로 생성되는 플래너 ===========================================================
