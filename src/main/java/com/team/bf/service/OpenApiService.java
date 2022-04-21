@@ -23,6 +23,7 @@ public class OpenApiService {
         StringBuilder sb = new StringBuilder();
         JSONObject json = null;
         ArrayList<JSONObject> items = new ArrayList<>();
+        int totalCount = 0;
         
         try {
             urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+myKey); /*Service Key*/
@@ -64,6 +65,7 @@ public class OpenApiService {
         StringBuilder sb = new StringBuilder();
         JSONObject json = null;
         ArrayList<JSONObject> items = new ArrayList<>(); //결과 목록
+        int totalCount= 0;
         
         try {
         	
@@ -99,22 +101,24 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
+            totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+            //토탈 개수 이하일 경우에만 items 리스트 생성
+            if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
+                JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
+                JSONArray jsonArray = response.getJSONArray("item");
+                //System.out.println(jsonArray.toString());
+                for(int i=0; i<jsonArray.length(); i++) {
+                	JSONObject jObj = jsonArray.getJSONObject(i);
+                	items.add(jObj);
+                }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
         //System.out.println(json.toString());
-        int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+         
         
-        //토탈 개수 이하일 경우에만 items 리스트 생성
-        if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
-            JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
-            JSONArray jsonArray = response.getJSONArray("item");
-            //System.out.println(jsonArray.toString());
-            for(int i=0; i<jsonArray.length(); i++) {
-            	JSONObject jObj = jsonArray.getJSONObject(i);
-            	items.add(jObj);
-            }
-        }
+       
         
         return items;
     }
@@ -124,7 +128,7 @@ public class OpenApiService {
         StringBuilder sb = new StringBuilder();
         JSONObject json = null;
         ArrayList<JSONObject> items = new ArrayList<>(); //결과 목록
-        
+        int totalCount = 0;
         try {
             //검색어가 없을 경우
             if(searchWord.equals(""))
@@ -181,26 +185,28 @@ public class OpenApiService {
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
            // System.out.println(json.toString());
+            totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+            //토탈 개수 이하일 경우에만 items 리스트 생성
+            if(totalCount == 1) {
+            	JSONObject jObj = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+            	items.add(jObj);
+            }
+            else if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
+                JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
+                JSONArray jsonArray = response.getJSONArray("item");
+                //System.out.println(jsonArray.toString());
+                for(int i=0; i<jsonArray.length(); i++) {
+                	JSONObject jObj = jsonArray.getJSONObject(i);
+                	items.add(jObj);
+                }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
        
-        int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+       
         
-        //토탈 개수 이하일 경우에만 items 리스트 생성
-        if(totalCount == 1) {
-        	JSONObject jObj = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
-        	items.add(jObj);
-        }
-        else if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
-            JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
-            JSONArray jsonArray = response.getJSONArray("item");
-            //System.out.println(jsonArray.toString());
-            for(int i=0; i<jsonArray.length(); i++) {
-            	JSONObject jObj = jsonArray.getJSONObject(i);
-            	items.add(jObj);
-            }
-        }
+       
         
         return items;
     }
@@ -211,7 +217,8 @@ public class OpenApiService {
         StringBuilder sb = new StringBuilder();
         JSONObject json = null;
         ArrayList<JSONObject> items = new ArrayList<>(); //결과 목록
-        
+        int totalCount = 0;
+        JSONArray jsonArray = new JSONArray();
         try {
             //검색어가 없을 경우
             if(searchWord.equals(""))
@@ -254,29 +261,30 @@ public class OpenApiService {
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
            // System.out.println(json.toString());
+           totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+           
+            //토탈 개수 이하일 경우에만 items 리스트 생성
+            
+            if(totalCount == 1) {
+            	JSONObject jObj = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+            	items.add(jObj);
+            }
+            else if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
+                JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
+                jsonArray = response.getJSONArray("item");
+                //System.out.println(jsonArray.toString());
+                for(int i=0; i<jsonArray.length(); i++) {
+                   JSONObject jObj = jsonArray.getJSONObject(i);
+                   //System.out.println("item : " + jObj.toString());
+                   items.add(jObj);
+                }
+            }
+            //System.out.println(jsonArray.toString());
         }catch(Exception e){
             e.printStackTrace();
         }
        
-        int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
-        JSONArray jsonArray = new JSONArray();
-        //토탈 개수 이하일 경우에만 items 리스트 생성
         
-        if(totalCount == 1) {
-        	JSONObject jObj = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
-        	items.add(jObj);
-        }
-        else if(totalCount >= Integer.parseInt(pageNo)*Integer.parseInt(pageCount)){
-            JSONObject response = json.getJSONObject("response").getJSONObject("body").getJSONObject("items");
-            jsonArray = response.getJSONArray("item");
-            //System.out.println(jsonArray.toString());
-            for(int i=0; i<jsonArray.length(); i++) {
-               JSONObject jObj = jsonArray.getJSONObject(i);
-               //System.out.println("item : " + jObj.toString());
-               items.add(jObj);
-            }
-        }
-        //System.out.println(jsonArray.toString());
         return jsonArray;
     }
     
@@ -285,7 +293,7 @@ public class OpenApiService {
         StringBuilder urlBuilder = null;
         StringBuilder sb = new StringBuilder();
         JSONObject json= null ,item = null;
-        
+        int totalCount = 0;
         try {
         	urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorWithService/detailCommon"); /*URL*/
             urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "="+myKey); /*Service Key*/
@@ -317,16 +325,17 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
+            //System.out.println(json.toString());
+            totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
+            
+            if(totalCount > 0){
+                item = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
+               // System.out.println("detailCommon 결과 : " + item.toString());
+            }
         }catch(Exception e){
             e.printStackTrace();
         }
-        //System.out.println(json.toString());
-        int totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
-        
-        if(totalCount > 0){
-            item = json.getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONObject("item");
-           // System.out.println("detailCommon 결과 : " + item.toString());
-        }
+       
         return item;
     }
     
