@@ -289,26 +289,26 @@ body{
 	height: 70px;
 	width: 100%;
 }
-.planListReader>span{
+
+#logList{
 	position: relative;
     top: 12px;
     left: 38px;
     width: 180px;
     height: 50px;
 }
-.planListReader>span>img{
+#logImg{
 	width: 10px;
 	height: 10px;
 }
-
-.logNullList>span{
+#logNullList{
 	position: relative;
-    top: 12px;
     left: 38px;
     width: 180px;
     height: 50px;
+    top: 23px;
 }
-.logNullList>span>img{
+#logNullImg{
 	width: 10px;
 	height: 10px;
 }
