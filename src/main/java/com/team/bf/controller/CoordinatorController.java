@@ -88,6 +88,7 @@ public class CoordinatorController {
         HashMap<String, String> result = new HashMap<>();
         ResponseEntity<HashMap<String, String>> entity = null;
         try{
+        	System.out.println(cvo.getEmail());
             if(coordinatorservice.CoordiInsert(cvo) > 0){
                 
                 session.setAttribute("logId", mvo.getUserid());

@@ -1,0 +1,150 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@200&display=swap');
+
+body {
+	margin: 208px auto;
+	padding: 0;
+	font-family: sans-serif;
+	background: #ffffff;
+}
+
+	.tView_container{
+		margin-left: 18%;
+		margin-right:18%;
+		display:grid;
+		grid-template-columns: repeat(1, minmax(500px, 1fr));
+		grid-gap: 30px;
+		overflow:hidden;
+	}
+	.tView_container h1{
+		font-size: 3em;
+		text-shadow: 2px 2px 3px;
+		color:#ffab57;
+		text-align: center;
+		margin-bottom: 50px;
+	}
+	.tView_container .tView_img img{
+		width: 60%;
+		height:400px;
+		border-style:ridge;
+		border-radius:10px;
+		padding:5px;
+		margin-bottom: 20px;
+	}
+	/* ====================== 지도 ====================== */
+	.map_wrap {
+		overflow: hidden;
+		width: 100%;
+		height: 400px;
+		margin-bottom: 20px;
+	}
+	.map_wrap #map{
+		width: 100%; height: 100%; position: relative; overflow: hidden;
+	}
+	.tView_content{
+		margin-left: 15%;
+		width:70%;
+		padding: 10px;
+		box-sizing: border-box;
+		border-style: solid;
+		border-radius: 20px;
+	}
+	.tView_content strong{
+		color: #eea011;
+		font-size: 20px;
+	}
+	.tView_content p{
+		color:black;
+		font-family: 'IBM Plex Sans KR', sans-serif;
+		font-size: 19px;
+		font-weight: normal;
+	}
+/* global */
+
+
+.area_reply .fld_reply .screen_out {overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px} /* 대체텍스트가 아닌 접근성을 위한 숨김텍스트를 제공할때 */
+
+
+.area_reply{
+	margin-top:50px;
+	margin-left:15%;
+	width: 70%;
+}
+.area_reply ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.area_reply .tit_reply{font-weight:normal;font-size:20px;color:#222;display:block;margin-bottom:14px}
+.area_reply .fld_reply{padding:20px;border-top:1px solid #e8e8e8;border-radius:15px;background-color:#fafafa;position:relative;}
+.area_reply .reply_write{position:relative;padding:7px 12px;border:1px solid #e8e8e8;background-color:#fff}
+.area_reply .lab_write{position:absolute;top:7px;left:12px;font-size:13px;color:#a7a7a7}
+.area_reply .tf_reply{width:100%;height:70px;border:1px solid #fff;font-size:13px;resize:none;box-sizing:border-box}
+.area_reply .tf_reply { color:#5c5c5c }
+.area_reply .writer_btn{float:right;margin-top:10px}
+.area_reply .writer_btn .btn_enter{float:left;width:71px;height:36px;border-radius:18px;font-weight:bold;font-size:15px;line-height:38px;background-color:#ffaf60;color:#fff}
+.area_reply .list_reply li{position:relative;padding:23px 0 22px 0;border-top:1px solid #efefef; min-height:53px}
+
+
+
+.area_reply .list_reply li:first-child{border-top:0 none}
+.list_reply li:first-child{padding-top:0}
+.area_reply .reply_content{overflow:hidden;display:block}
+.area_reply .tit_nickname{float:left;overflow:hidden;max-width:200px;margin-right:10px;color:#222;white-space:nowrap;text-overflow:ellipsis;font-size:16px}
+.area_reply .tit_nickname a:hover{text-decoration:none}
+.area_reply .txt_date{float:left;margin-top:5px;font-size:12px;color:#a7a7a7}
+.area_reply .txt_reply{display:block;padding-top:4px;font-size:13px;line-height:21px;color:#5c5c5c;clear:both}
+.area_reply .tit_score{display: none;}
+.area_reply .list_reply li.area_more .reply_layer { display:block }
+.area_reply .list_reply li:first-child .reply_layer { top:2px }
+.area_more .reply_layer { position:absolute; right:0px; top:25px }
+.area_more .reply_layer .link_reply { margin:0 2px;font-size:12px;color:#6bacce }
+.area_more .reply_layer .link_reply { text-decoration: none}
+.rating{margin-left: 5px;}
+.area_reply .fld_reply .review_rating .rating .rate_radio {background-color: #ffffff;width:20px;height:20px;cursor: pointer;vertical-align: top;display: none;}
+.area_reply .fld_reply .review_rating .rating .rate_radio + label {display: inline-block;margin-left: -4px;z-index: 10;width: 20px;height: 20px;background-image: url('/img/information/starrate.png');background-repeat: no-repeat;background-size: 20px 20px;cursor: pointer;background-color: #c0c0c0;}
+.area_reply .fld_reply .review_rating .rating .rate_radio:checked + label {background-color: #ffa346;}
+.warning_msg {display: none;}	
+
+@media only screen and (max-width:738px){
+	.area_reply {margin-top:35px}
+	.area_related .link_more {right:15px;top:0}
+	.area_reply .tit_reply {padding:0 15px 8px;font-size:14px;margin:0}
+	.area_reply .list_reply li {padding:13px 15px 12px;min-height:30px}
+	.list_reply .thumb_profile{width:33px;height:33px;margin-right:11px;margin-top:2px;background-position:-120px -20px}
+	.area_reply .reply_content { font-family:applesdgothicneo-light; margin-top:4px }
+	.area_reply .tit_nickname {max-width:120px;margin-right:5px;font-size:14px}
+	.area_reply .txt_reply {line-height:19px;padding-top:2px}
+	.area_reply .txt_date  {font-family:applesdgothicneo-ultralight;margin-top:3px}
+	.area_reply .more_reply {display:block;position:absolute;right:1px;top:0;width:30px;height:45px}
+	.area_reply .ico_more {display:block;width:3px;height:13px;margin:20px auto 0;background-position:-60px 0}
+	.area_reply .list_reply li:first-child .ico_more { margin-top:7px }
+	.area_reply .list_reply .re_reply {padding-left:60px}
+	.area_reply .list_reply li:last-child { padding-bottom:10px }
+	.area_reply .fld_reply {padding:15px 15px 14px;border-bottom:1px solid #efefef;font-family:applesdgothicneo-ultralight}
+	.area_reply .fld_reply { margin-top:2px }
+	.area_reply .lab_write {top:8px;left:14px;font-size:14px}
+    .area_reply .writer_btn {float:none;overflow:hidden;margin-top:11px}
+	.area_reply .writer_btn .btn_enter {float:right;width:65px;height:33px;font-size:14px;line-height:33px}
+}
+
+@media
+only screen and (max-width:320px){
+	.area_reply .tit_nickname {max-width:90px;}
+}
+
+
+@media
+only screen and (min-width:738px) and (max-width:1262px){
+	.area_reply .tit_nickname {font-size:16px}
+	.area_reply .txt_date {margin-top:4px}
+	.area_reply .lab_write {font-size:13px}
+	
+	}
+	

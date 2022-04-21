@@ -38,7 +38,7 @@
 			</tr>		
 		<tr>
         	<c:if test="${vo.reply != null}">
-        		<td>${vo.reply.no}</td>
+        		<td>↪</td>
         		<td><a href="${url}/board/boardList/${vo.reply.no}/reply">[RE]${vo.reply.subject}</a></td>
         	</c:if>
         </tr>
