@@ -18,7 +18,7 @@
 				return false;
 			}
 			if($("#searchWord").val() != ''){
-				window.location.href = "${url}/accommodationPage?pageCount=5&pageNum=1&serachWord=" + searchWord;
+				window.location.href = "${url}/accommodation?pageNo=1&pageCount=8&sigungucode=&searchWord=" + searchWord;
 			}
 		});
 	});
@@ -87,8 +87,8 @@
 							</c:forEach>
 					</select>
 
-					</span> <span> <label for="keywordForm">숙박정보</label> <select
-						name="s_type" id="s_type">
+					</span> <span> <label for="keywordForm">숙박정보</label> 
+					<select>
 							<option value="" selected="">전체</option>
 					</select>
 					</span> <span> <input type="text" name="searchWord" id="searchWord"
@@ -107,12 +107,12 @@
 
 		<div class="grid-container">
 			<c:forEach var="vo" items="${accommoList}">
-			<article id="3685" class="location-listing">
+			<article class="location-listing">
 
-				<a class="location-title" href="#">${vo.get("title")}</a>
+				<a class="location-title" href="/accommodation/${vo.get('contentid')}">${vo.get("title")}</a>
 
 				<div class="location-image">
-					<a href="#"> <img src="${vo.get('firstimage')}"></a>		
+					<img src="${vo.get('firstimage')}">
 				</div>
 				<div>
 					<p>${vo.get("title")}</p>
