@@ -84,8 +84,8 @@ $(function() {
                     <td><textarea cols="100" rows="30"  name="content" id="content">${bvo.content}</textarea></td>
                 </tr>
             </table>
-            <input class="bo__btn__w" type="button" id="btn_edit" value="글 작성">
-            <input class="bo__btn__w" type="button" id="btn_delete" value="삭제하기">
-            <input class="bo__btn__w" type="button" value="취소" onclick="location.href='${url}/board/boardList'">
+            <input class="bo__btn__wa" type="button" id="btn_edit" value="글 작성">
+            <input class="bo__btn__wa" type="button" id="btn_delete" value="삭제하기">
+            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/board/boardList'">
         </form>
     </div>  
