@@ -57,6 +57,7 @@
                     <c:forEach var="vo" items="${accomoList}">
                     <div class="discover__card swiper-slide">
                         <img src="${vo.get('firstimage')}" alt="" class="discover__img">
+
                         <div class="discover__data">
                             <a href="${url}/accommodation"><h2 class="discover__title">${vo.get('title')}</h2></a>
                             <span class="discover__description">${vo.get('addr1')}</span>
@@ -98,8 +99,6 @@
                 </c:forEach>
                 </div>
         </section>
-                
-
             <!--==================== SUBSCRIBE ====================-->
             <section class="subscribe section">
                 <div class="subscribe__bg">
