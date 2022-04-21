@@ -30,7 +30,6 @@ public class HomeController {
     
     @Inject 
     ReviewService reviewService;
-    
     @GetMapping("/")
     public ModelAndView home(){
         ModelAndView mav = new ModelAndView();
