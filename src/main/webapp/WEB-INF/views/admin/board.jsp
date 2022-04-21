@@ -30,7 +30,7 @@
 		</select>
 		<input type="text" name="searchWord" id="searchWord"/>
 		<input type="submit" value="Search" class="bo__btn"/>
-		<button class="bo__btn__w" type="button" onclick="location.href='${url}/board/boardList/form'">공지등록</button>
+		<button class="bo__btn__w" type="button" onclick="location.href='${url}/admin/boardList/form'">공지등록</button>
 		
 	</form>
 </div>
@@ -47,21 +47,21 @@
      	<c:forEach var="vo" items="${noticeList}">
         <tr class="bo__notice">
         		<td >공지</td>
-        		<td>${vo.subject}</td>
+        		<td><a href="${url}/admin/boardList/${vo.no}">${vo.subject}</a></td>
         		<td>${vo.userid}</td>
         </tr>
         </c:forEach>
  		<c:forEach var="vo" items="${boardList}">
          <tr>
             <td>${vo.board.no}</td>
-            <td class="bo__subject"><a href="${url}/board/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
+            <td class="bo__subject"><a href="${url}/admin/boardList/${vo.board.no}"> ${vo.board.subject} </a></td>
             <td>${vo.board.userid}</td>
         </tr>
 
         <tr>
         	<c:if test="${vo.reply != null}">
-        		<td>${vo.reply.no}</td>
-        		<td><a href="${url}/board/boardList/${vo.reply.no}/reply">[RE]${vo.reply.subject}</a></td>
+        		<td>↪</td>
+        		<td><a href="${url}/admin/boardList/${vo.reply.no}/reply">[RE]${vo.reply.subject}</a></td>
         		<td> ${vo.reply.userid}</td>
         	</c:if>
         </tr>
