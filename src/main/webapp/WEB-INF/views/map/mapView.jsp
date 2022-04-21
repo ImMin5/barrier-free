@@ -113,7 +113,49 @@
     $(function () {
         // 웹페이지 로딩시 시작.
         load_map();
-        get_jObj();
+        if(${planner_no} != null)
+    		planner_no = ${planner_no};
+    	console.log("start planner_no -->"+planner_no);
+    	
+    	//trigger 보다 위에 있어야함
+    	
+    	$("#planner_btn").bind("click",function(){
+    		console.log("강제 클릭");
+    		add_planList();
+            remove_tourList(); 
+            add_planListReader();
+            hide_searchFrm();
+            //목록에 저장한게 있으면 불러온다.
+            if(planlistContent != ""){
+            	load_planlistContent();
+            }
+              
+            flag_plan = true;
+            $(this).css("background", "#FAA631")
+            $(this).css("color", "#FFFFFF")
+            $("#list_btn").css("background", "#F2F2F2")
+            $("#list_btn").css("color", "#000000")         
+              
+            console.log("플래너 클릭");
+          	console.log(planSubject_text);
+            console.log(plan_dateFrom)
+            console.log(plan_dateTo)
+          	$("#planSubject_text").val(planSubject_text);
+          	$("#dateFrom").val(plan_dateFrom);
+          	$("#dateTo").val(plan_dateTo);
+          	
+          	load_myplanner();
+          	
+        });
+    	
+  
+        if(planner_no < 0){
+            get_jObj();	
+        }
+        else{
+        	$("#planner_btn").trigger("click");
+        }
+        
 
         // 검색하는 스크립트 ===========================================================
         $("#searchWordSubmit").on("click", function (event) {

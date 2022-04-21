@@ -45,9 +45,20 @@ public class MapAndPlannerController {
 	PlannerService plannerService;
 	
 	@GetMapping("/mapView")
-    public ModelAndView mapView2(HttpSession session){
+    public ModelAndView mapView2(@RequestParam(value="planner_no", required=false) Integer planner_no, HttpSession session){
         String userid = (String)session.getAttribute("logId");
        ModelAndView mav = new ModelAndView();
+       if(planner_no == null) {
+           planner_no = -1;
+       }
+       if(userid != null) {
+           mav.addObject("planner_no", planner_no);
+           mav.addObject("planList", plannerService.plannerSelectById(userid));
+       }
+       else {
+           mav.addObject("planner_no", "-1");
+       }
+       
         mav.setViewName("map/mapView");
         return mav;
     }	
