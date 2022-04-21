@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,11 +61,17 @@ public class BoardController {
     public ModelAndView boardInfoView(@PathVariable(value="no")int no ,HttpSession session) {
     	ModelAndView mav  = new ModelAndView();
     	String userid = (String)session.getAttribute("logId");
+    	String adminStatus = (String)session.getAttribute("adminStatus");
     	try {
     		BoardVO bvo = boardService.boardSelectByNo(no);
-    		
-    		if(bvo.is_notice()) {
+    		if(adminStatus!= null && adminStatus.equals("Y")) {
+    			System.out.println("관리자 접속");
     			mav.addObject("bvo",bvo);
+    			mav.setViewName("community/boardDetail");
+    		}
+    		else if(bvo.is_notice()) {
+    			mav.addObject("bvo",bvo);
+    			mav.addObject("is_notice",true);
     			mav.setViewName("community/boardDetail");
     		}
     		else if(userid != null && !bvo.getUserid().equals(userid)) {
@@ -72,8 +79,12 @@ public class BoardController {
     			mav.setViewName("redirect:/board/boardList");
     		}
     		else if(bvo != null) {
-    			mav.addObject("bvo",bvo);
-    			mav.setViewName("community/boardDetail");
+    			if(userid == null) {
+    				mav.setViewName("redirect:/board/boardList");
+    			}else {
+    				mav.addObject("bvo",bvo);
+        			mav.setViewName("community/boardDetail");
+    			}
     		}
     		else {
     			//게시물이 존재 하지 않을 경우
@@ -109,7 +120,7 @@ public class BoardController {
     	
     }
     //문의사항 수정 뷰
-    @PostMapping("/board/boardList/{no}")
+    @PostMapping("/board/boardList/{no}/edit")
     public ModelAndView boardEditView(@PathVariable(value="no")int no, HttpSession session) {
     	ModelAndView mav = new ModelAndView();
     	try {
@@ -145,7 +156,7 @@ public class BoardController {
 	       }
 	       else {
 	    	   PagingVO pvo = new PagingVO();
-	    	   pvo.setUserid(userid);
+	    	   pvo.setUserid(userid); 
 	           //검색어가 있을 경우
 	           if(!searchWord.equals("")) 
 	           	pvo.setSearchWord(searchWord);
@@ -181,6 +192,7 @@ public class BoardController {
     		}
     		else if(adminStatus.equals("Y")) {
     			//관리자 접근
+    			System.out.println("관리자 접근");
     			mav.addObject("bvoReply",bvoReply);
     			mav.addObject("bvo",bvo);
     			mav.setViewName("/community/boardDetail");
@@ -204,6 +216,18 @@ public class BoardController {
     	
     	return mav;
     }
+    //관리자 공지사항 폼 작성 뷰 
+    @GetMapping("/admin/boardList/form")
+    public ModelAndView adminBoardForm(HttpSession session) {
+    	return boardFormView(session);
+    }
+    //관리자 문의사항 글 상세보기 뷰 
+    @GetMapping("/admin/boardList/{no}")
+    public ModelAndView adminBoardReplyView(@PathVariable(value="no")int no, HttpSession session) {
+    	return boardReplyView(session, no);
+    }
+    
+
     //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
@@ -232,7 +256,10 @@ public class BoardController {
         	
         	if(r> 0) {
         		result.put("msg", "글 작성 성공");
-        		result.put("redirect", "/board/boardList/"+bvo.getNo());
+        		if(mvo.getGrade_member() == 2)
+        			result.put("redirect","/admin/boardList/"+bvo.getNo());
+        		else
+        			result.put("redirect", "/board/boardList/"+bvo.getNo());
         	}
         	else {
         		result.put("msg", "글 작성 실패");
@@ -360,14 +387,14 @@ public class BoardController {
     			bvo.setIp(request.getRemoteAddr());
     			boardService.boardReplyInsert(bvo);
     			result.put("msg", "문의사항 답변 완료");
-    			result.put("redirect", "/admin/board/boardList/"+bvo.getNo());
+    			result.put("redirect", "/admin/boardList/"+bvo.getNo());
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     	}catch(Exception e) {
     		//이미 완료한 답변을 새로 작성하려고 할때
     		e.printStackTrace();
     		result.put("msg", "문의사항 답변 Error...");
-    		result.put("redirect", "/admin/board/boardList");
+    		result.put("redirect", "/admin/boardList");
     		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
     	}
     	
