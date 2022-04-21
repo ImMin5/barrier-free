@@ -83,7 +83,14 @@
 					<th>
 					
 					<div class="review">
-						<div class="title">${vo.title }</div>
+						<div class="title">
+						<c:if test="${vo.contentTypeId == '32'}">
+							<a href="${url }/accommodation/${vo.contentid}">${vo.title }</a>
+						</c:if>
+						<c:if test="${vo.contentTypeId =! '32'}">
+							<a href="${url }/travel_information/${vo.contentid }">${vo.title }</a>
+						</c:if>
+						</div>
 						<div class="rating" data-rate="${vo.score }">
 							<i class="fas fa-star"></i>
 							<i class="fas fa-star"></i>
@@ -97,7 +104,13 @@
 			<tr>
 			
 				<th>
-				<div class="content">${vo.content }
+				<div class="content">
+				<c:if test="${vo.contentTypeId == '32'}">
+					<a href="${url }/accommodation/${vo.contentid}">${vo.content }</a>
+				</c:if>
+				<c:if test="${vo.contentTypeId =! '32'}">
+					<a href="${url }/travel_information/${vo.contentid }">${vo.content }</a>
+				</c:if>
 				</div>
 				</th>
 			</tr>

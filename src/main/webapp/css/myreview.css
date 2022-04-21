@@ -162,3 +162,11 @@
 	margin-top:30px;
 	margin-bottom:15px;
 	}
+	
+.title a{text-decoration: none;}	
+.title a:link{color: #6AC17B;}
+.title a:visited{color: #6AC17B;}
+
+.content a{text-decoration: none;}	
+.content a:link{color: rgb(102,102,102);}
+.content a:visited{color: rgb(102,102,102);}		
