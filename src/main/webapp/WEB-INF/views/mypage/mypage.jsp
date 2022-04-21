@@ -127,7 +127,7 @@
 									<tr>
 									<th>&nbsp;&nbsp;장애 정도</th>
 									<td><select name="grade" id="grade" data-grade="${mvo.grade }" value=${mvo.grade }>
-                      					<optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">
+                      					<optgroup label="맞춤 할인 정보 제공을 위해 선택해주세요">	
                        				      <option value=5>다음에 입력하기</option>
                             			  <option value=1>1등급</option>
                             			  <option value=2>2등급</option>
