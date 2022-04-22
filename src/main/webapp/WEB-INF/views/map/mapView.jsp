@@ -52,7 +52,7 @@
                     </select>
                     <input type="button" id="planListLoad_btn" value="불러오기" />
                     <input type="button" id="planListDelete_btn" name="planListDelete" value="삭제" onclick="del_plan()" />
-                <div class="listPlanContentWrap" id="listPlanContentWrap"></div>
+              
                 </c:if>
                 <!-- 로그아웃 상태일 때 -->
                 <c:if test="${logId == null}">
@@ -603,7 +603,7 @@
             </div>
         `;//);
         //console.log("플래너 선택");
-        $('#listPlanContentWrap').html(plantag);
+        $('#listContentWrap').html(plantag);
         
     }// add_planList()() END
     
