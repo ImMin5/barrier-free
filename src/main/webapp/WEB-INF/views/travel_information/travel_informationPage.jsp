@@ -125,8 +125,8 @@
 				</div>
 				<br/>
 				<div class="review-content">
-
-					</div>
+					<p>★ : ${vo.get("avgScore")}</p>
+				</div>
 			</article>
 			</c:forEach>
 			</div>
