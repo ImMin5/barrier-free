@@ -14,4 +14,12 @@ public class DiscountController {
         mav.setViewName("discount/discountView");
         return mav;
     }
+    
+    @GetMapping("discountDetailView")
+    public ModelAndView discountDetailView(){
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("discount/discountDetailView");
+        return mav;
+    }
 }

@@ -71,7 +71,7 @@
             <!-- 지도타입 컨트롤 div 입니다 -->
             <div class="custom_typecontrol radius_border">
                 <span id="btnRoadmap" class="selected_btn" onclick="setMapType('roadmap')">지도</span>
-                <span id="btnSkyview" class="btn" onclick="setMapType('skyview')">스카이뷰</span>
+                <span id="btnSkyview" class="skybtn" onclick="setMapType('skyview')">스카이뷰</span>
             </div>
             <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
             <div class="custom_zoomcontrol radius_border">
@@ -578,8 +578,8 @@
                             플랜 제목
                         </span>
                         <input type="text" name="planSubject_text" id="planSubject_text" placeholder="제목을 입력해주세요."/>
-                           <a class="btn btn-info"  data-bs-toggle="modal" data-bs-target="#modal_invite" >멤버 초대</a>
-                           <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_del" id="modal_del_btn">멤버 삭제</a>
+                           <a class="btn btn-info" id="invite" data-bs-toggle="modal" data-bs-target="#modal_invite" >멤버 초대</a>
+                           <a class="btn btn-danger" id="invite_del" data-bs-toggle="modal" data-bs-target="#modal_del" id="modal_del_btn">멤버 삭제</a>
                         <input type="hidden" id="planner_no" />
                     </div>
                     <div class="planList">
