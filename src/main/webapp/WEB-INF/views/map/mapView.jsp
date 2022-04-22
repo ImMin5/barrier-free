@@ -6,17 +6,21 @@
 <head>
     <meta charset="UTF-8">
     <title>map</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <c:set var="url" value="<%=request.getContextPath()%>" />
     <link rel="stylesheet" href="${url}/css/mapstyle.css">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
+    <script type="text/javascript" src="${url}/js/ai_api.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
     <script type="text/javascript" src="${url}/js/ai_api.js"></script>
     
 </head>
 
-<body>
     <div id="listWrap">
         <!-- 리스트 -->
         <div id="list">
@@ -41,14 +45,13 @@
                         플랜 목록
                     </span>
                     <select name="planReadSelect" id="planReadSelect" class="planReadSelect">
+                    		  <option value=-1>여행을 선택해 주세요</option>
                         <c:forEach var="vo" items="${planList}">
                             <option value="${vo.no}">${vo.title}</option>
                         </c:forEach>
                     </select>
-                    
                     <input type="button" id="planListLoad_btn" value="불러오기" />
                     <input type="button" id="planListDelete_btn" name="planListDelete" value="삭제" onclick="del_plan()" />
-                
                 </c:if>
                 <!-- 로그아웃 상태일 때 -->
                 <c:if test="${logId == null}">
@@ -77,60 +80,60 @@
             </div>
         </div>
     </div>
+   
+    <div style="width: 100px; height:1250px"></div>
+    
+   <!-- Modal -->
+   <div class="modal fade" id="modal_invite" tabindex="-1" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title">멤버 초대 </h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class="input-group mb-3">
+               <input type="text" class="form-control" id="modal_invite_userid" placeholder="아이디 입력" maxlength="20">
+            </div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn" data-bs-dismiss="modal">닫기</button>
+           <button type="button" id="modal_btn_invite" class="btn">초대하기</button>
+         </div>
+       </div>
+     </div>
+   </div>
+   
+   <!-- Modal -->
+   <div class="modal fade" id="modal_del" tabindex="-1" aria-hidden="true">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title">여행 동행인 목록</h5>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body">
+            <div class="table-responsive">
+			 <table class="table">
+			   <thead>
+			   	<tr>
+			   		<th>이름</th>
+			   		<th>비교</th>
+			   </tr>
+			   </thead>
+			   <tbody id="modal_table">
+			   
+			   </tbody>
+			 </table>
+			</div>
+         </div>
+         <div class="modal-footer">
+           <button type="button" class="btn" id="modal_close_btn" data-bs-dismiss="modal">닫기</button>
+         </div>
+       </div>
+     </div>
+   </div>
 
-    <!-- The Modal -->
-    <!-- 
-    <div id="Modal">
-        <h2>Lorem Ipsum</h2>
-        <div id="lorem-ipsum"></div>
-    </div>
-    <div id="modal" class="modal-overlay">
-        <div class="modal-window">
-            <div class="title">
-                <h2>모달</h2>
-            </div>
-            <div class="close-area">X</div>
-            <div class="content">
-                <p>가나다라마바사 아자차카타파하</p>
-                <p>가나다라마바사 아자차카타파하</p>
-                <p>가나다라마바사 아자차카타파하</p>
-                <p>가나다라마바사 아자차카타파하</p>
-                
-            </div>
-        </div>
-    </div>
-    
-     -->
-    
-    
-    <!-- 
-    <div id="myModal" class="modal" >
-        Modal content
-        <div class="modal-content">
-            <p style="text-align: center;"><span style="font-size: 14pt;"><b><span
-                            style="font-size: 24pt;">공지</span></b></span></p>
-            <p style="text-align: center; line-height: 1.5;"><br /></p>
-            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">사이트 서버 점검으로</span>
-            </p>
-            <p style="text-align: center; line-height: 1.5;"><b><span
-                        style="color: rgb(255, 0, 0); font-size: 14pt;">10:00 - 18:00 까지</span></b></p>
-            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">사이트 사용이 중지
-                    됩니다.</span></p>
-            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;"><br /></span></p>
-            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">이용에 불편을 드린 점 양해를
-                </span></p>
-            <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">부탁드립니다.</span></p>
-            <p style="text-align: center; line-height: 1.5;"><br /></p>
-            <p><br /></p>
-            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
-                onClick="close_pop();">
-                <span class="pop_bt" style="font-size: 13pt;">
-                    닫기
-                </span>
-            </div>
-        </div>
-    </div>
-    -->
 </body>
 <script>
 	
@@ -153,7 +156,7 @@
     let planSubject_text;
     let plan_dateFrom;
     let plan_dateTo;
-    let jobj_planner; // 여행 목록에 있는 마커 생성을 위한 데이터
+    let jobj_planner = ""; // 여행 목록에 있는 마커 생성을 위한 데이터
 
     let planner_no = -1 // -1 : 불러온 여행 계획이 없음
 
@@ -170,26 +173,31 @@
 
     //지도 타입
     let currentTypeId;
-
+    
+    let modal;
 
     $(function () {
         // 웹페이지 로딩시 시작.
+        
         load_map();
+        
+        
+        
         if(${planner_no} != null)
-    		planner_no = ${planner_no};
-    	console.log("start planner_no -->"+planner_no);
-    	
-    	//trigger 보다 위에 있어야함
-    	
-    	$("#planner_btn").bind("click",function(){
-    		console.log("강제 클릭");
-    		add_planList();
+          planner_no = ${planner_no};
+       console.log("start planner_no -->"+planner_no);
+       //trigger 보다 위에 있어야함
+       
+       $("#planner_btn").bind("click",function(){
+          console.log("강제 클릭");
+          add_planList();
             remove_tourList(); 
             add_planListReader();
             hide_searchFrm();
             //목록에 저장한게 있으면 불러온다.
             if(planlistContent != ""){
-            	load_planlistContent();
+               load_planlistContent();
+               make_ordering();
             }
               
             flag_plan = true;
@@ -199,23 +207,23 @@
             $("#list_btn").css("color", "#000000")         
               
             console.log("플래너 클릭");
-          	console.log(planSubject_text);
+             console.log(planSubject_text);
             console.log(plan_dateFrom)
             console.log(plan_dateTo)
-          	$("#planSubject_text").val(planSubject_text);
-          	$("#dateFrom").val(plan_dateFrom);
-          	$("#dateTo").val(plan_dateTo);
-          	
-          	load_myplanner();
-          	
+             $("#planSubject_text").val(planSubject_text);
+             $("#dateFrom").val(plan_dateFrom);
+             $("#dateTo").val(plan_dateTo);
+             
+             load_myplanner();
+             
         });
-    	
+       
   
         if(planner_no < 0){
-            get_jObj();	
+            get_jObj();   
         }
         else{
-        	$("#planner_btn").trigger("click");
+           $("#planner_btn").trigger("click");
         }
         
 
@@ -227,6 +235,25 @@
                 return;
             }
 
+            event.preventDefault();
+            if (flag_plan) save_planlistContent(); // 플래너의 html 목록 저장
+            if ($("#searchWord").val() == "") {
+                alert("검색어를 입력하세요.");
+                return false;
+            }
+            if ($("#searchWord").val() != '') {
+                searchWord = $("#searchWord").val();
+                get_jObj(pageNo, pageCount, searchWord);
+            }
+        });
+        
+        // 검색하는 스크립트 ===========================================================
+        $("#searchWordSubmit").on("click", function (event) {
+            // 여행 플래너에서 검색을 할때 
+            if (flag_plan) {
+                alert("목록으로 이동해 주세요.");
+                return;
+            }
             event.preventDefault();
             if (flag_plan) save_planlistContent(); // 플래너의 html 목록 저장
             if ($("#searchWord").val() == "") {
@@ -262,7 +289,7 @@
                 $("#planner_btn").css("background", "#F2F2F2")
                 $("#planner_btn").css("color", "#000000")
 
-                make_ordering();
+                //make_ordering();
             }
         });
 
@@ -273,27 +300,37 @@
                 remove_tourList();
                 add_planListReader();
                 hide_searchFrm();
-
+               
+                
+                
                 //목록에 저장한게 있으면 불러온다.
                 if (planlistContent != "") {
                     load_planlistContent();
+                    make_ordering(); 
                 }
+                modal = document.getElementById("modal");
+                
+                window.onload = function(){
+                   var btnModal = document.getElementById("btn-modal");
+                   btnModal.addEventListener('click', function(){
+                      console.log("클릭클릭");
+                      modal.style.display = "flex";
+                   })
+               }
 
                 flag_plan = true;
                 $(this).css("background", "#FAA631")
                 $(this).css("color", "#FFFFFF")
                 $("#list_btn").css("background", "#F2F2F2")
                 $("#list_btn").css("color", "#000000")
-
+                 
                 console.log("플래너 클릭");
                 console.log(planSubject_text);
-                console.log(plan_dateFrom)
-                console.log(plan_dateTo)
-
+                console.log(plan_dateFrom);
+                console.log(plan_dateTo);
                 $("#planSubject_text").val(planSubject_text);
                 $("#dateFrom").val(plan_dateFrom);
                 $("#dateTo").val(plan_dateTo);
-
                 make_ordering();
             }
         });
@@ -375,43 +412,87 @@
                 }
             });
         });
+        
+        $(document).on("click","#modal_btn_invite",function(){
+            var url = "${url}/planView/member";
+             //console.log(url);d
+             console.log("add meme");
+            
+            var planner_no = $("#planReadSelect").val();
+            var useridInvite = $("#modal_invite_userid").val();
+            if(planner_no <0 ) return;
+             $.ajax({
+                 url: url,
+                 type: "POST",
+                 dataType: "JSON",
+                 data: {
+                    planner_no: planner_no,
+                     useridInvite:useridInvite,
+                 },
+                 success: function (result) {
+                     alert(result.msg);
+                 },
+                 error: function (error) {
+                     console.log(error.responseJSON);
+                     alert(error.responseJSON.msg);
+                 }
+             });
+           
+        });
+        
+        
+        //멤버삭제 클릭 시 
+        $(document).on("click","#modal_del_btn",function(){
+        	if( $("#planSubject_text").val() == "") {
+        		return;
+        	}
+        	var url ="${url}/planView/memberList";
+        	var planner_no = parseInt($("#planReadSelect").val());
+        	
+        	console.log("planner_no :" + planner_no);
+        	$.ajax({
+        		url : url,
+        		type : "POST",
+        		data :{
+        			planner_no : planner_no,
+        		},
+        		success : function(data){
+        			console.log(data);
+        			for(var i =0; i<data.length; i++){
+        				$("#modal_table").append("`<tr id='tr_"+data[i]+"' name='tr'><th>"+data[i]+"</th><th><button class='btn' name='modal_member_delete' data-planner_no="+planner_no+" data-userid='"+data[i]+"'>삭제</button></th><tr>`");
+        			}
+        			
+        		},error : function(error){
+        			console.log(error);
+        		}
+        	})
+        });
+        // 모달 닫기 누를 경우 테이블 초기화
+        $(document).on("click","#modal_close_btn",function(){
+        	$("tr[name=tr]").remove();
+        });
+        
+        //모달에서 삭제 버튼 클릭시 
+        $(document).on("click","button[name=modal_member_delete]",function(){
+        	var planner_no = $(this).attr("data-planner_no");
+        	var userid = $(this).attr("data-userid");
+        	var url ="${url}/planView/member";
+        	$.ajax({
+        		url : url,
+        		type : "DELETE",
+        		data :{
+        			planner_no : planner_no ,
+        			useridDelete : userid,
+        		},success : function(data){
+        			alert(data.msg);
+        			console.log(data);
+        			$("#tr_"+userid).remove();
+        		}
+        	})
+        })
+        
     });// $(function) END
-	
-    //동행자 추가 모달창
-    
-    //팝업 보이기 기능
-    function open_pop(flag) {
-         $('#myModal').show();
-         /*var url = "${url}/planView/member";
-         console.log(url);
-         $.ajax({
-             url: url,
-             type: "POST",
-             dataType: "JSON",
-             data: {
-                 no: planner_no,
-             },
-             success: function (result) {
-                 alert(result.msg);
-                 window.location.href = result.redirect;
-             },
-             error: function (error) {
-                 console.log(error.responseJSON);
-                 alert(error.responseJSON.msg);
-                 window.location.href = error.responseJSON.redirect;
-             }
-         });*/
-         
-         
-    };
-    
-    
-    //팝업 숨기기 기능
-    function close_pop(flag) {
-         $('#myModal').hide();
-    };
-    
-
+   
     //1. 맵의 리스트를 가져와 jobj에 데이터 넣어줌   
     function get_jObj() {
         var url = "${url}/mapInfo"
@@ -429,9 +510,7 @@
                 remove_marker();
                 show_map(jobj);
 
-                if (jobj_planner === undefined) {
-                }
-                else {
+               if(jobj != ""){
                     //플래너 목록 생성을 위한 데이터가 있을 경우
                     console.log("jobj planner--> ", jobj_planner);
                     show_map(jobj_planner);
@@ -442,7 +521,7 @@
             }
         })
     }
-
+    
     // 리스트 만들기 ===========================================================
     function make_list() {
         tag = '<ul class="listContent" id="listContent">';
@@ -484,22 +563,23 @@
             //var contentid = value.attr("data-contentid");
             //$("#seq_"+contentid).attr("data-seq",(i+1));
             value.setAttribute("data-seq", i + 1);
-            value.value = (i + 1);
+            value.setAttribute("value",i+ 1);
         });
     }
-
+    
     // 플래너 생성 ===========================================================
     function add_planList() {
-        var plantag = `    	
+        var plantag = `       
             <div class="myplan">
-                <form method="post" action="/planView" name="planFrm" id="planFrm" onsubmit="return ()">
+                <form name="planFrm" id="planFrm" onsubmit="return false">
                     <div class="planSubject">
                         <span style="color:#474747;">
                             <img alt="" src="../../img/map/map_18.png" >
                             플랜 제목
                         </span>
                         <input type="text" name="planSubject_text" id="planSubject_text" placeholder="제목을 입력해주세요."/>
-                        <button class="companion" id="companion" onclick="open_pop()">동행자 추가 +</button>
+                           <a class="btn btn-info"  data-bs-toggle="modal" data-bs-target="#modal_invite" >멤버 초대</a>
+                           <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_del" id="modal_del_btn">멤버 삭제</a>
                         <input type="hidden" id="planner_no" />
                     </div>
                     <div class="planList">
@@ -523,13 +603,23 @@
         `;//);
         //console.log("플래너 선택");
         $('#listContentWrap').html(plantag);
+        
     }// add_planList()() END
+    
+    
+    
+    //동행자 추가 버튼 클릭시 planView로 가지 않고 mapView로 가게 하기
+    /*function mapViewGo(frm) { 
+        frm.action='/mapView'; 
+        frm.submit(); 
+        return true; 
+      } */
 
     // 플래너 추가하기 버튼으로 생성되는 플래너 ===========================================================
     function addPlanner(data) {
                 var addplantag = `
             <div id="planlistContent" name="planlistContent">
-                <input type="text" name="seq" id="seq">
+                <input type="text" name="seq" id="seq"  readonly>
                 <input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
                 <div class="planTitle" id="planTitle">${'${data.title}'}</div>
                     <ul>
@@ -544,9 +634,8 @@
                     <img src="../../img/map/map_33.png" alt="위로 올리기" id="planUp" />
                     <img src="../../img/map/map_34.png" alt="아래로 내리기" id="planDown" />
                 </div>
-                <img src="../../img/map/map_32.png" alt="플래너 삭제" id="planDel" />
+                <img src="../../img/map/map_32.png" alt="플래너 삭제" id="planDel" onclick="readPlanDel()"; />
             </div>
-            
         `;
         //console.log("data====>>>" , data);
         $('#planlistContentBG').append(addplantag);
@@ -557,25 +646,31 @@
         var addplantag = `
             <div id="planlistContent" name="planlistContent">
                 <input type="text" name="seq" id="seq" value=${'${data.seq}'} data-seq=${'${data.seq}'} readonly>
-            <input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
-            <div class="planTitle" id="planTitle" value=${'${data.title}'}>${'${data.title}'}</div>
-                <ul>
-                    <li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
-                    <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
-                </ul>
-                <div class="planListImg">
-                    <img src=${'${data.firstimage}'} >
-                </div>
-                <div class="planArrow">
-                    <img src="${url}/img/map/map_33.png" alt="위로 올리기" id="planUp" />
-                    <img src="${url}/img/map/map_34.png" alt="아래로 내리기" id="planDown" />
-                </div>
-                    <img src="${url}/img/map/map_32.png" alt="플래너 삭제" id="planDel" />
+               <input type="hidden" name="contentid" id="contentid" value=${'${data.contentid}'}>
+                  <div class="planTitle" id="planTitle" value=${'${data.title}'}>${'${data.title}'}</div>
+                   <ul>
+                       <li class="planAddr plan_scroll" >${'${data.addr1}'}</li>
+                       <li class="planOverview plan_scroll" >${'${data.overview}'}</li>
+                   </ul>
+                   <div class="planListImg">
+                       <img src=${'${data.firstimage}'} >
+                   </div>
+                   <div class="saveplanArrow">
+                       <img src="${url}/img/map/map_33.png" alt="위로 올리기" id="savePlanUp" />
+                       <img src="${url}/img/map/map_34.png" alt="아래로 내리기" id="savePlanDown" />
+                   </div>
+                      <img src="../../img/map/map_32.png" alt="플래너 삭제" id="savePlanDel" onclick="readPlanDel()"; />
+                   </div>
             </div>
         `;
         $('#planlistContentBG').append(addplantag);
     }// readPlanner(data) END   
 
+    //불러온 플래너 삭제하기
+    function readPlanDel(){
+       $("#planlistContent").remove();
+       make_ordering();
+    }
 
     // 플래너 날짜 ===========================================================
     // 날짜 유효성 검사 
@@ -716,8 +811,11 @@
     // load_planlistContent ===========================================================
     function load_planlistContent() {
         $("#planlistContentBG").append(planlistContent);
+        console.log("불러오기 ->",planlistContent);
 
     }
+    
+
 
 
     //여행 계획 저장 및 수정
@@ -725,6 +823,9 @@
     function save_plan() {
         var type = "";
         //전역변수 planner_no가 있을 경우 수정 , 없을 경우 저장
+        var planner_no = $("#planReadSelect").val();
+        console.log("planReadSelect의 planner_no : " + planner_no);
+        if(planner_no == null ) planner_no = -1;
         if (planner_no >= 0) {
             console.log("여행 계획 수정")
             type = "PUT";
@@ -763,8 +864,10 @@
                 //저장 혹은 수정을 하면 여행 계획의 no값을 저장
                 planner_no = data.planner_no;
                 $("#planner_no").val(data.planner_no);
-                $("#start_date").val(data.start_date);
-                $("#end_date").val(data.end_date);
+                $("#dataFrom").val(data.start_date);
+                $("#dateTo").val(data.end_date);
+                get_plannertitle();
+             
             },
             error: function (error) {
                 alert("로그인 후 이용해 주세요.");
@@ -772,6 +875,87 @@
             }
         })
     }
+    
+    //수정 삭제후 타이틀을 업데이트 해줌
+    function get_plannertitle(){
+    	var url ="${url}/planView/plannerList";
+    	$.ajax({
+    		url : url ,
+    		type : "POST",
+    		success : function(data){
+    			console.log(data.length);
+    			$("#planReadSelect > option").remove();
+    			data.forEach(function(obj, i){
+    				console.log("obj =>"+obj.title);
+    				if(i==0){
+    					 $("#planReadSelect").append(`<option value=-1>여행을 선택해 주세요.</option>`);
+    				} 
+    				if($("#planSubject_text").val() == obj.title){
+    					$("#planReadSelect").append("<option value='"+obj.no+"'selected>"+obj.title+"</option>");
+    				}else{
+    					$("#planReadSelect").append("<option value='"+obj.no+"'>"+obj.title+"</option>");	
+    				}
+    				 
+    			});
+    			
+    			
+    		}
+    	});
+    }
+    //
+
+    //여행 계획 삭제
+    //del_plan ===========================================================
+    //planListDelete_btn
+    function del_plan() {
+        var url = "${url}/planView";
+        //console.log(url);
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            dataType: "JSON",
+            data: {
+                no: planner_no,
+            },
+            success: function (result) {
+                alert(result.msg);
+                window.location.href = result.redirect;
+            },
+            error: function (error) {
+                console.log(error.responseJSON);
+                alert(error.responseJSON.msg);
+                window.location.href = error.responseJSON.redirect;
+            }
+        });
+    }
+    
+     //동행자 추가
+    function add_mem() {
+        var url = "${url}/planView/member";
+        //console.log(url);d
+        console.log("add meme");
+        return;
+       //var planner_no = 1;  
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "JSON",
+            data: {
+                no: planner_no,
+                userid:useridInvite,
+            },
+            success: function (result) {
+                alert(result.msg);
+                window.location.href = result.redirect;
+            },
+            error: function (error) {
+                console.log(error.responseJSON);
+                alert(error.responseJSON.msg);
+                window.location.href = error.responseJSON.redirect;
+            }
+        });
+    }
+
 
     //여행 계획 삭제
     //del_plan ===========================================================
@@ -858,13 +1042,14 @@
                 console.log("prev jobj_planner", jobj_planner);
                 //jobj에 저장하여 마커에 표시하기 위함
                 jobj = JSON.parse(data);
-                //jobj_planner = JSON.parse(data);
+                jobj_planner = JSON.parse(data);
 
                 console.log("after jobj", jobj);
                 console.log("after jobj_planner", jobj_planner);
                 //이전 여행기록 지워야됨
 
                 show_map(jobj);//마커 표시
+                make_ordering();
 
                 for (var i = 0; i < jobj.length; i++) {
                     //플래너 목록에 추가 
@@ -875,6 +1060,7 @@
             }
         })
     }
+    
 
     $(document).on("click", "#planListLoad_btn", function () {
         planner_no = $("#planReadSelect").val();
@@ -911,7 +1097,7 @@
             //console.log("마커 생성1");
             positions.push({
                 index: index,
-                contentid: jobj[index].contentid,
+                contentid: items[index].contentid,
                 title: items[index].title,
                 // 수정 자리
                 img: items[index].firstimage,
@@ -1062,39 +1248,4 @@
         }// displayMarker(data) END
     }
 </script>
-<script>
-    /*const loremIpsum = document.getElementById("lorem-ipsum")
-    fetch("https://baconipsum.com/api/?type=all-meat&paras=200&format=html")
-    .then(response => response.text())
-    .then(result => loremIpsum.innerHTML = result)
-	const modal = document.getElementById("modal")
-	function modalOn() {
-	    modal.style.display = "flex"
-	}
-	function isModalOn() {
-	    return modal.style.display === "flex"
-	}
-	function modalOff() {
-	    modal.style.display = "none"
-	}
-	const btnModal = document.getElementById("btn-modal")
-	btnModal.addEventListener("click", e => {
-	    modalOn()
-	})
-	const closeBtn = modal.querySelector(".close-area")
-	closeBtn.addEventListener("click", e => {
-		modal.style.display = "none"
-	})
-	modal.addEventListener("click", e => {
-	    const evTarget = e.target
-	    if(evTarget.classList.contains("modal-overlay")) {
-	        modalOff()
-	    }
-	})
-	window.addEventListener("keyup", e => {
-	    if(isModalOn() && e.key === "Escape") {
-	        modalOff()
-	    }
-	})*/
-</script>
-</html>
+
