@@ -33,7 +33,8 @@ body {
 }
 
 .icontent {
-	width:100%;
+	margin-left: 20%;
+	width:60%;
 	margin-bottom: 100px;
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -75,7 +76,8 @@ body {
 }
 .bbox {
 	margin-bottom:150px;
-	width: 100%;
+	margin-left: 20%;
+	width: 60%;
 	height: 300px;
 	overflow:hidden;
 	border-style: outset;
