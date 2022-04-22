@@ -35,13 +35,13 @@ public class TransportationController {
 
 	//운행수단 리스트
 	
-	@GetMapping("transportationList")
+	@GetMapping("transportationView")
 	public ModelAndView transportationList() {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("lst", service.transportationSelectAll());
-		System.out.println("성공");
-		mav.setViewName("//");
+		System.out.println("성공 운행기간");
+		mav.setViewName("/transportation/transportationView");
 		return mav;
 	}
 	
@@ -49,7 +49,7 @@ public class TransportationController {
 	@GetMapping("transportationWrite")
 	public ModelAndView transportationWrite() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("");
+		mav.setViewName("transportationWrite");
 		return mav;
 	}
 	
@@ -85,21 +85,43 @@ public class TransportationController {
 		return entity;
 	}
 	
-	//운행수단 정보 상세보기
-	@GetMapping("/transportation/transportationView")
-	public ModelAndView view(int no) {
+	//운행수단 정보 상세보기 (1) 버스
+	@GetMapping("/transportation/bus")
+	public ModelAndView bus(int no) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("transportationVO", service.transportationView(no));
-		mav.setViewName("");
+		mav.setViewName("/transportation/bus");
 		return mav;
 	}
+	//운행수단 정보 상세보기 (2) 비행기
+	@GetMapping("/transportation/plane")
+	public ModelAndView plane(int no) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("transportationVO", service.transportationView(no));
+		mav.setViewName("/transportation/plane");
+		return mav;
+	}
+	//운행수단 정보 상세보기 (3) 택시
+	@GetMapping("/transportation/taxi")
+	public ModelAndView taxi(int no) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("transportationVO", service.transportationView(no));
+		mav.setViewName("/transportation/taxi");
+		return mav;
+	}
+	
+	
+	
+	
+	
+	
 	//수정하기 뷰
 	@GetMapping("transportationEdit")
 	public ModelAndView transportationEdit(int no) {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("vo", service.transportationSelect(no));
-		mav.setViewName("");
+		mav.setViewName("transportationEdit");
 		
 		return mav;
 	}
