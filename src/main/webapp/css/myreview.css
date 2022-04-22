@@ -113,17 +113,19 @@
 	font-size:0.8em;
 }
 .title{
-	float:left;
-	margin-left:160px;
+	margin-left:50px;
 	color:#6AC17B;
 	font-size:1.4em;
 }
 .review{
-	margin-left:120px;
+	margin-left:140px;
 	
 	
 }
-.rating{font-size:1.2em;}
+.rating{
+	font-size:1.2em;
+	margin-left:50px;
+}
 .content{
 	width:400px;
 	height:200px;
