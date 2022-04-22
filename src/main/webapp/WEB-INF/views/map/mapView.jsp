@@ -444,7 +444,7 @@
         
         
         //멤버삭제 클릭 시 
-        $(document).on("click","#modal_del_btn",function(){
+        $(document).on("click","#invite_del",function(){
         	if( $("#planSubject_text").val() == "") {
         		return;
         	}
@@ -459,7 +459,7 @@
         			planner_no : planner_no,
         		},
         		success : function(data){
-        			console.log(data);
+        			console.log(data.userid);
         			for(var i =0; i<data.length; i++){
         				$("#modal_table").append("`<tr id='tr_"+data[i]+"' name='tr'><th>"+data[i]+"</th><th><button class='btn' name='modal_member_delete' data-planner_no="+planner_no+" data-userid='"+data[i]+"'>삭제</button></th><tr>`");
         			}
