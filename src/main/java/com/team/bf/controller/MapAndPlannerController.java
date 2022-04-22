@@ -124,14 +124,16 @@ public class MapAndPlannerController {
         for(int i=0; i<jsonArray.length(); i++){
            String cid = jsonArray.getJSONObject(i).get("contentid").toString();
            JSONObject Opt = openApiService.detailCommon(cid,areaCode);
-           jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
-           jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
-           jsonArray.getJSONObject(i).put("firstimage",Opt.has("firstimage") ? Opt.get("firstimage").toString() : "");
-           jsonArray.getJSONObject(i).put("firstimage2",Opt.has("firstimage2") ? Opt.get("firstimage2").toString() : "");
-           if(Opt.has("homepage"))
-              jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
-           else
-              jsonArray.getJSONObject(i).put("homepage", "");
+           if(Opt != null) {
+        	   jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
+               jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
+               jsonArray.getJSONObject(i).put("firstimage",Opt.has("firstimage") ? Opt.get("firstimage").toString() : "");
+               jsonArray.getJSONObject(i).put("firstimage2",Opt.has("firstimage2") ? Opt.get("firstimage2").toString() : "");
+               if(Opt.has("homepage"))
+                  jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
+               else
+                  jsonArray.getJSONObject(i).put("homepage", "");
+           }
            jsonArray.getJSONObject(i).put("likeCount", likeService.likeSelectAll(cid));
            jsonArray.getJSONObject(i).put("heartCount", heartService.heartSelectAll(cid));
            jsonArray.getJSONObject(i).put("reviewCount", reviewService.reviewSelectByContentid(cid).size());

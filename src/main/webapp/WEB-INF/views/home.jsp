@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="../../css/home.css">
+<link rel="stylesheet" href="${url}/css/home.css">
 
     <main class="main">
         <!--==================== HOME ====================-->
         <section class="home" id="home">
-            <img src="../../img/home/jeju_03.jpg" alt="" class="home__img">
+            <img src="${url}/img/home/jeju_03.jpg" alt="" class="home__img">
 
             <div class="home__container container grid">
                 <div class="home__data">
@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="home__info-overlay">
-                        <img src="../../img/home/jeju_02.jpg" alt="" class="home__info-img">
+                        <img src="${url}/img/home/jeju_02.jpg" alt="" class="home__info-img">
                     </div>
                 </div>
             </div>
@@ -37,12 +37,12 @@
                     <h2 class="section__title about__title"> 아름다운 제주 해변과 함께 🌊🌊</h2>
                     <p class="about__description"> 편안한 여행을 위한 <br> 계획을 짜보세요
                     </p>
-                    <a href="/mapView" class="button">제주 여행 지도 보러가기</a>
+                    <a href="${url}/mapView" class="button">제주 여행 지도 보러가기</a>
                 </div>
 
                 <div class="about__img">
                     <div class="about__img-overlay">
-                        <img src="${$}/img/home/jeju.jpeg" alt="" class="about__img-one">
+                        <img src="${url}/img/home/jeju.jpeg" alt="" class="about__img-one">
                     </div>
                 </div>
             </div>
