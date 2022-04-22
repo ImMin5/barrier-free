@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.team.bf.vo.PlannerLocationVO;
+import com.team.bf.vo.PlannerMemberVO;
 import com.team.bf.vo.PlannerVO;
 
 @Mapper
@@ -26,4 +27,6 @@ public interface PlannerDAO {
 	public int plannerMemberInsert(int planner_no, String userid);
 	public int plannerMemberDeleteByNo(int no);
 	public List<String> plannerLocationSelectByNo(int no);
+	public PlannerMemberVO plannerMemberSelectById(int planner_no, String userid);
+	
 }

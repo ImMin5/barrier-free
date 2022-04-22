@@ -42,6 +42,7 @@ public class TourLocationController {
         List<JSONObject> tourList = openApiService.searchKeyword(pageNo, pageCount,contentTypeId,searchWord,sigunguCode);
         for(JSONObject jObj : tourList) {
         	JSONObject Opt = openApiService.detailCommon(jObj.get("contentid").toString(),areaCode);
+        	if(Opt == null)break;
         	String cid = jObj.get("contentid").toString();
         	jObj.put("title",Opt.get("title").toString());
         	jObj.put("overview",Opt.get("overview").toString());

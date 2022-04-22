@@ -80,7 +80,7 @@
   	<!--   Planner에 seq랑 contentid담기 end  -->
   	<select id="plannerMemberSelectByNo" resultType="String">
   		select userid from planner_member
-  		where no=${param1}
+  		where planner_no=${param1}
   	</select>
   	<select id="plannerMemberSelectByNoId" resultType="int">
   		select count(userid) from planner_member
@@ -94,5 +94,8 @@
   	</delete>
   	<select id="plannerLocationSelectByNo" resultType="String">
   		select contentid from planner_location where planner_no=${param1}
+  	</select>
+  	<select id="plannerMemberSelectById" resultType="com.team.bf.vo.PlannerMemberVO">
+  		select userid , no, planner_no from planner_member where planner_no=${param1} and userid=#{param2}
   	</select>
   </mapper>
