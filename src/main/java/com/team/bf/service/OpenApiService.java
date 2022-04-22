@@ -147,7 +147,7 @@ public class OpenApiService {
            // urlBuilder.append("&" + URLEncoder.encode("listYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); 
             urlBuilder.append("&" + URLEncoder.encode("arrange","UTF-8") + "=" + URLEncoder.encode("P", "UTF-8")); /*  (A=제목순, B=조회순, C=수정일순, D=생성일순) 대표이미지가 반드시 있는 정렬 (O=제목순, P=조회순, Q=수정일순, R=생성일순)*/
             if(!sigunguCode.equals("")) {
-            	System.out.println("시군구");
+            	//System.out.println("시군구");
             	urlBuilder.append("&" + URLEncoder.encode("sigunguCode","UTF-8") + "=" + URLEncoder.encode(sigunguCode, "UTF-8"));
             }
             //모든 관광지를 조회할 시
@@ -155,7 +155,7 @@ public class OpenApiService {
             	urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /* 관광지 12, 문화시설 14, 행사/공연/축제 15 , 레포츠 28, 숙박32, 쇼핑 38*/
             else if(contentTypeId.equals("12")) {
             	String str = "28";
-            	System.out.println("1212");
+            	//System.out.println("1212");
             	urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8"));
             	contentTypeId ="28";
             	urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8"));
@@ -325,7 +325,7 @@ public class OpenApiService {
             rd.close();
             conn.disconnect();
             json = XML.toJSONObject(sb.toString());
-            //System.out.println(json.toString());
+           //System.out.println(json.toString());
             totalCount = json.getJSONObject("response").getJSONObject("body").getInt("totalCount");
             
             if(totalCount > 0){
