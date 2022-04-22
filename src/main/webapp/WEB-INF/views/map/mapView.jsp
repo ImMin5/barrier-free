@@ -52,6 +52,7 @@
                     </select>
                     <input type="button" id="planListLoad_btn" value="불러오기" />
                     <input type="button" id="planListDelete_btn" name="planListDelete" value="삭제" onclick="del_plan()" />
+                <div class="listPlanContentWrap" id="listPlanContentWrap"></div>
                 </c:if>
                 <!-- 로그아웃 상태일 때 -->
                 <c:if test="${logId == null}">
@@ -146,7 +147,7 @@
     let map;
     let clickedOverlay = null;
     let pageNo = "1";
-    let pageCount = "2";
+    let pageCount = "10";
     let searchWord = "";
 
     let seqList = [];
@@ -602,7 +603,7 @@
             </div>
         `;//);
         //console.log("플래너 선택");
-        $('#listContentWrap').html(plantag);
+        $('#listPlanContentWrap').html(plantag);
         
     }// add_planList()() END
     
@@ -716,7 +717,7 @@
             alert("해당 기간의 조회가 불가능합니다."); 
             return false; 
         }*/
-        if (start_date >= end_date) {
+        if (start_date <= end_date) {
             alert("해당 기간은 가능합니다.");
         } else {
             alert("해당 기간의 조회가 불가능합니다.\n다시 선택해주세요");
