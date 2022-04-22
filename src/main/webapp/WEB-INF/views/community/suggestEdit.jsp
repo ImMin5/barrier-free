@@ -86,7 +86,7 @@ $(function() {
             </table>
             <input class="bo__btn__wa" type="button" id="btn_edit" value="글 작성">
             <input class="bo__btn__wa" type="button" id="btn_delete" value="삭제하기">
-            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/suggest/suggestList'">
+            <input class="bo__btn__wa" type="button" value="취소" onclick="location.href='${url}/suggest'">
         </form>
 
     </div>  

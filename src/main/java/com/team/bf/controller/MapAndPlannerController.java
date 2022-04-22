@@ -118,7 +118,7 @@ public class MapAndPlannerController {
        
         System.out.println(pageNo + " " + pageCount);
         if(pageNo == null) pageNo = "1";
-        if(pageCount == null) pageCount = "2";
+        if(pageCount == null) pageCount = "10";
         if(searchWord == null) searchWord = "";
         JSONArray jsonArray = openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord); 
         for(int i=0; i<jsonArray.length(); i++){

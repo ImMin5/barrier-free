@@ -34,7 +34,7 @@ public class TourLocationController {
     public ModelAndView travelInfo(@RequestParam(value = "contentTypeId", 
     required = false, defaultValue = "12")String contentTypeId, 
     		@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo, 
-    		@RequestParam(value = "pageCount", required = false, defaultValue = "5")String pageCount, 
+    		@RequestParam(value = "pageCount", required = false, defaultValue = "20")String pageCount, 
     		@RequestParam(value = "searchWord", required = false, defaultValue = "")String searchWord,
     		@RequestParam(value = "sigunguCode",required = false,  defaultValue = "")String sigunguCode){
         

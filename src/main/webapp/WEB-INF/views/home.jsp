@@ -18,7 +18,7 @@
                 <div class="home__info">
                     <div>
                         <span class="home__info-title">BEST 6 제주</span>
-                        <a href="" class="button button--flex button--link home__info-button">
+                        <a href="${url}/travel_information" class="button button--flex button--link home__info-button">
                             More <i class="ri-arrow-right-line"></i>
                         </a>
                     </div>
@@ -64,7 +64,7 @@
                          	   <span class="place__rating-number">${vo.get('avgScore')}</span>
                     	    </span>
                     	    <div class="discover__data">
-                          		 <a href="${url}/accommodation"><h2 class="discover__title">${vo.get('title')}</h2></a>
+                          		 <a href="${url}/accommodation/${vo.get('contentid')}" ><h2 class="discover__title">${vo.get('title')}</h2></a>
                           	  	 <span class="discover__description">${vo.get('addr1')}</span>
                       		 </div>
                   		</div>      
@@ -97,7 +97,7 @@
                         </div>
                     </div>
 
-                    <button class="button button--flex place__button" type="button" onclick="location.href='${url}/travel_information'">
+                    <button class="button button--flex place__button" type="button" onclick="location.href='${url}/travel_information/${vo.get('contentid')}'">
                         <i class="ri-arrow-right-line"></i>
                     </button>
                 </div>
