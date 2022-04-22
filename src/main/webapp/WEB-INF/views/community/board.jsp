@@ -30,7 +30,9 @@
 		</select>
 		<input type="text" name="searchWord" id="searchWord"/>
 		<input type="submit" value="Search" class="bo__btn"/>
-		<button class="bo__btn__w" type="button" onclick="location.href='${url}/board/boardList/form'">글 작성</button>
+		<c:if test="${logId != null }">
+			<button class="bo__btn__w" type="button" onclick="location.href='${url}/board/boardList/form'">글 작성</button>
+		</c:if>
 	</form>
 	
 </div>

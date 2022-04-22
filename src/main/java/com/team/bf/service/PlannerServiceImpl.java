@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.team.bf.dao.PlannerDAO;
 import com.team.bf.vo.PlannerLocationVO;
+import com.team.bf.vo.PlannerMemberVO;
 import com.team.bf.vo.PlannerVO;
 
 @Service
@@ -84,6 +85,11 @@ public class PlannerServiceImpl implements PlannerService {
 	@Override
 	public List<String> plannerLocationSelectByNo(int no) {
 		return dao.plannerLocationSelectByNo(no);
+	}
+
+	@Override
+	public PlannerMemberVO plannerMemberSelectById(int planner_no, String userid) {
+		return dao.plannerMemberSelectById(planner_no, userid);
 	}
 
 
