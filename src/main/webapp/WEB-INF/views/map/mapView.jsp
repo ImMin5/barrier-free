@@ -14,11 +14,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <c:set var="url" value="<%=request.getContextPath()%>" />
     <link rel="stylesheet" href="${url}/css/mapstyle.css">
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a4370da25b2b005f46ac559243f9b721"></script>
     <script type="text/javascript" src="${url}/js/ai_api.js"></script>
-  
-   </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="${url}/js/ai_api.js"></script>
+    
+</head>
 
     <div id="listWrap">
         <!-- 리스트 -->
@@ -132,8 +133,12 @@
        </div>
      </div>
    </div>
+
 </body>
 <script>
+	
+    
+    
     let jobj;
     let positions = [];
     let markers = []; // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
@@ -249,7 +254,6 @@
                 alert("목록으로 이동해 주세요.");
                 return;
             }
-
             event.preventDefault();
             if (flag_plan) save_planlistContent(); // 플래너의 html 목록 저장
             if ($("#searchWord").val() == "") {
@@ -327,8 +331,7 @@
                 $("#planSubject_text").val(planSubject_text);
                 $("#dateFrom").val(plan_dateFrom);
                 $("#dateTo").val(plan_dateTo);
-               
-               
+                make_ordering();
             }
         });
 
@@ -490,7 +493,6 @@
         
     });// $(function) END
    
-    
     //1. 맵의 리스트를 가져와 jobj에 데이터 넣어줌   
     function get_jObj() {
         var url = "${url}/mapInfo"
@@ -633,8 +635,7 @@
                     <img src="../../img/map/map_34.png" alt="아래로 내리기" id="planDown" />
                 </div>
                 <img src="../../img/map/map_32.png" alt="플래너 삭제" id="planDel" onclick="readPlanDel()"; />
-               </div>
-            
+            </div>
         `;
         //console.log("data====>>>" , data);
         $('#planlistContentBG').append(addplantag);
@@ -664,7 +665,7 @@
         `;
         $('#planlistContentBG').append(addplantag);
     }// readPlanner(data) END   
-   
+
     //불러온 플래너 삭제하기
     function readPlanDel(){
        $("#planlistContent").remove();
@@ -816,6 +817,7 @@
     
 
 
+
     //여행 계획 저장 및 수정
     //save_plan ===========================================================
     function save_plan() {
@@ -941,6 +943,33 @@
             data: {
                 no: planner_no,
                 userid:useridInvite,
+            },
+            success: function (result) {
+                alert(result.msg);
+                window.location.href = result.redirect;
+            },
+            error: function (error) {
+                console.log(error.responseJSON);
+                alert(error.responseJSON.msg);
+                window.location.href = error.responseJSON.redirect;
+            }
+        });
+    }
+
+
+    //여행 계획 삭제
+    //del_plan ===========================================================
+    	//planListDelete_btn
+    function del_plan() {
+        
+        var url = "${url}/planView";
+        console.log(url);
+        $.ajax({
+            url: url,
+            type: "DELETE",
+            dataType: "JSON",
+            data: {
+                no: planner_no,
             },
             success: function (result) {
                 alert(result.msg);
@@ -1218,6 +1247,5 @@
             });
         }// displayMarker(data) END
     }
-    
-    
 </script>
+
