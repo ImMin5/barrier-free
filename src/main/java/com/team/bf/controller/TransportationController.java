@@ -16,8 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +37,7 @@ public class TransportationController {
 
 	//운행수단 리스트
 	
-	@GetMapping("transportationView")
+	@GetMapping("transportation")
 	public ModelAndView transportationList() {
 		ModelAndView mav = new ModelAndView();
 		
@@ -46,7 +48,7 @@ public class TransportationController {
 	}
 	
 	//운행수단 등록 폼
-	@GetMapping("transportationWrite")
+	@GetMapping("/admin/transportationWrite")
 	public ModelAndView transportationWrite() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("transportationWrite");
@@ -87,17 +89,18 @@ public class TransportationController {
 	
 	//운행수단 정보 상세보기 (1) 버스
 	@GetMapping("/transportation/bus")
-	public ModelAndView bus(int no) {
+	public ModelAndView bus(@RequestParam(value = "pageNo", required = false, defaultValue = "2") int no) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("transportationVO", service.transportationView(no));
-		mav.setViewName("/transportation/bus");
+		mav.addObject("transportationVO", service.transportationView(1));
+		//mav.setViewName("/transportation/bus");
+		mav.setViewName("/transportation/transportationView");
 		return mav;
 	}
 	//운행수단 정보 상세보기 (2) 비행기
 	@GetMapping("/transportation/plane")
 	public ModelAndView plane(int no) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("transportationVO", service.transportationView(no));
+		mav.addObject("transportationVO", service.transportationView(2));
 		mav.setViewName("/transportation/plane");
 		return mav;
 	}
@@ -105,7 +108,7 @@ public class TransportationController {
 	@GetMapping("/transportation/taxi")
 	public ModelAndView taxi(int no) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("transportationVO", service.transportationView(no));
+		mav.addObject("transportationVO", service.transportationView(3));
 		mav.setViewName("/transportation/taxi");
 		return mav;
 	}

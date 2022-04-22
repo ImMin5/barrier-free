@@ -84,6 +84,7 @@
    
     <div style="width: 100px; height:1250px"></div>
     
+    
    <!-- Modal -->
    <div class="modal fade" id="modal_invite" tabindex="-1" aria-hidden="true">
      <div class="modal-dialog">

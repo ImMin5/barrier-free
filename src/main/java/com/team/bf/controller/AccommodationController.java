@@ -37,7 +37,7 @@ public class AccommodationController {
     //숙박정보 리스트 뷰
     @GetMapping("/accommodation")
     public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo,
-    		@RequestParam(value = "pageCount",required = false,  defaultValue = "2")String pageCount, 
+    		@RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, 
     		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord,
     		@RequestParam(value = "sigunguCode",required = false,  defaultValue = "")String sigunguCode
     		){
@@ -55,6 +55,10 @@ public class AccommodationController {
 	        		jObj.put("homepage", Opt.get("homepage").toString());
 	        	else
 	        		jObj.put("homepage", "");
+	        	if(Opt.has("tel"))
+	        		jObj.put("tel", Opt.get("tel").toString());
+	        	else
+	        		jObj.put("tel", "");
 	        	jObj.put("likeCount", likeService.likeSelectAll(cid));
 	        	jObj.put("heartCount", heartService.heartSelectAll(cid));
 	        	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
@@ -94,6 +98,10 @@ public class AccommodationController {
     		JSONObject Opt = openApiService.detailWithTour(contentid);
     		jObj = openApiService.detailCommon(contentid,"32");
     		//데이터 추가
+    		if(Opt.has("homepage"))
+        		jObj.put("homepage", Opt.get("homepage").toString());
+        	else
+        		jObj.put("homepage", "");
     		jObj.put("route",Opt.has("route")? 1 : 0);
     		jObj.put("parking",Opt.has("parking")? 1 : 0);
     		jObj.put("publictransport",Opt.has("publictransport")?1 : 0);

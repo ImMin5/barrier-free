@@ -18,7 +18,7 @@
 				return false;
 			}
 			if($("#searchWord").val() != ''){
-				window.location.href = "${url}/accommodation?pageNo=1&pageCount=8&sigungucode=&s_type=&searchWord=" + searchWord;
+				window.location.href = "${url}/accommodation?pageNo=1&pageCount=8&sigungucode=&searchWord=" + searchWord;
 			}
 		});
 	});
@@ -81,7 +81,7 @@
 				<div class="form_box">
 					<span> 
 						<label for="areaForm">지역</label> 
-						<select name="s_local" id="s_local">
+						<select name="sigunguCode" id="sigunguCode">
 							<option value="" selected="">전체</option>
 								<c:forEach var="area" items="${areaList}">
 									<option>${area.get("name")}</option>
@@ -89,7 +89,7 @@
 						</select>
 					</span> 
 					<span> <label for="keywordForm">키워드</label> 
-						<select name="s_type" id="s_type">
+						<select name="contentTypeId" id="contentTypeId">
 							<option value="" selected="">전체</option>
 							<option value="12">관광지</option>
 							<option value="14">문화시설</option>
@@ -122,7 +122,7 @@
 				<div>
 					<p>${vo.get("title")}</p>
 					<p>${vo.get("addr1")}</p>
-					<p>${vo.get("homepage")}</p>
+	
 				
 				
 				</div>

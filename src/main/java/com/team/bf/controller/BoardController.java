@@ -221,11 +221,19 @@ public class BoardController {
     public ModelAndView adminBoardForm(HttpSession session) {
     	return boardFormView(session);
     }
-    //관리자 문의사항 글 상세보기 뷰 
+  //관리자 문의사항 글 상세보기 뷰 
     @GetMapping("/admin/boardList/{no}")
+    public ModelAndView adminBoardDetailView(@PathVariable(value="no")int no, HttpSession session) {
+    	return boardReplyView(session, no);
+    }
+    
+    //관리자 문의사항 글 상세보기 뷰 
+    @GetMapping("/admin/boardList/{no}/reply")
     public ModelAndView adminBoardReplyView(@PathVariable(value="no")int no, HttpSession session) {
     	return boardReplyView(session, no);
     }
+    
+   
     
 
     //1. 문의사항 글 생성 요청

@@ -80,7 +80,7 @@
 				</div>
 				<div class="form_box">
 					<span> <label for="areaForm">지역</label> <select
-						name="s_local" id="s_local">
+						name="sigunguCode" id="s_local">
 							<option value="" selected="">전체</option>
 							<c:forEach var="area" items="${areaList}">
 								<option>${area.get("name")}</option>
@@ -117,7 +117,7 @@
 				<div>
 					<p>${vo.get("title")}</p>
 					<p>${vo.get("addr1")}</p>
-					<p>${vo.get("tel")}</p>
+					
 				</div>
 				<br/>
 				<div class="review-content">
