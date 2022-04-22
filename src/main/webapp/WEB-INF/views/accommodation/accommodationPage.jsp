@@ -121,19 +121,7 @@
 				</div>
 				<br/>
 				<div class="review-content">
-						<p class="short_review "
-							onclick="trackEvent('CLICK_FEATURED_REVIEW')"
-							data-accommodation_key="#"
-							data-is_long_reivew="
-                        true
-                        ">
-							기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑 리코타 치즈 그리고 견과류와 드레싱까지 정말 잘
-							만든 한끼 같았던 샐러드이...</p>
-
-						<p class="long_review ">기대이상으로 맛있었던 무화과리코타 샐러드!! 퐁신하게 맛있는 무화과랑
-							리코타 치즈 그리고 견과류와 드레싱까지 정말 잘 만든 한끼 같았던 샐러드이다. 벌써 세번째 방문인 샐러드셀러는 참
-							일정하게 좋은 식사를 할 수 있는 곳으로 생각된다. 몸이 좋아지는 느낌은 덤 ㅎㅎ</p>
-						<span class="review_more_btn" onclick="#">더보기</span>
+						<p>${acvo.get("content")}></p>
 					</div>
 			</article>
 			</c:forEach>
@@ -144,61 +132,5 @@
 	
 	<!-- 페이징 -->
 
-	<div class="paging-container"
-		ng-hide="!search_result_list.length &amp;&amp; !ajaxing">
-		<p class="paging">
-			<!-- ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)"
-				class="ng-binding ng-scope selected">1</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">2</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">3</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">4</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">5</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">6</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">7</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">8</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">9</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-			<a href="#" onclick="trackEvent('CLICK_SEARCH_PAGE'); return false;"
-				ng-repeat="paging in get_paging_array(search_all_count) | limitTo: max_page track by $index"
-				ng-class="{selected: $index + 1 == page}"
-				ng-click="get_next_page($index + 1)" class="ng-binding ng-scope">10</a>
-			<!-- end ngRepeat: paging in get_paging_array(search_all_count) | limitTo: max_page track by $index -->
-		</p>
-	</div>
+	
 </body>

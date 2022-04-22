@@ -157,7 +157,6 @@ $(function(){
 						<div class="link_reply">
 								<!-- 로그인 아이디와 글쓴이가 같은 경우 -->
 								<c:if test="${logId==vo.userid}">
-									<a href="${url}/travel_information/replyEdit?no=${vo.no}">수정</a>
 									<a href="#" name="delete_btn" data-contentid="${vo.contentid}" data-no="${vo.no}">삭제</a>
 								</c:if>
 							</div>

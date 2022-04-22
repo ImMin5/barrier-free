@@ -42,7 +42,9 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  min-width: 100%;
+  margin-left:10%;
+  margin-right:10%;
+  min-width: 80%;
   height: 32rem;
 }
 
