@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@500;600;700&display=swap");
+ul, li, body {
+	margin: 0px auto;
+	padding: 0px;
+	width: 1000px
+}
+
+body {
+	margin-top: 160px;
+	font-family: Jua;
+	text-align: center;
+	background-image: url('../img/introduction/introbackground2.jpg/');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+.ititle h1 {
+	padding: 120px 0px 15px;
+	color: #fff;
+	font-size: 4.5em;
+	text-shadow:2px 2px 2px #000;
+	padding-bottom: 50px;
+}
+.isummary h2 {
+	color: #6868ff;
+	text-align: center;
+	font-size: 2.5em;
+	padding-bottom: 50px;
+}
+
+.icontent {
+	width: 1000px;
+	margin: 100px 70px auto;
+	overflow: hidden;
+}
+
+.icontent .ibox {
+	float:left;
+	width: 250px;
+	height: 250px;
+	background-color: #fff;
+	margin-right: 50px;
+	border-radius: 20px;
+	text-align: center;
+	box-sizing: border-box;
+	box-shadow: inset 0px 0px 20px #80cdfb;
+	filter:alpha(opacity=90); opacity:0.9; -moz-opacity:0.9;
+}
+.icontent .ibox h3 {
+	margin: 35px 30px 30px 30px;
+	font-size: 25px;
+	background: no-repeat right;
+}
+
+.icontent .ibox p {
+	font-family: sans-serif;
+	font-weight: bold;
+	margin: 0 30px;
+	font-size: 18px;
+	color: #333;
+	text-align: left;
+	letter-spacing: -2px;
+}
+.iimage img {
+	margin-top: 70px;
+	width: 300px;
+	height: 200px;
+}
+.bbox {
+	overflow:hidden;
+	margin: 50px;
+	padding: 20px;
+	border-style: outset;
+	text-align: center;
+	border-radius: 20px;
+	box-shadow: inset 0px 0px 20px #a9eef3;
+	background-color: #fff;
+	filter:alpha(opacity=80); opacity:0.8; -moz-opacity:0.8;
+}
+.bbox .bsummary h2{
+	color: #008080;
+	text-align: center;
+	font-size: 2em;
+	padding-bottom: 50px;
+}
+.bbox .blist{
+	font-family:fantasy;
+	font-weight:bold;
+	overflow:hidden;
+	font-size: 20px;
+	margin-bottom: 10px;
+}

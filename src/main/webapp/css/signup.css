@@ -1,0 +1,255 @@
+@charset "UTF-8";
+
+ 
+#signup{
+	margin-top:10%;
+}
+
+#signuph1 {
+   font-size:1.3em;
+   font-family: "Noto Sans KR", sans-serif;
+   color: #636e72;
+
+}
+.wd{
+	margin-left:33%;
+	}
+
+#suplogo{margin: 0 0 20 0;}
+
+#logoud{width:700px;}
+#sFrm {
+	
+    display:flex;
+    width: 600px;
+    height: 100%;
+    margin:50px;
+    padding: 30px, 20px;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #636e72;
+}
+#sFrm li{font-family: "Noto Sans KR", sans-serif;}
+
+#sFrm li:nth-child(2n) {
+    border-bottom: 2px solid rgb(250, 166, 50);
+    margin: 30px;
+    padding: 10px 10px;
+    margin-left: 39px;
+    color: #636e72;
+}
+#sFrm li:nth-child(2) {
+    border-bottom: 2px solid rgb(250, 166, 50);
+    margin: 30px;
+    padding: 10px 10px;
+    margin-left: 39px;
+    color: #636e72;
+}
+#sFrm li:nth-child(20) {
+    border-bottom:0px;
+    margin: 30px;
+    padding: 10px 10px;
+    margin-left: 39px;
+    color: #636e72;
+    font-size:15;
+}
+#sFrm select{ 
+    border-bottom: 2px solid rgb(250, 166, 50);
+    height: 45px;
+    margin: 30px;
+    padding: 10px 10px;
+    margin-left: 39px;
+    color: #636e72;
+    }
+#userid {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#userpwd {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#userpwd2 {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#username {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+
+#userbirth {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#question {
+    width: 50%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    margin-left: 39px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#answer {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#grade {
+    width: 40%;
+    border: none;
+    outline: none;
+    color: #636e72;
+    font-size: 16px;
+    height: 25px;
+    background: none;
+    margin-left: 39px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#up {
+    left: 20px;
+}
+
+#term {
+    margin-left: 0px !important;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.term2 {
+    text-align: center;
+    margin-left: 235px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+#terms {
+    overflow-y: scroll;
+
+}
+
+#sbm {
+    text-align: center;
+}
+      .modal {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 2200px;
+
+        display: none;
+
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+
+      .modal.show {
+        display: block;
+      }
+
+      .modal_body {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+		cursor:pointer;
+        width: 450px;
+        height: 400px;
+		font-size:1.2em;
+        padding: 40px;
+
+        text-align: center;
+
+        background-color: rgb(255, 255, 255);
+        border-radius: 10px;
+        box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+        transform: translateX(-50%) translateY(-50%);
+      }
+#button {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid rgb(250, 166, 50);
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(250, 166, 50);
+    margin-left:10px;
+    padding: 5px;
+    font-family: "Noto Sans KR", sans-serif;
+    cursor:pointer;
+}
+
+
+#button2 {
+  margin: 0px; 	
+  width: 600px;
+  height: 50px;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  background: rgb(250, 166, 50);
+  color: white;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  font-family: "Noto Sans KR", sans-serif;
+  cursor:pointer;
+  
+}
+
+.btn-open-popup{
+	margin-top:20%;
+	outline: none;
+	border:none;
+	background-color: white;
+	color:rgb(50, 133, 247);
+	cursor:pointer;
+		}
