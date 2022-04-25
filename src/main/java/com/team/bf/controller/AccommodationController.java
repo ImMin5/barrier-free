@@ -37,7 +37,7 @@ public class AccommodationController {
     //숙박정보 리스트 뷰
     @GetMapping("/accommodation")
     public ModelAndView accomodationList(@RequestParam(value = "pageNo", required = false, defaultValue = "1")String pageNo,
-    		@RequestParam(value = "pageCount",required = false,  defaultValue = "10")String pageCount, 
+    		@RequestParam(value = "pageCount",required = false,  defaultValue = "3")String pageCount, 
     		@RequestParam(value = "searchWord",required = false,  defaultValue = "")String searchWord,
     		@RequestParam(value = "sigunguCode",required = false,  defaultValue = "")String sigunguCode
     		){
@@ -55,6 +55,7 @@ public class AccommodationController {
 	        		jObj.put("homepage", Opt.get("homepage").toString());
 	        	else
 	        		jObj.put("homepage", "");
+	        	
 	        	if(Opt.has("tel"))
 	        		jObj.put("tel", Opt.get("tel").toString());
 	        	else
@@ -64,8 +65,11 @@ public class AccommodationController {
 	        	jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
 	        	
 	        	Float avgScore = reviewService.reviewSelectAvgScore(cid); 	
-	        	if(avgScore == null)
+	        	System.out.println("avgScore 	"+avgScore);
+	        	if(avgScore == null) {
+	        		System.out.println("avg is null");
 	        		jObj.put("avgScore", "0");
+	        	}
 	        	else 
 	        		jObj.put("avgScore", String.format("%.2f",avgScore));
 	        	ReviewVO rvo = reviewService.reviewSelectOneByContentid(searchWord);
@@ -75,13 +79,10 @@ public class AccommodationController {
 		        	jObj.put("thumbnailReviewScore", rvo.getScore());
 		        	jObj.put("thumbnailReviewScore", rvo.getContent());
 	        	}
-	        	
 	        }
-	        for(JSONObject j :openApiService.AreaInfo()) {
-	        	System.out.println(j.toString());
-	        }
+	      
 	        mav.addObject("areaList",openApiService.AreaInfo()); //남제주군,  북제주군 , 서귀포시 , 제주시
-	        mav.addObject("accommoList", openApiService.searchKeyword(pageNo, pageCount, "32",searchWord, sigunguCode));
+	        mav.addObject("accommoList", accomoList);
         }catch(Exception e) {
         	e.printStackTrace();
         }
