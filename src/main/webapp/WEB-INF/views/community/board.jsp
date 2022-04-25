@@ -30,8 +30,13 @@
 		</select>
 		<input type="text" name="searchWord" id="searchWord"/>
 		<input type="submit" value="Search" class="bo__btn"/>
+		<c:if test="${logId != null }">
+			<button class="bo__btn__w" type="button" onclick="location.href='${url}/board/boardList/form'">글 작성</button>
+		</c:if>
 	</form>
+	
 </div>
+
 
 <table class="bo__table">
     <thead>
@@ -45,7 +50,7 @@
      	<c:forEach var="vo" items="${noticeList}">
         <tr class="bo__notice">
         		<td >공지</td>
-        		<td>${vo.subject}</td>
+        		<td><a href="${url}/board/boardList/${vo.no}">${vo.subject}</a></td>
         		<td>${vo.userid}</td>
         </tr>
         </c:forEach>
@@ -58,8 +63,8 @@
 
         <tr>
         	<c:if test="${vo.reply != null}">
-        		<td>${vo.reply.no}</td>
-        		<td><a href="${url}/board/boardList/${vo.reply.no}">[RE]${vo.reply.subject}</a></td>
+        		<td>↪</td>
+        		<td><a href="${url}/admin/boardList/${vo.reply.no}">[RE]${vo.reply.subject}</a></td>
         		<td> ${vo.reply.userid}</td>
         	</c:if>
         </tr>
@@ -69,7 +74,6 @@
 
 
 <div class="bo__container">
-	<button class="bo__btn__w" type="submit" onclick="location.href='${url}/board/boardList/form'">글 작성</button>
 	<div class="bo__n__page">
 		현재 페이지 ${pvo.pageNo}/ ${pvo.totalPage }
 	</div>

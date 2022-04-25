@@ -2,6 +2,8 @@ package com.team.bf.dao;
 
 import com.team.bf.vo.MemberVO;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,8 @@ public interface MemberDAO {
     public MemberVO memberSelectByUsername(String username, String date_birth);
     public MemberVO memberSelectByQuestion(String userid, String question, String answer);
     public int memberUpdatePassword(String userid, String password);
+    public MemberVO memberLogin(String userid, String userpassowrd);
     public int memberUpdate(MemberVO vo);
+    public List<MemberVO> memberSelectAll();
+    public int memberUpdateByAdmin(MemberVO vo);
 }

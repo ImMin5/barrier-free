@@ -27,6 +27,7 @@ import com.team.bf.service.OpenApiService;
 import com.team.bf.service.PlannerService;
 import com.team.bf.service.ReviewService;
 import com.team.bf.vo.PlannerLocationVO;
+import com.team.bf.vo.PlannerMemberVO;
 import com.team.bf.vo.PlannerVO;
 import com.team.bf.vo.ResponseVO;
 
@@ -45,9 +46,20 @@ public class MapAndPlannerController {
 	PlannerService plannerService;
 	
 	@GetMapping("/mapView")
-    public ModelAndView mapView2(HttpSession session){
+    public ModelAndView mapView2(@RequestParam(value="planner_no", required=false) Integer planner_no, HttpSession session){
         String userid = (String)session.getAttribute("logId");
        ModelAndView mav = new ModelAndView();
+       if(planner_no == null) {
+           planner_no = -1;
+       }
+       if(userid != null) {
+           mav.addObject("planner_no", planner_no);
+           mav.addObject("planList", plannerService.plannerSelectById(userid));
+       }
+       else {
+           mav.addObject("planner_no", "-1");
+       }
+       
         mav.setViewName("map/mapView");
         return mav;
     }	
@@ -73,6 +85,32 @@ public class MapAndPlannerController {
     	
     	return mav;
     }
+    //여행정보 불러오기
+    @PostMapping("/mapInfo/load")
+    public String load_planner(PlannerVO pvo) {
+    	JSONArray jsonArray = new JSONArray();
+    	try {
+    		int seq = 1;
+    		for(String cid :pvo.getContentidList()) {
+    			System.out.println("cid " + cid);
+    			JSONObject jObj = openApiService.detailCommon(cid, areaCode); 
+    			jObj.put("likeCount", likeService.likeSelectAll(cid));
+    			jObj.put("heartCount", heartService.heartSelectAll(cid));
+    			jObj.put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
+    			jObj.put("seq", seq++);
+    			Float avgScore = reviewService.reviewSelectAvgScore(cid);    
+    			if(avgScore == null)
+    				jObj.put("avgScore", "0");
+    			else 
+    				jObj.put("avgScore", String.format("%.2f",avgScore));
+    			jsonArray.put(jObj);
+    		}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	return jsonArray.toString();
+    }
+    
     //0.여행지 정보 요청
     @PostMapping("/mapInfo")
     public String mapInfo( String pageNo,String pageCount, String searchWord, HttpSession session){
@@ -80,20 +118,22 @@ public class MapAndPlannerController {
        
         System.out.println(pageNo + " " + pageCount);
         if(pageNo == null) pageNo = "1";
-        if(pageCount == null) pageCount = "2";
+        if(pageCount == null) pageCount = "10";
         if(searchWord == null) searchWord = "";
         JSONArray jsonArray = openApiService.searchKeyword2(pageNo, pageCount, "all", searchWord); 
         for(int i=0; i<jsonArray.length(); i++){
            String cid = jsonArray.getJSONObject(i).get("contentid").toString();
            JSONObject Opt = openApiService.detailCommon(cid,areaCode);
-           jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
-           jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
-           jsonArray.getJSONObject(i).put("firstimage",Opt.get("firstimage").toString());
-           jsonArray.getJSONObject(i).put("firstimage2",Opt.get("firstimage2").toString());
-           if(Opt.has("homepage"))
-              jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
-           else
-              jsonArray.getJSONObject(i).put("homepage", "");
+           if(Opt != null) {
+        	   jsonArray.getJSONObject(i).put("title",Opt.get("title").toString());
+               jsonArray.getJSONObject(i).put("overview",Opt.get("overview").toString());
+               jsonArray.getJSONObject(i).put("firstimage",Opt.has("firstimage") ? Opt.get("firstimage").toString() : "");
+               jsonArray.getJSONObject(i).put("firstimage2",Opt.has("firstimage2") ? Opt.get("firstimage2").toString() : "");
+               if(Opt.has("homepage"))
+                  jsonArray.getJSONObject(i).put("homepage", Opt.get("homepage").toString());
+               else
+                  jsonArray.getJSONObject(i).put("homepage", "");
+           }
            jsonArray.getJSONObject(i).put("likeCount", likeService.likeSelectAll(cid));
            jsonArray.getJSONObject(i).put("heartCount", heartService.heartSelectAll(cid));
            jsonArray.getJSONObject(i).put("reviewCount", reviewService.reviewSelectByContentid(cid).size());
@@ -120,12 +160,17 @@ public class MapAndPlannerController {
     	try {
     		
     		//작성자 등록
+    		if(userid == null) {
+    			result.put("status", "201");
+    			result.put("msg", "로그인 후 이용해 주세요");
+    			entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
+    		}
     		pvo.setUserid(userid);
     		result.put("status", "200");
     		//넘버링과 넘어온 contentid 수가 다를 경우
     		if(pvo.getContentidList().size() != pvo.getSeqList().size()) {
     			result.put("msg","잘못된 형식 입니다.");
-    			result.put("redirect", "/planView");
+    			result.put("redirect", "/mapView");
     		}
     		else if(plannerService.plannerInsert(pvo) > 0){
     			//장소 정보 가공
@@ -139,13 +184,13 @@ public class MapAndPlannerController {
     			if(pvoList != null && pvoList.size() > 0)
     				plannerService.plannerLocationInsert(pvoList,pvo.getNo());
     			result.put("msg","여행 플랜 생성 성공!");
-    			result.put("redirect", "/planView");
+    			result.put("redirect", "/mapView");
     			result.put("planner_no", Integer.toString(pvo.getNo()));
     		}
     		else {
     			//생성 실패 
     			result.put("msg","여행 플랜 생성 실패.");
-    			result.put("redirect", "/planView");
+    			result.put("redirect", "/mapView");
     		}
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
         	
@@ -154,7 +199,7 @@ public class MapAndPlannerController {
     		e.printStackTrace();
     		result.put("msg","여행 계획 생성 에러...Error");
 			result.put("status", "400");
-			result.put("redirect", "/planView");
+			result.put("redirect", "/mapView");
 			entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     
@@ -167,12 +212,20 @@ public class MapAndPlannerController {
     	String userid = (String)session.getAttribute("logId");
     	ResponseEntity<HashMap<String,String>> entity = null;
     	HashMap<String,String> result = new HashMap<String,String>();
-    	
+    	System.out.println("여행 수정");
     	try {
     		//플랜 정보가 있을 경우
+    		System.out.println(pvo.getNo());
     		if(plannerService.plannerSelectByNoId(pvo.getNo(), userid) != null) {
+    			
     			//여행플랜 업데이트
+    			pvo.setUserid(userid);
     			int r = plannerService.plannerUpdate(pvo);
+    			System.out.println("여행 정보 없데이트 십작 "+r);
+    			System.out.println(pvo.getContentidList().size());
+    			System.out.println(pvo.getSeqList().size());
+    			System.out.println(pvo.getStart_date());
+    			System.out.println(pvo.getEnd_date());
     			if(r>0 && pvo.getSeqList() != null && pvo.getContentidList() != null) {
     				//여행 플랜 장소 제거
     				int deleteCount = plannerService.plannerLocationDeleteByPlannerNo(pvo.getNo());
@@ -188,7 +241,7 @@ public class MapAndPlannerController {
         			plannerService.plannerLocationInsert(pvoList,pvo.getNo());
         			result.put("status", "200");
         			result.put("msg", "여행 정보 업데이트 성공!");
-        			result.put("redirect","/planView");
+        			result.put("redirect","/mapView");
     			}
     		}
     		else {
@@ -196,7 +249,7 @@ public class MapAndPlannerController {
     		//자기 플랜이 아닐 경우.
     			result.put("status", "200");
     			result.put("msg", "여행 플랜 수정 권한이 업습니다.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
     		
@@ -204,7 +257,7 @@ public class MapAndPlannerController {
     		e.printStackTrace();
     		result.put("status", "400");
 			result.put("msg", "여행플랜 업데이트 에러...Error");
-			result.put("redirect","/planView");
+			result.put("redirect","/mapView");
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     	
@@ -234,7 +287,7 @@ public class MapAndPlannerController {
     		else {
     			System.out.println("삭제한 데이터 : "+ plannerService.plannerDelete(no));
     			result.put("msg", "여행계획 삭제 완료!");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
     	}catch(Exception e) {
@@ -257,13 +310,14 @@ public class MapAndPlannerController {
     	try {
     		PlannerVO pvo = plannerService.plannerSelectOne(no,userid);
     		result.put("status", "200");
+    		
     		if(userid == null) {	
     			result.put("msg","로그인 후 이용해 주세요.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
-    		else if(pvo != null) {
+    		else if(pvo == null) {
     			result.put("msg","일치하는 정보가 없습니다.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		else {
         		//JSON객체 만들기
@@ -272,11 +326,17 @@ public class MapAndPlannerController {
         		JSONArray contentList = new JSONArray();
         		JSONArray seqList = new JSONArray();
         		JSONArray memberList = new JSONArray();
-        		contentList.putAll(pvo.getContentidList());
-        		seqList.putAll(pvo.getContentidList());
+        		
+        		if(pvo.getSeqList().size() > 0) {
+        			contentList.putAll(plannerService.plannerLocationSelectByNo(no));
+            		seqList.putAll(pvo.getSeqList());
+            		
+        		}
         		memberList.putAll(plannerService.plannerMemberSelectByNo(pvo.getNo()));
         		planObj.put("no", pvo.getNo());
         		planObj.put("title", pvo.getTitle());
+        		planObj.put("start_date", pvo.getStart_date());
+        		planObj.put("end_date", pvo.getEnd_date());
         		planObj.put("contendList", contentList);
         		planObj.put("seqList",seqList);
         		
@@ -284,7 +344,7 @@ public class MapAndPlannerController {
         		//데이터 삽입
         		result.put("data", jObj.toString());
         		result.put("msg","여행 플랜 불러오기 성공");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
@@ -292,7 +352,7 @@ public class MapAndPlannerController {
     		e.printStackTrace();
     		result.put("status", "400");
     		result.put("msg","여행 플랜 불러오기 에러...Error");
-			result.put("redirect","/planView");
+			result.put("redirect","/mapView");
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     	return entity;
@@ -312,22 +372,22 @@ public class MapAndPlannerController {
     		PlannerVO pvo = plannerService.plannerSelectByNoId(planner_no,userid);
     		if(userid.equals(useridInvite)) {
     			result.put("msg","본인에게 초대를 보낼 수 없습니다.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		else if(!pvo.getUserid().equals(userid)){
     			//여행 플랜을 생성한 사람만 초대할 수 있음
     			result.put("msg","초대 권한이 없습니다.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     	
     		else if(plannerService.plannerMemberSelectByNoId(planner_no, useridInvite) > 0 || pvo.getUserid().equals(useridInvite)) {
     			result.put("msg","이미 추가 되었습니다.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		else {
     			plannerService.plannerMemberInsert(planner_no, useridInvite);
     			result.put("msg",useridInvite+" 멤버 초대 완료!");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.OK);
     	}catch(Exception e) {
@@ -335,7 +395,7 @@ public class MapAndPlannerController {
     		e.printStackTrace();
     		result.put("status", "400");
     		result.put("msg","여행 플랜 멤버 초대 에러...Error");
-			result.put("redirect","/planView");
+			result.put("redirect","/mapView");
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     	return entity;
@@ -345,25 +405,27 @@ public class MapAndPlannerController {
     
     //6. 여행 플랜 멤버 삭제
     @DeleteMapping("/planView/member")
-    public ResponseEntity<HashMap<String,String>> planMemberDelete(int no, String useridDelete, HttpSession session){
+    public ResponseEntity<HashMap<String,String>> planMemberDelete(int planner_no, String useridDelete, HttpSession session){
     	String userid = (String)session.getAttribute("logId");
     	ResponseEntity<HashMap<String,String>> entity = null;
     	HashMap<String,String> result = new HashMap<String,String>();
     	
     	try {
     		result.put("status", "200");
+    		System.out.println("userid : " + useridDelete);
+    		PlannerMemberVO pmvo = plannerService.plannerMemberSelectById(planner_no, useridDelete);
     		if(userid == null) {
     			result.put("msg", "로그인 후 이용해 주세요.");
-    			result.put("redirect","/planView");
+    			result.put("redirect","/mapView");
     		}
     		else {
-    			if(plannerService.plannerMemberDeleteByNo(no) > 0) {
+    			if(plannerService.plannerMemberDeleteByNo(pmvo.getNo()) > 0) {
     				result.put("msg", "멤버 삭제 성공.");
-    				result.put("redirect","/planView");
+    				result.put("redirect","/mapView");
     			}
     			else{
     				result.put("msg", "멤버 삭제 실패.");
-    				result.put("redirect","/planView");
+    				result.put("redirect","/mapView");
     			}
     		}
     		
@@ -373,11 +435,47 @@ public class MapAndPlannerController {
     		e.printStackTrace();
     		result.put("status", "400");
     		result.put("msg","여행 플랜 멤버 초대 에러...Error");
-			result.put("redirect","/planView");
+			result.put("redirect","/mapView");
     		entity = new ResponseEntity<HashMap<String,String>>(result,HttpStatus.BAD_REQUEST);
     	}
     	return entity;
 		
     	
     }
+    
+    //여행 플랜의 멤버 리스트 
+    @PostMapping("/planView/memberList")
+    public List<String> plannerMemberList(HttpSession session, int planner_no){
+    	List<String> memberList = null;
+    	String userid = (String)session.getAttribute("logId");
+    	
+    	try{
+    		System.out.println("planner_no : " + planner_no);
+    		if(userid != null)
+    			memberList = plannerService.plannerMemberSelectByNo(planner_no);
+    		for(String str : memberList) {
+    			System.out.println(str);
+    		}
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	return memberList;
+    	
+    }
+    
+    //여행 목록 반환
+    @PostMapping("/planView/plannerList")
+    public List<PlannerVO> getPlannerList(HttpSession session) {
+    	String userid = (String)session.getAttribute("logId");
+    	List<PlannerVO> plannerTitleList = new ArrayList<PlannerVO>();
+    	try {
+    		if(userid != null)
+    			plannerTitleList = plannerService.plannerSelectById(userid);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	
+    	return plannerTitleList;
+    }
+	    
 }

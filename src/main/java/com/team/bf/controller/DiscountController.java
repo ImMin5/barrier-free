@@ -11,7 +11,15 @@ public class DiscountController {
     public ModelAndView discountView(){
         ModelAndView mav = new ModelAndView();
 
-        mav.setViewName("discount/discountView");
+        mav.setViewName("discount/discountDetailView");
+        return mav;
+    }
+    
+    @GetMapping("discountDetailView")
+    public ModelAndView discountDetailView(){
+        ModelAndView mav = new ModelAndView();
+
+        mav.setViewName("discount/discountDetailView");
         return mav;
     }
 }

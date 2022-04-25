@@ -26,7 +26,7 @@
   		delete from reply_info where no=${no} and userid=#{userid}
   	</delete>
   	<select id="reviewSelectById" resultType="com.team.bf.vo.ReviewVO">
-  		select no, userid , content,  score, write_date , ip, contentTypeId, title
+  		select no, userid , content,  score, write_date , ip, contentTypeId, title ,contentid
   		from reply_info
   		<choose>
   			<when test='userid != null and searchWord != null'>
@@ -44,11 +44,17 @@
   	</select>
   	
   	<select id="reviewSelectByContentid" resultType="com.team.bf.vo.ReviewVO">
-  		select no, userid , content,  score, write_date , ip, contentTypeId, title
+  		select no, userid , content,  score, write_date , ip, contentTypeId, title, contentid
   		from reply_info where contentid=#{param1}
   		order by write_date desc
   	</select>
   	<select id="reviewSelectAvgScore" resultType="float">
   		select avg(score) from reply_info where contentid=#{param1}
+  	</select>
+  	
+  	<select id="reviewSelectOneByContentid" resultType="com.team.bf.vo.ReviewVO">
+  		select no, userid , content,  score, write_date , ip, contentTypeId, title , contentid
+  		from reply_info where contentid=#{param1}
+  		order by score limit 1
   	</select>
   </mapper>

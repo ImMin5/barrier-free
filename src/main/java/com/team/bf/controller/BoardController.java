@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,8 +45,7 @@ public class BoardController {
         pvo.setOnePageRecord(pageCount);
         pvo.setTotalRecord(boardService.totalRecord(pvo));
         pvo.setPageNo(pageNo);
-        
-        System.out.println("tlwkr");
+
         //게시글
         mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
         //공지사항
@@ -58,21 +58,39 @@ public class BoardController {
     
     //문의사항 상세 뷰 
     @GetMapping("/board/boardList/{no}")
-    public ModelAndView boardInfoView(@PathVariable(value="no")int no) {
+    public ModelAndView boardInfoView(@PathVariable(value="no")int no ,HttpSession session) {
     	ModelAndView mav  = new ModelAndView();
-    	
+    	String userid = (String)session.getAttribute("logId");
+    	String adminStatus = (String)session.getAttribute("adminStatus");
     	try {
     		BoardVO bvo = boardService.boardSelectByNo(no);
-    		if(bvo != null) {
+    		if(adminStatus!= null && adminStatus.equals("Y")) {
+    			System.out.println("관리자 접속");
     			mav.addObject("bvo",bvo);
     			mav.setViewName("community/boardDetail");
+    		}
+    		else if(bvo.is_notice()) {
+    			mav.addObject("bvo",bvo);
+    			mav.addObject("is_notice",true);
+    			mav.setViewName("community/boardDetail");
+    		}
+    		else if(userid != null && !bvo.getUserid().equals(userid)) {
+    			//작성자 본인만 볼 수 있음
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else if(bvo != null) {
+    			if(userid == null) {
+    				mav.setViewName("redirect:/board/boardList");
+    			}else {
+    				mav.addObject("bvo",bvo);
+        			mav.setViewName("community/boardDetail");
+    			}
     		}
     		else {
     			//게시물이 존재 하지 않을 경우
     			System.out.println("존재하지 않는 게시물");
     			mav.setViewName("redirect:/board/boardList");
     		}
-    		
     	}catch(Exception e) {
     		e.printStackTrace();
     		mav.setViewName("redirect:/board/boardList");
@@ -102,7 +120,7 @@ public class BoardController {
     	
     }
     //문의사항 수정 뷰
-    @PostMapping("/board/boardList/edit/{no}")
+    @PostMapping("/board/boardList/{no}/edit")
     public ModelAndView boardEditView(@PathVariable(value="no")int no, HttpSession session) {
     	ModelAndView mav = new ModelAndView();
     	try {
@@ -126,28 +144,29 @@ public class BoardController {
     //나의 문의 사항 뷰
     @GetMapping("/mypage/myqna")
     public ModelAndView ModelAndView(@RequestParam(value="pageNo",required = false, defaultValue = "1")int pageNo, 
-    		@RequestParam(value="pageCount",required = false, defaultValue = "10")int pageCount,
+    		@RequestParam(value="pageCount",required = false, defaultValue = "7")int pageCount,
     		@RequestParam(value="searchWord",required = false, defaultValue = "")String searchWord,HttpSession session) {
        String userid = (String)session.getAttribute("logId");
        ModelAndView mav = new ModelAndView();
        
-       try {
-    	   PagingVO pvo = new PagingVO();
-           //검색어가 있을 경우
-           if(!searchWord.equals("")) 
-           	pvo.setSearchWord(searchWord);
-           //전체 게시글 업데이트
-           pvo.setOnePageRecord(pageCount);
-           pvo.setTotalRecord(boardService.totalRecord(pvo));
-           pvo.setPageNo(pageNo);
-	       
+       try {  
            if(userid == null) {
 	          //로그인 안 했을 경우
 	          mav.setViewName("redirect:/");
 	       }
 	       else {
-	          mav.setViewName("/mypage/myqna");
-	          mav.addObject("boardList",boardService.boardAndReplySelectById(pvo,userid));
+	    	   PagingVO pvo = new PagingVO();
+	    	   pvo.setUserid(userid); 
+	           //검색어가 있을 경우
+	           if(!searchWord.equals("")) 
+	           	pvo.setSearchWord(searchWord);
+	           //전체 게시글 업데이트
+	           pvo.setOnePageRecord(pageCount);
+	           pvo.setTotalRecord(boardService.totalRecord(pvo));
+	           pvo.setPageNo(pageNo);
+	           mav.addObject("pvo", pvo);
+	           mav.setViewName("/mypage/myqna");
+	           mav.addObject("boardList",boardService.boardAndReplySelectAll(pvo));
 	       }
        }catch(Exception e) {
     	   e.printStackTrace();
@@ -155,7 +174,68 @@ public class BoardController {
        }
        return mav;
     }
+    //문의사항 답변 상세보기 뷰 
+    @GetMapping("/board/boardList/{no}/reply")
+    public ModelAndView boardReplyView(HttpSession session,@PathVariable(value="no") int no) {
+    	ModelAndView mav = new ModelAndView();
+    	String userid = (String)session.getAttribute("logId");
+    	String adminStatus = (String)session.getAttribute("adminStatus");
+    	try {
+    		BoardVO bvoReply = boardService.boardReplySelectByNo(no);
+    		BoardVO bvo = boardService.boardSelectByNo(no);
+    		System.out.println("useruid " + userid);
+    		System.out.println(bvo.getUserid());
+    		if(adminStatus == null) adminStatus = "";
+    		if(bvo == null || userid == null) {
+    			//로그인 안했을 경우와 게시물이 없을때
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else if(adminStatus.equals("Y")) {
+    			//관리자 접근
+    			System.out.println("관리자 접근");
+    			mav.addObject("bvoReply",bvoReply);
+    			mav.addObject("bvo",bvo);
+    			mav.setViewName("/community/boardDetail");
+    		}
+    		else if(!userid.equals(bvo.getUserid())) {
+    			//작성자가 다를 경우
+    			mav.setViewName("redirect:/board/boardList");
+    		}
+    		else{
+    			//정상 접근
+    			mav.addObject("bvoReply",bvoReply);
+    			mav.addObject("bvo",bvo);
+    			mav.setViewName("/community/boardDetail");
+    		}
+    		
+    	}catch(Exception e) {
+    		//그 이외의 에러
+    		mav.setViewName("redirect:/board/boardList");
+    		e.printStackTrace();
+    	}
+    	
+    	return mav;
+    }
+    //관리자 공지사항 폼 작성 뷰 
+    @GetMapping("/admin/boardList/form")
+    public ModelAndView adminBoardForm(HttpSession session) {
+    	return boardFormView(session);
+    }
+  //관리자 문의사항 글 상세보기 뷰 
+    @GetMapping("/admin/boardList/{no}")
+    public ModelAndView adminBoardDetailView(@PathVariable(value="no")int no, HttpSession session) {
+    	return boardReplyView(session, no);
+    }
     
+    //관리자 문의사항 글 상세보기 뷰 
+    @GetMapping("/admin/boardList/{no}/reply")
+    public ModelAndView adminBoardReplyView(@PathVariable(value="no")int no, HttpSession session) {
+    	return boardReplyView(session, no);
+    }
+    
+   
+    
+
     //1. 문의사항 글 생성 요청
     @PostMapping("/board/boardList")
     public ResponseEntity<HashMap<String,String>> boardInsert(BoardVO bvo, HttpServletRequest request, HttpSession session){
@@ -184,7 +264,10 @@ public class BoardController {
         	
         	if(r> 0) {
         		result.put("msg", "글 작성 성공");
-        		result.put("redirect", "/board/boardList/"+bvo.getNo());
+        		if(mvo.getGrade_member() == 2)
+        			result.put("redirect","/admin/boardList/"+bvo.getNo());
+        		else
+        			result.put("redirect", "/board/boardList/"+bvo.getNo());
         	}
         	else {
         		result.put("msg", "글 작성 실패");
@@ -299,12 +382,12 @@ public class BoardController {
     		//답변할 글이 있는지 확인, 관리자가 아닌경우
     		if(boardService.boardSelectByNo(bvo.getNo()) == null) {
     			result.put("msg", "답변할 글이 없습니다.");
-    			result.put("redirect", "/admin/board/boardList");
+    			result.put("redirect", "/admin/boardList");
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     		else if(memberService.memberSelectById(userid).getGrade_member() != 2) {
     			result.put("msg", "잘못된 접근 입니다.");
-    			result.put("redirect", "/admin/board/boardList");
+    			result.put("redirect", "/admin/boardList");
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     		else {
@@ -312,14 +395,14 @@ public class BoardController {
     			bvo.setIp(request.getRemoteAddr());
     			boardService.boardReplyInsert(bvo);
     			result.put("msg", "문의사항 답변 완료");
-    			result.put("redirect", "/admin/board/boardList/"+bvo.getNo());
+    			result.put("redirect", "/admin/boardList/"+bvo.getNo());
     			entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.OK);
     		}
     	}catch(Exception e) {
     		//이미 완료한 답변을 새로 작성하려고 할때
     		e.printStackTrace();
     		result.put("msg", "문의사항 답변 Error...");
-    		result.put("redirect", "/admin/board/boardList");
+    		result.put("redirect", "/admin/boardList");
     		entity = new ResponseEntity<HashMap<String,String>>(result, HttpStatus.BAD_REQUEST);	
     	}
     	

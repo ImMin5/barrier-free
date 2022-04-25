@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.bf.dao.TransportationDAO">
+	<insert id="transportationInsert">
+		insert into transportation(route, content, title, type, link, address, tel)
+		values(#{route}, #{content}, #{title}, #{type}, #{link}, #{address}, #{tel})
+	</insert>
+	<select id="transportationList" resultType="com.team.bf.vo.TransportationVO">
+		select no, route, content, title, type, link, address, tel
+		from transportation 
+		<if test="searchWord != null">
+			where ${searchKey} like '%${searchWord}%'
+		</if>
+		order by no desc limit ${onePageRecord} offset ${offsetIndex}
+	</select>
+	<select id="transportationView" resultType="com.team.bf.vo.TransportationVO">
+		select no, route, content, title, type, link, address, tel
+		from transportation where no=${param1}
+	</select>
+	<delete id="transportationDelete">
+		delete from transportation where title=#{param1}and no=${param2}
+	</delete>
+		<select id="transportationSelect" resultType="com.team.bf.vo.TransportationVO">
+		select no, route, content, title, type
+		from transportation where no=#{param1}
+		</select>
+		<select id="transportationSelectByNo" resultType="com.team.bf.vo.TransportationVO">
+  		select no, route, content, title, type, link, address, tel
+  		from transportation where no=${no}
+  	</select>
+	<update id="transportationUpdate">
+		update transportation set route=#{route}, content=#{content}, title=#{title}, type=#{type}, link=#{link}, address=#{address}, tel=#{tel} where no=${no}
+	</update>
+	<select id="transportationSelectAll" resultType="com.team.bf.vo.TransportationVO">
+		select no, title, type, address, tel
+		from transportation order by no desc 
+	</select>
+
+</mapper>

@@ -1,5 +1,7 @@
 package com.team.bf.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +17,14 @@ public interface CoordinatorDAO {
 	public CoordinatorVO coordiloginCheck(CoordinatorVO vo);
 	//코디 정보 수정란
 	public CoordinatorVO coordinatorSelect(String coordiid);
+	
+	public CoordinatorVO CoordinatorSelectBycoo_Id(String coo_userid);
+	
+	
 	//DB에서 코디 정보 수정
 	public int CoordinatorUpdate(CoordinatorVO vo);
 	//코디네이터 아이디 중복 확인
 	public int CoordiidCheck(String coordiid);
+	
+	public List<CoordinatorVO> coordinatorSelectAll();
 }

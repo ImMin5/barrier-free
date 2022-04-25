@@ -1,23 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@500;600;700&display=swap");
-ul, li, body {
-	margin: 0px auto;
-	padding: 0px;
-	width: 1000px
-}
 
-body {
-	margin-top: 160px;
+@media screen {
+
+body { 
+	margin: 208px auto;
+	padding: 0px;
 	font-family: Jua;
 	text-align: center;
-	background-image: url('../img/introduction/introbackground2.jpg/');
+	background-image: url('../img/introduction/introbackground2.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 }
-
+.intro_all {
+	width: 1000;
+	margin-left:10%;
+	margin-right:10%;
+}
 .ititle h1 {
-	padding: 120px 0px 15px;
+	padding: 50px;
 	color: #fff;
 	font-size: 4.5em;
 	text-shadow:2px 2px 2px #000;
@@ -31,17 +33,21 @@ body {
 }
 
 .icontent {
-	width: 1000px;
-	margin: 100px 70px auto;
+	margin-left: 30%;
+	width:60%;
+	margin-bottom: 100px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+ 	grid-gap: 1em;
+  	height: 100%;
 	overflow: hidden;
 }
 
 .icontent .ibox {
-	float:left;
+	margin-left:10%;
 	width: 250px;
 	height: 250px;
 	background-color: #fff;
-	margin-right: 50px;
 	border-radius: 20px;
 	text-align: center;
 	box-sizing: border-box;
@@ -49,8 +55,8 @@ body {
 	filter:alpha(opacity=90); opacity:0.9; -moz-opacity:0.9;
 }
 .icontent .ibox h3 {
-	margin: 35px 30px 30px 30px;
-	font-size: 25px;
+	margin: 30px 30px 30px 30px;
+	font-size: 23px;
 	background: no-repeat right;
 }
 
@@ -69,9 +75,11 @@ body {
 	height: 200px;
 }
 .bbox {
+	margin-bottom:150px;
+	margin-left: 20%;
+	width: 60%;
+	height: 300px;
 	overflow:hidden;
-	margin: 50px;
-	padding: 20px;
 	border-style: outset;
 	text-align: center;
 	border-radius: 20px;
@@ -91,4 +99,5 @@ body {
 	overflow:hidden;
 	font-size: 20px;
 	margin-bottom: 10px;
+}
 }

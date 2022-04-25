@@ -11,18 +11,18 @@
 		select no, userid, title, date_format(write_date,'%m-%d %H:%i') write_date
 		from suggestion 
 		<if test="searchWord != null">
-			and title like '%${searchWord}%'
+		where title like '%${searchWord}%'
 		</if>
 		order by no desc limit ${onePageRecord} offset ${offsetIndex}
 	</select>
 	<select id="totalRecord" resultType="int">
 		select count(no) cnt from suggestion
 		<if test="searchWord != null">
-			where ${searchKey} like '%${searchWord}%'
+			where title like '%${searchWord}%'
 		</if>
 	</select>
 	<select id="suggestionSelectByNo" resultType="com.team.bf.vo.SuggestionVO">
-  		select no, title, userid, date_format(write_date,'%y-%m-%d %H:%i') write_date
+  		select no, title, userid, content, date_format(write_date,'%y-%m-%d %H:%i') write_date
   		from suggestion where no=${no}
   	</select>
 	<select id="suggestionSelect" resultType="com.team.bf.vo.SuggestionVO">
